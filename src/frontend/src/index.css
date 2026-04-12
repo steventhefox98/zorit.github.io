@@ -1,0 +1,326 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Press+Start+2P&family=VT323:wght@400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.25rem;
+
+    --background: 0.12 0.04 295;
+    --foreground: 0.97 0.01 295;
+
+    --card: 0.16 0.06 295;
+    --card-foreground: 0.97 0.01 295;
+
+    --popover: 0.18 0.07 295;
+    --popover-foreground: 0.97 0.01 295;
+
+    --primary: 0.62 0.22 295;
+    --primary-foreground: 0.99 0 0;
+
+    --secondary: 0.22 0.09 295;
+    --secondary-foreground: 0.97 0.01 295;
+
+    --muted: 0.2 0.06 295;
+    --muted-foreground: 0.65 0.08 295;
+
+    --accent: 0.55 0.25 295;
+    --accent-foreground: 0.99 0 0;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.3 0.1 295;
+    --input: 0.25 0.08 295;
+    --ring: 0.62 0.22 295;
+
+    --chart-1: 0.62 0.22 295;
+    --chart-2: 0.55 0.25 295;
+    --chart-3: 0.45 0.2 295;
+    --chart-4: 0.7 0.18 295;
+    --chart-5: 0.8 0.12 295;
+
+    --sidebar: 0.14 0.05 295;
+    --sidebar-foreground: 0.97 0.01 295;
+    --sidebar-primary: 0.62 0.22 295;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.22 0.09 295;
+    --sidebar-accent-foreground: 0.97 0.01 295;
+    --sidebar-border: 0.3 0.1 295;
+    --sidebar-ring: 0.62 0.22 295;
+  }
+
+  * {
+    @apply border-border;
+    cursor: none !important;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Cinzel", serif;
+    cursor: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.04em;
+  }
+
+  p,
+  span,
+  li,
+  td,
+  th,
+  label,
+  input,
+  textarea,
+  select {
+    font-family: "Cinzel", serif;
+  }
+}
+
+@layer components {
+  .pixel-border {
+    box-shadow:
+      0 -4px 0 0 oklch(0.3 0.1 295),
+      0 4px 0 0 oklch(0.3 0.1 295),
+      -4px 0 0 0 oklch(0.3 0.1 295),
+      4px 0 0 0 oklch(0.3 0.1 295),
+      inset 0 -4px 0 0 oklch(0.1 0.04 295),
+      inset 0 4px 0 0 oklch(0.45 0.18 295);
+  }
+
+  .pixel-border-purple {
+    box-shadow:
+      0 -4px 0 0 oklch(0.75 0.2 295),
+      0 4px 0 0 oklch(0.25 0.12 295),
+      -4px 0 0 0 oklch(0.5 0.18 295),
+      4px 0 0 0 oklch(0.5 0.18 295),
+      inset 0 -4px 0 0 oklch(0.2 0.1 295),
+      inset 0 4px 0 0 oklch(0.8 0.15 295);
+  }
+
+  .minecraft-btn {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: relative;
+    transition: transform 0.1s, box-shadow 0.1s;
+    image-rendering: pixelated;
+  }
+
+  .minecraft-btn:active {
+    transform: translateY(2px);
+  }
+
+  .pixel-font {
+    font-family: "Press Start 2P", monospace;
+  }
+
+  .pixel-divider {
+    height: 4px;
+    background: repeating-linear-gradient(
+      90deg,
+      oklch(0.62 0.22 295) 0px,
+      oklch(0.62 0.22 295) 8px,
+      oklch(0.45 0.18 295) 8px,
+      oklch(0.45 0.18 295) 16px
+    );
+  }
+
+  .grass-divider {
+    height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      oklch(0.55 0.18 145) 0px,
+      oklch(0.55 0.18 145) 8px,
+      oklch(0.45 0.15 145) 8px,
+      oklch(0.45 0.15 145) 16px,
+      oklch(0.6 0.2 145) 16px,
+      oklch(0.6 0.2 145) 24px
+    );
+  }
+
+  .block-texture {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px
+      ), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      oklch(0.08 0.05 295 / 0.7) 0%,
+      oklch(0.12 0.08 295 / 0.85) 50%,
+      oklch(0.1 0.06 295 / 0.95) 100%
+    );
+  }
+
+  .glow-purple {
+    text-shadow: 0 0 20px oklch(0.62 0.22 295 / 0.8), 0 0 40px
+      oklch(0.62 0.22 295 / 0.4), 0 0 80px oklch(0.62 0.22 295 / 0.2);
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 0 20px oklch(0.62 0.22 295 / 0.3), 0 0 40px
+      oklch(0.62 0.22 295 / 0.15);
+  }
+
+  .nav-blur {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .star-bg {
+    background-image: radial-gradient(
+        1px 1px at 10% 20%,
+        oklch(0.97 0.01 295 / 0.6) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 30% 60%,
+        oklch(0.97 0.01 295 / 0.4) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 50% 10%,
+        oklch(0.97 0.01 295 / 0.7) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 70% 40%,
+        oklch(0.97 0.01 295 / 0.5) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 90% 80%,
+        oklch(0.97 0.01 295 / 0.6) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 20% 90%,
+        oklch(0.97 0.01 295 / 0.3) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 60% 70%,
+        oklch(0.97 0.01 295 / 0.5) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        2px 2px at 80% 15%,
+        oklch(0.97 0.01 295 / 0.4) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        2px 2px at 40% 50%,
+        oklch(0.97 0.01 295 / 0.3) 0%,
+        transparent 100%
+      );
+  }
+
+  .ip-display {
+    font-family: "VT323", monospace;
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+    color: oklch(0.85 0.15 295);
+    background: oklch(0.08 0.04 295);
+    border: 2px solid oklch(0.4 0.15 295);
+    padding: 0.5rem 1.5rem;
+    text-align: center;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 10px oklch(0.62 0.22 295 / 0.4);
+    }
+    50% {
+      box-shadow: 0 0 25px oklch(0.62 0.22 295 / 0.8), 0 0 50px
+        oklch(0.62 0.22 295 / 0.3);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  @keyframes cursor-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 6px oklch(0.62 0.22 295 / 0.5), 0 0 12px
+        oklch(0.62 0.22 295 / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 14px oklch(0.75 0.22 295 / 0.8), 0 0 28px
+        oklch(0.62 0.22 295 / 0.5), 0 0 50px oklch(0.62 0.22 295 / 0.2);
+    }
+  }
+
+  .float-anim {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .pulse-glow-anim {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      oklch(0.97 0.01 295) 0%,
+      oklch(0.8 0.2 295) 25%,
+      oklch(0.97 0.01 295) 50%,
+      oklch(0.8 0.2 295) 75%,
+      oklch(0.97 0.01 295) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+  }
+}
+
+@layer components {
+  @keyframes hero-reveal {
+    0% {
+      opacity: 0;
+      transform: translateY(28px) scale(0.97);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .hero-reveal {
+    opacity: 0;
+    animation: hero-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+}

@@ -1,0 +1,5 @@
+type Username = text;
+service : {
+  login: (username: Username, password: text) -> (bool);
+  register: (username: Username, password: text) -> (bool);
+}
