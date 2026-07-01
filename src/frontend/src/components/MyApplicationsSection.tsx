@@ -34,6 +34,10 @@ function roleBadgeClass(appliedRole: AppliedRole): string {
     case AppliedRole.Builder:
       // Builder maps to the co-admin tier accent (mid-purple).
       return "role-coadmin";
+    case AppliedRole.Developer:
+      // Developer maps to the co-admin tier accent (mid-purple), matching
+      // the Builder badge styling pattern.
+      return "role-coadmin";
     default:
       return "role-member";
   }
@@ -45,6 +49,8 @@ function roleLabel(appliedRole: AppliedRole): string {
       return "Admin";
     case AppliedRole.Builder:
       return "Builder";
+    case AppliedRole.Developer:
+      return "Developer";
     default:
       return "Mod";
   }

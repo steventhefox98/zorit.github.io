@@ -1,16 +1,14 @@
 import Common "common";
-import ProfileAvatarTypes "profile-avatar";
 
 module {
-  /// User account record — persisted across upgrades. `avatar` is an optional
-  /// profile picture: either a preset template id or a reference to an
-  /// uploaded blob in object storage. Null until the user sets one via
-  /// setMyAvatar.
+  /// User account record — persisted across upgrades. The optional `avatar`
+  /// field has been removed entirely (the avatar feature was deleted); the
+  /// upgrade migration consumes any previously-stored avatar value and drops
+  /// it from each user record.
   public type User = {
     username : Common.Username;
     passwordHash : Common.PasswordHash;
     role : Role;
-    avatar : ?ProfileAvatarTypes.Avatar;
   };
 
   /// Role hierarchy. Steven and Qbhinoor auto-assigned Administrator;
@@ -65,12 +63,16 @@ module {
     #SrCop;
   };
 
-  /// Role a member applies for via the 12-question form.
-  /// Only Mod is currently selectable; Admin and Builder are "Coming soon".
+  /// Role a member applies for via the 12-question form. The #Developer
+  /// variant has been added alongside #Mod, #Admin, and #Builder so the
+  /// Apply page can offer Developer as a selectable role. submitApplication
+  /// stores any of these with status Pending; acceptApplication promotes
+  /// the applicant and adds a roster member under the assigned rank.
   public type AppliedRole = {
     #Mod;
     #Admin;
     #Builder;
+    #Developer;
   };
 
   /// Lifecycle of a submitted application.

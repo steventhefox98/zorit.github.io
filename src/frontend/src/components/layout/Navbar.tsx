@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import AuthModal from "../AuthModal";
 import JoinServerModal from "../JoinServerModal";
 import LogoutConfirmModal from "../LogoutConfirmModal";
-import { UserAvatar } from "../UserAvatar";
 
 const ROLE_BADGE_CLASS: Record<Role, string> = {
   [Role.Administrator]: "role-badge role-admin",
@@ -65,7 +64,7 @@ export default function Navbar() {
   const [logoutOpen, setLogoutOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { username, role, avatar, logout, refreshRole } = useAuth();
+  const { username, role, logout, refreshRole } = useAuth();
 
   // Refresh the backend role on mount so the MESSAGES link reflects the
   // current role (e.g. after a two-step accept promotes the user) without
@@ -250,30 +249,28 @@ export default function Navbar() {
             <div className="hidden md:flex items-center gap-2">
               {username ? (
                 <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    data-ocid="navbar.profile_link"
-                    onClick={() => navigate({ to: "/profile" })}
-                    className="flex items-center gap-2 px-3 py-1.5 border-2 transition-all duration-150 cursor-pointer"
+                  <div
+                    className="flex items-center gap-2 px-3 py-1.5 border-2"
                     style={{
                       background: "oklch(0.18 0.08 295)",
                       borderColor: "oklch(0.40 0.18 295)",
                     }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor =
-                        "oklch(0.55 0.20 295)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor =
-                        "oklch(0.40 0.18 295)";
-                    }}
                   >
-                    <UserAvatar
-                      username={username}
-                      avatar={avatar}
-                      skipFetch
-                      size="sm"
-                    />
+                    <span
+                      className="flex items-center justify-center font-pixel"
+                      style={{
+                        width: "1.5rem",
+                        height: "1.5rem",
+                        background: "oklch(0.30 0.12 295)",
+                        color: "oklch(0.95 0.05 295)",
+                        fontSize: "0.55rem",
+                        letterSpacing: "0.02em",
+                        border: "1px solid oklch(0.45 0.18 295)",
+                      }}
+                      aria-hidden="true"
+                    >
+                      {username.charAt(0).toUpperCase()}
+                    </span>
                     <span
                       className="font-pixel"
                       style={{
@@ -293,7 +290,7 @@ export default function Navbar() {
                         {ROLE_LABEL[role]}
                       </span>
                     )}
-                  </button>
+                  </div>
                   <button
                     type="button"
                     data-ocid="navbar.logout_button"
@@ -453,33 +450,28 @@ export default function Navbar() {
 
               {username ? (
                 <div className="pt-2 space-y-2">
-                  <button
-                    type="button"
-                    data-ocid="navbar.profile_link"
-                    onClick={() => {
-                      setMenuOpen(false);
-                      navigate({ to: "/profile" });
-                    }}
-                    className="flex items-center gap-2 px-3 py-2 border-2 flex-wrap w-full text-left transition-all duration-150 cursor-pointer"
+                  <div
+                    className="flex items-center gap-2 px-3 py-2 border-2 flex-wrap w-full text-left"
                     style={{
                       background: "oklch(0.18 0.08 295)",
                       borderColor: "oklch(0.40 0.18 295)",
                     }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor =
-                        "oklch(0.55 0.20 295)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor =
-                        "oklch(0.40 0.18 295)";
-                    }}
                   >
-                    <UserAvatar
-                      username={username}
-                      avatar={avatar}
-                      skipFetch
-                      size="sm"
-                    />
+                    <span
+                      className="flex items-center justify-center font-pixel"
+                      style={{
+                        width: "1.5rem",
+                        height: "1.5rem",
+                        background: "oklch(0.30 0.12 295)",
+                        color: "oklch(0.95 0.05 295)",
+                        fontSize: "0.55rem",
+                        letterSpacing: "0.02em",
+                        border: "1px solid oklch(0.45 0.18 295)",
+                      }}
+                      aria-hidden="true"
+                    >
+                      {username.charAt(0).toUpperCase()}
+                    </span>
                     <span
                       className="font-pixel"
                       style={{
@@ -494,7 +486,7 @@ export default function Navbar() {
                         {ROLE_LABEL[role]}
                       </span>
                     )}
-                  </button>
+                  </div>
                   <button
                     type="button"
                     data-ocid="navbar.logout_button"

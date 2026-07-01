@@ -1,4 +1,4 @@
-// Version: 1.0.0
+// Version: 3.0.0
 type ApplicationId__702901380 = Nat;
 type ApplicationStatus__992658019 = {#Accepted; #Declined; #Pending};
 type Application__750450958 =
@@ -10,9 +10,7 @@ type Application__750450958 =
     status : ApplicationStatus__992658019;
     timestamp : Timestamp__301639476
   };
-type AppliedRole__720362493 = {#Admin; #Builder; #Mod};
-type Avatar__932343418 = {#preset : Text; #uploaded : BlobRef__211093822};
-type BlobRef__211093822 = {contentType : Text; key : Text};
+type AppliedRole__720362493 = {#Admin; #Builder; #Developer; #Mod};
 type CommentId__328074976 = Nat;
 type Comment__775004821 =
   {
@@ -21,6 +19,32 @@ type Comment__775004821 =
     id : CommentId__328074976;
     postId : PostId__314415430;
     timestamp : Timestamp__301639476
+  };
+type CommunityComment__594904767 =
+  {
+    authorUsername : Username__115559951;
+    content : Text;
+    id : Nat;
+    postId : Nat;
+    timestamp : Timestamp__301639476
+  };
+type CommunityPostType__530086396 =
+  {#bugReport; #eventSuggestion; #suggestion};
+type CommunityPost__554949392 =
+  {
+    authorUsername : Username__115559951;
+    body : Text;
+    createdAt : Timestamp__301639476;
+    id : Nat;
+    postType : CommunityPostType__530086396;
+    title : Text
+  };
+type CommunityVote__19530331 =
+  {
+    postId : Nat;
+    status : {#approved; #rejected};
+    timestamp : Timestamp__301639476;
+    voterUsername : Username__115559951
   };
 type DailyCountKey__572363149 =
   (Text, PostType__686132767, Username__115559951);
@@ -41,10 +65,27 @@ type Message__804209456 =
     senderUsername : Username__115559951;
     timestamp : Timestamp__301639476
   };
+type MessagingMessage__653301965 =
+  {
+    content : Text;
+    id : MessageId__291319400;
+    recipientUsername : Username__115559951;
+    senderUsername : Username__115559951;
+    timestamp : Timestamp__301639476
+  };
 type Nat__920180692 = Nat;
 type Nat__93962160 = Nat__920180692;
 type Node__279997185<K, V> =
   {#internal : Internal__455405067<K, V>; #leaf : Leaf__114713147<K, V>};
+type OldApplication__606025036 = Application__750450958;
+type OldState__853343916 =
+  {
+    applications :
+      Map__246123559<ApplicationId__702901380, OldApplication__606025036>;
+    var nextApplicationId : ApplicationId__702901380;
+    users : Map__246123559<Username__115559951, OldUser__655922588>
+  };
+type OldUser__655922588 = User__260181940;
 type PasswordHash__1007239863 = Text;
 type PostId__314415430 = Nat;
 type PostType__686132767 = {#bugReport; #eventSuggestion; #suggestion};
@@ -77,6 +118,8 @@ type Role__496375713 =
     #SrDeveloper
   };
 type RosterMemberId__44544024 = Nat;
+type RosterMember__266337057 =
+  {id : Nat; name : Text; rank : RosterRank__414334044};
 type RosterMember__405502863 =
   {id : RosterMemberId__44544024; name : Text; rank : RosterRank__414334044};
 type RosterRank__414334044 =
@@ -98,7 +141,6 @@ type RosterRank__414334044 =
 type Timestamp__301639476 = Int;
 type User__260181940 =
   {
-    avatar : ?Avatar__932343418;
     passwordHash : PasswordHash__1007239863;
     role : Role__496375713;
     username : Username__115559951
@@ -113,7 +155,49 @@ type Vote__3745979 =
     timestamp : Timestamp__301639476;
     voterUsername : Username__115559951
   };
-actor {
+actor ({
+  in applications :
+    Map__246123559<ApplicationId__702901380, OldApplication__606025036>;
+  in comments : Map__246123559<Nat, CommunityComment__594904767>;
+  stable communityState :
+    {
+      comments : Map__246123559<CommentId__328074976, Comment__775004821>;
+      dailyCounts : Map__246123559<DailyCountKey__572363149, Nat>;
+      var nextCommentId : CommentId__328074976;
+      var nextPostId : PostId__314415430;
+      posts : Map__246123559<PostId__314415430, Post__639384058>;
+      votes : Map__246123559<VoteKey__1071217901, Vote__3745979>
+    };
+  in communityVotes :
+    Map__246123559<(Nat, Username__115559951), CommunityVote__19530331>;
+  in dailyCounts :
+    Map__246123559<(Text, CommunityPostType__530086396, Username__115559951),
+                    Nat>;
+  in messages :
+    Map__246123559<MessageId__291319400, MessagingMessage__653301965>;
+  stable messagingState :
+    {
+      messages : Map__246123559<MessageId__291319400, Message__804209456>;
+      var nextMessageId : MessageId__291319400
+    };
+  in var nextApplicationId : ApplicationId__702901380;
+  in var nextCommentId : Nat;
+  in var nextMessageId : MessageId__291319400;
+  in var nextPostId : Nat;
+  in var nextRosterMemberId : Nat;
+  in posts : Map__246123559<Nat, CommunityPost__554949392>;
+  in rankSlots : Map__246123559<RosterRank__414334044, Nat>;
+  in roster : Map__246123559<Nat, RosterMember__266337057>;
+  stable staffRosterState :
+    {
+      var nextRosterMemberId : RosterMemberId__44544024;
+      rankSlots : Map__246123559<RosterRank__414334044, Nat>;
+      roster :
+        Map__246123559<RosterMemberId__44544024, RosterMember__405502863>
+    };
+  in state : OldState__853343916;
+  in users : Map__246123559<Username__115559951, OldUser__655922588>
+}, {
   stable applications :
     {
       var root :
@@ -194,4 +278,4 @@ actor {
       var root : Node__279997185<Username__115559951, User__260181940>;
       var size : Nat__93962160
     }
-};
+});

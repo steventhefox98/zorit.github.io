@@ -10,7 +10,9 @@ import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
 
 /* ------------------------------------------------------------------ */
-/*  The 12 application questions — exact wording, in order.            */
+/*  Per-role application questions — exact wording, in order.          */
+/*  Each role has its own dedicated 12 questions. The first five are   */
+/*  shared profile fields; the rest are role-specific.                 */
 /* ------------------------------------------------------------------ */
 
 interface Question {
@@ -19,50 +21,186 @@ interface Question {
   multiline: boolean;
 }
 
-const QUESTIONS: Question[] = [
+/* Helper: the first five questions are common profile fields shared by
+   every role. We compose them with role-specific tail questions so each
+   role renders exactly 12 questions in the required order. */
+const PROFILE_QUESTIONS: Question[] = [
   { id: 1, text: "Full Name", multiline: false },
   { id: 2, text: "Minecraft Username", multiline: false },
   { id: 3, text: "Discord Username (with #tag)", multiline: false },
   { id: 4, text: "Age", multiline: false },
   { id: 5, text: "Timezone", multiline: false },
-  {
-    id: 6,
-    text: "How long have you been playing on ZoritLegends?",
-    multiline: true,
-  },
-  {
-    id: 7,
-    text: "Do you have any previous experience as a Moderator, Support staff, or similar role? If yes, please describe.",
-    multiline: true,
-  },
-  {
-    id: 8,
-    text: "What skills or qualities do you possess that make you a good fit for the Moderator/Support role? (e.g., communication, patience, problem-solving)",
-    multiline: true,
-  },
-  {
-    id: 9,
-    text: "How would you handle a situation where a player is repeatedly breaking minor rules (e.g., spamming, mild disrespect)?",
-    multiline: true,
-  },
-  {
-    id: 10,
-    text: "If a player asks you for help with an in-game issue, but you're busy with other tasks, how would you handle the situation?",
-    multiline: true,
-  },
-  {
-    id: 11,
-    text: "How would you handle a situation where a player is upset about being warned or punished, and they're becoming aggressive towards staff?",
-    multiline: true,
-  },
-  {
-    id: 12,
-    text: "How much time can you commit to moderating ZoritLegends each week, and are you available during peak hours?",
-    multiline: true,
-  },
 ];
 
-const TOTAL = QUESTIONS.length;
+const ROLE_TAIL_QUESTIONS: Record<AppliedRole, Question[]> = {
+  [AppliedRole.Mod]: [
+    {
+      id: 6,
+      text: "How long have you been playing on ZoritLegends?",
+      multiline: true,
+    },
+    {
+      id: 7,
+      text: "Do you have any previous experience as a Moderator, Support staff, or similar role? If yes, please describe.",
+      multiline: true,
+    },
+    {
+      id: 8,
+      text: "What skills or qualities do you possess that make you a good fit for the Moderator/Support role? (e.g., communication, patience, problem-solving)",
+      multiline: true,
+    },
+    {
+      id: 9,
+      text: "How would you handle a situation where a player is repeatedly breaking minor rules (e.g., spamming, mild disrespect)?",
+      multiline: true,
+    },
+    {
+      id: 10,
+      text: "If a player asks you for help with an in-game issue, but you're busy with other tasks, how would you handle the situation?",
+      multiline: true,
+    },
+    {
+      id: 11,
+      text: "How would you handle a situation where a player is upset about being warned or punished, and they're becoming aggressive towards staff?",
+      multiline: true,
+    },
+    {
+      id: 12,
+      text: "How much time can you commit to moderating ZoritLegends each week, and are you available during peak hours?",
+      multiline: true,
+    },
+  ],
+  [AppliedRole.Admin]: [
+    {
+      id: 6,
+      text: "How long have you been playing on ZoritLegends?",
+      multiline: true,
+    },
+    {
+      id: 7,
+      text: "Do you have any previous experience as a server admin or in a similar role? If yes, please describe.",
+      multiline: true,
+    },
+    {
+      id: 8,
+      text: "What skills or knowledge make you a good fit for the admin role? (e.g., moderation, event management, troubleshooting)",
+      multiline: true,
+    },
+    {
+      id: 9,
+      text: "How would you handle a player who is breaking server rules but is insisting they did nothing wrong?",
+      multiline: true,
+    },
+    {
+      id: 10,
+      text: "What would you do if there's an argument between staff members that's affecting the team's performance?",
+      multiline: true,
+    },
+    {
+      id: 11,
+      text: "How would you handle a situation where a player is harassing another player, and both parties are involved in the conflict?",
+      multiline: true,
+    },
+    {
+      id: 12,
+      text: "How much time can you commit to managing ZoritLegends each week, and are you available during peak hours?",
+      multiline: true,
+    },
+  ],
+  [AppliedRole.Builder]: [
+    {
+      id: 6,
+      text: "How long have you been playing on ZoritLegends?",
+      multiline: true,
+    },
+    {
+      id: 7,
+      text: "Do you have any previous experience as a server builder or in a similar role? If yes, please describe your experience.",
+      multiline: true,
+    },
+    {
+      id: 8,
+      text: "What building tools, mods, or plugins do you commonly use to create structures or environments?",
+      multiline: true,
+    },
+    {
+      id: 9,
+      text: "Can you provide examples of previous builds or projects you've worked on (either in ZoritLegends or other servers)?",
+      multiline: true,
+    },
+    {
+      id: 10,
+      text: "How comfortable are you with large-scale builds and working with server staff to create themed areas, spawn points, or events?",
+      multiline: true,
+    },
+    {
+      id: 11,
+      text: "Describe your building style. How would you approach building a new spawn or town on ZoritLegends?",
+      multiline: true,
+    },
+    {
+      id: 12,
+      text: "If given a creative direction for a build (e.g., a medieval village or futuristic city), how do you typically approach the project, from planning to execution?",
+      multiline: true,
+    },
+  ],
+  [AppliedRole.Developer]: [
+    {
+      id: 6,
+      text: "How long have you been playing on ZoritLegends?",
+      multiline: true,
+    },
+    {
+      id: 7,
+      text: "What programming languages are you proficient in (Java, Python, etc.)?",
+      multiline: true,
+    },
+    {
+      id: 8,
+      text: "Do you have any previous experience in Minecraft server development? If yes, please describe your experience.",
+      multiline: true,
+    },
+    {
+      id: 9,
+      text: "Do you have experience with Minecraft server plugins (e.g., Spigot, Bukkit, Paper)? If yes, can you list some you've developed or worked on?",
+      multiline: true,
+    },
+    {
+      id: 10,
+      text: "How comfortable are you with troubleshooting and debugging server issues or code problems?",
+      multiline: true,
+    },
+    {
+      id: 11,
+      text: "If given a task to implement a new feature or fix a bug, how would you approach it?",
+      multiline: true,
+    },
+    {
+      id: 12,
+      text: "What would you do if your development work caused an issue on the server during peak hours?",
+      multiline: true,
+    },
+  ],
+};
+
+/* Developer role uses "TimeZone" casing per spec; all others use "Timezone". */
+const DEVELOPER_PROFILE_QUESTIONS: Question[] = [
+  { id: 1, text: "Full Name", multiline: false },
+  { id: 2, text: "Minecraft Username", multiline: false },
+  { id: 3, text: "Discord Username (with #tag)", multiline: false },
+  { id: 4, text: "Age", multiline: false },
+  { id: 5, text: "TimeZone", multiline: false },
+];
+
+function getQuestions(role: AppliedRole): Question[] {
+  const profile =
+    role === AppliedRole.Developer
+      ? DEVELOPER_PROFILE_QUESTIONS
+      : PROFILE_QUESTIONS;
+  return [...profile, ...ROLE_TAIL_QUESTIONS[role]];
+}
+
+const TOTAL = 12;
 
 /* ------------------------------------------------------------------ */
 /*  Role picker definitions.                                          */
@@ -77,8 +215,19 @@ interface RoleOption {
 
 const ROLE_OPTIONS: RoleOption[] = [
   { key: AppliedRole.Mod, label: "Mod", available: true, tag: "available" },
-  { key: AppliedRole.Admin, label: "Admin", available: false, tag: "soon" },
-  { key: AppliedRole.Builder, label: "Builder", available: false, tag: "soon" },
+  { key: AppliedRole.Admin, label: "Admin", available: true, tag: "available" },
+  {
+    key: AppliedRole.Builder,
+    label: "Builder",
+    available: true,
+    tag: "available",
+  },
+  {
+    key: AppliedRole.Developer,
+    label: "Developer",
+    available: true,
+    tag: "available",
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -104,14 +253,16 @@ export default function Apply() {
   const { username, isAuthenticated } = useAuth();
   const submitMutation = useSubmitApplication();
 
-  const [answers, setAnswers] = useState<string[]>(() =>
-    Array.from({ length: TOTAL }, () => ""),
-  );
   const [selectedRole, setSelectedRole] = useState<AppliedRole>(
     AppliedRole.Mod,
   );
+  const [answers, setAnswers] = useState<string[]>(() =>
+    Array.from({ length: TOTAL }, () => ""),
+  );
   const [authOpen, setAuthOpen] = useState(false);
   const [submittedApp, setSubmittedApp] = useState<Application | null>(null);
+
+  const questions = getQuestions(selectedRole);
 
   const setAnswer = (index: number, value: string) => {
     setAnswers((prev) => {
@@ -119,6 +270,14 @@ export default function Apply() {
       next[index] = value;
       return next;
     });
+  };
+
+  const selectRole = (role: AppliedRole) => {
+    if (role === selectedRole) return;
+    setSelectedRole(role);
+    // Reset answers when switching roles so each role starts fresh and the
+    // answers array stays aligned with the new role's question order.
+    setAnswers(Array.from({ length: TOTAL }, () => ""));
   };
 
   const allAnswered = answers.every((a) => a.trim().length > 0);
@@ -223,7 +382,7 @@ export default function Apply() {
                     >
                       SELECT A ROLE
                     </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                       {ROLE_OPTIONS.map((opt) => {
                         const isSelected = selectedRole === opt.key;
                         const cardClass = [
@@ -239,12 +398,10 @@ export default function Apply() {
                             key={opt.label}
                             data-ocid={`apply.role_picker.${opt.label.toLowerCase()}`}
                             disabled={!opt.available}
-                            onClick={() =>
-                              opt.available && setSelectedRole(opt.key)
-                            }
+                            onClick={() => opt.available && selectRole(opt.key)}
                             className={`${cardClass} w-full appearance-none cursor-pointer disabled:cursor-not-allowed`}
                           >
-                            <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center mb-2">
                               <span
                                 className="font-pixel"
                                 style={{
@@ -256,15 +413,6 @@ export default function Apply() {
                                 }}
                               >
                                 {opt.label.toUpperCase()}
-                              </span>
-                              <span
-                                className={`role-picker-tag ${
-                                  opt.tag === "available"
-                                    ? "role-picker-tag-available"
-                                    : "role-picker-tag-soon"
-                                }`}
-                              >
-                                {opt.tag === "available" ? "AVAILABLE" : "SOON"}
                               </span>
                             </div>
                             <p
@@ -289,7 +437,7 @@ export default function Apply() {
 
                   {/* Questions */}
                   <div className="space-y-6">
-                    {QUESTIONS.map((q, i) => (
+                    {questions.map((q, i) => (
                       <div key={q.id}>
                         <label
                           htmlFor={`q-${q.id}`}

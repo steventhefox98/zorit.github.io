@@ -4,31 +4,26 @@ import Types "../types/staff-roster-and-applications";
 import AuthTypes "../types/auth-roles-applications";
 
 mixin (state : StaffRosterApplications.State, authState : AuthRolesApplications.State) {
-  /// Return the full staff roster grouped by rank. Public query — visible to
-  /// all users so the Team page can load on mount. Returns seed defaults
+  /// Return the full staff roster grouped by rank. Public query — visible
+  /// to all users so the Team page can load on mount. Returns seed defaults
   /// when the backend roster is empty.
   public query func getRoster() : async [Types.RosterGroup] {
     StaffRosterApplications.getRoster(state);
   };
 
   /// Return all rank slot counts (max members per rank), ordered by the
-  /// canonical rank order. Public query — visible to all users so the Team
-  /// page can render capacity per rank. Initializes rankSlots to defaults
-  /// on first call when the map is empty.
+  /// canonical rank order. Public query.
   public query func getRankSlots() : async [Types.RankSlot] {
     StaffRosterApplications.getRankSlots(state);
   };
 
   /// Set a single rank's slot count (max members). Administrator-only.
-  /// Returns { success = false } if the caller is not an Administrator.
   public shared ({ caller }) func setRankSlot(callerUsername : Text, rank : AuthTypes.RosterRank, slots : Nat) : async Types.SetRankSlotResult {
     ignore caller;
     StaffRosterApplications.setRankSlot(state, authState, callerUsername, rank, slots);
   };
 
   /// Add a new member to the roster under the given rank. Administrator-only.
-  /// Returns { success = false; memberId = null } if the caller is not an
-  /// Administrator.
   public shared ({ caller }) func addStaffRosterMember(callerUsername : Text, name : Text, rank : AuthTypes.RosterRank) : async Types.AddRosterMemberResult {
     ignore caller;
     StaffRosterApplications.addStaffRosterMember(state, authState, callerUsername, name, rank);
@@ -41,16 +36,15 @@ mixin (state : StaffRosterApplications.State, authState : AuthRolesApplications.
   };
 
   /// Two-step accept: mark the application Accepted and promote the
-  /// applicant's user role to the chosen staff role. Administrator-only
-  /// (Co-Administrators are view-only for the accept step). Returns
-  /// { success = false } on failure.
+  /// applicant's user role to the chosen staff role. Administrator-only.
+  /// For a Developer application, pass #Developer as assignedRank.
   public shared ({ caller }) func acceptApplication(callerUsername : Text, applicationId : Nat, assignedRank : AuthTypes.RosterRank) : async Types.AcceptApplicationResult {
     ignore caller;
     StaffRosterApplications.acceptApplication(state, authState, callerUsername, applicationId, assignedRank);
   };
 
-  /// Decline an application (single-step, unchanged). Returns false if the
-  /// application id does not exist.
+  /// Decline an application (single-step). Returns false if the application
+  /// id does not exist.
   public shared ({ caller }) func declineApplication(applicationId : Nat) : async Bool {
     ignore caller;
     StaffRosterApplications.declineApplication(authState, applicationId);

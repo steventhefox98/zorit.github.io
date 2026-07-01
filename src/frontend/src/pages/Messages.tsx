@@ -1,5 +1,5 @@
 import { Role, RosterRank } from "@/backend";
-import type { Avatar, Message, StaffDirectoryEntry } from "@/backend";
+import type { Message, StaffDirectoryEntry } from "@/backend";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   useSendStaffMessage,
@@ -16,7 +16,6 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { UserAvatar } from "../components/UserAvatar";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
 import { useFadeIn } from "../hooks/useFadeIn";
@@ -263,6 +262,46 @@ function AccessDenied({ authenticated }: { authenticated: boolean }) {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Initial-tile avatar fallback                                       */
+/* ------------------------------------------------------------------ */
+
+/*
+ * Lightweight text-initial tile that replaces the removed UserAvatar
+ * component. Renders the first character of a username in the pixel font
+ * on a staff-tinted background. Sizes: "sm" (message meta) and "md"
+ * (sidebar list).
+ */
+function InitialTile({
+  username,
+  size = "md",
+}: {
+  username: string;
+  size?: "sm" | "md";
+}) {
+  const dim = size === "sm" ? 22 : 36;
+  const fontSize = size === "sm" ? "0.5rem" : "0.7rem";
+  const initial = (username?.trim()?.[0] ?? "?").toUpperCase();
+  return (
+    <span
+      aria-hidden
+      className="flex-shrink-0 flex items-center justify-center font-pixel"
+      style={{
+        width: `${dim}px`,
+        height: `${dim}px`,
+        fontSize,
+        letterSpacing: "0.04em",
+        background: "oklch(0.18 0.08 295)",
+        border: "2px solid oklch(0.40 0.18 295)",
+        color: "oklch(0.85 0.12 295)",
+        imageRendering: "pixelated",
+      }}
+    >
+      {initial}
+    </span>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Sidebar staff list                                                 */
 /* ------------------------------------------------------------------ */
 
@@ -428,12 +467,8 @@ function StaffList({
                           "transparent";
                     }}
                   >
-                    {/* Pixel-art avatar */}
-                    <UserAvatar
-                      username={entry.username}
-                      size="md"
-                      className="flex-shrink-0"
-                    />
+                    {/* Initial-tile fallback (avatar feature removed) */}
+                    <InitialTile username={entry.username} size="md" />
                     <div className="min-w-0 flex-1">
                       <div
                         className="font-pixel truncate"
@@ -474,8 +509,6 @@ interface MessageBubbleProps {
   index: number;
   /** Current user's username — used to render own-message meta line. */
   currentUsername: string;
-  /** Current user's cached avatar — passed with skipFetch to avoid a query. */
-  currentAvatar: Avatar | null;
 }
 
 function MessageBubble({
@@ -485,18 +518,13 @@ function MessageBubble({
   senderRank,
   index,
   currentUsername,
-  currentAvatar,
 }: MessageBubbleProps) {
   const badge =
     senderRole !== null ? badgeForRole(senderRole, senderRank) : null;
 
-  // Discord-style: every message (own + peer) renders an avatar + name +
-  // inline timestamp meta line above the bubble. Own messages use the
-  // current user's cached avatar with skipFetch; peer messages fetch the
-  // peer's avatar via the directory query cache.
+  // Discord-style: every message (own + peer) renders an initial-tile +
+  // name + inline timestamp meta line above the bubble.
   const metaUsername = isOwn ? currentUsername : message.senderUsername;
-  const metaAvatar = isOwn ? currentAvatar : undefined;
-  const metaSkipFetch = isOwn;
 
   return (
     <div
@@ -506,17 +534,11 @@ function MessageBubble({
       <div
         className={`max-w-[80%] ${isOwn ? "items-end" : "items-start"} flex flex-col`}
       >
-        {/* Sender meta line — avatar + name + inline timestamp (all messages) */}
+        {/* Sender meta line — initial-tile + name + inline timestamp (all messages) */}
         <div
           className={`flex items-center gap-2 mb-1 px-1 ${isOwn ? "flex-row-reverse" : "flex-row"}`}
         >
-          <UserAvatar
-            username={metaUsername}
-            size="sm"
-            avatar={metaAvatar}
-            skipFetch={metaSkipFetch}
-            className="flex-shrink-0"
-          />
+          <InitialTile username={metaUsername} size="sm" />
           <span
             className="font-pixel"
             style={{
@@ -583,8 +605,6 @@ function MessageBubble({
 interface ChatPanelProps {
   peer: StaffDirectoryEntry | null;
   currentUsername: string;
-  /** Current user's cached avatar — forwarded to own-message meta lines. */
-  currentAvatar: Avatar | null;
   messages: Message[];
   isLoading: boolean;
   isError: boolean;
@@ -596,7 +616,6 @@ interface ChatPanelProps {
 function ChatPanel({
   peer,
   currentUsername,
-  currentAvatar,
   messages,
   isLoading,
   isError,
@@ -848,7 +867,6 @@ function ChatPanel({
                 }
                 index={i}
                 currentUsername={currentUsername}
-                currentAvatar={currentAvatar}
               />
             ))}
           </>
@@ -950,7 +968,7 @@ function ChatPanel({
 /* ------------------------------------------------------------------ */
 
 export default function Messages() {
-  const { username, role, avatar, isAuthenticated, refreshRole } = useAuth();
+  const { username, role, isAuthenticated, refreshRole } = useAuth();
   const [activePeer, setActivePeer] = useState<string | null>(null);
   // Tracks whether the backend role has been refreshed on mount. Until it
   // resolves we cannot trust the (possibly stale) login-time role for access
@@ -1097,10 +1115,7 @@ export default function Messages() {
                 </div>
 
                 {/* Two-column chat layout */}
-                <div
-                  className="flex-1 grid grid-cols-1 md:grid-cols-[280px_1fr] gap-4 min-h-[60vh]"
-                  style={{ maxHeight: "70vh" }}
-                >
+                <div className="flex-1 grid grid-cols-1 md:grid-cols-[280px_1fr] md:grid-rows-[minmax(0,1fr)] gap-4 h-[70vh] overflow-hidden">
                   {/* Sidebar */}
                   <aside
                     className="md:h-full min-h-[200px] md:min-h-0"
@@ -1121,11 +1136,10 @@ export default function Messages() {
                   </aside>
 
                   {/* Chat area */}
-                  <section className="md:h-full min-h-[400px] md:min-h-0">
+                  <section className="md:h-full min-h-0 overflow-hidden">
                     <ChatPanel
                       peer={peerEntry}
                       currentUsername={username ?? ""}
-                      currentAvatar={avatar}
                       messages={conversation.data ?? []}
                       isLoading={conversation.isLoading}
                       isError={conversation.isError}

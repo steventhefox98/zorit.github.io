@@ -23,7 +23,6 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { UserAvatar } from "../components/UserAvatar";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
 import { RANKS } from "../components/layout/RoleHierarchySection";
@@ -49,12 +48,14 @@ const APPLIED_ROLE_BADGE: Record<AppliedRole, string> = {
   [AppliedRole.Mod]: "role-badge role-coadmin",
   [AppliedRole.Admin]: "role-badge role-admin",
   [AppliedRole.Builder]: "role-badge role-member",
+  [AppliedRole.Developer]: "role-badge role-coadmin",
 };
 
 const APPLIED_ROLE_LABEL: Record<AppliedRole, string> = {
   [AppliedRole.Mod]: "MOD",
   [AppliedRole.Admin]: "ADMIN",
   [AppliedRole.Builder]: "BUILDER",
+  [AppliedRole.Developer]: "DEVELOPER",
 };
 
 const STATUS_BADGE: Record<ApplicationStatus, string> = {
@@ -174,22 +175,68 @@ function rankAccessTier(rank: RosterRank): {
   };
 }
 
-/* The 12 application questions, in submission order. The backend stores
-   answers as a string[] whose indices line up with this list. */
-const APPLICATION_QUESTIONS = [
-  "Full Name",
-  "Minecraft Username",
-  "Discord Username (with #tag)",
-  "Age",
-  "Timezone",
-  "How long have you been playing on ZoritLegends?",
-  "Do you have any previous experience as a Moderator, Support staff, or similar role? If yes, please describe.",
-  "What skills or qualities do you possess that make you a good fit for the Moderator/Support role? (e.g., communication, patience, problem-solving)",
-  "How would you handle a situation where a player is repeatedly breaking minor rules (e.g., spamming, mild disrespect)?",
-  "If a player asks you for help with an in-game issue, but you're busy with other tasks, how would you handle the situation?",
-  "How would you handle a situation where a player is upset about being warned or punished, and they're becoming aggressive towards staff?",
-  "How much time can you commit to moderating ZoritLegends each week, and are you available during peak hours?",
-];
+/* The 12 application questions per role, in submission order. The backend
+   stores answers as a string[] whose indices line up with the question list
+   for the role the applicant applied for. These must stay in sync with the
+   per-role question arrays on the Apply page (Apply.tsx). */
+const APPLICATION_QUESTIONS: Record<AppliedRole, string[]> = {
+  [AppliedRole.Mod]: [
+    "Full Name",
+    "Minecraft Username",
+    "Discord Username (with #tag)",
+    "Age",
+    "Timezone",
+    "How long have you been playing on ZoritLegends?",
+    "Do you have any previous experience as a Moderator, Support staff, or similar role? If yes, please describe.",
+    "What skills or qualities do you possess that make you a good fit for the Moderator/Support role? (e.g., communication, patience, problem-solving)",
+    "How would you handle a situation where a player is repeatedly breaking minor rules (e.g., spamming, mild disrespect)?",
+    "If a player asks you for help with an in-game issue, but you're busy with other tasks, how would you handle the situation?",
+    "How would you handle a situation where a player is upset about being warned or punished, and they're becoming aggressive towards staff?",
+    "How much time can you commit to moderating ZoritLegends each week, and are you available during peak hours?",
+  ],
+  [AppliedRole.Admin]: [
+    "Full Name",
+    "Minecraft Username",
+    "Discord Username (with #tag)",
+    "Age",
+    "Timezone",
+    "How long have you been playing on ZoritLegends?",
+    "Do you have any previous experience as a server admin or in a similar role? If yes, please describe.",
+    "What skills or knowledge make you a good fit for the admin role? (e.g., moderation, event management, troubleshooting)",
+    "How would you handle a player who is breaking server rules but is insisting they did nothing wrong?",
+    "What would you do if there's an argument between staff members that's affecting the team's performance?",
+    "How would you handle a situation where a player is harassing another player, and both parties are involved in the conflict?",
+    "How much time can you commit to managing ZoritLegends each week, and are you available during peak hours?",
+  ],
+  [AppliedRole.Builder]: [
+    "Full Name",
+    "Minecraft Username",
+    "Discord Username (with #tag)",
+    "Age",
+    "Timezone",
+    "How long have you been playing on ZoritLegends?",
+    "Do you have any previous experience as a server builder or in a similar role? If yes, please describe your experience.",
+    "What building tools, mods, or plugins do you commonly use to create structures or environments?",
+    "Can you provide examples of previous builds or projects you've worked on (either in ZoritLegends or other servers)?",
+    "How comfortable are you with large-scale builds and working with server staff to create themed areas, spawn points, or events?",
+    "Describe your building style. How would you approach building a new spawn or town on ZoritLegends?",
+    "If given a creative direction for a build (e.g., a medieval village or futuristic city), how do you typically approach the project, from planning to execution?",
+  ],
+  [AppliedRole.Developer]: [
+    "Full Name",
+    "Minecraft Username",
+    "Discord Username (with #tag)",
+    "Age",
+    "TimeZone",
+    "How long have you been playing on ZoritLegends?",
+    "What programming languages are you proficient in (Java, Python, etc.)?",
+    "Do you have any previous experience in Minecraft server development? If yes, please describe your experience.",
+    "Do you have experience with Minecraft server plugins (e.g., Spigot, Bukkit, Paper)? If yes, can you list some you've developed or worked on?",
+    "How comfortable are you with troubleshooting and debugging server issues or code problems?",
+    "If given a task to implement a new feature or fix a bug, how would you approach it?",
+    "What would you do if your development work caused an issue on the server during peak hours?",
+  ],
+};
 
 /* ------------------------------------------------------------------ */
 /*  Utilities                                                          */
@@ -453,7 +500,9 @@ function AcceptModal({
       ? RosterRank.Admin
       : application.appliedRole === AppliedRole.Builder
         ? RosterRank.Builder
-        : RosterRank.Mod;
+        : application.appliedRole === AppliedRole.Developer
+          ? RosterRank.Developer
+          : RosterRank.Mod;
   const [selectedRank, setSelectedRank] = useState<RosterRank>(defaultRank);
 
   // Close on Escape; lock body scroll while open.
@@ -903,40 +952,47 @@ function ApplicationCard({
               Application Answers
             </div>
             <div className="apply-answers space-y-3">
-              {application.answers.map((answer, i) => (
-                <div key={`q${i}-${answer.slice(0, 12)}`}>
-                  <div
-                    className="flex items-baseline gap-2"
-                    style={{
-                      fontFamily: '"VT323", monospace',
-                      fontSize: "0.9rem",
-                      color: "oklch(0.62 0.22 295)",
-                      letterSpacing: "0.04em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    <span className="font-pixel" style={{ fontSize: "0.5rem" }}>
-                      Q{String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span style={{ color: "oklch(0.75 0.12 295)" }}>
-                      {APPLICATION_QUESTIONS[i] ?? `Question ${i + 1}`}
-                    </span>
+              {application.answers.map((answer, i) => {
+                const roleQuestions =
+                  APPLICATION_QUESTIONS[application.appliedRole];
+                return (
+                  <div key={`q${i}-${answer.slice(0, 12)}`}>
+                    <div
+                      className="flex items-baseline gap-2"
+                      style={{
+                        fontFamily: '"VT323", monospace',
+                        fontSize: "0.9rem",
+                        color: "oklch(0.62 0.22 295)",
+                        letterSpacing: "0.04em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      <span
+                        className="font-pixel"
+                        style={{ fontSize: "0.5rem" }}
+                      >
+                        Q{String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span style={{ color: "oklch(0.75 0.12 295)" }}>
+                        {roleQuestions[i] ?? `Question ${i + 1}`}
+                      </span>
+                    </div>
+                    <p
+                      className="mt-1"
+                      style={{
+                        fontFamily: '"VT323", monospace',
+                        fontSize: "1.05rem",
+                        color: "oklch(0.88 0.08 295)",
+                        lineHeight: 1.4,
+                        paddingLeft: "0.5rem",
+                        borderLeft: "2px solid oklch(0.35 0.14 295)",
+                      }}
+                    >
+                      {answer?.trim() ? answer : "—"}
+                    </p>
                   </div>
-                  <p
-                    className="mt-1"
-                    style={{
-                      fontFamily: '"VT323", monospace',
-                      fontSize: "1.05rem",
-                      color: "oklch(0.88 0.08 295)",
-                      lineHeight: 1.4,
-                      paddingLeft: "0.5rem",
-                      borderLeft: "2px solid oklch(0.35 0.14 295)",
-                    }}
-                  >
-                    {answer?.trim() ? answer : "—"}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
@@ -1330,7 +1386,24 @@ function UsersDropdown({ callerUsername }: UsersDropdownProps) {
                         transition: "opacity 0.15s",
                       }}
                     >
-                      <UserAvatar username={user.username} size="sm" />
+                      <span
+                        aria-hidden
+                        className="flex items-center justify-center flex-shrink-0"
+                        style={{
+                          width: "32px",
+                          height: "32px",
+                          background: "oklch(0.18 0.10 295)",
+                          border: "2px solid oklch(0.45 0.18 295)",
+                          boxShadow: "inset 1px 1px 0 oklch(0.10 0.05 295)",
+                          fontFamily: '"VT323", monospace',
+                          fontSize: "1.1rem",
+                          color: "oklch(0.85 0.15 295)",
+                          letterSpacing: "0.02em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {(user.username || "?").slice(0, 1)}
+                      </span>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 flex-wrap">
                           <span

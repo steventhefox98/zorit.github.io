@@ -21,7 +21,6 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { UserAvatar } from "../components/UserAvatar";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
 import { useFadeIn } from "../hooks/useFadeIn";
@@ -56,6 +55,11 @@ function FadeSection({
 
 function isAdminRole(role: Role | null): boolean {
   return role === Role.Administrator || role === Role.CoAdministrator;
+}
+
+function initialOf(username: string): string {
+  const trimmed = (username ?? "").trim();
+  return trimmed.charAt(0).toUpperCase() || "?";
 }
 
 function timeAgo(ns: bigint): string {
@@ -451,11 +455,21 @@ function CommentThread({
               >
                 <div className={cls}>
                   <div className="flex items-center gap-2 mb-1">
-                    <UserAvatar
-                      username={c.authorUsername}
-                      size="sm"
-                      className="flex-shrink-0"
-                    />
+                    <span
+                      className="flex-shrink-0 flex items-center justify-center font-pixel"
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        background: "oklch(0.18 0.08 295)",
+                        border: "1px solid oklch(0.40 0.18 295)",
+                        color: "oklch(0.75 0.18 295)",
+                        fontSize: "0.5rem",
+                        letterSpacing: "0.04em",
+                      }}
+                      aria-hidden
+                    >
+                      {initialOf(c.authorUsername)}
+                    </span>
                     <span className="comment-author">{c.authorUsername}</span>
                     {isStaff && !isSelf && (
                       <span
@@ -625,11 +639,21 @@ function PostCard({ index, post, isStaff, currentUsername }: PostCardProps) {
               </h3>
             </div>
             <div className="flex items-center gap-2 mt-2 flex-wrap">
-              <UserAvatar
-                username={post.authorUsername}
-                size="sm"
-                className="flex-shrink-0"
-              />
+              <span
+                className="flex-shrink-0 flex items-center justify-center font-pixel"
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  background: "oklch(0.18 0.08 295)",
+                  border: "1px solid oklch(0.40 0.18 295)",
+                  color: "oklch(0.75 0.18 295)",
+                  fontSize: "0.5rem",
+                  letterSpacing: "0.04em",
+                }}
+                aria-hidden
+              >
+                {initialOf(post.authorUsername)}
+              </span>
               <span
                 style={{
                   fontFamily: '"VT323", monospace',

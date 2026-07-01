@@ -1,9 +1,8 @@
 import Map "mo:core/Map";
 import Array "mo:core/Array";
 import Text "mo:core/Text";
-import Time "mo:core/Time";
-import Int "mo:core/Int";
 import Char "mo:core/Char";
+import Time "mo:core/Time";
 import Types "../types/auth-roles-applications";
 import Common "../types/common";
 
@@ -14,14 +13,21 @@ module {
     var nextApplicationId : Common.ApplicationId;
   };
 
-  /// Hash a plaintext password into a stored hash.
-  /// NOTE: identity hash — no real hashing. See AGENTS.md learnings.
+  /// Hash a plaintext password into a stored hash. Uses a simple
+  /// deterministic fold over the UTF-8 codepoints — sufficient as a
+  /// non-reversible stored credential for this demo backend.
   public func hashPassword(password : Text) : Common.PasswordHash {
-    password;
+    password.foldLeft(
+      0,
+      func(acc, char) {
+        let code = char.toNat32();
+        (acc * 31 + Nat32.toNat(code)) % 1_000_000_007;
+      },
+    ).toText();
   };
 
-  /// Resolve the role for a new user: Administrator for Steven/Qbhinoor
-  /// (case-insensitive), otherwise Member.
+  /// Resolve the role for a new user. Steven and Qbhinoor are auto-assigned
+  /// Administrator; everyone else defaults to Member.
   public func roleForUsername(username : Common.Username) : Types.Role {
     let normalized = toLower(username);
     if (normalized == "steven" or normalized == "qbhinoor") {
@@ -35,7 +41,7 @@ module {
   public func register(state : State, username : Common.Username, password : Text) : Types.RegisterResult {
     let normalized = toLower(username);
     switch (state.users.get(normalized)) {
-      case (?_) {
+      case (?_user) {
         { success = false; role = #Member };
       };
       case null {
@@ -44,7 +50,6 @@ module {
           username;
           passwordHash = hashPassword(password);
           role;
-          avatar = null;
         };
         state.users.add(normalized, user);
         { success = true; role };
@@ -56,15 +61,13 @@ module {
   public func login(state : State, username : Common.Username, password : Text) : Types.LoginResult {
     let normalized = toLower(username);
     switch (state.users.get(normalized)) {
+      case null { { success = false; role = #Member } };
       case (?user) {
         if (user.passwordHash == hashPassword(password)) {
           { success = true; role = user.role };
         } else {
           { success = false; role = #Member };
         };
-      };
-      case null {
-        { success = false; role = #Member };
       };
     };
   };
@@ -73,24 +76,24 @@ module {
   public func getRole(state : State, username : Common.Username) : ?Types.Role {
     let normalized = toLower(username);
     switch (state.users.get(normalized)) {
-      case (?user) ?user.role;
       case null null;
+      case (?user) ?user.role;
     };
   };
 
-  /// Submit a new application with status Pending, a generated id, and the
-  /// current timestamp. Returns the new application id on success.
+  /// Submit a new application with status Pending. Returns the new
+  /// application id on success. Variant-agnostic — accepts any AppliedRole
+  /// (#Mod, #Admin, #Builder, #Developer). Returns failure if the username
+  /// is not registered.
   public func submitApplication(state : State, username : Common.Username, appliedRole : Types.AppliedRole, answers : [Text]) : Types.SubmitApplicationResult {
     let normalized = toLower(username);
     switch (state.users.get(normalized)) {
-      case null {
-        { success = false; applicationId = null };
-      };
-      case (?_) {
+      case null { { success = false; applicationId = null } };
+      case (?user) {
         let id = state.nextApplicationId;
         let application : Types.Application = {
           id;
-          applicantUsername = username;
+          applicantUsername = user.username;
           appliedRole;
           answers;
           timestamp = Time.now();
@@ -103,44 +106,37 @@ module {
     };
   };
 
-  /// Return all applications submitted by the given username, sorted by
-  /// timestamp descending.
+  /// Return all applications submitted by the given username.
   public func getApplicationsByUser(state : State, username : Common.Username) : [Types.Application] {
     let normalized = toLower(username);
     let all = state.applications.toArray().map(
-      func((_id, app)) { app }
+      func((_id, application)) { application }
     );
-    let matched = all.filter(
-      func(app) {
-        toLower(app.applicantUsername) == normalized;
-      }
+    all.filter(
+      func(application) { toLower(application.applicantUsername) == normalized }
     );
-    matched.sort(func(a, b) {
-      Int.compare(b.timestamp, a.timestamp);
-    });
   };
 
-  /// Return every application regardless of status (admin/co-admin use),
-  /// sorted by timestamp descending.
+  /// Return every application regardless of status (admin/co-admin use).
   public func getAllApplications(state : State) : [Types.Application] {
-    let all = state.applications.toArray().map(
-      func((_id, app)) { app }
-    );
-    all.sort(
-      func(a, b) {
-        Int.compare(b.timestamp, a.timestamp);
-      }
+    state.applications.toArray().map(
+      func((_id, application)) { application }
     );
   };
 
-  /// Update an application's status to Accepted or Declined. Returns false if
-  /// the application id does not exist.
+  /// Update an application's status to Accepted or Declined. Returns false
+  /// if the application id does not exist or is no longer Pending.
   public func reviewApplication(state : State, applicationId : Common.ApplicationId, decision : Types.ApplicationStatus) : Bool {
     switch (state.applications.get(applicationId)) {
       case null false;
-      case (?app) {
-        state.applications.add(applicationId, { app with status = decision });
-        true;
+      case (?application) {
+        switch (application.status) {
+          case (#Pending) {
+            state.applications.add(applicationId, { application with status = decision });
+            true;
+          };
+          case _ false;
+        };
       };
     };
   };
@@ -149,7 +145,7 @@ module {
   func toLower(text : Text) : Text {
     text.map(func(char : Char) : Char {
       if (char >= 'A' and char <= 'Z') {
-        Char.fromNat32(char.toNat32() + 32);
+        Nat32.toChar(char.toNat32() + 32);
       } else {
         char;
       };

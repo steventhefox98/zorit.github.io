@@ -1,7 +1,6 @@
 import Map "mo:core/Map";
 import Array "mo:core/Array";
 import Text "mo:core/Text";
-import Char "mo:core/Char";
 import Types "../types/user-management";
 import AuthTypes "../types/auth-roles-applications";
 import StaffRosterTypes "../types/staff-roster-and-applications";
@@ -124,7 +123,7 @@ module {
   func toLower(text : Text) : Text {
     text.map(func(char : Char) : Char {
       if (char >= 'A' and char <= 'Z') {
-        Char.fromNat32(char.toNat32() + 32);
+        Nat32.toChar(char.toNat32() + 32);
       } else {
         char;
       };

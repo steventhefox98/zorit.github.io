@@ -1,15 +1,5 @@
-import {
-  type Avatar,
-  type LoginResult,
-  type RegisterResult,
-  Role,
-} from "@/backend";
-import {
-  useGetAvatar,
-  useGetMyRole,
-  useLogin,
-  useRegister,
-} from "@/hooks/useQueries";
+import { type LoginResult, type RegisterResult, Role } from "@/backend";
+import { useGetMyRole, useLogin, useRegister } from "@/hooks/useQueries";
 import {
   type ReactNode,
   createContext,
@@ -23,13 +13,11 @@ const SESSION_KEY = "zorit.session";
 interface StoredSession {
   username: string;
   role: Role;
-  avatar: Avatar | null;
 }
 
 interface AuthContextType {
   username: string | null;
   role: Role | null;
-  avatar: Avatar | null;
   isAuthenticated: boolean;
   login: (
     username: string,
@@ -41,8 +29,6 @@ interface AuthContextType {
   ) => Promise<{ success: boolean; role: Role | null }>;
   logout: () => void;
   refreshRole: () => Promise<Role | null>;
-  /** Force a re-fetch of the current user's avatar (e.g. after setMyAvatar). */
-  refreshAvatar: () => Promise<Avatar | null>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -58,12 +44,9 @@ function readSession(): StoredSession | null {
     ) {
       return null;
     }
-    // avatar is optional in older sessions; default to null.
-    const avatar = (parsed.avatar ?? null) as Avatar | null;
     return {
       username: parsed.username,
       role: parsed.role as Role,
-      avatar,
     };
   } catch {
     return null;
@@ -94,15 +77,10 @@ function toRole(value: string | Role): Role | null {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [username, setUsername] = useState<string | null>(null);
   const [role, setRole] = useState<Role | null>(null);
-  const [avatar, setAvatar] = useState<Avatar | null>(null);
 
   const loginMutation = useLogin();
   const registerMutation = useRegister();
   const myRoleQuery = useGetMyRole(username);
-  // Fetch the current user's avatar so the navbar can render it without
-  // a separate query. The query is keyed on username and re-runs on
-  // login / session restore.
-  const myAvatarQuery = useGetAvatar(username);
 
   // Restore session from localStorage on mount.
   useEffect(() => {
@@ -112,32 +90,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (restoredRole) {
         setUsername(stored.username);
         setRole(restoredRole);
-        setAvatar(stored.avatar);
       } else {
         clearSession();
       }
     }
   }, []);
-
-  // Sync the avatar query result into auth state. The query refetches
-  // whenever `username` changes (login, register, session restore) and
-  // whenever the avatar query is invalidated (after setMyAvatar).
-  useEffect(() => {
-    if (username && myAvatarQuery.data !== undefined) {
-      setAvatar(myAvatarQuery.data ?? null);
-      // Persist the fresh avatar alongside the existing session.
-      try {
-        const raw = localStorage.getItem(SESSION_KEY);
-        if (raw) {
-          const existing = JSON.parse(raw) as StoredSession;
-          existing.avatar = myAvatarQuery.data ?? null;
-          localStorage.setItem(SESSION_KEY, JSON.stringify(existing));
-        }
-      } catch {
-        /* storage unavailable — avatar stays in-memory only */
-      }
-    }
-  }, [username, myAvatarQuery.data]);
 
   const applyResult = (
     result: LoginResult | RegisterResult,
@@ -158,11 +115,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (outcome.success && outcome.role) {
       setUsername(name);
       setRole(outcome.role);
-      // Avatar will be fetched by the myAvatarQuery effect once
-      // username is set; persist a null placeholder so the session
-      // blob is well-formed.
-      setAvatar(null);
-      writeSession({ username: name, role: outcome.role, avatar: null });
+      writeSession({ username: name, role: outcome.role });
     }
     return outcome;
   };
@@ -176,8 +129,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (outcome.success && outcome.role) {
       setUsername(name);
       setRole(outcome.role);
-      setAvatar(null);
-      writeSession({ username: name, role: outcome.role, avatar: null });
+      writeSession({ username: name, role: outcome.role });
     }
     return outcome;
   };
@@ -185,7 +137,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setUsername(null);
     setRole(null);
-    setAvatar(null);
     clearSession();
   };
 
@@ -200,35 +151,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const next = fresh.data ?? null;
       if (next) {
         setRole(next);
-        writeSession({ username, role: next, avatar });
+        writeSession({ username, role: next });
       }
       return next;
     } catch {
       return role;
-    }
-  };
-
-  // Force a re-fetch of the current user's avatar. Used by the profile
-  // page after setMyAvatar so the navbar updates immediately.
-  const refreshAvatar: AuthContextType["refreshAvatar"] = async () => {
-    if (!username) return null;
-    try {
-      const fresh = await myAvatarQuery.refetch();
-      const next = fresh.data ?? null;
-      setAvatar(next);
-      try {
-        const raw = localStorage.getItem(SESSION_KEY);
-        if (raw) {
-          const existing = JSON.parse(raw) as StoredSession;
-          existing.avatar = next;
-          localStorage.setItem(SESSION_KEY, JSON.stringify(existing));
-        }
-      } catch {
-        /* ignore */
-      }
-      return next;
-    } catch {
-      return avatar;
     }
   };
 
@@ -237,13 +164,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       value={{
         username,
         role,
-        avatar,
         isAuthenticated: !!username,
         login,
         register,
         logout,
         refreshRole,
-        refreshAvatar,
       }}
     >
       {children}

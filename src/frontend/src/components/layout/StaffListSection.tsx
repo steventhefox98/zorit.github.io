@@ -1,6 +1,5 @@
 import { type RosterGroup, type RosterMember, RosterRank } from "@/backend";
 import { Role } from "@/backend";
-import { UserAvatar } from "@/components/UserAvatar";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   useAddStaffRosterMember,
@@ -929,11 +928,27 @@ export default function StaffListSection() {
                       >
                         {member.occupied ? (
                           <>
-                            <UserAvatar
-                              username={member.name}
-                              size="sm"
-                              alt={`${member.name}'s avatar`}
-                            />
+                            <span
+                              aria-hidden="true"
+                              style={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "32px",
+                                height: "32px",
+                                flexShrink: 0,
+                                background: group.accentColor,
+                                border: `2px solid ${group.borderColor}`,
+                                imageRendering: "pixelated",
+                                fontFamily: '"Press Start 2P", monospace',
+                                fontSize: "0.7rem",
+                                color: "oklch(0.10 0.04 295)",
+                                textShadow: "none",
+                                letterSpacing: 0,
+                              }}
+                            >
+                              {member.name.charAt(0).toUpperCase()}
+                            </span>
                             <span
                               className="min-w-0 flex-1 truncate"
                               style={{

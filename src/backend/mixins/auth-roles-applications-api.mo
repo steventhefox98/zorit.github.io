@@ -2,10 +2,8 @@ import AuthRolesApplications "../lib/auth-roles-applications";
 import Types "../types/auth-roles-applications";
 
 mixin (state : AuthRolesApplications.State) {
-  /// Register a new account. Administrator role is auto-assigned for the
-  /// usernames "Steven" and "Qbhinoor" (case-insensitive); all others get
-  /// Member. Returns { success = false; role = #Member } if the username
-  /// already exists.
+  /// Register a new account. Returns { success = false; role = #Member } if
+  /// the username already exists.
   public shared ({ caller }) func register(username : Text, password : Text) : async Types.RegisterResult {
     ignore caller;
     AuthRolesApplications.register(state, username, password);
@@ -23,9 +21,9 @@ mixin (state : AuthRolesApplications.State) {
     AuthRolesApplications.getRole(state, username);
   };
 
-  /// Submit a 12-question application. Stores it with status Pending, a
-  /// generated id, and the current timestamp. applicationId is null on
-  /// failure.
+  /// Submit a 12-question application. Stores it with status Pending.
+  /// applicationId is null on failure. Accepts any AppliedRole (#Mod,
+  /// #Admin, #Builder, #Developer).
   public shared ({ caller }) func submitApplication(username : Text, appliedRole : Types.AppliedRole, answers : [Text]) : async Types.SubmitApplicationResult {
     ignore caller;
     AuthRolesApplications.submitApplication(state, username, appliedRole, answers);
@@ -42,8 +40,7 @@ mixin (state : AuthRolesApplications.State) {
     AuthRolesApplications.getAllApplications(state);
   };
 
-  /// Update an application's status to Accepted or Declined. Returns false if
-  /// the application id does not exist.
+  /// Update an application's status to Accepted or Declined.
   public shared ({ caller }) func reviewApplication(applicationId : Nat, decision : Types.ApplicationStatus) : async Bool {
     ignore caller;
     AuthRolesApplications.reviewApplication(state, applicationId, decision);

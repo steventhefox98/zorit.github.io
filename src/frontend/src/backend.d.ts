@@ -29,9 +29,6 @@ export interface VoteResult {
 export interface SetRankSlotResult {
     success: boolean;
 }
-export interface SetAvatarResult {
-    success: boolean;
-}
 export type PostId = bigint;
 export interface AcceptApplicationResult {
     success: boolean;
@@ -71,13 +68,6 @@ export interface Comment {
     timestamp: Timestamp;
     postId: PostId;
 }
-export type Avatar = {
-    __kind__: "uploaded";
-    uploaded: BlobRef;
-} | {
-    __kind__: "preset";
-    preset: string;
-};
 export interface SubmitApplicationResult {
     applicationId?: ApplicationId;
     success: boolean;
@@ -125,10 +115,6 @@ export interface LoginResult {
     role: Role;
     success: boolean;
 }
-export interface BlobRef {
-    key: string;
-    contentType: string;
-}
 export type ApplicationId = bigint;
 export enum ApplicationStatus {
     Accepted = "Accepted",
@@ -138,6 +124,7 @@ export enum ApplicationStatus {
 export enum AppliedRole {
     Mod = "Mod",
     Builder = "Builder",
+    Developer = "Developer",
     Admin = "Admin"
 }
 export enum PostType {
@@ -183,40 +170,34 @@ export enum VoteStatus {
     rejected = "rejected"
 }
 export interface backendInterface {
+    /**
+     * / Auth/applications state record shared with mixins — wrapped so `var`
+     * / mutations propagate.
+     */
     acceptApplication(callerUsername: string, applicationId: bigint, assignedRank: RosterRank): Promise<AcceptApplicationResult>;
+    /**
+     * / Monotonic counter for new message ids.
+     */
     addCommunityComment(postId: bigint, authorUsername: string, content: string): Promise<AddCommentResult>;
     addStaffRosterMember(callerUsername: string, name: string, rank: RosterRank): Promise<AddRosterMemberResult>;
     createCommunityPost(postType: PostType, title: string, body: string, authorUsername: string): Promise<CreatePostResult>;
     declineApplication(applicationId: bigint): Promise<boolean>;
     getAllApplications(): Promise<Array<Application>>;
     getAllUsers(): Promise<Array<UserEntry>>;
-    getAvatar(username: string): Promise<Avatar | null>;
-    /**
-     * / applications : ApplicationId -> Application (persisted across upgrades).
-     */
     getCommunityVoteTally(postId: bigint): Promise<VoteTally>;
     getMyApplications(username: string): Promise<Array<Application>>;
     getMyRole(username: string): Promise<Role | null>;
     getRankSlots(): Promise<Array<RankSlot>>;
     getRoster(): Promise<Array<RosterGroup>>;
     getStaffConversation(requesterUsername: string, peerUsername: string): Promise<Array<Message>>;
-    /**
-     * / users : Username -> User (persisted across upgrades via enhanced
-     * / orthogonal persistence).
-     */
     getStaffDirectory(requesterUsername: string): Promise<Array<StaffDirectoryEntry>>;
     listActiveCommunityPosts(postType: PostType): Promise<Array<Post>>;
-    /**
-     * / Auth/applications state record shared with mixins — wrapped so `var`
-     * / mutations propagate.
-     */
     listCommunityComments(postId: bigint): Promise<Array<Comment>>;
     login(username: string, password: string): Promise<LoginResult>;
     register(username: string, password: string): Promise<RegisterResult>;
     removeStaffRosterMember(callerUsername: string, memberId: bigint): Promise<RemoveRosterMemberResult>;
     reviewApplication(applicationId: bigint, decision: ApplicationStatus): Promise<boolean>;
     sendStaffMessage(senderUsername: string, recipientUsername: string, content: string): Promise<SendMessageResult>;
-    setMyAvatar(username: string, avatar: Avatar): Promise<SetAvatarResult>;
     setRankSlot(callerUsername: string, rank: RosterRank, slots: bigint): Promise<SetRankSlotResult>;
     setRole(callerUsername: string, targetUsername: string, newRole: Role): Promise<SetRoleResult>;
     submitApplication(username: string, appliedRole: AppliedRole, answers: Array<string>): Promise<SubmitApplicationResult>;

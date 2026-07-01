@@ -5,7 +5,7 @@ import Nat "mo:core/Nat";
 import Order "mo:core/Order";
 import Time "mo:core/Time";
 import Text "mo:core/Text";
-import Char "mo:core/Char";
+import Nat32 "mo:core/Nat32";
 import Types "../types/community";
 import AuthTypes "../types/auth-roles-applications";
 import Common "../types/common";
@@ -92,7 +92,7 @@ module {
   /// Create a new community post. Rejects if the author has already created 5
   /// posts of the given type in the current UTC day. Returns the new post id
   /// on success.
-  public func createPost(state : State, authState : AuthState, postType : Types.PostType, title : Text, body : Text, authorUsername : Common.Username) : Types.CreatePostResult {
+  public func createPost(state : State, _authState : AuthState, postType : Types.PostType, title : Text, body : Text, authorUsername : Common.Username) : Types.CreatePostResult {
     let authorNormalized = toLower(authorUsername);
     let date = utcDateKey(Time.now());
     let dailyKey : DailyCountKey = (date, postType, authorNormalized);
@@ -227,7 +227,7 @@ module {
   func toLower(text : Text) : Text {
     text.map(func(char : Char) : Char {
       if (char >= 'A' and char <= 'Z') {
-        Char.fromNat32(char.toNat32() + 32);
+        Nat32.toChar(char.toNat32() + 32);
       } else {
         char;
       };

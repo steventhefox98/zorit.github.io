@@ -14,16 +14,14 @@ import MessagingApi "mixins/messaging-api";
 import CommunityApi "mixins/community-api";
 import StaffRosterApplicationsApi "mixins/staff-roster-and-applications-api";
 import UserManagementApi "mixins/user-management-api";
-import ProfileAvatarApi "mixins/profile-avatar-api";
+import Migration "migration";
 
-
-
-
-
-
+(with migration = Migration.run)
 actor {
   /// users : Username -> User (persisted across upgrades via enhanced
-  /// orthogonal persistence).
+  /// orthogonal persistence). The User record no longer carries an `avatar`
+  /// field — the avatar feature was removed; the upgrade migration drops any
+  /// previously-stored avatar value from each user record.
   let users = Map.empty<Common.Username, AuthRolesApplicationsTypes.User>();
 
   /// applications : ApplicationId -> Application (persisted across upgrades).
@@ -114,5 +112,4 @@ actor {
   include CommunityApi(communityState, state);
   include StaffRosterApplicationsApi(staffRosterState, state);
   include UserManagementApi(state, staffRosterState);
-  include ProfileAvatarApi(state);
 };

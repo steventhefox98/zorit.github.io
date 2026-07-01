@@ -17,7 +17,7 @@ var __privateWrapper = (obj, member, setter, getter) => ({
     return __privateGet(obj, member, getter);
   }
 });
-var _a, _disableTimeVerification, _agent, _inner, _expirationTime, _rawKey, _derKey, _b2, _currentInterval, _randomizationFactor, _multiplier, _maxInterval, _startTime, _maxElapsedTime, _maxIterations, _date, _count, _rootKeyPromise, _shouldFetchRootKey, _timeDiffMsecs, _hasSyncedTime, _syncTimePromise, _shouldSyncTime, _identity, _fetch, _fetchOptions, _callOptions, _credentials, _retryTimes, _backoffStrategy, _maxIngressExpiryInMinutes, _HttpAgent_instances, maxIngressExpiryInMs_get, _queryPipeline, _updatePipeline, _subnetKeys, _verifyQuerySignatures, requestAndRetryQuery_fn, requestAndRetry_fn, _verifyQueryResponse, asyncGuard_fn, rootKeyGuard_fn, syncTimeGuard_fn, _focused, _cleanup, _setup, _c, _provider, _providerCalled, _d, _online, _cleanup2, _setup2, _e, _gcTimeout, _f, _initialState, _revertState, _cache, _client, _retryer, _defaultOptions, _abortSignalConsumed, _Query_instances, isInitialPausedFetch_fn, dispatch_fn, _g, _client2, _currentQuery, _currentQueryInitialState, _currentResult, _currentResultState, _currentResultOptions, _currentThenable, _selectError, _selectFn, _selectResult, _lastQueryWithDefinedData, _staleTimeoutId, _refetchIntervalId, _currentRefetchInterval, _trackedProps, _QueryObserver_instances, executeFetch_fn, updateStaleTimeout_fn, computeRefetchInterval_fn, updateRefetchInterval_fn, updateTimers_fn, clearStaleTimeout_fn, clearRefetchInterval_fn, updateQuery_fn, notify_fn, _h, _client3, _observers, _mutationCache, _retryer2, _Mutation_instances, dispatch_fn2, _i, _mutations, _scopes, _mutationId, _j, _client4, _currentResult2, _currentMutation, _mutateOptions, _MutationObserver_instances, updateResult_fn, notify_fn2, _k, _queries, _l, _queryCache, _mutationCache2, _defaultOptions2, _queryDefaults, _mutationDefaults, _mountCount, _unsubscribeFocus, _unsubscribeOnline, _m, _rawKey2, _derKey2, _publicKey, _privateKey, _inner2, _delegation, _options;
+var _disableTimeVerification, _agent, _inner, _expirationTime, _rawKey, _derKey, _a2, _currentInterval, _randomizationFactor, _multiplier, _maxInterval, _startTime, _maxElapsedTime, _maxIterations, _date, _count, _rootKeyPromise, _shouldFetchRootKey, _timeDiffMsecs, _hasSyncedTime, _syncTimePromise, _shouldSyncTime, _identity, _fetch, _fetchOptions, _callOptions, _credentials, _retryTimes, _backoffStrategy, _maxIngressExpiryInMinutes, _HttpAgent_instances, maxIngressExpiryInMs_get, _queryPipeline, _updatePipeline, _subnetKeys, _verifyQuerySignatures, requestAndRetryQuery_fn, requestAndRetry_fn, _verifyQueryResponse, asyncGuard_fn, rootKeyGuard_fn, syncTimeGuard_fn, _focused, _cleanup, _setup, _b2, _provider, _providerCalled, _c, _online, _cleanup2, _setup2, _d, _gcTimeout, _e, _initialState, _revertState, _cache, _client, _retryer, _defaultOptions, _abortSignalConsumed, _Query_instances, isInitialPausedFetch_fn, dispatch_fn, _f, _client2, _currentQuery, _currentQueryInitialState, _currentResult, _currentResultState, _currentResultOptions, _currentThenable, _selectError, _selectFn, _selectResult, _lastQueryWithDefinedData, _staleTimeoutId, _refetchIntervalId, _currentRefetchInterval, _trackedProps, _QueryObserver_instances, executeFetch_fn, updateStaleTimeout_fn, computeRefetchInterval_fn, updateRefetchInterval_fn, updateTimers_fn, clearStaleTimeout_fn, clearRefetchInterval_fn, updateQuery_fn, notify_fn, _g, _client3, _observers, _mutationCache, _retryer2, _Mutation_instances, dispatch_fn2, _h, _mutations, _scopes, _mutationId, _i, _client4, _currentResult2, _currentMutation, _mutateOptions, _MutationObserver_instances, updateResult_fn, notify_fn2, _j, _queries, _k, _queryCache, _mutationCache2, _defaultOptions2, _queryDefaults, _mutationDefaults, _mountCount, _unsubscribeFocus, _unsubscribeOnline, _l, _rawKey2, _derKey2, _publicKey, _privateKey, _inner2, _delegation, _options;
 function _mergeNamespaces(n, m2) {
   for (var i = 0; i < m2.length; i++) {
     const e = m2[i];
@@ -150,19 +150,19 @@ class ExternalBlob {
     return this;
   }
 }
-var ReplicaRejectCode$1;
+var ReplicaRejectCode;
 (function(ReplicaRejectCode2) {
   ReplicaRejectCode2[ReplicaRejectCode2["SysFatal"] = 1] = "SysFatal";
   ReplicaRejectCode2[ReplicaRejectCode2["SysTransient"] = 2] = "SysTransient";
   ReplicaRejectCode2[ReplicaRejectCode2["DestinationInvalid"] = 3] = "DestinationInvalid";
   ReplicaRejectCode2[ReplicaRejectCode2["CanisterReject"] = 4] = "CanisterReject";
   ReplicaRejectCode2[ReplicaRejectCode2["CanisterError"] = 5] = "CanisterError";
-})(ReplicaRejectCode$1 || (ReplicaRejectCode$1 = {}));
-var QueryResponseStatus$1;
+})(ReplicaRejectCode || (ReplicaRejectCode = {}));
+var QueryResponseStatus;
 (function(QueryResponseStatus2) {
   QueryResponseStatus2["Replied"] = "replied";
   QueryResponseStatus2["Rejected"] = "rejected";
-})(QueryResponseStatus$1 || (QueryResponseStatus$1 = {}));
+})(QueryResponseStatus || (QueryResponseStatus = {}));
 function isV2ResponseBody(body) {
   return body !== null && body !== void 0 && "reject_code" in body;
 }
@@ -1906,7 +1906,7 @@ function formatUnknownError(error) {
   }
 }
 const UNREACHABLE_ERROR = new Error("unreachable");
-function concat$1(...uint8Arrays) {
+function concat(...uint8Arrays) {
   const result = new Uint8Array(uint8Arrays.reduce((acc, curr) => acc + curr.byteLength, 0));
   let index2 = 0;
   for (const b2 of uint8Arrays) {
@@ -1915,7 +1915,7 @@ function concat$1(...uint8Arrays) {
   }
   return result;
 }
-let PipeArrayBuffer$1 = class PipeArrayBuffer {
+class PipeArrayBuffer {
   /**
    * Save a checkpoint of the reading view (for backtracking)
    */
@@ -1940,7 +1940,7 @@ let PipeArrayBuffer$1 = class PipeArrayBuffer {
   constructor(buffer, length = (buffer == null ? void 0 : buffer.byteLength) || 0) {
     if (buffer && !(buffer instanceof Uint8Array)) {
       try {
-        buffer = uint8FromBufLike$2(buffer);
+        buffer = uint8FromBufLike$1(buffer);
       } catch {
         throw new Error("Buffer must be a Uint8Array");
       }
@@ -2013,8 +2013,8 @@ let PipeArrayBuffer$1 = class PipeArrayBuffer {
     this._buffer = b2;
     this._view = v2;
   }
-};
-function uint8FromBufLike$2(bufLike) {
+}
+function uint8FromBufLike$1(bufLike) {
   if (!bufLike) {
     throw new Error("Input cannot be null or undefined");
   }
@@ -2028,7 +2028,7 @@ function uint8FromBufLike$2(bufLike) {
     return new Uint8Array(bufLike);
   }
   if ("buffer" in bufLike) {
-    return uint8FromBufLike$2(bufLike.buffer);
+    return uint8FromBufLike$1(bufLike.buffer);
   }
   return new Uint8Array(bufLike);
 }
@@ -2046,7 +2046,7 @@ function compare(u1, u2) {
 function uint8Equals$1(u1, u2) {
   return compare(u1, u2) === 0;
 }
-function uint8ToDataView$1(uint8) {
+function uint8ToDataView(uint8) {
   if (!(uint8 instanceof Uint8Array)) {
     throw new Error("Input must be a Uint8Array");
   }
@@ -2070,45 +2070,45 @@ function idlLabelToId(label) {
   }
   return idlHash(label);
 }
-function ilog2$1(n) {
+function ilog2(n) {
   const nBig = BigInt(n);
   if (n <= 0) {
     throw new RangeError("Input must be positive");
   }
   return nBig.toString(2).length - 1;
 }
-function iexp2$1(n) {
+function iexp2(n) {
   const nBig = BigInt(n);
   if (n < 0) {
     throw new RangeError("Input must be non-negative");
   }
   return BigInt(1) << nBig;
 }
-function eob$1() {
+function eob() {
   throw new Error("unexpected end of buffer");
 }
-function safeRead$1(pipe2, num) {
+function safeRead(pipe2, num) {
   if (pipe2.byteLength < num) {
-    eob$1();
+    eob();
   }
   return pipe2.read(num);
 }
-function safeReadUint8$1(pipe2) {
+function safeReadUint8(pipe2) {
   const byte = pipe2.readUint8();
   if (byte === void 0) {
-    eob$1();
+    eob();
   }
   return byte;
 }
-function lebEncode$1(value) {
+function lebEncode(value) {
   if (typeof value === "number") {
     value = BigInt(value);
   }
   if (value < BigInt(0)) {
     throw new Error("Cannot leb encode negative values.");
   }
-  const byteLength = (value === BigInt(0) ? 0 : ilog2$1(value)) + 1;
-  const pipe2 = new PipeArrayBuffer$1(new Uint8Array(byteLength), 0);
+  const byteLength = (value === BigInt(0) ? 0 : ilog2(value)) + 1;
+  const pipe2 = new PipeArrayBuffer(new Uint8Array(byteLength), 0);
   while (true) {
     const i = Number(value & BigInt(127));
     value /= BigInt(128);
@@ -2121,18 +2121,18 @@ function lebEncode$1(value) {
   }
   return pipe2.buffer;
 }
-function lebDecode$1(pipe2) {
+function lebDecode(pipe2) {
   let weight = BigInt(1);
   let value = BigInt(0);
   let byte;
   do {
-    byte = safeReadUint8$1(pipe2);
+    byte = safeReadUint8(pipe2);
     value += BigInt(byte & 127).valueOf() * weight;
     weight *= BigInt(128);
   } while (byte >= 128);
   return value;
 }
-function slebEncode$1(value) {
+function slebEncode(value) {
   if (typeof value === "number") {
     value = BigInt(value);
   }
@@ -2140,8 +2140,8 @@ function slebEncode$1(value) {
   if (isNeg) {
     value = -value - BigInt(1);
   }
-  const byteLength = (value === BigInt(0) ? 0 : ilog2$1(value)) + 1;
-  const pipe2 = new PipeArrayBuffer$1(new Uint8Array(byteLength), 0);
+  const byteLength = (value === BigInt(0) ? 0 : ilog2(value)) + 1;
+  const pipe2 = new PipeArrayBuffer(new Uint8Array(byteLength), 0);
   while (true) {
     const i = getLowerBytes(value);
     value /= BigInt(128);
@@ -2168,27 +2168,27 @@ function slebDecode(pipe2) {
   for (; len < pipeView.byteLength; len++) {
     if (pipeView[len] < 128) {
       if ((pipeView[len] & 64) === 0) {
-        return lebDecode$1(pipe2);
+        return lebDecode(pipe2);
       }
       break;
     }
   }
-  const bytes = new Uint8Array(safeRead$1(pipe2, len + 1));
+  const bytes = new Uint8Array(safeRead(pipe2, len + 1));
   let value = BigInt(0);
   for (let i = bytes.byteLength - 1; i >= 0; i--) {
     value = value * BigInt(128) + BigInt(128 - (bytes[i] & 127) - 1);
   }
   return -value - BigInt(1);
 }
-function writeUIntLE$1(value, byteLength) {
+function writeUIntLE(value, byteLength) {
   if (BigInt(value) < BigInt(0)) {
     throw new Error("Cannot write negative values.");
   }
-  return writeIntLE$1(value, byteLength);
+  return writeIntLE(value, byteLength);
 }
-function writeIntLE$1(value, byteLength) {
+function writeIntLE(value, byteLength) {
   value = BigInt(value);
-  const pipe2 = new PipeArrayBuffer$1(new Uint8Array(Math.min(1, byteLength)), 0);
+  const pipe2 = new PipeArrayBuffer(new Uint8Array(Math.min(1, byteLength)), 0);
   let i = 0;
   let mul = BigInt(256);
   let sub = BigInt(0);
@@ -2204,32 +2204,32 @@ function writeIntLE$1(value, byteLength) {
   }
   return pipe2.buffer;
 }
-function readUIntLE$1(pipe2, byteLength) {
+function readUIntLE(pipe2, byteLength) {
   if (byteLength <= 0 || !Number.isInteger(byteLength)) {
     throw new Error("Byte length must be a positive integer");
   }
-  let val = BigInt(safeReadUint8$1(pipe2));
+  let val = BigInt(safeReadUint8(pipe2));
   let mul = BigInt(1);
   let i = 0;
   while (++i < byteLength) {
     mul *= BigInt(256);
-    const byte = BigInt(safeReadUint8$1(pipe2));
+    const byte = BigInt(safeReadUint8(pipe2));
     val = val + mul * byte;
   }
   return val;
 }
-function readIntLE$1(pipe2, byteLength) {
+function readIntLE(pipe2, byteLength) {
   if (byteLength <= 0 || !Number.isInteger(byteLength)) {
     throw new Error("Byte length must be a positive integer");
   }
-  let val = readUIntLE$1(pipe2, byteLength);
+  let val = readUIntLE(pipe2, byteLength);
   const mul = BigInt(2) ** (BigInt(8) * BigInt(byteLength - 1) + BigInt(7));
   if (val >= mul) {
     val -= mul * BigInt(2);
   }
   return val;
 }
-var IDLTypeIds$1;
+var IDLTypeIds;
 (function(IDLTypeIds2) {
   IDLTypeIds2[IDLTypeIds2["Null"] = -1] = "Null";
   IDLTypeIds2[IDLTypeIds2["Bool"] = -2] = "Bool";
@@ -2247,13 +2247,13 @@ var IDLTypeIds$1;
   IDLTypeIds2[IDLTypeIds2["Func"] = -22] = "Func";
   IDLTypeIds2[IDLTypeIds2["Service"] = -23] = "Service";
   IDLTypeIds2[IDLTypeIds2["Principal"] = -24] = "Principal";
-})(IDLTypeIds$1 || (IDLTypeIds$1 = {}));
-const magicNumber$1 = "DIDL";
-const toReadableString_max$1 = 400;
-function zipWith$1(xs, ys, f) {
+})(IDLTypeIds || (IDLTypeIds = {}));
+const magicNumber = "DIDL";
+const toReadableString_max = 400;
+function zipWith(xs, ys, f) {
   return xs.map((x2, i) => f(x2, ys[i]));
 }
-let TypeTable$1 = class TypeTable {
+class TypeTable {
   constructor() {
     this._typs = [];
     this._idx = /* @__PURE__ */ new Map();
@@ -2299,17 +2299,17 @@ let TypeTable$1 = class TypeTable {
     }
   }
   encode() {
-    const len = lebEncode$1(this._typs.length);
-    const buf = concat$1(...this._typs);
-    return concat$1(len, buf);
+    const len = lebEncode(this._typs.length);
+    const buf = concat(...this._typs);
+    return concat(len, buf);
   }
   indexOf(typeName) {
     if (!this._idx.has(typeName)) {
       throw new Error("Missing type index for " + typeName);
     }
-    return slebEncode$1(this._idx.get(typeName) || 0);
+    return slebEncode(this._idx.get(typeName) || 0);
   }
-};
+}
 class Visitor {
   visitType(_t, _data) {
     throw new Error("Not implemented");
@@ -2382,7 +2382,7 @@ class Visitor {
     return this.visitConstruct(t, data);
   }
 }
-var IdlTypeName$1;
+var IdlTypeName;
 (function(IdlTypeName2) {
   IdlTypeName2["EmptyClass"] = "__IDL_EmptyClass__";
   IdlTypeName2["UnknownClass"] = "__IDL_UnknownClass__";
@@ -2404,14 +2404,14 @@ var IdlTypeName$1;
   IdlTypeName2["PrincipalClass"] = "__IDL_PrincipalClass__";
   IdlTypeName2["FuncClass"] = "__IDL_FuncClass__";
   IdlTypeName2["ServiceClass"] = "__IDL_ServiceClass__";
-})(IdlTypeName$1 || (IdlTypeName$1 = {}));
-let Type$1 = class Type {
+})(IdlTypeName || (IdlTypeName = {}));
+class Type {
   /* Display type name */
   display() {
     return this.name;
   }
   valueToString(x2) {
-    return toReadableString$1(x2);
+    return toReadableString(x2);
   }
   /* Implement `T` in the IDL spec, only needed for non-primitive types */
   buildTypeTable(typeTable) {
@@ -2419,8 +2419,8 @@ let Type$1 = class Type {
       this._buildTypeTableImpl(typeTable);
     }
   }
-};
-let PrimitiveType$1 = class PrimitiveType extends Type$1 {
+}
+class PrimitiveType extends Type {
   checkType(t) {
     if (this.name !== t.name) {
       throw new Error(`type mismatch: type on the wire ${t.name}, expect type ${this.name}`);
@@ -2430,10 +2430,10 @@ let PrimitiveType$1 = class PrimitiveType extends Type$1 {
   _buildTypeTableImpl(_typeTable) {
     return;
   }
-};
-let ConstructType$1 = class ConstructType extends Type$1 {
+}
+class ConstructType extends Type {
   checkType(t) {
-    if (t instanceof RecClass$1) {
+    if (t instanceof RecClass) {
       const ty = t.getType();
       if (typeof ty === "undefined") {
         throw new Error("type mismatch with uninitialized type");
@@ -2445,19 +2445,19 @@ let ConstructType$1 = class ConstructType extends Type$1 {
   encodeType(typeTable) {
     return typeTable.indexOf(this.name);
   }
-};
-class EmptyClass extends PrimitiveType$1 {
+}
+class EmptyClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.EmptyClass;
+    return IdlTypeName.EmptyClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.EmptyClass;
+    return instance.typeName === IdlTypeName.EmptyClass;
   }
   accept(v2, d2) {
     return v2.visitEmpty(this, d2);
   }
   covariant(x2) {
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue() {
     throw new Error("Empty cannot appear as a function argument");
@@ -2466,7 +2466,7 @@ class EmptyClass extends PrimitiveType$1 {
     throw new Error("Empty cannot appear as a value");
   }
   encodeType() {
-    return slebEncode$1(IDLTypeIds$1.Empty);
+    return slebEncode(IDLTypeIds.Empty);
   }
   decodeValue() {
     throw new Error("Empty cannot appear as an output");
@@ -2475,12 +2475,12 @@ class EmptyClass extends PrimitiveType$1 {
     return "empty";
   }
 }
-class UnknownClass extends Type$1 {
+class UnknownClass extends Type {
   get typeName() {
-    return IdlTypeName$1.UnknownClass;
+    return IdlTypeName.UnknownClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.UnknownClass;
+    return instance.typeName === IdlTypeName.UnknownClass;
   }
   checkType(_t) {
     throw new Error("Method not implemented for unknown.");
@@ -2489,7 +2489,7 @@ class UnknownClass extends Type$1 {
     throw v2.visitType(this, d2);
   }
   covariant(x2) {
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue() {
     throw new Error("Unknown cannot appear as a function argument");
@@ -2506,7 +2506,7 @@ class UnknownClass extends Type$1 {
       decodedValue = Object(decodedValue);
     }
     let typeFunc;
-    if (t instanceof RecClass$1) {
+    if (t instanceof RecClass) {
       typeFunc = () => t.getType();
     } else {
       typeFunc = () => t;
@@ -2526,12 +2526,12 @@ class UnknownClass extends Type$1 {
     return "Unknown";
   }
 }
-class BoolClass extends PrimitiveType$1 {
+class BoolClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.BoolClass;
+    return IdlTypeName.BoolClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.BoolClass;
+    return instance.typeName === IdlTypeName.BoolClass;
   }
   accept(v2, d2) {
     return v2.visitBool(this, d2);
@@ -2539,17 +2539,17 @@ class BoolClass extends PrimitiveType$1 {
   covariant(x2) {
     if (typeof x2 === "boolean")
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
     return new Uint8Array([x2 ? 1 : 0]);
   }
   encodeType() {
-    return slebEncode$1(IDLTypeIds$1.Bool);
+    return slebEncode(IDLTypeIds.Bool);
   }
   decodeValue(b2, t) {
     this.checkType(t);
-    switch (safeReadUint8$1(b2)) {
+    switch (safeReadUint8(b2)) {
       case 0:
         return false;
       case 1:
@@ -2562,12 +2562,12 @@ class BoolClass extends PrimitiveType$1 {
     return "bool";
   }
 }
-class NullClass extends PrimitiveType$1 {
+class NullClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.NullClass;
+    return IdlTypeName.NullClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.NullClass;
+    return instance.typeName === IdlTypeName.NullClass;
   }
   accept(v2, d2) {
     return v2.visitNull(this, d2);
@@ -2575,13 +2575,13 @@ class NullClass extends PrimitiveType$1 {
   covariant(x2) {
     if (x2 === null)
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue() {
     return new Uint8Array(0);
   }
   encodeType() {
-    return slebEncode$1(IDLTypeIds$1.Null);
+    return slebEncode(IDLTypeIds.Null);
   }
   decodeValue(_b3, t) {
     this.checkType(t);
@@ -2591,12 +2591,12 @@ class NullClass extends PrimitiveType$1 {
     return "null";
   }
 }
-class ReservedClass extends PrimitiveType$1 {
+class ReservedClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.ReservedClass;
+    return IdlTypeName.ReservedClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.ReservedClass;
+    return instance.typeName === IdlTypeName.ReservedClass;
   }
   accept(v2, d2) {
     return v2.visitReserved(this, d2);
@@ -2608,7 +2608,7 @@ class ReservedClass extends PrimitiveType$1 {
     return new Uint8Array(0);
   }
   encodeType() {
-    return slebEncode$1(IDLTypeIds$1.Reserved);
+    return slebEncode(IDLTypeIds.Reserved);
   }
   decodeValue(b2, t) {
     if (t.name !== this.name) {
@@ -2620,12 +2620,12 @@ class ReservedClass extends PrimitiveType$1 {
     return "reserved";
   }
 }
-let TextClass$1 = class TextClass extends PrimitiveType$1 {
+class TextClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.TextClass;
+    return IdlTypeName.TextClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.TextClass;
+    return instance.typeName === IdlTypeName.TextClass;
   }
   accept(v2, d2) {
     return v2.visitText(this, d2);
@@ -2633,20 +2633,20 @@ let TextClass$1 = class TextClass extends PrimitiveType$1 {
   covariant(x2) {
     if (typeof x2 === "string")
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
     const buf = new TextEncoder().encode(x2);
-    const len = lebEncode$1(buf.byteLength);
-    return concat$1(len, buf);
+    const len = lebEncode(buf.byteLength);
+    return concat(len, buf);
   }
   encodeType() {
-    return slebEncode$1(IDLTypeIds$1.Text);
+    return slebEncode(IDLTypeIds.Text);
   }
   decodeValue(b2, t) {
     this.checkType(t);
-    const len = lebDecode$1(b2);
-    const buf = safeRead$1(b2, Number(len));
+    const len = lebDecode(b2);
+    const buf = safeRead(b2, Number(len));
     const decoder = new TextDecoder("utf8", { fatal: true });
     return decoder.decode(buf);
   }
@@ -2656,13 +2656,13 @@ let TextClass$1 = class TextClass extends PrimitiveType$1 {
   valueToString(x2) {
     return '"' + x2 + '"';
   }
-};
-class IntClass extends PrimitiveType$1 {
+}
+class IntClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.IntClass;
+    return IdlTypeName.IntClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.IntClass;
+    return instance.typeName === IdlTypeName.IntClass;
   }
   accept(v2, d2) {
     return v2.visitInt(this, d2);
@@ -2670,13 +2670,13 @@ class IntClass extends PrimitiveType$1 {
   covariant(x2) {
     if (typeof x2 === "bigint" || Number.isInteger(x2))
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
-    return slebEncode$1(x2);
+    return slebEncode(x2);
   }
   encodeType() {
-    return slebEncode$1(IDLTypeIds$1.Int);
+    return slebEncode(IDLTypeIds.Int);
   }
   decodeValue(b2, t) {
     this.checkType(t);
@@ -2689,12 +2689,12 @@ class IntClass extends PrimitiveType$1 {
     return x2.toString();
   }
 }
-class NatClass extends PrimitiveType$1 {
+class NatClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.NatClass;
+    return IdlTypeName.NatClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.NatClass;
+    return instance.typeName === IdlTypeName.NatClass;
   }
   accept(v2, d2) {
     return v2.visitNat(this, d2);
@@ -2702,17 +2702,17 @@ class NatClass extends PrimitiveType$1 {
   covariant(x2) {
     if (typeof x2 === "bigint" && x2 >= BigInt(0) || Number.isInteger(x2) && x2 >= 0)
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
-    return lebEncode$1(x2);
+    return lebEncode(x2);
   }
   encodeType() {
-    return slebEncode$1(IDLTypeIds$1.Nat);
+    return slebEncode(IDLTypeIds.Nat);
   }
   decodeValue(b2, t) {
     this.checkType(t);
-    return lebDecode$1(b2);
+    return lebDecode(b2);
   }
   get name() {
     return "nat";
@@ -2721,12 +2721,12 @@ class NatClass extends PrimitiveType$1 {
     return x2.toString();
   }
 }
-let FloatClass$1 = class FloatClass extends PrimitiveType$1 {
+class FloatClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.FloatClass;
+    return IdlTypeName.FloatClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.FloatClass;
+    return instance.typeName === IdlTypeName.FloatClass;
   }
   constructor(_bits) {
     super();
@@ -2741,7 +2741,7 @@ let FloatClass$1 = class FloatClass extends PrimitiveType$1 {
   covariant(x2) {
     if (typeof x2 === "number" || x2 instanceof Number)
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
     const buf = new ArrayBuffer(this._bits / 8);
@@ -2754,13 +2754,13 @@ let FloatClass$1 = class FloatClass extends PrimitiveType$1 {
     return new Uint8Array(buf);
   }
   encodeType() {
-    const opcode = this._bits === 32 ? IDLTypeIds$1.Float32 : IDLTypeIds$1.Float64;
-    return slebEncode$1(opcode);
+    const opcode = this._bits === 32 ? IDLTypeIds.Float32 : IDLTypeIds.Float64;
+    return slebEncode(opcode);
   }
   decodeValue(b2, t) {
     this.checkType(t);
-    const bytes = safeRead$1(b2, this._bits / 8);
-    const view = uint8ToDataView$1(bytes);
+    const bytes = safeRead(b2, this._bits / 8);
+    const view = uint8ToDataView(bytes);
     if (this._bits === 32) {
       return view.getFloat32(0, true);
     } else {
@@ -2773,13 +2773,13 @@ let FloatClass$1 = class FloatClass extends PrimitiveType$1 {
   valueToString(x2) {
     return x2.toString();
   }
-};
-let FixedIntClass$1 = class FixedIntClass extends PrimitiveType$1 {
+}
+class FixedIntClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.FixedIntClass;
+    return IdlTypeName.FixedIntClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.FixedIntClass;
+    return instance.typeName === IdlTypeName.FixedIntClass;
   }
   constructor(_bits) {
     super();
@@ -2789,8 +2789,8 @@ let FixedIntClass$1 = class FixedIntClass extends PrimitiveType$1 {
     return v2.visitFixedInt(this, d2);
   }
   covariant(x2) {
-    const min = iexp2$1(this._bits - 1) * BigInt(-1);
-    const max = iexp2$1(this._bits - 1) - BigInt(1);
+    const min = iexp2(this._bits - 1) * BigInt(-1);
+    const max = iexp2(this._bits - 1) - BigInt(1);
     let ok = false;
     if (typeof x2 === "bigint") {
       ok = x2 >= min && x2 <= max;
@@ -2802,18 +2802,18 @@ let FixedIntClass$1 = class FixedIntClass extends PrimitiveType$1 {
     }
     if (ok)
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
-    return writeIntLE$1(x2, this._bits / 8);
+    return writeIntLE(x2, this._bits / 8);
   }
   encodeType() {
     const offset = Math.log2(this._bits) - 3;
-    return slebEncode$1(-9 - offset);
+    return slebEncode(-9 - offset);
   }
   decodeValue(b2, t) {
     this.checkType(t);
-    const num = readIntLE$1(b2, this._bits / 8);
+    const num = readIntLE(b2, this._bits / 8);
     if (this._bits <= 32) {
       return Number(num);
     } else {
@@ -2826,13 +2826,13 @@ let FixedIntClass$1 = class FixedIntClass extends PrimitiveType$1 {
   valueToString(x2) {
     return x2.toString();
   }
-};
-let FixedNatClass$1 = class FixedNatClass extends PrimitiveType$1 {
+}
+class FixedNatClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.FixedNatClass;
+    return IdlTypeName.FixedNatClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.FixedNatClass;
+    return instance.typeName === IdlTypeName.FixedNatClass;
   }
   constructor(_bits) {
     super();
@@ -2842,7 +2842,7 @@ let FixedNatClass$1 = class FixedNatClass extends PrimitiveType$1 {
     return v2.visitFixedNat(this, d2);
   }
   covariant(x2) {
-    const max = iexp2$1(this._bits);
+    const max = iexp2(this._bits);
     let ok = false;
     if (typeof x2 === "bigint" && x2 >= BigInt(0)) {
       ok = x2 < max;
@@ -2854,18 +2854,18 @@ let FixedNatClass$1 = class FixedNatClass extends PrimitiveType$1 {
     }
     if (ok)
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
-    return writeUIntLE$1(x2, this._bits / 8);
+    return writeUIntLE(x2, this._bits / 8);
   }
   encodeType() {
     const offset = Math.log2(this._bits) - 3;
-    return slebEncode$1(-5 - offset);
+    return slebEncode(-5 - offset);
   }
   decodeValue(b2, t) {
     this.checkType(t);
-    const num = readUIntLE$1(b2, this._bits / 8);
+    const num = readUIntLE(b2, this._bits / 8);
     if (this._bits <= 32) {
       return Number(num);
     } else {
@@ -2878,19 +2878,19 @@ let FixedNatClass$1 = class FixedNatClass extends PrimitiveType$1 {
   valueToString(x2) {
     return x2.toString();
   }
-};
-class VecClass extends ConstructType$1 {
+}
+class VecClass extends ConstructType {
   get typeName() {
-    return IdlTypeName$1.VecClass;
+    return IdlTypeName.VecClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.VecClass;
+    return instance.typeName === IdlTypeName.VecClass;
   }
   constructor(_type) {
     super();
     this._type = _type;
     this._blobOptimization = false;
-    if (_type instanceof FixedNatClass$1 && _type._bits === 8) {
+    if (_type instanceof FixedNatClass && _type._bits === 8) {
       this._blobOptimization = true;
     }
   }
@@ -2898,7 +2898,7 @@ class VecClass extends ConstructType$1 {
     return v2.visitVec(this, this._type, d2);
   }
   covariant(x2) {
-    const bits = this._type instanceof FixedNatClass$1 ? this._type._bits : this._type instanceof FixedIntClass$1 ? this._type._bits : 0;
+    const bits = this._type instanceof FixedNatClass ? this._type._bits : this._type instanceof FixedIntClass ? this._type._bits : 0;
     if (ArrayBuffer.isView(x2) && bits == x2.BYTES_PER_ELEMENT * 8 || Array.isArray(x2) && x2.every((v2, idx) => {
       try {
         return this._type.covariant(v2);
@@ -2909,12 +2909,12 @@ index ${idx} -> ${e.message}`);
       }
     }))
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
-    const len = lebEncode$1(x2.length);
+    const len = lebEncode(x2.length);
     if (this._blobOptimization) {
-      return concat$1(len, new Uint8Array(x2));
+      return concat(len, new Uint8Array(x2));
     }
     if (ArrayBuffer.isView(x2)) {
       if (x2 instanceof Int16Array || x2 instanceof Uint16Array) {
@@ -2926,7 +2926,7 @@ index ${idx} -> ${e.message}`);
             buffer.setUint16(i * 2, x2[i], true);
           }
         }
-        return concat$1(len, new Uint8Array(buffer.buffer));
+        return concat(len, new Uint8Array(buffer.buffer));
       } else if (x2 instanceof Int32Array || x2 instanceof Uint32Array) {
         const buffer = new DataView(new ArrayBuffer(x2.length * 4));
         for (let i = 0; i < x2.length; i++) {
@@ -2936,7 +2936,7 @@ index ${idx} -> ${e.message}`);
             buffer.setUint32(i * 4, x2[i], true);
           }
         }
-        return concat$1(len, new Uint8Array(buffer.buffer));
+        return concat(len, new Uint8Array(buffer.buffer));
       } else if (x2 instanceof BigInt64Array || x2 instanceof BigUint64Array) {
         const buffer = new DataView(new ArrayBuffer(x2.length * 8));
         for (let i = 0; i < x2.length; i++) {
@@ -2946,12 +2946,12 @@ index ${idx} -> ${e.message}`);
             buffer.setBigUint64(i * 8, x2[i], true);
           }
         }
-        return concat$1(len, new Uint8Array(buffer.buffer));
+        return concat(len, new Uint8Array(buffer.buffer));
       } else {
-        return concat$1(len, new Uint8Array(x2.buffer, x2.byteOffset, x2.byteLength));
+        return concat(len, new Uint8Array(x2.buffer, x2.byteOffset, x2.byteLength));
       }
     }
-    const buf = new PipeArrayBuffer$1(new Uint8Array(len.byteLength + x2.length), 0);
+    const buf = new PipeArrayBuffer(new Uint8Array(len.byteLength + x2.length), 0);
     buf.write(len);
     for (const d2 of x2) {
       const encoded = this._type.encodeValue(d2);
@@ -2961,17 +2961,17 @@ index ${idx} -> ${e.message}`);
   }
   _buildTypeTableImpl(typeTable) {
     this._type.buildTypeTable(typeTable);
-    const opCode = slebEncode$1(IDLTypeIds$1.Vector);
+    const opCode = slebEncode(IDLTypeIds.Vector);
     const buffer = this._type.encodeType(typeTable);
-    typeTable.add(this, concat$1(opCode, buffer));
+    typeTable.add(this, concat(opCode, buffer));
   }
   decodeValue(b2, t) {
     const vec = this.checkType(t);
     if (!(vec instanceof VecClass)) {
       throw new Error("Not a vector type");
     }
-    const len = Number(lebDecode$1(b2));
-    if (this._type instanceof FixedNatClass$1) {
+    const len = Number(lebDecode(b2));
+    if (this._type instanceof FixedNatClass) {
       if (this._type._bits == 8) {
         return new Uint8Array(b2.read(len));
       }
@@ -2989,7 +2989,7 @@ index ${idx} -> ${e.message}`);
         return new BigUint64Array(b2.read(len * 8).buffer);
       }
     }
-    if (this._type instanceof FixedIntClass$1) {
+    if (this._type instanceof FixedIntClass) {
       if (this._type._bits == 8) {
         return new Int8Array(b2.read(len));
       }
@@ -3038,12 +3038,12 @@ index ${idx} -> ${e.message}`);
     return "vec {" + elements.join("; ") + "}";
   }
 }
-class OptClass extends ConstructType$1 {
+class OptClass extends ConstructType {
   get typeName() {
-    return IdlTypeName$1.OptClass;
+    return IdlTypeName.OptClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.OptClass;
+    return instance.typeName === IdlTypeName.OptClass;
   }
   constructor(_type) {
     super();
@@ -3057,24 +3057,24 @@ class OptClass extends ConstructType$1 {
       if (Array.isArray(x2) && (x2.length === 0 || x2.length === 1 && this._type.covariant(x2[0])))
         return true;
     } catch (e) {
-      throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)} 
+      throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)} 
 
 -> ${e.message}`);
     }
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
     if (x2.length === 0) {
       return new Uint8Array([0]);
     } else {
-      return concat$1(new Uint8Array([1]), this._type.encodeValue(x2[0]));
+      return concat(new Uint8Array([1]), this._type.encodeValue(x2[0]));
     }
   }
   _buildTypeTableImpl(typeTable) {
     this._type.buildTypeTable(typeTable);
-    const opCode = slebEncode$1(IDLTypeIds$1.Opt);
+    const opCode = slebEncode(IDLTypeIds.Opt);
     const buffer = this._type.encodeType(typeTable);
-    typeTable.add(this, concat$1(opCode, buffer));
+    typeTable.add(this, concat(opCode, buffer));
   }
   decodeValue(b2, t) {
     if (t instanceof NullClass) {
@@ -3084,7 +3084,7 @@ class OptClass extends ConstructType$1 {
       return [];
     }
     let wireType = t;
-    if (t instanceof RecClass$1) {
+    if (t instanceof RecClass) {
       const ty = t.getType();
       if (typeof ty === "undefined") {
         throw new Error("type mismatch with uninitialized type");
@@ -3092,7 +3092,7 @@ class OptClass extends ConstructType$1 {
         wireType = ty;
     }
     if (wireType instanceof OptClass) {
-      switch (safeReadUint8$1(b2)) {
+      switch (safeReadUint8(b2)) {
         case 0:
           return [];
         case 1: {
@@ -3141,12 +3141,12 @@ class OptClass extends ConstructType$1 {
     }
   }
 }
-class RecordClass extends ConstructType$1 {
+class RecordClass extends ConstructType {
   get typeName() {
-    return IdlTypeName$1.RecordClass;
+    return IdlTypeName.RecordClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.RecordClass || instance.typeName === IdlTypeName$1.TupleClass;
+    return instance.typeName === IdlTypeName.RecordClass || instance.typeName === IdlTypeName.TupleClass;
   }
   constructor(fields = {}) {
     super();
@@ -3180,19 +3180,19 @@ field ${k2} -> ${e.message}`);
       }
     }))
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
     const values = this._fields.map(([key]) => x2[key]);
-    const bufs = zipWith$1(this._fields, values, ([, c2], d2) => c2.encodeValue(d2));
-    return concat$1(...bufs);
+    const bufs = zipWith(this._fields, values, ([, c2], d2) => c2.encodeValue(d2));
+    return concat(...bufs);
   }
   _buildTypeTableImpl(T2) {
     this._fields.forEach(([_2, value]) => value.buildTypeTable(T2));
-    const opCode = slebEncode$1(IDLTypeIds$1.Record);
-    const len = lebEncode$1(this._fields.length);
-    const fields = this._fields.map(([key, value]) => concat$1(lebEncode$1(idlLabelToId(key)), value.encodeType(T2)));
-    T2.add(this, concat$1(opCode, len, concat$1(...fields)));
+    const opCode = slebEncode(IDLTypeIds.Record);
+    const len = lebEncode(this._fields.length);
+    const fields = this._fields.map(([key, value]) => concat(lebEncode(idlLabelToId(key)), value.encodeType(T2)));
+    T2.add(this, concat(opCode, len, concat(...fields)));
   }
   decodeValue(b2, t) {
     const record = this.checkType(t);
@@ -3254,16 +3254,16 @@ field ${k2} -> ${e.message}`);
   }
   valueToString(x2) {
     const values = this._fields.map(([key]) => x2[key]);
-    const fields = zipWith$1(this._fields, values, ([k2, c2], d2) => k2 + "=" + c2.valueToString(d2));
+    const fields = zipWith(this._fields, values, ([k2, c2], d2) => k2 + "=" + c2.valueToString(d2));
     return `record {${fields.join("; ")}}`;
   }
 }
 class TupleClass extends RecordClass {
   get typeName() {
-    return IdlTypeName$1.TupleClass;
+    return IdlTypeName.TupleClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.TupleClass;
+    return instance.typeName === IdlTypeName.TupleClass;
   }
   constructor(_components) {
     const x2 = {};
@@ -3285,11 +3285,11 @@ index ${i} -> ${e.message}`);
       }
     }))
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
-    const bufs = zipWith$1(this._components, x2, (c2, d2) => c2.encodeValue(d2));
-    return concat$1(...bufs);
+    const bufs = zipWith(this._components, x2, (c2, d2) => c2.encodeValue(d2));
+    return concat(...bufs);
   }
   decodeValue(b2, t) {
     const tuple = this.checkType(t);
@@ -3314,16 +3314,16 @@ index ${i} -> ${e.message}`);
     return `record {${fields.join("; ")}}`;
   }
   valueToString(values) {
-    const fields = zipWith$1(this._components, values, (c2, d2) => c2.valueToString(d2));
+    const fields = zipWith(this._components, values, (c2, d2) => c2.valueToString(d2));
     return `record {${fields.join("; ")}}`;
   }
 }
-class VariantClass extends ConstructType$1 {
+class VariantClass extends ConstructType {
   get typeName() {
-    return IdlTypeName$1.VariantClass;
+    return IdlTypeName.VariantClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.VariantClass;
+    return instance.typeName === IdlTypeName.VariantClass;
   }
   constructor(fields = {}) {
     super();
@@ -3343,15 +3343,15 @@ variant ${k2} -> ${e.message}`);
       }
     }))
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
     for (let i = 0; i < this._fields.length; i++) {
       const [name, type] = this._fields[i];
       if (x2.hasOwnProperty(name)) {
-        const idx = lebEncode$1(i);
+        const idx = lebEncode(i);
         const buf = type.encodeValue(x2[name]);
-        return concat$1(idx, buf);
+        return concat(idx, buf);
       }
     }
     throw Error("Variant has no data: " + x2);
@@ -3360,17 +3360,17 @@ variant ${k2} -> ${e.message}`);
     this._fields.forEach(([, type]) => {
       type.buildTypeTable(typeTable);
     });
-    const opCode = slebEncode$1(IDLTypeIds$1.Variant);
-    const len = lebEncode$1(this._fields.length);
-    const fields = this._fields.map(([key, value]) => concat$1(lebEncode$1(idlLabelToId(key)), value.encodeType(typeTable)));
-    typeTable.add(this, concat$1(opCode, len, ...fields));
+    const opCode = slebEncode(IDLTypeIds.Variant);
+    const len = lebEncode(this._fields.length);
+    const fields = this._fields.map(([key, value]) => concat(lebEncode(idlLabelToId(key)), value.encodeType(typeTable)));
+    typeTable.add(this, concat(opCode, len, ...fields));
   }
   decodeValue(b2, t) {
     const variant = this.checkType(t);
     if (!(variant instanceof VariantClass)) {
       throw new Error("Not a variant type");
     }
-    const idx = Number(lebDecode$1(b2));
+    const idx = Number(lebDecode(b2));
     if (idx >= variant._fields.length) {
       throw Error("Invalid variant index: " + idx);
     }
@@ -3412,16 +3412,16 @@ variant ${k2} -> ${e.message}`);
     return alternatives;
   }
 }
-let RecClass$1 = (_a = class extends ConstructType$1 {
+const _RecClass = class _RecClass extends ConstructType {
   constructor() {
     super(...arguments);
-    this._id = _a._counter++;
+    this._id = _RecClass._counter++;
   }
   get typeName() {
-    return IdlTypeName$1.RecClass;
+    return IdlTypeName.RecClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.RecClass;
+    return instance.typeName === IdlTypeName.RecClass;
   }
   accept(v2, d2) {
     if (!this._type) {
@@ -3438,7 +3438,7 @@ let RecClass$1 = (_a = class extends ConstructType$1 {
   covariant(x2) {
     if (this._type ? this._type.covariant(x2) : false)
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
     if (!this._type) {
@@ -3475,21 +3475,23 @@ let RecClass$1 = (_a = class extends ConstructType$1 {
     }
     return this._type.valueToString(x2);
   }
-}, _a._counter = 0, _a);
+};
+_RecClass._counter = 0;
+let RecClass = _RecClass;
 function decodePrincipalId(b2) {
-  const x2 = safeReadUint8$1(b2);
+  const x2 = safeReadUint8(b2);
   if (x2 !== 1) {
     throw new Error("Cannot decode principal");
   }
-  const len = Number(lebDecode$1(b2));
-  return Principal$1.fromUint8Array(new Uint8Array(safeRead$1(b2, len)));
+  const len = Number(lebDecode(b2));
+  return Principal$1.fromUint8Array(new Uint8Array(safeRead(b2, len)));
 }
-class PrincipalClass extends PrimitiveType$1 {
+class PrincipalClass extends PrimitiveType {
   get typeName() {
-    return IdlTypeName$1.PrincipalClass;
+    return IdlTypeName.PrincipalClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.PrincipalClass;
+    return instance.typeName === IdlTypeName.PrincipalClass;
   }
   accept(v2, d2) {
     return v2.visitPrincipal(this, d2);
@@ -3497,15 +3499,15 @@ class PrincipalClass extends PrimitiveType$1 {
   covariant(x2) {
     if (x2 && x2._isPrincipal)
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
     const buf = x2.toUint8Array();
-    const len = lebEncode$1(buf.byteLength);
-    return concat$1(new Uint8Array([1]), len, buf);
+    const len = lebEncode(buf.byteLength);
+    return concat(new Uint8Array([1]), len, buf);
   }
   encodeType() {
-    return slebEncode$1(IDLTypeIds$1.Principal);
+    return slebEncode(IDLTypeIds.Principal);
   }
   decodeValue(b2, t) {
     this.checkType(t);
@@ -3518,12 +3520,12 @@ class PrincipalClass extends PrimitiveType$1 {
     return `${this.name} "${x2.toText()}"`;
   }
 }
-class FuncClass extends ConstructType$1 {
+class FuncClass extends ConstructType {
   get typeName() {
-    return IdlTypeName$1.FuncClass;
+    return IdlTypeName.FuncClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.FuncClass;
+    return instance.typeName === IdlTypeName.FuncClass;
   }
   static argsToString(types, v2) {
     if (types.length !== v2.length) {
@@ -3543,40 +3545,40 @@ class FuncClass extends ConstructType$1 {
   covariant(x2) {
     if (Array.isArray(x2) && x2.length === 2 && x2[0] && x2[0]._isPrincipal && typeof x2[1] === "string")
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue([principal, methodName]) {
     const buf = principal.toUint8Array();
-    const len = lebEncode$1(buf.byteLength);
-    const canister = concat$1(new Uint8Array([1]), len, buf);
+    const len = lebEncode(buf.byteLength);
+    const canister = concat(new Uint8Array([1]), len, buf);
     const method = new TextEncoder().encode(methodName);
-    const methodLen = lebEncode$1(method.byteLength);
-    return concat$1(new Uint8Array([1]), canister, methodLen, method);
+    const methodLen = lebEncode(method.byteLength);
+    return concat(new Uint8Array([1]), canister, methodLen, method);
   }
   _buildTypeTableImpl(T2) {
     this.argTypes.forEach((arg) => arg.buildTypeTable(T2));
     this.retTypes.forEach((arg) => arg.buildTypeTable(T2));
-    const opCode = slebEncode$1(IDLTypeIds$1.Func);
-    const argLen = lebEncode$1(this.argTypes.length);
-    const args = concat$1(...this.argTypes.map((arg) => arg.encodeType(T2)));
-    const retLen = lebEncode$1(this.retTypes.length);
-    const rets = concat$1(...this.retTypes.map((arg) => arg.encodeType(T2)));
-    const annLen = lebEncode$1(this.annotations.length);
-    const anns = concat$1(...this.annotations.map((a2) => this.encodeAnnotation(a2)));
-    T2.add(this, concat$1(opCode, argLen, args, retLen, rets, annLen, anns));
+    const opCode = slebEncode(IDLTypeIds.Func);
+    const argLen = lebEncode(this.argTypes.length);
+    const args = concat(...this.argTypes.map((arg) => arg.encodeType(T2)));
+    const retLen = lebEncode(this.retTypes.length);
+    const rets = concat(...this.retTypes.map((arg) => arg.encodeType(T2)));
+    const annLen = lebEncode(this.annotations.length);
+    const anns = concat(...this.annotations.map((a2) => this.encodeAnnotation(a2)));
+    T2.add(this, concat(opCode, argLen, args, retLen, rets, annLen, anns));
   }
   decodeValue(b2, t) {
-    const tt2 = t instanceof RecClass$1 ? t.getType() ?? t : t;
+    const tt2 = t instanceof RecClass ? t.getType() ?? t : t;
     if (!subtype(tt2, this)) {
       throw new Error(`Cannot decode function reference at type ${this.display()} from wire type ${tt2.display()}`);
     }
-    const x2 = safeReadUint8$1(b2);
+    const x2 = safeReadUint8(b2);
     if (x2 !== 1) {
       throw new Error("Cannot decode function reference");
     }
     const canister = decodePrincipalId(b2);
-    const mLen = Number(lebDecode$1(b2));
-    const buf = safeRead$1(b2, mLen);
+    const mLen = Number(lebDecode(b2));
+    const buf = safeRead(b2, mLen);
     const decoder = new TextDecoder("utf8", { fatal: true });
     const method = decoder.decode(buf);
     return [canister, method];
@@ -3608,12 +3610,12 @@ class FuncClass extends ConstructType$1 {
     }
   }
 }
-class ServiceClass extends ConstructType$1 {
+class ServiceClass extends ConstructType {
   get typeName() {
-    return IdlTypeName$1.ServiceClass;
+    return IdlTypeName.ServiceClass;
   }
   static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName$1.ServiceClass;
+    return instance.typeName === IdlTypeName.ServiceClass;
   }
   constructor(fields) {
     super();
@@ -3633,26 +3635,26 @@ class ServiceClass extends ConstructType$1 {
   covariant(x2) {
     if (x2 && x2._isPrincipal)
       return true;
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString$1(x2)}`);
+    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
   }
   encodeValue(x2) {
     const buf = x2.toUint8Array();
-    const len = lebEncode$1(buf.length);
-    return concat$1(new Uint8Array([1]), len, buf);
+    const len = lebEncode(buf.length);
+    return concat(new Uint8Array([1]), len, buf);
   }
   _buildTypeTableImpl(T2) {
     this._fields.forEach(([_2, func]) => func.buildTypeTable(T2));
-    const opCode = slebEncode$1(IDLTypeIds$1.Service);
-    const len = lebEncode$1(this._fields.length);
+    const opCode = slebEncode(IDLTypeIds.Service);
+    const len = lebEncode(this._fields.length);
     const meths = this._fields.map(([label, func]) => {
       const labelBuf = new TextEncoder().encode(label);
-      const labelLen = lebEncode$1(labelBuf.length);
-      return concat$1(labelLen, labelBuf, func.encodeType(T2));
+      const labelLen = lebEncode(labelBuf.length);
+      return concat(labelLen, labelBuf, func.encodeType(T2));
     });
-    T2.add(this, concat$1(opCode, len, ...meths));
+    T2.add(this, concat(opCode, len, ...meths));
   }
   decodeValue(b2, t) {
-    const tt2 = t instanceof RecClass$1 ? t.getType() ?? t : t;
+    const tt2 = t instanceof RecClass ? t.getType() ?? t : t;
     if (!subtype(tt2, this)) {
       throw new Error(`Cannot decode service reference at type ${this.display()} from wire type ${tt2.display()}`);
     }
@@ -3673,21 +3675,21 @@ class ServiceClass extends ConstructType$1 {
     return fields;
   }
 }
-function toReadableString$1(x2) {
+function toReadableString(x2) {
   const str = JSON.stringify(x2, (_key, value) => typeof value === "bigint" ? `BigInt(${value})` : value);
-  return str && str.length > toReadableString_max$1 ? str.substring(0, toReadableString_max$1 - 3) + "..." : str;
+  return str && str.length > toReadableString_max ? str.substring(0, toReadableString_max - 3) + "..." : str;
 }
-function encode$3(argTypes, args) {
+function encode$2(argTypes, args) {
   if (args.length < argTypes.length) {
     throw Error("Wrong number of message arguments");
   }
-  const typeTable = new TypeTable$1();
+  const typeTable = new TypeTable();
   argTypes.forEach((t) => t.buildTypeTable(typeTable));
-  const magic = new TextEncoder().encode(magicNumber$1);
+  const magic = new TextEncoder().encode(magicNumber);
   const table = typeTable.encode();
-  const len = lebEncode$1(args.length);
-  const typs = concat$1(...argTypes.map((t) => t.encodeType(typeTable)));
-  const vals = concat$1(...zipWith$1(argTypes, args, (t, x2) => {
+  const len = lebEncode(args.length);
+  const typs = concat(...argTypes.map((t) => t.encodeType(typeTable)));
+  const vals = concat(...zipWith(argTypes, args, (t, x2) => {
     try {
       t.covariant(x2);
     } catch (e) {
@@ -3696,37 +3698,37 @@ function encode$3(argTypes, args) {
     }
     return t.encodeValue(x2);
   }));
-  return concat$1(magic, table, len, typs, vals);
+  return concat(magic, table, len, typs, vals);
 }
 function decode$2(retTypes, bytes) {
-  const b2 = new PipeArrayBuffer$1(bytes);
-  if (bytes.byteLength < magicNumber$1.length) {
+  const b2 = new PipeArrayBuffer(bytes);
+  if (bytes.byteLength < magicNumber.length) {
     throw new Error("Message length smaller than magic number");
   }
-  const magicBuffer = safeRead$1(b2, magicNumber$1.length);
+  const magicBuffer = safeRead(b2, magicNumber.length);
   const magic = new TextDecoder().decode(magicBuffer);
-  if (magic !== magicNumber$1) {
+  if (magic !== magicNumber) {
     throw new Error("Wrong magic number: " + JSON.stringify(magic));
   }
   function readTypeTable(pipe2) {
     const typeTable = [];
-    const len = Number(lebDecode$1(pipe2));
+    const len = Number(lebDecode(pipe2));
     for (let i = 0; i < len; i++) {
       const ty = Number(slebDecode(pipe2));
       switch (ty) {
-        case IDLTypeIds$1.Opt:
-        case IDLTypeIds$1.Vector: {
+        case IDLTypeIds.Opt:
+        case IDLTypeIds.Vector: {
           const t = Number(slebDecode(pipe2));
           typeTable.push([ty, t]);
           break;
         }
-        case IDLTypeIds$1.Record:
-        case IDLTypeIds$1.Variant: {
+        case IDLTypeIds.Record:
+        case IDLTypeIds.Variant: {
           const fields = [];
-          let objectLength = Number(lebDecode$1(pipe2));
+          let objectLength = Number(lebDecode(pipe2));
           let prevHash;
           while (objectLength--) {
-            const hash = Number(lebDecode$1(pipe2));
+            const hash = Number(lebDecode(pipe2));
             if (hash >= Math.pow(2, 32)) {
               throw new Error("field id out of 32-bit range");
             }
@@ -3740,21 +3742,21 @@ function decode$2(retTypes, bytes) {
           typeTable.push([ty, fields]);
           break;
         }
-        case IDLTypeIds$1.Func: {
+        case IDLTypeIds.Func: {
           const args = [];
-          let argLength = Number(lebDecode$1(pipe2));
+          let argLength = Number(lebDecode(pipe2));
           while (argLength--) {
             args.push(Number(slebDecode(pipe2)));
           }
           const returnValues = [];
-          let returnValuesLength = Number(lebDecode$1(pipe2));
+          let returnValuesLength = Number(lebDecode(pipe2));
           while (returnValuesLength--) {
             returnValues.push(Number(slebDecode(pipe2)));
           }
           const annotations = [];
-          let annotationLength = Number(lebDecode$1(pipe2));
+          let annotationLength = Number(lebDecode(pipe2));
           while (annotationLength--) {
-            const annotation = Number(lebDecode$1(pipe2));
+            const annotation = Number(lebDecode(pipe2));
             switch (annotation) {
               case 1: {
                 annotations.push("query");
@@ -3775,12 +3777,12 @@ function decode$2(retTypes, bytes) {
           typeTable.push([ty, [args, returnValues, annotations]]);
           break;
         }
-        case IDLTypeIds$1.Service: {
-          let servLength = Number(lebDecode$1(pipe2));
+        case IDLTypeIds.Service: {
+          let servLength = Number(lebDecode(pipe2));
           const methods = [];
           while (servLength--) {
-            const nameLength = Number(lebDecode$1(pipe2));
-            const funcName = new TextDecoder().decode(safeRead$1(pipe2, nameLength));
+            const nameLength = Number(lebDecode(pipe2));
+            const funcName = new TextDecoder().decode(safeRead(pipe2, nameLength));
             const funcType = slebDecode(pipe2);
             methods.push([funcName, funcType]);
           }
@@ -3792,7 +3794,7 @@ function decode$2(retTypes, bytes) {
       }
     }
     const rawList = [];
-    const length = Number(lebDecode$1(pipe2));
+    const length = Number(lebDecode(pipe2));
     for (let i = 0; i < length; i++) {
       rawList.push(Number(slebDecode(pipe2)));
     }
@@ -3838,7 +3840,7 @@ function decode$2(retTypes, bytes) {
         case -14:
           return Float64;
         case -15:
-          return Text$1;
+          return Text;
         case -16:
           return Reserved;
         case -17:
@@ -3856,15 +3858,15 @@ function decode$2(retTypes, bytes) {
   }
   function buildType(entry) {
     switch (entry[0]) {
-      case IDLTypeIds$1.Vector: {
+      case IDLTypeIds.Vector: {
         const ty = getType(entry[1]);
         return Vec(ty);
       }
-      case IDLTypeIds$1.Opt: {
+      case IDLTypeIds.Opt: {
         const ty = getType(entry[1]);
         return Opt(ty);
       }
-      case IDLTypeIds$1.Record: {
+      case IDLTypeIds.Record: {
         const fields = {};
         for (const [hash, ty] of entry[1]) {
           const name = `_${hash}_`;
@@ -3878,7 +3880,7 @@ function decode$2(retTypes, bytes) {
           return record;
         }
       }
-      case IDLTypeIds$1.Variant: {
+      case IDLTypeIds.Variant: {
         const fields = {};
         for (const [hash, ty] of entry[1]) {
           const name = `_${hash}_`;
@@ -3886,16 +3888,16 @@ function decode$2(retTypes, bytes) {
         }
         return Variant(fields);
       }
-      case IDLTypeIds$1.Func: {
+      case IDLTypeIds.Func: {
         const [args, returnValues, annotations] = entry[1];
         return Func(args.map((t) => getType(t)), returnValues.map((t) => getType(t)), annotations);
       }
-      case IDLTypeIds$1.Service: {
+      case IDLTypeIds.Service: {
         const rec = {};
         const methods = entry[1];
         for (const [name, typeRef] of methods) {
           let type = getType(typeRef);
-          if (type instanceof RecClass$1) {
+          if (type instanceof RecClass) {
             type = type.getType();
           }
           if (!(type instanceof FuncClass)) {
@@ -3910,13 +3912,13 @@ function decode$2(retTypes, bytes) {
     }
   }
   rawTable.forEach((entry, i) => {
-    if (entry[0] === IDLTypeIds$1.Func) {
+    if (entry[0] === IDLTypeIds.Func) {
       const t = buildType(entry);
       table[i].fill(t);
     }
   });
   rawTable.forEach((entry, i) => {
-    if (entry[0] !== IDLTypeIds$1.Func) {
+    if (entry[0] !== IDLTypeIds.Func) {
       const t = buildType(entry);
       table[i].fill(t);
     }
@@ -3943,19 +3945,19 @@ const Reserved = new ReservedClass();
 const Unknown = new UnknownClass();
 const Bool = new BoolClass();
 const Null = new NullClass();
-const Text$1 = new TextClass$1();
+const Text = new TextClass();
 const Int = new IntClass();
 const Nat = new NatClass();
-const Float32 = new FloatClass$1(32);
-const Float64 = new FloatClass$1(64);
-const Int8 = new FixedIntClass$1(8);
-const Int16 = new FixedIntClass$1(16);
-const Int32 = new FixedIntClass$1(32);
-const Int64 = new FixedIntClass$1(64);
-const Nat8 = new FixedNatClass$1(8);
-const Nat16 = new FixedNatClass$1(16);
-const Nat32 = new FixedNatClass$1(32);
-const Nat64 = new FixedNatClass$1(64);
+const Float32 = new FloatClass(32);
+const Float64 = new FloatClass(64);
+const Int8 = new FixedIntClass(8);
+const Int16 = new FixedIntClass(16);
+const Int32 = new FixedIntClass(32);
+const Int64 = new FixedIntClass(64);
+const Nat8 = new FixedNatClass(8);
+const Nat16 = new FixedNatClass(16);
+const Nat32 = new FixedNatClass(32);
+const Nat64 = new FixedNatClass(64);
 const Principal2 = new PrincipalClass();
 function Tuple(...types) {
   return new TupleClass(types);
@@ -3973,7 +3975,7 @@ function Variant(fields) {
   return new VariantClass(fields);
 }
 function Rec() {
-  return new RecClass$1();
+  return new RecClass();
 }
 function Func(args, ret, annotations = []) {
   return new FuncClass(args, ret, annotations);
@@ -4134,10 +4136,10 @@ function subtype_(relations, t1, t2) {
     }
     return true;
   }
-  if (t1 instanceof RecClass$1) {
+  if (t1 instanceof RecClass) {
     return subtype_(relations, t1.getType(), t2);
   }
-  if (t2 instanceof RecClass$1) {
+  if (t2 instanceof RecClass) {
     return subtype_(relations, t1, t2.getType());
   }
   return false;
@@ -4146,14 +4148,14 @@ const IDL = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty(
   __proto__: null,
   Bool,
   BoolClass,
-  ConstructType: ConstructType$1,
+  ConstructType,
   Empty,
   EmptyClass,
-  FixedIntClass: FixedIntClass$1,
-  FixedNatClass: FixedNatClass$1,
+  FixedIntClass,
+  FixedNatClass,
   Float32,
   Float64,
-  FloatClass: FloatClass$1,
+  FloatClass,
   Func,
   FuncClass,
   Int,
@@ -4172,22 +4174,22 @@ const IDL = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty(
   NullClass,
   Opt,
   OptClass,
-  PrimitiveType: PrimitiveType$1,
+  PrimitiveType,
   Principal: Principal2,
   PrincipalClass,
   Rec,
-  RecClass: RecClass$1,
+  RecClass,
   Record,
   RecordClass,
   Reserved,
   ReservedClass,
   Service,
   ServiceClass,
-  Text: Text$1,
-  TextClass: TextClass$1,
+  Text,
+  TextClass,
   Tuple,
   TupleClass,
-  Type: Type$1,
+  Type,
   Unknown,
   UnknownClass,
   Variant,
@@ -4196,11 +4198,11 @@ const IDL = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty(
   VecClass,
   Visitor,
   decode: decode$2,
-  encode: encode$3,
+  encode: encode$2,
   resetSubtypeCache,
   subtype
 }, Symbol.toStringTag, { value: "Module" }));
-function uint8FromBufLike$1(bufLike) {
+function uint8FromBufLike(bufLike) {
   if (!bufLike) {
     throw new Error("Input cannot be null or undefined");
   }
@@ -4214,7 +4216,7 @@ function uint8FromBufLike$1(bufLike) {
     return new Uint8Array(bufLike);
   }
   if ("buffer" in bufLike) {
-    return uint8FromBufLike$1(bufLike.buffer);
+    return uint8FromBufLike(bufLike.buffer);
   }
   return new Uint8Array(bufLike);
 }
@@ -4231,9 +4233,9 @@ function hashValue(value) {
   if (typeof value === "string") {
     return hashString(value);
   } else if (typeof value === "number") {
-    return sha256(lebEncode$1(value));
+    return sha256(lebEncode(value));
   } else if (value instanceof Uint8Array || ArrayBuffer.isView(value)) {
-    return sha256(uint8FromBufLike$1(value));
+    return sha256(uint8FromBufLike(value));
   } else if (Array.isArray(value)) {
     const vals = value.map(hashValue);
     return sha256(concatBytes(...vals));
@@ -4244,7 +4246,7 @@ function hashValue(value) {
   } else if (typeof value === "object") {
     return hashOfMap(value);
   } else if (typeof value === "bigint") {
-    return sha256(lebEncode$1(value));
+    return sha256(lebEncode(value));
   }
   throw InputError.fromCode(new HashValueErrorCode(value));
 }
@@ -4599,7 +4601,7 @@ function it(t, n, e) {
 function hasCborValueMethod(value) {
   return typeof value === "object" && value !== null && "toCborValue" in value;
 }
-function encode$2(value) {
+function encode$1(value) {
   try {
     return dt(value, (value2) => {
       if (Principal$1.isPrincipal(value2)) {
@@ -4708,7 +4710,7 @@ class Expiry {
     return this.__expiry__;
   }
   toHash() {
-    return lebEncode$1(this.__expiry__);
+    return lebEncode(this.__expiry__);
   }
   toString() {
     return this.__expiry__.toString();
@@ -7873,7 +7875,7 @@ function blsVerify(pk, sig, msg) {
 }
 const MILLISECOND_TO_NANOSECONDS = BigInt(1e6);
 const decodeLeb128 = (buf) => {
-  return lebDecode$1(new PipeArrayBuffer$1(buf));
+  return lebDecode(new PipeArrayBuffer(buf));
 };
 const decodeTime = (buf) => {
   const timestampNs = decodeLeb128(buf);
@@ -9016,7 +9018,7 @@ const ed25519Defaults = /* @__PURE__ */ (() => ({
   uvRatio
 }))();
 const ed25519 = /* @__PURE__ */ (() => twistedEdwards(ed25519Defaults))();
-var _a2, _b;
+var _a, _b;
 class ExpirableMap {
   /**
    * Create a new ExpirableMap.
@@ -9028,7 +9030,7 @@ class ExpirableMap {
     // Internals
     __privateAdd(this, _inner);
     __privateAdd(this, _expirationTime);
-    this[_a2] = this.entries.bind(this);
+    this[_a] = this.entries.bind(this);
     this[_b] = "ExpirableMap";
     const { source = [], expirationTime = 10 * 60 * 1e3 } = options;
     const currentTime = Date.now();
@@ -9156,7 +9158,7 @@ class ExpirableMap {
 }
 _inner = new WeakMap();
 _expirationTime = new WeakMap();
-_a2 = Symbol.iterator, _b = Symbol.toStringTag;
+_a = Symbol.iterator, _b = Symbol.toStringTag;
 const encodeLenBytes = (len) => {
   if (len <= 127) {
     return 1;
@@ -9295,25 +9297,25 @@ const unwrapDER = (derEncoded, oid) => {
   }
   return result;
 };
-let Ed25519PublicKey$1 = (_b2 = class {
+let Ed25519PublicKey$1 = (_a2 = class {
   // `fromRaw` and `fromDer` should be used for instantiation, not this constructor.
   constructor(key) {
     __privateAdd(this, _rawKey);
     __privateAdd(this, _derKey);
-    if (key.byteLength !== _b2.RAW_KEY_LENGTH) {
+    if (key.byteLength !== _a2.RAW_KEY_LENGTH) {
       throw InputError.fromCode(new DerDecodeErrorCode("An Ed25519 public key must be exactly 32 bytes long"));
     }
     __privateSet(this, _rawKey, key);
-    __privateSet(this, _derKey, _b2.derEncode(key));
+    __privateSet(this, _derKey, _a2.derEncode(key));
   }
   static from(key) {
     return this.fromDer(key.toDer());
   }
   static fromRaw(rawKey) {
-    return new _b2(rawKey);
+    return new _a2(rawKey);
   }
   static fromDer(derKey) {
-    return new _b2(this.derDecode(derKey));
+    return new _a2(this.derDecode(derKey));
   }
   static derEncode(publicKey) {
     return wrapDER(publicKey, ED25519_OID);
@@ -9337,7 +9339,7 @@ let Ed25519PublicKey$1 = (_b2 = class {
   toRaw() {
     return this.rawKey;
   }
-}, _rawKey = new WeakMap(), _derKey = new WeakMap(), _b2.RAW_KEY_LENGTH = 32, _b2);
+}, _rawKey = new WeakMap(), _derKey = new WeakMap(), _a2.RAW_KEY_LENGTH = 32, _a2);
 class Observable {
   constructor() {
     this.observers = [];
@@ -9574,7 +9576,7 @@ const _HttpAgent = class _HttpAgent {
         const { timestamp, identity } = sig;
         const nodeId = Principal$1.fromUint8Array(identity).toText();
         let hash;
-        if (status === QueryResponseStatus$1.Replied) {
+        if (status === QueryResponseStatus.Replied) {
           const { reply } = queryResponse;
           hash = hashOfMap({
             status,
@@ -9582,7 +9584,7 @@ const _HttpAgent = class _HttpAgent {
             timestamp: BigInt(timestamp),
             request_id: requestId
           });
-        } else if (status === QueryResponseStatus$1.Rejected) {
+        } else if (status === QueryResponseStatus.Rejected) {
           const { reject_code, reject_message, error_code } = queryResponse;
           hash = hashOfMap({
             status,
@@ -9766,7 +9768,7 @@ const _HttpAgent = class _HttpAgent {
       return Object.assign(buf, { __nonce__: void 0 });
     }
     transformedRequest = await id2.transformRequest(transformedRequest);
-    const body = encode$2(transformedRequest.body);
+    const body = encode$1(transformedRequest.body);
     const backoff2 = __privateGet(this, _backoffStrategy).call(this);
     const requestId = requestIdOf(submit);
     try {
@@ -9865,7 +9867,7 @@ const _HttpAgent = class _HttpAgent {
       body: request2
     });
     transformedRequest = await id2.transformRequest(transformedRequest);
-    const body = encode$2(transformedRequest.body);
+    const body = encode$1(transformedRequest.body);
     const args = {
       canister: canister.toText(),
       ecid,
@@ -9981,7 +9983,7 @@ const _HttpAgent = class _HttpAgent {
         requestFn: () => __privateGet(this, _fetch).call(this, "" + new URL(`/api/v2/canister/${canister.toString()}/read_state`, this.host), {
           ...__privateGet(this, _fetchOptions),
           ...transformedRequest.request,
-          body: encode$2(transformedRequest.body)
+          body: encode$1(transformedRequest.body)
         }),
         backoff: backoff2,
         tries: 0
@@ -10205,7 +10207,7 @@ requestAndRetryQuery_fn = async function(args) {
       body
     });
     if (fetchResponse.status === HTTP_STATUS_OK) {
-      const queryResponse = decode$1(uint8FromBufLike$1(await fetchResponse.arrayBuffer()));
+      const queryResponse = decode$1(uint8FromBufLike(await fetchResponse.arrayBuffer()));
       response = {
         ...queryResponse,
         httpDetails: {
@@ -10266,7 +10268,7 @@ requestAndRetry_fn = async function(args) {
   try {
     response = await requestFn();
     if (response.status === HTTP_STATUS_OK) {
-      responseBodyBytes = uint8FromBufLike$1(await response.clone().arrayBuffer());
+      responseBodyBytes = uint8FromBufLike(await response.clone().arrayBuffer());
     }
   } catch (error) {
     if (tries < __privateGet(this, _retryTimes)) {
@@ -10617,7 +10619,7 @@ function _createActorMethod(actor, methodName, func, blsVerify2) {
       };
       const agent = options.agent || actor[metadataSymbol].config.agent || new HttpAgent();
       const cid = Principal$1.from(options.canisterId || actor[metadataSymbol].config.canisterId);
-      const arg = encode$3(func.argTypes, args);
+      const arg = encode$2(func.argTypes, args);
       const result = await agent.query(cid, {
         methodName,
         arg,
@@ -10628,7 +10630,7 @@ function _createActorMethod(actor, methodName, func, blsVerify2) {
         requestDetails: result.requestDetails
       };
       switch (result.status) {
-        case QueryResponseStatus$1.Rejected: {
+        case QueryResponseStatus.Rejected: {
           const uncertifiedRejectErrorCode = new UncertifiedRejectErrorCode(result.requestId, result.reject_code, result.reject_message, result.error_code, result.signatures);
           uncertifiedRejectErrorCode.callContext = {
             canisterId: cid,
@@ -10637,7 +10639,7 @@ function _createActorMethod(actor, methodName, func, blsVerify2) {
           };
           throw RejectError.fromCode(uncertifiedRejectErrorCode);
         }
-        case QueryResponseStatus$1.Replied:
+        case QueryResponseStatus.Replied:
           return func.annotations.includes(ACTOR_METHOD_WITH_HTTP_DETAILS) ? {
             httpDetails,
             result: decodeReturnValue(func.retTypes, result.reply.arg)
@@ -10662,7 +10664,7 @@ function _createActorMethod(actor, methodName, func, blsVerify2) {
       };
       const cid = Principal$1.from(canisterId);
       const ecid = effectiveCanisterId !== void 0 ? Principal$1.from(effectiveCanisterId) : cid;
-      const arg = encode$3(func.argTypes, args);
+      const arg = encode$2(func.argTypes, args);
       const { requestId, response, requestDetails } = await agent.call(cid, {
         methodName,
         arg,
@@ -10759,38 +10761,38 @@ function _createActorMethod(actor, methodName, func, blsVerify2) {
   handler.withOptions = (options) => (...args) => caller(options, ...args);
   return handler;
 }
-const MAXIMUM_CONCURRENT_UPLOADS$1 = 10;
-const MAX_RETRIES$1 = 3;
-const BASE_DELAY_MS$1 = 1e3;
-const MAX_DELAY_MS$1 = 3e4;
-const GATEWAY_VERSION$1 = "v1";
-const HASH_ALGORITHM$1 = "SHA-256";
-const SHA256_PREFIX$1 = "sha256:";
-const DOMAIN_SEPARATOR_FOR_CHUNKS$1 = new TextEncoder().encode("icfs-chunk/");
-const DOMAIN_SEPARATOR_FOR_METADATA$1 = new TextEncoder().encode("icfs-metadata/");
-const DOMAIN_SEPARATOR_FOR_NODES$1 = new TextEncoder().encode("ynode/");
-async function withRetry$1(operation) {
+const MAXIMUM_CONCURRENT_UPLOADS = 10;
+const MAX_RETRIES = 3;
+const BASE_DELAY_MS = 1e3;
+const MAX_DELAY_MS = 3e4;
+const GATEWAY_VERSION = "v1";
+const HASH_ALGORITHM = "SHA-256";
+const SHA256_PREFIX = "sha256:";
+const DOMAIN_SEPARATOR_FOR_CHUNKS = new TextEncoder().encode("icfs-chunk/");
+const DOMAIN_SEPARATOR_FOR_METADATA = new TextEncoder().encode("icfs-metadata/");
+const DOMAIN_SEPARATOR_FOR_NODES = new TextEncoder().encode("ynode/");
+async function withRetry(operation) {
   let lastError;
-  for (let attempt = 0; attempt <= MAX_RETRIES$1; attempt++) {
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
       return await operation();
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
-      const shouldRetry = isRetriableError$1(error);
-      if (attempt === MAX_RETRIES$1 || !shouldRetry) {
-        if (!shouldRetry && attempt < MAX_RETRIES$1) {
+      const shouldRetry = isRetriableError(error);
+      if (attempt === MAX_RETRIES || !shouldRetry) {
+        if (!shouldRetry && attempt < MAX_RETRIES) {
           console.warn(`Non-retriable error encountered: ${lastError.message}. Not retrying.`);
         }
         throw error;
       }
-      const delay2 = Math.min(BASE_DELAY_MS$1 * 2 ** attempt + Math.random() * 1e3, MAX_DELAY_MS$1);
-      console.warn(`Request failed (attempt ${attempt + 1}/${MAX_RETRIES$1 + 1}): ${lastError.message}. Retrying in ${Math.round(delay2)}ms...`);
+      const delay2 = Math.min(BASE_DELAY_MS * 2 ** attempt + Math.random() * 1e3, MAX_DELAY_MS);
+      console.warn(`Request failed (attempt ${attempt + 1}/${MAX_RETRIES + 1}): ${lastError.message}. Retrying in ${Math.round(delay2)}ms...`);
       await new Promise((resolve) => setTimeout(resolve, delay2));
     }
   }
   throw lastError || new Error("Unknown error occurred during retry attempts");
 }
-function isRetriableError$1(error) {
+function isRetriableError(error) {
   var _a3, _b3;
   const errorMessage = ((_a3 = error == null ? void 0 : error.message) == null ? void 0 : _a3.toLowerCase()) || "";
   if ((_b3 = error == null ? void 0 : error.response) == null ? void 0 : _b3.status) {
@@ -10810,22 +10812,22 @@ function isRetriableError$1(error) {
   }
   return true;
 }
-function validateHashFormat$1(hash, context) {
+function validateHashFormat(hash, context) {
   if (!hash) {
     throw new Error(`${context}: Hash cannot be empty`);
   }
-  if (!hash.startsWith(SHA256_PREFIX$1)) {
-    throw new Error(`${context}: Invalid hash format. Expected format: ${SHA256_PREFIX$1}<64-char-hex>, got: ${hash}`);
+  if (!hash.startsWith(SHA256_PREFIX)) {
+    throw new Error(`${context}: Invalid hash format. Expected format: ${SHA256_PREFIX}<64-char-hex>, got: ${hash}`);
   }
-  const hexPart = hash.substring(SHA256_PREFIX$1.length);
+  const hexPart = hash.substring(SHA256_PREFIX.length);
   if (hexPart.length !== 64) {
-    throw new Error(`${context}: Invalid hash format. Expected 64 hex characters after ${SHA256_PREFIX$1}, got ${hexPart.length} characters: ${hash}`);
+    throw new Error(`${context}: Invalid hash format. Expected 64 hex characters after ${SHA256_PREFIX}, got ${hexPart.length} characters: ${hash}`);
   }
   if (!/^[0-9a-f]{64}$/i.test(hexPart)) {
     throw new Error(`${context}: Invalid hash format. Hash must contain only hex characters (0-9, a-f), got: ${hash}`);
   }
 }
-let YHash$1 = class YHash {
+class YHash {
   constructor(bytes) {
     __publicField(this, "bytes");
     if (bytes.length !== 32) {
@@ -10836,18 +10838,18 @@ let YHash$1 = class YHash {
   static async fromNodes(left, right) {
     const leftBytes = left instanceof YHash ? left.bytes : new TextEncoder().encode("UNBALANCED");
     const rightBytes = right instanceof YHash ? right.bytes : new TextEncoder().encode("UNBALANCED");
-    const combined = new Uint8Array(DOMAIN_SEPARATOR_FOR_NODES$1.length + leftBytes.length + rightBytes.length);
-    const arrays = [DOMAIN_SEPARATOR_FOR_NODES$1, leftBytes, rightBytes];
+    const combined = new Uint8Array(DOMAIN_SEPARATOR_FOR_NODES.length + leftBytes.length + rightBytes.length);
+    const arrays = [DOMAIN_SEPARATOR_FOR_NODES, leftBytes, rightBytes];
     let offset = 0;
     for (const data of arrays) {
       combined.set(data, offset);
       offset += data.length;
     }
-    const hashBuffer = await crypto.subtle.digest(HASH_ALGORITHM$1, combined);
+    const hashBuffer = await crypto.subtle.digest(HASH_ALGORITHM, combined);
     return new YHash(new Uint8Array(hashBuffer));
   }
   static async fromChunk(data) {
-    return YHash.fromBytes(DOMAIN_SEPARATOR_FOR_CHUNKS$1, data);
+    return YHash.fromBytes(DOMAIN_SEPARATOR_FOR_CHUNKS, data);
   }
   static async fromHeaders(headers) {
     const headerLines = [];
@@ -10856,14 +10858,14 @@ let YHash$1 = class YHash {
 `);
     }
     headerLines.sort();
-    const hash = await YHash.fromBytes(DOMAIN_SEPARATOR_FOR_METADATA$1, new TextEncoder().encode(headerLines.join("")));
+    const hash = await YHash.fromBytes(DOMAIN_SEPARATOR_FOR_METADATA, new TextEncoder().encode(headerLines.join("")));
     return hash;
   }
   static async fromBytes(domainSeparator, data) {
     const combined = new Uint8Array(domainSeparator.length + data.length);
     combined.set(domainSeparator);
     combined.set(data, domainSeparator.length);
-    const hashBuffer = await crypto.subtle.digest(HASH_ALGORITHM$1, combined);
+    const hashBuffer = await crypto.subtle.digest(HASH_ALGORITHM, combined);
     return new YHash(new Uint8Array(hashBuffer));
   }
   static fromHex(hexString) {
@@ -10871,7 +10873,7 @@ let YHash$1 = class YHash {
     return new YHash(bytes);
   }
   toShaString() {
-    return `${SHA256_PREFIX$1}${this.toHex()}`;
+    return `${SHA256_PREFIX}${this.toHex()}`;
   }
   toString() {
     throw new Error("toString is not supported for YHash");
@@ -10879,15 +10881,15 @@ let YHash$1 = class YHash {
   toHex() {
     return Array.from(this.bytes).map((b2) => b2.toString(16).padStart(2, "0")).join("");
   }
-};
-function nodeToJSON$1(node) {
+}
+function nodeToJSON(node) {
   return {
     hash: node.hash.toShaString(),
-    left: node.left ? nodeToJSON$1(node.left) : null,
-    right: node.right ? nodeToJSON$1(node.right) : null
+    left: node.left ? nodeToJSON(node.left) : null,
+    right: node.right ? nodeToJSON(node.right) : null
   };
 }
-let BlobHashTree$1 = class BlobHashTree {
+class BlobHashTree {
   constructor(chunk_hashes, tree, headers = null) {
     __publicField(this, "tree_type");
     __publicField(this, "chunk_hashes");
@@ -10909,7 +10911,7 @@ let BlobHashTree$1 = class BlobHashTree {
     if (chunkHashes.length === 0) {
       const hex2 = "8b8e620f084e48da0be2287fd12c5aaa4dbe14b468fd2e360f48d741fe7628a0";
       const bytes = new TextEncoder().encode(hex2);
-      chunkHashes.push(new YHash$1(bytes));
+      chunkHashes.push(new YHash(bytes));
     }
     let level = chunkHashes.map((hash) => ({
       hash,
@@ -10921,7 +10923,7 @@ let BlobHashTree$1 = class BlobHashTree {
       for (let i = 0; i < level.length; i += 2) {
         const left = level[i];
         const right = level[i + 1] || null;
-        const parentHash = await YHash$1.fromNodes(left.hash, right ? right.hash : null);
+        const parentHash = await YHash.fromNodes(left.hash, right ? right.hash : null);
         nextLevel.push({
           hash: parentHash,
           left,
@@ -10932,13 +10934,13 @@ let BlobHashTree$1 = class BlobHashTree {
     }
     const chunksRoot = level[0];
     if (headers && Object.keys(headers).length > 0) {
-      const metadataRootHash = await YHash$1.fromHeaders(headers);
+      const metadataRootHash = await YHash.fromHeaders(headers);
       const metadataRoot = {
         hash: metadataRootHash,
         left: null,
         right: null
       };
-      const combinedRootHash = await YHash$1.fromNodes(chunksRoot.hash, metadataRoot.hash);
+      const combinedRootHash = await YHash.fromNodes(chunksRoot.hash, metadataRoot.hash);
       const combinedRoot = {
         hash: combinedRootHash,
         left: chunksRoot,
@@ -10952,12 +10954,12 @@ let BlobHashTree$1 = class BlobHashTree {
     return {
       tree_type: this.tree_type,
       chunk_hashes: this.chunk_hashes.map((h2) => h2.toShaString()),
-      tree: nodeToJSON$1(this.tree),
+      tree: nodeToJSON(this.tree),
       headers: this.headers
     };
   }
-};
-let StorageGatewayClient$1 = class StorageGatewayClient {
+}
+class StorageGatewayClient {
   constructor(storageGatewayUrl) {
     __publicField(this, "storageGatewayUrl");
     this.storageGatewayUrl = storageGatewayUrl;
@@ -10968,9 +10970,9 @@ let StorageGatewayClient$1 = class StorageGatewayClient {
   async uploadChunk(params) {
     const blobHashString = params.blobRootHash.toShaString();
     const chunkHashString = params.chunkHash.toShaString();
-    validateHashFormat$1(blobHashString, `uploadChunk[${params.chunkIndex}] blob_hash`);
-    validateHashFormat$1(chunkHashString, `uploadChunk[${params.chunkIndex}] chunk_hash`);
-    return await withRetry$1(async () => {
+    validateHashFormat(blobHashString, `uploadChunk[${params.chunkIndex}] blob_hash`);
+    validateHashFormat(chunkHashString, `uploadChunk[${params.chunkIndex}] chunk_hash`);
+    return await withRetry(async () => {
       const queryParams = new URLSearchParams({
         owner_id: params.owner,
         blob_hash: blobHashString,
@@ -10979,7 +10981,7 @@ let StorageGatewayClient$1 = class StorageGatewayClient {
         bucket_name: params.bucketName,
         project_id: params.projectId
       });
-      const url = `${this.storageGatewayUrl}/${GATEWAY_VERSION$1}/chunk/?${queryParams.toString()}`;
+      const url = `${this.storageGatewayUrl}/${GATEWAY_VERSION}/chunk/?${queryParams.toString()}`;
       const response = await fetch(url, {
         method: "PUT",
         headers: {
@@ -11002,12 +11004,12 @@ let StorageGatewayClient$1 = class StorageGatewayClient {
   }
   async uploadBlobTree(blobHashTree, bucketName, numBlobBytes, owner, projectId, certificateBytes) {
     const treeJSON = blobHashTree.toJSON();
-    validateHashFormat$1(treeJSON.tree.hash, "uploadBlobTree root hash");
+    validateHashFormat(treeJSON.tree.hash, "uploadBlobTree root hash");
     treeJSON.chunk_hashes.forEach((hash, index2) => {
-      validateHashFormat$1(hash, `uploadBlobTree chunk_hash[${index2}]`);
+      validateHashFormat(hash, `uploadBlobTree chunk_hash[${index2}]`);
     });
-    return await withRetry$1(async () => {
-      const url = `${this.storageGatewayUrl}/${GATEWAY_VERSION$1}/blob-tree/`;
+    return await withRetry(async () => {
+      const url = `${this.storageGatewayUrl}/${GATEWAY_VERSION}/blob-tree/`;
       const requestBody = {
         blob_tree: treeJSON,
         bucket_name: bucketName,
@@ -11035,8 +11037,8 @@ let StorageGatewayClient$1 = class StorageGatewayClient {
       }
     });
   }
-};
-let StorageClient$1 = class StorageClient {
+}
+class StorageClient {
   constructor(bucket, storageGatewayUrl, backendCanisterId, projectId, agent) {
     __publicField(this, "bucket");
     __publicField(this, "backendCanisterId");
@@ -11047,10 +11049,10 @@ let StorageClient$1 = class StorageClient {
     this.backendCanisterId = backendCanisterId;
     this.projectId = projectId;
     this.agent = agent;
-    this.storageGatewayClient = new StorageGatewayClient$1(storageGatewayUrl);
+    this.storageGatewayClient = new StorageGatewayClient(storageGatewayUrl);
   }
   async getCertificate(hash) {
-    const args = encode$3([Text$1], [hash]);
+    const args = encode$2([Text], [hash]);
     const result = await this.agent.call(this.backendCanisterId, {
       methodName: "_immutableObjectStorageCreateCertificate",
       arg: args
@@ -11085,18 +11087,18 @@ let StorageClient$1 = class StorageClient {
     if (!hash) {
       throw new Error("Hash must not be empty");
     }
-    validateHashFormat$1(hash, `getDirectURL for path '${hash}'`);
-    return `${this.storageGatewayClient.getStorageGatewayUrl()}/${GATEWAY_VERSION$1}/blob/?blob_hash=${encodeURIComponent(hash)}&owner_id=${encodeURIComponent(this.backendCanisterId)}&project_id=${encodeURIComponent(this.projectId)}`;
+    validateHashFormat(hash, `getDirectURL for path '${hash}'`);
+    return `${this.storageGatewayClient.getStorageGatewayUrl()}/${GATEWAY_VERSION}/blob/?blob_hash=${encodeURIComponent(hash)}&owner_id=${encodeURIComponent(this.backendCanisterId)}&project_id=${encodeURIComponent(this.projectId)}`;
   }
   async processFileForUpload(file, headers) {
     const chunks = this.createFileChunks(file);
     const chunkHashes = [];
     for (let i = 0; i < chunks.length; i++) {
       const chunkData = new Uint8Array(await chunks[i].arrayBuffer());
-      const hash = await YHash$1.fromChunk(chunkData);
+      const hash = await YHash.fromChunk(chunkData);
       chunkHashes.push(hash);
     }
-    const blobHashTree = await BlobHashTree$1.build(chunkHashes, headers);
+    const blobHashTree = await BlobHashTree.build(chunkHashes, headers);
     return { chunks, chunkHashes, blobHashTree };
   }
   async parallelUpload(chunks, chunkHashes, blobRootHash, httpHeaders, onProgress) {
@@ -11120,8 +11122,8 @@ let StorageClient$1 = class StorageClient {
         onProgress(percentage);
       }
     };
-    await Promise.all(Array.from({ length: MAXIMUM_CONCURRENT_UPLOADS$1 }, async (_2, workerId) => {
-      for (let i = workerId; i < chunks.length; i += MAXIMUM_CONCURRENT_UPLOADS$1) {
+    await Promise.all(Array.from({ length: MAXIMUM_CONCURRENT_UPLOADS }, async (_2, workerId) => {
+      for (let i = workerId; i < chunks.length; i += MAXIMUM_CONCURRENT_UPLOADS) {
         await uploadSingleChunk(i);
       }
     }));
@@ -11137,7 +11139,7 @@ let StorageClient$1 = class StorageClient {
     }
     return chunks;
   }
-};
+}
 var define_process_env_default = {};
 const DEFAULT_STORAGE_GATEWAY_URL = "https://blob.caffeine.ai";
 const DEFAULT_BUCKET_NAME = "default-bucket";
@@ -11222,7 +11224,7 @@ async function createActorWithConfig(createActor2, options) {
     agent,
     processError
   };
-  const storageClient = new StorageClient$1(config.bucket_name, config.storage_gateway_url, config.backend_canister_id, config.project_id, agent);
+  const storageClient = new StorageClient(config.bucket_name, config.storage_gateway_url, config.backend_canister_id, config.project_id, agent);
   const MOTOKO_DEDUPLICATION_SENTINEL = "!caf!";
   const uploadFile = async (file) => {
     const { hash } = await storageClient.putFile(await file.getBytes(), file.onProgress);
@@ -11257,7 +11259,7 @@ var Subscribable = class {
   onUnsubscribe() {
   }
 };
-var FocusManager = (_c = class extends Subscribable {
+var FocusManager = (_b2 = class extends Subscribable {
   constructor() {
     super();
     __privateAdd(this, _focused);
@@ -11318,7 +11320,7 @@ var FocusManager = (_c = class extends Subscribable {
     }
     return ((_a3 = globalThis.document) == null ? void 0 : _a3.visibilityState) !== "hidden";
   }
-}, _focused = new WeakMap(), _cleanup = new WeakMap(), _setup = new WeakMap(), _c);
+}, _focused = new WeakMap(), _cleanup = new WeakMap(), _setup = new WeakMap(), _b2);
 var focusManager = new FocusManager();
 var defaultTimeoutProvider = {
   // We need the wrapper function syntax below instead of direct references to
@@ -11336,7 +11338,7 @@ var defaultTimeoutProvider = {
   setInterval: (callback, delay2) => setInterval(callback, delay2),
   clearInterval: (intervalId) => clearInterval(intervalId)
 };
-var TimeoutManager = (_d = class {
+var TimeoutManager = (_c = class {
   constructor() {
     // We cannot have TimeoutManager<T> as we must instantiate it with a concrete
     // type at app boot; and if we leave that type, then any new timer provider
@@ -11363,7 +11365,7 @@ var TimeoutManager = (_d = class {
   clearInterval(intervalId) {
     __privateGet(this, _provider).clearInterval(intervalId);
   }
-}, _provider = new WeakMap(), _providerCalled = new WeakMap(), _d);
+}, _provider = new WeakMap(), _providerCalled = new WeakMap(), _c);
 var timeoutManager = new TimeoutManager();
 function systemSetTimeoutZero(callback) {
   setTimeout(callback, 0);
@@ -11725,7 +11727,7 @@ function createNotifyManager() {
   };
 }
 var notifyManager = createNotifyManager();
-var OnlineManager = (_e = class extends Subscribable {
+var OnlineManager = (_d = class extends Subscribable {
   constructor() {
     super();
     __privateAdd(this, _online, true);
@@ -11775,7 +11777,7 @@ var OnlineManager = (_e = class extends Subscribable {
   isOnline() {
     return __privateGet(this, _online);
   }
-}, _online = new WeakMap(), _cleanup2 = new WeakMap(), _setup2 = new WeakMap(), _e);
+}, _online = new WeakMap(), _cleanup2 = new WeakMap(), _setup2 = new WeakMap(), _d);
 var onlineManager = new OnlineManager();
 function defaultRetryDelay(failureCount) {
   return Math.min(1e3 * 2 ** failureCount, 3e4);
@@ -11899,7 +11901,7 @@ function createRetryer(config) {
     }
   };
 }
-var Removable = (_f = class {
+var Removable = (_e = class {
   constructor() {
     __privateAdd(this, _gcTimeout);
   }
@@ -11926,8 +11928,8 @@ var Removable = (_f = class {
       __privateSet(this, _gcTimeout, void 0);
     }
   }
-}, _gcTimeout = new WeakMap(), _f);
-var Query = (_g = class extends Removable {
+}, _gcTimeout = new WeakMap(), _e);
+var Query = (_f = class extends Removable {
   constructor(config) {
     super();
     __privateAdd(this, _Query_instances);
@@ -12308,7 +12310,7 @@ var Query = (_g = class extends Removable {
     });
     __privateGet(this, _cache).notify({ query: this, type: "updated", action });
   });
-}, _g);
+}, _f);
 function fetchState(data, options) {
   return {
     fetchFailureCount: 0,
@@ -12348,7 +12350,7 @@ function getDefaultState$1(options) {
     fetchStatus: "idle"
   };
 }
-var QueryObserver = (_h = class extends Subscribable {
+var QueryObserver = (_g = class extends Subscribable {
   constructor(client2, options) {
     super();
     __privateAdd(this, _QueryObserver_instances);
@@ -12766,7 +12768,7 @@ var QueryObserver = (_h = class extends Subscribable {
       type: "observerResultsUpdated"
     });
   });
-}, _h);
+}, _g);
 function shouldLoadOnMount(query, options) {
   return resolveEnabled(options.enabled, query) !== false && query.state.data === void 0 && !(query.state.status === "error" && options.retryOnMount === false);
 }
@@ -12895,7 +12897,7 @@ function getPreviousPageParam(options, { pages, pageParams }) {
   var _a3;
   return pages.length > 0 ? (_a3 = options.getPreviousPageParam) == null ? void 0 : _a3.call(options, pages[0], pages, pageParams[0], pageParams) : void 0;
 }
-var Mutation = (_i = class extends Removable {
+var Mutation = (_h = class extends Removable {
   constructor(config) {
     super();
     __privateAdd(this, _Mutation_instances);
@@ -12953,7 +12955,7 @@ var Mutation = (_i = class extends Removable {
     this.execute(this.state.variables);
   }
   async execute(variables) {
-    var _a3, _b3, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l2, _m2, _n, _o, _p, _q, _r;
+    var _a3, _b3, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l2, _m, _n, _o, _p, _q, _r;
     const onContinue = () => {
       __privateMethod(this, _Mutation_instances, dispatch_fn2).call(this, { type: "continue" });
     };
@@ -13058,8 +13060,8 @@ var Mutation = (_i = class extends Removable {
         void Promise.reject(e);
       }
       try {
-        await ((_n = (_m2 = this.options).onError) == null ? void 0 : _n.call(
-          _m2,
+        await ((_n = (_m = this.options).onError) == null ? void 0 : _n.call(
+          _m,
           error,
           variables,
           this.state.context,
@@ -13164,7 +13166,7 @@ var Mutation = (_i = class extends Removable {
       action
     });
   });
-}, _i);
+}, _h);
 function getDefaultState() {
   return {
     context: void 0,
@@ -13178,7 +13180,7 @@ function getDefaultState() {
     submittedAt: 0
   };
 }
-var MutationCache = (_j = class extends Subscribable {
+var MutationCache = (_i = class extends Subscribable {
   constructor(config = {}) {
     super();
     __privateAdd(this, _mutations);
@@ -13290,12 +13292,12 @@ var MutationCache = (_j = class extends Subscribable {
       )
     );
   }
-}, _mutations = new WeakMap(), _scopes = new WeakMap(), _mutationId = new WeakMap(), _j);
+}, _mutations = new WeakMap(), _scopes = new WeakMap(), _mutationId = new WeakMap(), _i);
 function scopeFor(mutation) {
   var _a3;
   return (_a3 = mutation.options.scope) == null ? void 0 : _a3.id;
 }
-var MutationObserver$1 = (_k = class extends Subscribable {
+var MutationObserver$1 = (_j = class extends Subscribable {
   constructor(client2, options) {
     super();
     __privateAdd(this, _MutationObserver_instances);
@@ -13434,8 +13436,8 @@ var MutationObserver$1 = (_k = class extends Subscribable {
       listener(__privateGet(this, _currentResult2));
     });
   });
-}, _k);
-var QueryCache = (_l = class extends Subscribable {
+}, _j);
+var QueryCache = (_k = class extends Subscribable {
   constructor(config = {}) {
     super();
     __privateAdd(this, _queries);
@@ -13522,8 +13524,8 @@ var QueryCache = (_l = class extends Subscribable {
       });
     });
   }
-}, _queries = new WeakMap(), _l);
-var QueryClient = (_m = class {
+}, _queries = new WeakMap(), _k);
+var QueryClient = (_l = class {
   constructor(config = {}) {
     __privateAdd(this, _queryCache);
     __privateAdd(this, _mutationCache2);
@@ -13810,7 +13812,7 @@ var QueryClient = (_m = class {
     __privateGet(this, _queryCache).clear();
     __privateGet(this, _mutationCache2).clear();
   }
-}, _queryCache = new WeakMap(), _mutationCache2 = new WeakMap(), _defaultOptions2 = new WeakMap(), _queryDefaults = new WeakMap(), _mutationDefaults = new WeakMap(), _mountCount = new WeakMap(), _unsubscribeFocus = new WeakMap(), _unsubscribeOnline = new WeakMap(), _m);
+}, _queryCache = new WeakMap(), _mutationCache2 = new WeakMap(), _defaultOptions2 = new WeakMap(), _queryDefaults = new WeakMap(), _mutationDefaults = new WeakMap(), _mountCount = new WeakMap(), _unsubscribeFocus = new WeakMap(), _unsubscribeOnline = new WeakMap(), _l);
 var react = { exports: {} };
 var react_production = {};
 /**
@@ -13822,7 +13824,7 @@ var react_production = {};
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var REACT_ELEMENT_TYPE$1 = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE$2 = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE$1 = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE$1 = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE$1 = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE$1 = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE$1 = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE$1 = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE$1 = Symbol.for("react.suspense"), REACT_MEMO_TYPE$1 = Symbol.for("react.memo"), REACT_LAZY_TYPE$2 = Symbol.for("react.lazy"), MAYBE_ITERATOR_SYMBOL$1 = Symbol.iterator;
+var REACT_ELEMENT_TYPE$1 = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE$2 = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE$1 = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE$1 = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE$1 = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE$1 = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE$1 = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE$1 = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE$1 = Symbol.for("react.suspense"), REACT_MEMO_TYPE$1 = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy"), MAYBE_ITERATOR_SYMBOL$1 = Symbol.iterator;
 function getIteratorFn$1(maybeIterable) {
   if (null === maybeIterable || "object" !== typeof maybeIterable) return null;
   maybeIterable = MAYBE_ITERATOR_SYMBOL$1 && maybeIterable[MAYBE_ITERATOR_SYMBOL$1] || maybeIterable["@@iterator"];
@@ -13946,7 +13948,7 @@ function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
           case REACT_PORTAL_TYPE$2:
             invokeCallback = true;
             break;
-          case REACT_LAZY_TYPE$2:
+          case REACT_LAZY_TYPE$1:
             return invokeCallback = children._init, mapIntoArray(
               invokeCallback(children._payload),
               array,
@@ -14155,7 +14157,7 @@ react_production.forwardRef = function(render) {
 react_production.isValidElement = isValidElement;
 react_production.lazy = function(ctor) {
   return {
-    $$typeof: REACT_LAZY_TYPE$2,
+    $$typeof: REACT_LAZY_TYPE$1,
     _payload: { _status: -1, _result: ctor },
     _init: lazyInitializer
   };
@@ -14469,9 +14471,9 @@ const _Ed25519PublicKey = class _Ed25519PublicKey {
         return this.fromDer(key);
       } else if (ArrayBuffer.isView(key)) {
         const view = key;
-        return this.fromRaw(uint8FromBufLike$2(view.buffer));
+        return this.fromRaw(uint8FromBufLike$1(view.buffer));
       } else if (key instanceof ArrayBuffer) {
-        return this.fromRaw(uint8FromBufLike$2(key));
+        return this.fromRaw(uint8FromBufLike$1(key));
       } else if ("rawKey" in key && key.rawKey instanceof Uint8Array) {
         return this.fromRaw(key.rawKey);
       } else if ("derKey" in key) {
@@ -14614,7 +14616,7 @@ const _Ed25519KeyIdentity = class _Ed25519KeyIdentity extends SignIdentity {
       if (typeof x2 === "string") {
         x2 = hexToBytes(x2);
       }
-      return uint8FromBufLike$2(x2);
+      return uint8FromBufLike$1(x2);
     });
     return ed25519.verify(signature, message, publicKey);
   }
@@ -14657,7 +14659,7 @@ class ECDSAKeyIdentity extends SignIdentity {
       name: "ECDSA",
       namedCurve: "P-256"
     }, extractable, keyUsages);
-    const derKey = uint8FromBufLike$2(await effectiveCrypto.exportKey("spki", keyPair.publicKey));
+    const derKey = uint8FromBufLike$1(await effectiveCrypto.exportKey("spki", keyPair.publicKey));
     Object.assign(derKey, {
       __derEncodedPublicKey__: void 0
     });
@@ -14671,7 +14673,7 @@ class ECDSAKeyIdentity extends SignIdentity {
    */
   static async fromKeyPair(keyPair, subtleCrypto) {
     const effectiveCrypto = _getEffectiveCrypto(subtleCrypto);
-    const derKey = uint8FromBufLike$2(await effectiveCrypto.exportKey("spki", keyPair.publicKey));
+    const derKey = uint8FromBufLike$1(await effectiveCrypto.exportKey("spki", keyPair.publicKey));
     Object.assign(derKey, {
       __derEncodedPublicKey__: void 0
     });
@@ -14713,7 +14715,7 @@ class ECDSAKeyIdentity extends SignIdentity {
       name: "ECDSA",
       hash: { name: "SHA-256" }
     };
-    const signature = uint8FromBufLike$2(await this._subtleCrypto.sign(params, this._keyPair.privateKey, challenge));
+    const signature = uint8FromBufLike$1(await this._subtleCrypto.sign(params, this._keyPair.privateKey, challenge));
     Object.assign(signature, {
       __signature__: void 0
     });
@@ -16493,7 +16495,7 @@ function findCurrentHostFiberImpl(node) {
   }
   return null;
 }
-var assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE$1 = Symbol.for("react.lazy");
+var assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
 var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
 var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel");
 var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
@@ -16537,7 +16539,7 @@ function getComponentNameFromType(type) {
         return type;
       case REACT_MEMO_TYPE:
         return innerType = type.displayName || null, null !== innerType ? innerType : getComponentNameFromType(type.type) || "Memo";
-      case REACT_LAZY_TYPE$1:
+      case REACT_LAZY_TYPE:
         innerType = type._payload;
         type = type._init;
         try {
@@ -18159,7 +18161,7 @@ function createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, lanes
             case REACT_MEMO_TYPE:
               fiberTag = 14;
               break a;
-            case REACT_LAZY_TYPE$1:
+            case REACT_LAZY_TYPE:
               fiberTag = 16;
               owner = null;
               break a;
@@ -19004,7 +19006,7 @@ function useThenable(thenable) {
   null === (null === workInProgressHook ? index2.memoizedState : workInProgressHook.next) && (index2 = index2.alternate, ReactSharedInternals.H = null === index2 || null === index2.memoizedState ? HooksDispatcherOnMount : HooksDispatcherOnUpdate);
   return thenable;
 }
-function use$1(usable) {
+function use(usable) {
   if (null !== usable && "object" === typeof usable) {
     if ("function" === typeof usable.then) return useThenable(usable);
     if (usable.$$typeof === REACT_CONTEXT_TYPE) return readContext(usable);
@@ -19746,7 +19748,7 @@ function entangleTransitionUpdate(root2, queue, lane) {
 }
 var ContextOnlyDispatcher = {
   readContext,
-  use: use$1,
+  use,
   useCallback: throwInvalidHookError,
   useContext: throwInvalidHookError,
   useEffect: throwInvalidHookError,
@@ -19770,7 +19772,7 @@ var ContextOnlyDispatcher = {
   useCacheRefresh: throwInvalidHookError
 }, HooksDispatcherOnMount = {
   readContext,
-  use: use$1,
+  use,
   useCallback: function(callback, deps) {
     mountWorkInProgressHook().memoizedState = [
       callback,
@@ -19946,7 +19948,7 @@ var ContextOnlyDispatcher = {
   }
 }, HooksDispatcherOnUpdate = {
   readContext,
-  use: use$1,
+  use,
   useCallback: updateCallback,
   useContext: readContext,
   useEffect: updateEffect,
@@ -19989,7 +19991,7 @@ var ContextOnlyDispatcher = {
   useCacheRefresh: updateRefresh
 }, HooksDispatcherOnRerender = {
   readContext,
-  use: use$1,
+  use,
   useCallback: updateCallback,
   useContext: readContext,
   useEffect: updateEffect,
@@ -20114,7 +20116,7 @@ function createChildReconciler(shouldTrackSideEffects) {
         lanes,
         element.key
       );
-    if (null !== current && (current.elementType === elementType || "object" === typeof elementType && null !== elementType && elementType.$$typeof === REACT_LAZY_TYPE$1 && resolveLazy(elementType) === current.type))
+    if (null !== current && (current.elementType === elementType || "object" === typeof elementType && null !== elementType && elementType.$$typeof === REACT_LAZY_TYPE && resolveLazy(elementType) === current.type))
       return current = useFiber(current, element.props), coerceRef(current, element), current.return = returnFiber, current;
     current = createFiberFromTypeAndProps(
       element.type,
@@ -20171,7 +20173,7 @@ function createChildReconciler(shouldTrackSideEffects) {
             returnFiber.mode,
             lanes
           ), newChild.return = returnFiber, newChild;
-        case REACT_LAZY_TYPE$1:
+        case REACT_LAZY_TYPE:
           var init = newChild._init;
           newChild = init(newChild._payload);
           return createChild(returnFiber, newChild, lanes);
@@ -20205,7 +20207,7 @@ function createChildReconciler(shouldTrackSideEffects) {
           return newChild.key === key ? updateElement(returnFiber, oldFiber, newChild, lanes) : null;
         case REACT_PORTAL_TYPE:
           return newChild.key === key ? updatePortal(returnFiber, oldFiber, newChild, lanes) : null;
-        case REACT_LAZY_TYPE$1:
+        case REACT_LAZY_TYPE:
           return key = newChild._init, newChild = key(newChild._payload), updateSlot(returnFiber, oldFiber, newChild, lanes);
       }
       if (isArrayImpl(newChild) || getIteratorFn(newChild))
@@ -20241,7 +20243,7 @@ function createChildReconciler(shouldTrackSideEffects) {
           return existingChildren = existingChildren.get(
             null === newChild.key ? newIdx : newChild.key
           ) || null, updatePortal(returnFiber, existingChildren, newChild, lanes);
-        case REACT_LAZY_TYPE$1:
+        case REACT_LAZY_TYPE:
           var init = newChild._init;
           newChild = init(newChild._payload);
           return updateFromMap(
@@ -20379,7 +20381,7 @@ function createChildReconciler(shouldTrackSideEffects) {
                     returnFiber = lanes;
                     break a;
                   }
-                } else if (currentFirstChild.elementType === key || "object" === typeof key && null !== key && key.$$typeof === REACT_LAZY_TYPE$1 && resolveLazy(key) === currentFirstChild.type) {
+                } else if (currentFirstChild.elementType === key || "object" === typeof key && null !== key && key.$$typeof === REACT_LAZY_TYPE && resolveLazy(key) === currentFirstChild.type) {
                   deleteRemainingChildren(
                     returnFiber,
                     currentFirstChild.sibling
@@ -20435,7 +20437,7 @@ function createChildReconciler(shouldTrackSideEffects) {
             returnFiber = lanes;
           }
           return placeSingleChild(returnFiber);
-        case REACT_LAZY_TYPE$1:
+        case REACT_LAZY_TYPE:
           return key = newChild._init, newChild = key(newChild._payload), reconcileChildFibersImpl(
             returnFiber,
             currentFirstChild,
@@ -29143,7 +29145,7 @@ function handleHashScroll(router2) {
     }
   }
 }
-function encode$1(obj, stringify = String) {
+function encode(obj, stringify = String) {
   const result = new URLSearchParams();
   for (const key in obj) {
     const val = obj[key];
@@ -29215,7 +29217,7 @@ function stringifySearchWith(stringify, parser) {
     return val;
   }
   return (search) => {
-    const searchStr = encode$1(search, stringifyValue);
+    const searchStr = encode(search, stringifyValue);
     return searchStr ? `?${searchStr}` : "";
   };
 }
@@ -31365,12 +31367,12 @@ function ClientOnly({ children, fallback = null }) {
 }
 function useHydrated() {
   return React$4.useSyncExternalStore(
-    subscribe$1,
+    subscribe,
     () => true,
     () => false
   );
 }
-function subscribe$1() {
+function subscribe() {
   return () => {
   };
 }
@@ -40933,10 +40935,11 @@ const ApplicationStatus$1 = Variant({
   "Declined": Null,
   "Pending": Null
 });
-const Username = Text$1;
+const Username = Text;
 const AppliedRole$1 = Variant({
   "Mod": Null,
   "Builder": Null,
+  "Developer": Null,
   "Admin": Null
 });
 const Timestamp = Int;
@@ -40944,7 +40947,7 @@ const Application = Record({
   "id": ApplicationId,
   "status": ApplicationStatus$1,
   "applicantUsername": Username,
-  "answers": Vec(Text$1),
+  "answers": Vec(Text),
   "appliedRole": AppliedRole$1,
   "timestamp": Timestamp
 });
@@ -40971,14 +40974,6 @@ const UserEntry = Record({
   "rank": Opt(RosterRank$1),
   "role": Role$1
 });
-const BlobRef = Record({
-  "key": Text$1,
-  "contentType": Text$1
-});
-const Avatar$2 = Variant({
-  "uploaded": BlobRef,
-  "preset": Text$1
-});
 const VoteTally = Record({
   "approved": Nat,
   "rejected": Nat,
@@ -40987,7 +40982,7 @@ const VoteTally = Record({
 const RankSlot = Record({ "rank": RosterRank$1, "slots": Nat });
 const RosterMember = Record({
   "id": RosterMemberId,
-  "name": Text$1,
+  "name": Text,
   "rank": RosterRank$1
 });
 const RosterGroup = Record({
@@ -40997,7 +40992,7 @@ const RosterGroup = Record({
 const MessageId = Nat;
 const Message = Record({
   "id": MessageId,
-  "content": Text$1,
+  "content": Text,
   "senderUsername": Username,
   "timestamp": Timestamp,
   "recipientUsername": Username
@@ -41010,15 +41005,15 @@ const StaffDirectoryEntry = Record({
 const Post = Record({
   "id": PostId,
   "postType": PostType$1,
-  "title": Text$1,
+  "title": Text,
   "authorUsername": Username,
-  "body": Text$1,
+  "body": Text,
   "createdAt": Timestamp
 });
 const Comment = Record({
   "id": CommentId,
   "authorUsername": Username,
-  "content": Text$1,
+  "content": Text,
   "timestamp": Timestamp,
   "postId": PostId
 });
@@ -41032,10 +41027,9 @@ const SendMessageResult = Record({
   "messageId": Opt(MessageId),
   "success": Bool
 });
-const SetAvatarResult = Record({ "success": Bool });
 const SetRankSlotResult = Record({ "success": Bool });
 const SetRoleResult = Record({
-  "error": Opt(Text$1),
+  "error": Opt(Text),
   "success": Bool
 });
 const SubmitApplicationResult = Record({
@@ -41049,73 +41043,71 @@ const VoteStatus$1 = Variant({
 const VoteResult = Record({ "success": Bool });
 Service({
   "acceptApplication": Func(
-    [Text$1, Nat, RosterRank$1],
+    [Text, Nat, RosterRank$1],
     [AcceptApplicationResult],
     []
   ),
   "addCommunityComment": Func(
-    [Nat, Text$1, Text$1],
+    [Nat, Text, Text],
     [AddCommentResult],
     []
   ),
   "addStaffRosterMember": Func(
-    [Text$1, Text$1, RosterRank$1],
+    [Text, Text, RosterRank$1],
     [AddRosterMemberResult],
     []
   ),
   "createCommunityPost": Func(
-    [PostType$1, Text$1, Text$1, Text$1],
+    [PostType$1, Text, Text, Text],
     [CreatePostResult],
     []
   ),
   "declineApplication": Func([Nat], [Bool], []),
   "getAllApplications": Func([], [Vec(Application)], ["query"]),
   "getAllUsers": Func([], [Vec(UserEntry)], ["query"]),
-  "getAvatar": Func([Text$1], [Opt(Avatar$2)], ["query"]),
   "getCommunityVoteTally": Func([Nat], [VoteTally], ["query"]),
-  "getMyApplications": Func([Text$1], [Vec(Application)], ["query"]),
-  "getMyRole": Func([Text$1], [Opt(Role$1)], ["query"]),
+  "getMyApplications": Func([Text], [Vec(Application)], ["query"]),
+  "getMyRole": Func([Text], [Opt(Role$1)], ["query"]),
   "getRankSlots": Func([], [Vec(RankSlot)], ["query"]),
   "getRoster": Func([], [Vec(RosterGroup)], ["query"]),
   "getStaffConversation": Func(
-    [Text$1, Text$1],
+    [Text, Text],
     [Vec(Message)],
     ["query"]
   ),
   "getStaffDirectory": Func(
-    [Text$1],
+    [Text],
     [Vec(StaffDirectoryEntry)],
     ["query"]
   ),
   "listActiveCommunityPosts": Func([PostType$1], [Vec(Post)], ["query"]),
   "listCommunityComments": Func([Nat], [Vec(Comment)], ["query"]),
-  "login": Func([Text$1, Text$1], [LoginResult], []),
-  "register": Func([Text$1, Text$1], [RegisterResult], []),
+  "login": Func([Text, Text], [LoginResult], []),
+  "register": Func([Text, Text], [RegisterResult], []),
   "removeStaffRosterMember": Func(
-    [Text$1, Nat],
+    [Text, Nat],
     [RemoveRosterMemberResult],
     []
   ),
   "reviewApplication": Func([Nat, ApplicationStatus$1], [Bool], []),
   "sendStaffMessage": Func(
-    [Text$1, Text$1, Text$1],
+    [Text, Text, Text],
     [SendMessageResult],
     []
   ),
-  "setMyAvatar": Func([Text$1, Avatar$2], [SetAvatarResult], []),
   "setRankSlot": Func(
-    [Text$1, RosterRank$1, Nat],
+    [Text, RosterRank$1, Nat],
     [SetRankSlotResult],
     []
   ),
-  "setRole": Func([Text$1, Text$1, Role$1], [SetRoleResult], []),
+  "setRole": Func([Text, Text, Role$1], [SetRoleResult], []),
   "submitApplication": Func(
-    [Text$1, AppliedRole$1, Vec(Text$1)],
+    [Text, AppliedRole$1, Vec(Text)],
     [SubmitApplicationResult],
     []
   ),
   "voteOnCommunityPost": Func(
-    [Nat, Text$1, VoteStatus$1],
+    [Nat, Text, VoteStatus$1],
     [VoteResult],
     []
   )
@@ -41167,6 +41159,7 @@ const idlFactory = ({ IDL: IDL2 }) => {
   const AppliedRole2 = IDL2.Variant({
     "Mod": IDL2.Null,
     "Builder": IDL2.Null,
+    "Developer": IDL2.Null,
     "Admin": IDL2.Null
   });
   const Timestamp2 = IDL2.Int;
@@ -41201,8 +41194,6 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "rank": IDL2.Opt(RosterRank2),
     "role": Role2
   });
-  const BlobRef2 = IDL2.Record({ "key": IDL2.Text, "contentType": IDL2.Text });
-  const Avatar2 = IDL2.Variant({ "uploaded": BlobRef2, "preset": IDL2.Text });
   const VoteTally2 = IDL2.Record({
     "approved": IDL2.Nat,
     "rejected": IDL2.Nat,
@@ -41253,7 +41244,6 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "messageId": IDL2.Opt(MessageId2),
     "success": IDL2.Bool
   });
-  const SetAvatarResult2 = IDL2.Record({ "success": IDL2.Bool });
   const SetRankSlotResult2 = IDL2.Record({ "success": IDL2.Bool });
   const SetRoleResult2 = IDL2.Record({
     "error": IDL2.Opt(IDL2.Text),
@@ -41292,7 +41282,6 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "declineApplication": IDL2.Func([IDL2.Nat], [IDL2.Bool], []),
     "getAllApplications": IDL2.Func([], [IDL2.Vec(Application2)], ["query"]),
     "getAllUsers": IDL2.Func([], [IDL2.Vec(UserEntry2)], ["query"]),
-    "getAvatar": IDL2.Func([IDL2.Text], [IDL2.Opt(Avatar2)], ["query"]),
     "getCommunityVoteTally": IDL2.Func([IDL2.Nat], [VoteTally2], ["query"]),
     "getMyApplications": IDL2.Func(
       [IDL2.Text],
@@ -41339,7 +41328,6 @@ const idlFactory = ({ IDL: IDL2 }) => {
       [SendMessageResult2],
       []
     ),
-    "setMyAvatar": IDL2.Func([IDL2.Text, Avatar2], [SetAvatarResult2], []),
     "setRankSlot": IDL2.Func(
       [IDL2.Text, RosterRank2, IDL2.Nat],
       [SetRankSlotResult2],
@@ -41370,6 +41358,7 @@ var ApplicationStatus = /* @__PURE__ */ ((ApplicationStatus2) => {
 var AppliedRole = /* @__PURE__ */ ((AppliedRole2) => {
   AppliedRole2["Mod"] = "Mod";
   AppliedRole2["Builder"] = "Builder";
+  AppliedRole2["Developer"] = "Developer";
   AppliedRole2["Admin"] = "Admin";
   return AppliedRole2;
 })(AppliedRole || {});
@@ -41524,20 +41513,6 @@ class Backend {
       return from_candid_vec_n21(this._uploadFile, this._downloadFile, result);
     }
   }
-  async getAvatar(arg0) {
-    if (this.processError) {
-      try {
-        const result = await this.actor.getAvatar(arg0);
-        return from_candid_opt_n29(this._uploadFile, this._downloadFile, result);
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.getAvatar(arg0);
-      return from_candid_opt_n29(this._uploadFile, this._downloadFile, result);
-    }
-  }
   async getCommunityVoteTally(arg0) {
     if (this.processError) {
       try {
@@ -41570,42 +41545,42 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.getMyRole(arg0);
-        return from_candid_opt_n32(this._uploadFile, this._downloadFile, result);
+        return from_candid_opt_n29(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getMyRole(arg0);
-      return from_candid_opt_n32(this._uploadFile, this._downloadFile, result);
+      return from_candid_opt_n29(this._uploadFile, this._downloadFile, result);
     }
   }
   async getRankSlots() {
     if (this.processError) {
       try {
         const result = await this.actor.getRankSlots();
-        return from_candid_vec_n33(this._uploadFile, this._downloadFile, result);
+        return from_candid_vec_n30(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getRankSlots();
-      return from_candid_vec_n33(this._uploadFile, this._downloadFile, result);
+      return from_candid_vec_n30(this._uploadFile, this._downloadFile, result);
     }
   }
   async getRoster() {
     if (this.processError) {
       try {
         const result = await this.actor.getRoster();
-        return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
+        return from_candid_vec_n33(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getRoster();
-      return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
+      return from_candid_vec_n33(this._uploadFile, this._downloadFile, result);
     }
   }
   async getStaffConversation(arg0, arg1) {
@@ -41626,28 +41601,28 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.getStaffDirectory(arg0);
-        return from_candid_vec_n42(this._uploadFile, this._downloadFile, result);
+        return from_candid_vec_n39(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getStaffDirectory(arg0);
-      return from_candid_vec_n42(this._uploadFile, this._downloadFile, result);
+      return from_candid_vec_n39(this._uploadFile, this._downloadFile, result);
     }
   }
   async listActiveCommunityPosts(arg0) {
     if (this.processError) {
       try {
         const result = await this.actor.listActiveCommunityPosts(to_candid_PostType_n9(this._uploadFile, this._downloadFile, arg0));
-        return from_candid_vec_n44(this._uploadFile, this._downloadFile, result);
+        return from_candid_vec_n41(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.listActiveCommunityPosts(to_candid_PostType_n9(this._uploadFile, this._downloadFile, arg0));
-      return from_candid_vec_n44(this._uploadFile, this._downloadFile, result);
+      return from_candid_vec_n41(this._uploadFile, this._downloadFile, result);
     }
   }
   async listCommunityComments(arg0) {
@@ -41668,28 +41643,28 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.login(arg0, arg1);
-        return from_candid_LoginResult_n49(this._uploadFile, this._downloadFile, result);
+        return from_candid_LoginResult_n46(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.login(arg0, arg1);
-      return from_candid_LoginResult_n49(this._uploadFile, this._downloadFile, result);
+      return from_candid_LoginResult_n46(this._uploadFile, this._downloadFile, result);
     }
   }
   async register(arg0, arg1) {
     if (this.processError) {
       try {
         const result = await this.actor.register(arg0, arg1);
-        return from_candid_RegisterResult_n51(this._uploadFile, this._downloadFile, result);
+        return from_candid_RegisterResult_n48(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.register(arg0, arg1);
-      return from_candid_RegisterResult_n51(this._uploadFile, this._downloadFile, result);
+      return from_candid_RegisterResult_n48(this._uploadFile, this._downloadFile, result);
     }
   }
   async removeStaffRosterMember(arg0, arg1) {
@@ -41709,14 +41684,14 @@ class Backend {
   async reviewApplication(arg0, arg1) {
     if (this.processError) {
       try {
-        const result = await this.actor.reviewApplication(arg0, to_candid_ApplicationStatus_n52(this._uploadFile, this._downloadFile, arg1));
+        const result = await this.actor.reviewApplication(arg0, to_candid_ApplicationStatus_n49(this._uploadFile, this._downloadFile, arg1));
         return result;
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.reviewApplication(arg0, to_candid_ApplicationStatus_n52(this._uploadFile, this._downloadFile, arg1));
+      const result = await this.actor.reviewApplication(arg0, to_candid_ApplicationStatus_n49(this._uploadFile, this._downloadFile, arg1));
       return result;
     }
   }
@@ -41724,28 +41699,14 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.sendStaffMessage(arg0, arg1, arg2);
-        return from_candid_SendMessageResult_n54(this._uploadFile, this._downloadFile, result);
+        return from_candid_SendMessageResult_n51(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.sendStaffMessage(arg0, arg1, arg2);
-      return from_candid_SendMessageResult_n54(this._uploadFile, this._downloadFile, result);
-    }
-  }
-  async setMyAvatar(arg0, arg1) {
-    if (this.processError) {
-      try {
-        const result = await this.actor.setMyAvatar(arg0, to_candid_Avatar_n57(this._uploadFile, this._downloadFile, arg1));
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.setMyAvatar(arg0, to_candid_Avatar_n57(this._uploadFile, this._downloadFile, arg1));
-      return result;
+      return from_candid_SendMessageResult_n51(this._uploadFile, this._downloadFile, result);
     }
   }
   async setRankSlot(arg0, arg1, arg2) {
@@ -41765,42 +41726,42 @@ class Backend {
   async setRole(arg0, arg1, arg2) {
     if (this.processError) {
       try {
-        const result = await this.actor.setRole(arg0, arg1, to_candid_Role_n59(this._uploadFile, this._downloadFile, arg2));
-        return from_candid_SetRoleResult_n61(this._uploadFile, this._downloadFile, result);
+        const result = await this.actor.setRole(arg0, arg1, to_candid_Role_n54(this._uploadFile, this._downloadFile, arg2));
+        return from_candid_SetRoleResult_n56(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.setRole(arg0, arg1, to_candid_Role_n59(this._uploadFile, this._downloadFile, arg2));
-      return from_candid_SetRoleResult_n61(this._uploadFile, this._downloadFile, result);
+      const result = await this.actor.setRole(arg0, arg1, to_candid_Role_n54(this._uploadFile, this._downloadFile, arg2));
+      return from_candid_SetRoleResult_n56(this._uploadFile, this._downloadFile, result);
     }
   }
   async submitApplication(arg0, arg1, arg2) {
     if (this.processError) {
       try {
-        const result = await this.actor.submitApplication(arg0, to_candid_AppliedRole_n64(this._uploadFile, this._downloadFile, arg1), arg2);
-        return from_candid_SubmitApplicationResult_n66(this._uploadFile, this._downloadFile, result);
+        const result = await this.actor.submitApplication(arg0, to_candid_AppliedRole_n59(this._uploadFile, this._downloadFile, arg1), arg2);
+        return from_candid_SubmitApplicationResult_n61(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.submitApplication(arg0, to_candid_AppliedRole_n64(this._uploadFile, this._downloadFile, arg1), arg2);
-      return from_candid_SubmitApplicationResult_n66(this._uploadFile, this._downloadFile, result);
+      const result = await this.actor.submitApplication(arg0, to_candid_AppliedRole_n59(this._uploadFile, this._downloadFile, arg1), arg2);
+      return from_candid_SubmitApplicationResult_n61(this._uploadFile, this._downloadFile, result);
     }
   }
   async voteOnCommunityPost(arg0, arg1, arg2) {
     if (this.processError) {
       try {
-        const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n69(this._uploadFile, this._downloadFile, arg2));
+        const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n64(this._uploadFile, this._downloadFile, arg2));
         return result;
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n69(this._uploadFile, this._downloadFile, arg2));
+      const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n64(this._uploadFile, this._downloadFile, arg2));
       return result;
     }
   }
@@ -41820,50 +41781,47 @@ function from_candid_Application_n15(_uploadFile, _downloadFile, value) {
 function from_candid_AppliedRole_n19(_uploadFile, _downloadFile, value) {
   return from_candid_variant_n20(_uploadFile, _downloadFile, value);
 }
-function from_candid_Avatar_n30(_uploadFile, _downloadFile, value) {
-  return from_candid_variant_n31(_uploadFile, _downloadFile, value);
-}
 function from_candid_CreatePostResult_n11(_uploadFile, _downloadFile, value) {
   return from_candid_record_n12(_uploadFile, _downloadFile, value);
 }
-function from_candid_LoginResult_n49(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n50(_uploadFile, _downloadFile, value);
+function from_candid_LoginResult_n46(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n47(_uploadFile, _downloadFile, value);
 }
-function from_candid_PostType_n47(_uploadFile, _downloadFile, value) {
-  return from_candid_variant_n48(_uploadFile, _downloadFile, value);
+function from_candid_PostType_n44(_uploadFile, _downloadFile, value) {
+  return from_candid_variant_n45(_uploadFile, _downloadFile, value);
 }
-function from_candid_Post_n45(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n46(_uploadFile, _downloadFile, value);
+function from_candid_Post_n42(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n43(_uploadFile, _downloadFile, value);
 }
-function from_candid_RankSlot_n34(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n35(_uploadFile, _downloadFile, value);
+function from_candid_RankSlot_n31(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n32(_uploadFile, _downloadFile, value);
 }
-function from_candid_RegisterResult_n51(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n50(_uploadFile, _downloadFile, value);
+function from_candid_RegisterResult_n48(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n47(_uploadFile, _downloadFile, value);
 }
 function from_candid_Role_n27(_uploadFile, _downloadFile, value) {
   return from_candid_variant_n28(_uploadFile, _downloadFile, value);
 }
-function from_candid_RosterGroup_n37(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n38(_uploadFile, _downloadFile, value);
+function from_candid_RosterGroup_n34(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n35(_uploadFile, _downloadFile, value);
 }
-function from_candid_RosterMember_n40(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n41(_uploadFile, _downloadFile, value);
+function from_candid_RosterMember_n37(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n38(_uploadFile, _downloadFile, value);
 }
 function from_candid_RosterRank_n25(_uploadFile, _downloadFile, value) {
   return from_candid_variant_n26(_uploadFile, _downloadFile, value);
 }
-function from_candid_SendMessageResult_n54(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n55(_uploadFile, _downloadFile, value);
+function from_candid_SendMessageResult_n51(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n52(_uploadFile, _downloadFile, value);
 }
-function from_candid_SetRoleResult_n61(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n62(_uploadFile, _downloadFile, value);
+function from_candid_SetRoleResult_n56(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n57(_uploadFile, _downloadFile, value);
 }
-function from_candid_StaffDirectoryEntry_n43(_uploadFile, _downloadFile, value) {
+function from_candid_StaffDirectoryEntry_n40(_uploadFile, _downloadFile, value) {
   return from_candid_record_n23(_uploadFile, _downloadFile, value);
 }
-function from_candid_SubmitApplicationResult_n66(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n67(_uploadFile, _downloadFile, value);
+function from_candid_SubmitApplicationResult_n61(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n62(_uploadFile, _downloadFile, value);
 }
 function from_candid_UserEntry_n22(_uploadFile, _downloadFile, value) {
   return from_candid_record_n23(_uploadFile, _downloadFile, value);
@@ -41875,21 +41833,18 @@ function from_candid_opt_n24(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : from_candid_RosterRank_n25(_uploadFile, _downloadFile, value[0]);
 }
 function from_candid_opt_n29(_uploadFile, _downloadFile, value) {
-  return value.length === 0 ? null : from_candid_Avatar_n30(_uploadFile, _downloadFile, value[0]);
-}
-function from_candid_opt_n32(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : from_candid_Role_n27(_uploadFile, _downloadFile, value[0]);
 }
 function from_candid_opt_n5(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n56(_uploadFile, _downloadFile, value) {
+function from_candid_opt_n53(_uploadFile, _downloadFile, value) {
+  return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n58(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n63(_uploadFile, _downloadFile, value) {
-  return value.length === 0 ? null : value[0];
-}
-function from_candid_opt_n68(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n8(_uploadFile, _downloadFile, value) {
@@ -41918,15 +41873,22 @@ function from_candid_record_n23(_uploadFile, _downloadFile, value) {
     role: from_candid_Role_n27(_uploadFile, _downloadFile, value.role)
   };
 }
-function from_candid_record_n35(_uploadFile, _downloadFile, value) {
+function from_candid_record_n32(_uploadFile, _downloadFile, value) {
   return {
     rank: from_candid_RosterRank_n25(_uploadFile, _downloadFile, value.rank),
     slots: value.slots
   };
 }
+function from_candid_record_n35(_uploadFile, _downloadFile, value) {
+  return {
+    members: from_candid_vec_n36(_uploadFile, _downloadFile, value.members),
+    rank: from_candid_RosterRank_n25(_uploadFile, _downloadFile, value.rank)
+  };
+}
 function from_candid_record_n38(_uploadFile, _downloadFile, value) {
   return {
-    members: from_candid_vec_n39(_uploadFile, _downloadFile, value.members),
+    id: value.id,
+    name: value.name,
     rank: from_candid_RosterRank_n25(_uploadFile, _downloadFile, value.rank)
   };
 }
@@ -41936,44 +41898,37 @@ function from_candid_record_n4(_uploadFile, _downloadFile, value) {
     success: value.success
   };
 }
-function from_candid_record_n41(_uploadFile, _downloadFile, value) {
+function from_candid_record_n43(_uploadFile, _downloadFile, value) {
   return {
     id: value.id,
-    name: value.name,
-    rank: from_candid_RosterRank_n25(_uploadFile, _downloadFile, value.rank)
-  };
-}
-function from_candid_record_n46(_uploadFile, _downloadFile, value) {
-  return {
-    id: value.id,
-    postType: from_candid_PostType_n47(_uploadFile, _downloadFile, value.postType),
+    postType: from_candid_PostType_n44(_uploadFile, _downloadFile, value.postType),
     title: value.title,
     authorUsername: value.authorUsername,
     body: value.body,
     createdAt: value.createdAt
   };
 }
-function from_candid_record_n50(_uploadFile, _downloadFile, value) {
+function from_candid_record_n47(_uploadFile, _downloadFile, value) {
   return {
     role: from_candid_Role_n27(_uploadFile, _downloadFile, value.role),
     success: value.success
   };
 }
-function from_candid_record_n55(_uploadFile, _downloadFile, value) {
+function from_candid_record_n52(_uploadFile, _downloadFile, value) {
   return {
-    messageId: record_opt_to_undefined(from_candid_opt_n56(_uploadFile, _downloadFile, value.messageId)),
+    messageId: record_opt_to_undefined(from_candid_opt_n53(_uploadFile, _downloadFile, value.messageId)),
+    success: value.success
+  };
+}
+function from_candid_record_n57(_uploadFile, _downloadFile, value) {
+  return {
+    error: record_opt_to_undefined(from_candid_opt_n58(_uploadFile, _downloadFile, value.error)),
     success: value.success
   };
 }
 function from_candid_record_n62(_uploadFile, _downloadFile, value) {
   return {
-    error: record_opt_to_undefined(from_candid_opt_n63(_uploadFile, _downloadFile, value.error)),
-    success: value.success
-  };
-}
-function from_candid_record_n67(_uploadFile, _downloadFile, value) {
-  return {
-    applicationId: record_opt_to_undefined(from_candid_opt_n68(_uploadFile, _downloadFile, value.applicationId)),
+    applicationId: record_opt_to_undefined(from_candid_opt_n63(_uploadFile, _downloadFile, value.applicationId)),
     success: value.success
   };
 }
@@ -41987,7 +41942,7 @@ function from_candid_variant_n18(_uploadFile, _downloadFile, value) {
   return "Accepted" in value ? "Accepted" : "Declined" in value ? "Declined" : "Pending" in value ? "Pending" : value;
 }
 function from_candid_variant_n20(_uploadFile, _downloadFile, value) {
-  return "Mod" in value ? "Mod" : "Builder" in value ? "Builder" : "Admin" in value ? "Admin" : value;
+  return "Mod" in value ? "Mod" : "Builder" in value ? "Builder" : "Developer" in value ? "Developer" : "Admin" in value ? "Admin" : value;
 }
 function from_candid_variant_n26(_uploadFile, _downloadFile, value) {
   return "Cop" in value ? "Cop" : "Mod" in value ? "Mod" : "SrDeveloper" in value ? "SrDeveloper" : "CoOwner" in value ? "CoOwner" : "SrCop" in value ? "SrCop" : "Builder" in value ? "Builder" : "JrAdmin" in value ? "JrAdmin" : "ChiefAdmin" in value ? "ChiefAdmin" : "Developer" in value ? "Developer" : "Admin" in value ? "Admin" : "AdvertiseManager" in value ? "AdvertiseManager" : "Owner" in value ? "Owner" : "Manager" in value ? "Manager" : value;
@@ -41995,16 +41950,7 @@ function from_candid_variant_n26(_uploadFile, _downloadFile, value) {
 function from_candid_variant_n28(_uploadFile, _downloadFile, value) {
   return "Cop" in value ? "Cop" : "Mod" in value ? "Mod" : "SrDeveloper" in value ? "SrDeveloper" : "CoOwner" in value ? "CoOwner" : "SrCop" in value ? "SrCop" : "Administrator" in value ? "Administrator" : "Member" in value ? "Member" : "Builder" in value ? "Builder" : "JrAdmin" in value ? "JrAdmin" : "ChiefAdmin" in value ? "ChiefAdmin" : "CoAdministrator" in value ? "CoAdministrator" : "Developer" in value ? "Developer" : "Admin" in value ? "Admin" : "AdvertiseManager" in value ? "AdvertiseManager" : "Owner" in value ? "Owner" : "Manager" in value ? "Manager" : value;
 }
-function from_candid_variant_n31(_uploadFile, _downloadFile, value) {
-  return "uploaded" in value ? {
-    __kind__: "uploaded",
-    uploaded: value.uploaded
-  } : "preset" in value ? {
-    __kind__: "preset",
-    preset: value.preset
-  } : value;
-}
-function from_candid_variant_n48(_uploadFile, _downloadFile, value) {
+function from_candid_variant_n45(_uploadFile, _downloadFile, value) {
   return "eventSuggestion" in value ? "eventSuggestion" : "suggestion" in value ? "suggestion" : "bugReport" in value ? "bugReport" : value;
 }
 function from_candid_vec_n14(_uploadFile, _downloadFile, value) {
@@ -42013,41 +41959,38 @@ function from_candid_vec_n14(_uploadFile, _downloadFile, value) {
 function from_candid_vec_n21(_uploadFile, _downloadFile, value) {
   return value.map((x2) => from_candid_UserEntry_n22(_uploadFile, _downloadFile, x2));
 }
+function from_candid_vec_n30(_uploadFile, _downloadFile, value) {
+  return value.map((x2) => from_candid_RankSlot_n31(_uploadFile, _downloadFile, x2));
+}
 function from_candid_vec_n33(_uploadFile, _downloadFile, value) {
-  return value.map((x2) => from_candid_RankSlot_n34(_uploadFile, _downloadFile, x2));
+  return value.map((x2) => from_candid_RosterGroup_n34(_uploadFile, _downloadFile, x2));
 }
 function from_candid_vec_n36(_uploadFile, _downloadFile, value) {
-  return value.map((x2) => from_candid_RosterGroup_n37(_uploadFile, _downloadFile, x2));
+  return value.map((x2) => from_candid_RosterMember_n37(_uploadFile, _downloadFile, x2));
 }
 function from_candid_vec_n39(_uploadFile, _downloadFile, value) {
-  return value.map((x2) => from_candid_RosterMember_n40(_uploadFile, _downloadFile, x2));
+  return value.map((x2) => from_candid_StaffDirectoryEntry_n40(_uploadFile, _downloadFile, x2));
 }
-function from_candid_vec_n42(_uploadFile, _downloadFile, value) {
-  return value.map((x2) => from_candid_StaffDirectoryEntry_n43(_uploadFile, _downloadFile, x2));
+function from_candid_vec_n41(_uploadFile, _downloadFile, value) {
+  return value.map((x2) => from_candid_Post_n42(_uploadFile, _downloadFile, x2));
 }
-function from_candid_vec_n44(_uploadFile, _downloadFile, value) {
-  return value.map((x2) => from_candid_Post_n45(_uploadFile, _downloadFile, x2));
+function to_candid_ApplicationStatus_n49(_uploadFile, _downloadFile, value) {
+  return to_candid_variant_n50(_uploadFile, _downloadFile, value);
 }
-function to_candid_ApplicationStatus_n52(_uploadFile, _downloadFile, value) {
-  return to_candid_variant_n53(_uploadFile, _downloadFile, value);
-}
-function to_candid_AppliedRole_n64(_uploadFile, _downloadFile, value) {
-  return to_candid_variant_n65(_uploadFile, _downloadFile, value);
-}
-function to_candid_Avatar_n57(_uploadFile, _downloadFile, value) {
-  return to_candid_variant_n58(_uploadFile, _downloadFile, value);
+function to_candid_AppliedRole_n59(_uploadFile, _downloadFile, value) {
+  return to_candid_variant_n60(_uploadFile, _downloadFile, value);
 }
 function to_candid_PostType_n9(_uploadFile, _downloadFile, value) {
   return to_candid_variant_n10(_uploadFile, _downloadFile, value);
 }
-function to_candid_Role_n59(_uploadFile, _downloadFile, value) {
-  return to_candid_variant_n60(_uploadFile, _downloadFile, value);
+function to_candid_Role_n54(_uploadFile, _downloadFile, value) {
+  return to_candid_variant_n55(_uploadFile, _downloadFile, value);
 }
 function to_candid_RosterRank_n1(_uploadFile, _downloadFile, value) {
   return to_candid_variant_n2(_uploadFile, _downloadFile, value);
 }
-function to_candid_VoteStatus_n69(_uploadFile, _downloadFile, value) {
-  return to_candid_variant_n70(_uploadFile, _downloadFile, value);
+function to_candid_VoteStatus_n64(_uploadFile, _downloadFile, value) {
+  return to_candid_variant_n65(_uploadFile, _downloadFile, value);
 }
 function to_candid_variant_n10(_uploadFile, _downloadFile, value) {
   return value == "eventSuggestion" ? {
@@ -42087,7 +42030,7 @@ function to_candid_variant_n2(_uploadFile, _downloadFile, value) {
     Manager: null
   } : value;
 }
-function to_candid_variant_n53(_uploadFile, _downloadFile, value) {
+function to_candid_variant_n50(_uploadFile, _downloadFile, value) {
   return value == "Accepted" ? {
     Accepted: null
   } : value == "Declined" ? {
@@ -42096,14 +42039,7 @@ function to_candid_variant_n53(_uploadFile, _downloadFile, value) {
     Pending: null
   } : value;
 }
-function to_candid_variant_n58(_uploadFile, _downloadFile, value) {
-  return value.__kind__ === "uploaded" ? {
-    uploaded: value.uploaded
-  } : value.__kind__ === "preset" ? {
-    preset: value.preset
-  } : value;
-}
-function to_candid_variant_n60(_uploadFile, _downloadFile, value) {
+function to_candid_variant_n55(_uploadFile, _downloadFile, value) {
   return value == "Cop" ? {
     Cop: null
   } : value == "Mod" ? {
@@ -42138,16 +42074,18 @@ function to_candid_variant_n60(_uploadFile, _downloadFile, value) {
     Manager: null
   } : value;
 }
-function to_candid_variant_n65(_uploadFile, _downloadFile, value) {
+function to_candid_variant_n60(_uploadFile, _downloadFile, value) {
   return value == "Mod" ? {
     Mod: null
   } : value == "Builder" ? {
     Builder: null
+  } : value == "Developer" ? {
+    Developer: null
   } : value == "Admin" ? {
     Admin: null
   } : value;
 }
-function to_candid_variant_n70(_uploadFile, _downloadFile, value) {
+function to_candid_variant_n65(_uploadFile, _downloadFile, value) {
   return value == "approved" ? {
     approved: null
   } : value == "rejected" ? {
@@ -42209,34 +42147,6 @@ function useSendStaffMessage() {
           variables.senderUsername,
           variables.recipientUsername
         ]
-      });
-    }
-  });
-}
-function useGetAvatar(username) {
-  const { actor, isFetching } = useActor(createActor);
-  return useQuery({
-    queryKey: ["avatar", username],
-    queryFn: async () => {
-      if (!actor || !username) return null;
-      return actor.getAvatar(username);
-    },
-    enabled: !!actor && !isFetching && !!username,
-    staleTime: 6e4
-  });
-}
-function useSetMyAvatar() {
-  const { actor, isFetching } = useActor(createActor);
-  const queryClient2 = useQueryClient();
-  return useMutation({
-    mutationFn: async ({ username, avatar }) => {
-      if (!actor) throw new Error("Backend actor not ready");
-      return actor.setMyAvatar(username, avatar);
-    },
-    meta: { isFetching },
-    onSuccess: (_data, variables) => {
-      queryClient2.invalidateQueries({
-        queryKey: ["avatar", variables.username]
       });
     }
   });
@@ -42530,11 +42440,9 @@ function readSession() {
     if (typeof (parsed == null ? void 0 : parsed.username) !== "string" || typeof (parsed == null ? void 0 : parsed.role) !== "string") {
       return null;
     }
-    const avatar = parsed.avatar ?? null;
     return {
       username: parsed.username,
-      role: parsed.role,
-      avatar
+      role: parsed.role
     };
   } catch {
     return null;
@@ -42559,11 +42467,9 @@ function toRole(value) {
 function AuthProvider({ children }) {
   const [username, setUsername] = reactExports.useState(null);
   const [role, setRole] = reactExports.useState(null);
-  const [avatar, setAvatar] = reactExports.useState(null);
   const loginMutation = useLogin();
   const registerMutation = useRegister();
   const myRoleQuery = useGetMyRole(username);
-  const myAvatarQuery = useGetAvatar(username);
   reactExports.useEffect(() => {
     const stored = readSession();
     if (stored) {
@@ -42571,26 +42477,11 @@ function AuthProvider({ children }) {
       if (restoredRole) {
         setUsername(stored.username);
         setRole(restoredRole);
-        setAvatar(stored.avatar);
       } else {
         clearSession();
       }
     }
   }, []);
-  reactExports.useEffect(() => {
-    if (username && myAvatarQuery.data !== void 0) {
-      setAvatar(myAvatarQuery.data ?? null);
-      try {
-        const raw = localStorage.getItem(SESSION_KEY);
-        if (raw) {
-          const existing = JSON.parse(raw);
-          existing.avatar = myAvatarQuery.data ?? null;
-          localStorage.setItem(SESSION_KEY, JSON.stringify(existing));
-        }
-      } catch {
-      }
-    }
-  }, [username, myAvatarQuery.data]);
   const applyResult = (result) => {
     const resolvedRole = toRole(result.role);
     return {
@@ -42607,8 +42498,7 @@ function AuthProvider({ children }) {
     if (outcome.success && outcome.role) {
       setUsername(name);
       setRole(outcome.role);
-      setAvatar(null);
-      writeSession({ username: name, role: outcome.role, avatar: null });
+      writeSession({ username: name, role: outcome.role });
     }
     return outcome;
   };
@@ -42621,15 +42511,13 @@ function AuthProvider({ children }) {
     if (outcome.success && outcome.role) {
       setUsername(name);
       setRole(outcome.role);
-      setAvatar(null);
-      writeSession({ username: name, role: outcome.role, avatar: null });
+      writeSession({ username: name, role: outcome.role });
     }
     return outcome;
   };
   const logout = () => {
     setUsername(null);
     setRole(null);
-    setAvatar(null);
     clearSession();
   };
   const refreshRole = async () => {
@@ -42639,31 +42527,11 @@ function AuthProvider({ children }) {
       const next = fresh.data ?? null;
       if (next) {
         setRole(next);
-        writeSession({ username, role: next, avatar });
+        writeSession({ username, role: next });
       }
       return next;
     } catch {
       return role;
-    }
-  };
-  const refreshAvatar = async () => {
-    if (!username) return null;
-    try {
-      const fresh = await myAvatarQuery.refetch();
-      const next = fresh.data ?? null;
-      setAvatar(next);
-      try {
-        const raw = localStorage.getItem(SESSION_KEY);
-        if (raw) {
-          const existing = JSON.parse(raw);
-          existing.avatar = next;
-          localStorage.setItem(SESSION_KEY, JSON.stringify(existing));
-        }
-      } catch {
-      }
-      return next;
-    } catch {
-      return avatar;
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -42672,13 +42540,11 @@ function AuthProvider({ children }) {
       value: {
         username,
         role,
-        avatar,
         isAuthenticated: !!username,
         login,
         register,
         logout,
-        refreshRole,
-        refreshAvatar
+        refreshRole
       },
       children
     }
@@ -42794,7 +42660,7 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$w = [
+const __iconNode$u = [
   ["path", { d: "M12 7v14", key: "1akyts" }],
   [
     "path",
@@ -42804,14 +42670,14 @@ const __iconNode$w = [
     }
   ]
 ];
-const BookOpen = createLucideIcon("book-open", __iconNode$w);
+const BookOpen = createLucideIcon("book-open", __iconNode$u);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$v = [
+const __iconNode$t = [
   ["path", { d: "M3 10h18V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7", key: "136lmk" }],
   ["path", { d: "M8 2v4", key: "1cmpym" }],
   ["path", { d: "M16 2v4", key: "4m81vk" }],
@@ -42823,45 +42689,23 @@ const __iconNode$v = [
     }
   ]
 ];
-const CalendarHeart = createLucideIcon("calendar-heart", __iconNode$v);
+const CalendarHeart = createLucideIcon("calendar-heart", __iconNode$t);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$u = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$u);
+const __iconNode$s = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$s);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$t = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$t);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$s = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["polyline", { points: "12 6 12 12 16 14", key: "68esgv" }]
-];
-const Clock = createLucideIcon("clock", __iconNode$s);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$r = [
-  ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
-  ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
-];
-const Copy = createLucideIcon("copy", __iconNode$r);
+const __iconNode$r = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$r);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -42869,6 +42713,28 @@ const Copy = createLucideIcon("copy", __iconNode$r);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$q = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["polyline", { points: "12 6 12 12 16 14", key: "68esgv" }]
+];
+const Clock = createLucideIcon("clock", __iconNode$q);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$p = [
+  ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
+  ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
+];
+const Copy = createLucideIcon("copy", __iconNode$p);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$o = [
   ["rect", { width: "12", height: "12", x: "2", y: "10", rx: "2", ry: "2", key: "6agr2n" }],
   [
     "path",
@@ -42879,14 +42745,14 @@ const __iconNode$q = [
   ["path", { d: "M15 6h.01", key: "cblpky" }],
   ["path", { d: "M18 9h.01", key: "2061c0" }]
 ];
-const Dices = createLucideIcon("dices", __iconNode$q);
+const Dices = createLucideIcon("dices", __iconNode$o);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$p = [
+const __iconNode$n = [
   [
     "path",
     {
@@ -42895,14 +42761,14 @@ const __iconNode$p = [
     }
   ]
 ];
-const Droplet = createLucideIcon("droplet", __iconNode$p);
+const Droplet = createLucideIcon("droplet", __iconNode$n);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$o = [
+const __iconNode$m = [
   [
     "path",
     {
@@ -42912,14 +42778,14 @@ const __iconNode$o = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-const Eye = createLucideIcon("eye", __iconNode$o);
+const Eye = createLucideIcon("eye", __iconNode$m);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$n = [
+const __iconNode$l = [
   ["path", { d: "m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9", key: "eefl8a" }],
   ["path", { d: "m18 15 4-4", key: "16gjal" }],
   [
@@ -42930,38 +42796,15 @@ const __iconNode$n = [
     }
   ]
 ];
-const Hammer = createLucideIcon("hammer", __iconNode$n);
+const Hammer = createLucideIcon("hammer", __iconNode$l);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$m = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$m);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$l = [
-  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
-  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
-];
-const Lock = createLucideIcon("lock", __iconNode$l);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$k = [
-  ["path", { d: "m10 17 5-5-5-5", key: "1bsop3" }],
-  ["path", { d: "M15 12H3", key: "6jk70r" }],
-  ["path", { d: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4", key: "u53s6r" }]
-];
-const LogIn = createLucideIcon("log-in", __iconNode$k);
+const __iconNode$k = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$k);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -42969,11 +42812,10 @@ const LogIn = createLucideIcon("log-in", __iconNode$k);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$j = [
-  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
-  ["path", { d: "M21 12H9", key: "dn1m92" }],
-  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
 ];
-const LogOut = createLucideIcon("log-out", __iconNode$j);
+const Lock = createLucideIcon("lock", __iconNode$j);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -42981,11 +42823,11 @@ const LogOut = createLucideIcon("log-out", __iconNode$j);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$i = [
-  ["path", { d: "M4 12h16", key: "1lakjw" }],
-  ["path", { d: "M4 18h16", key: "19g7jn" }],
-  ["path", { d: "M4 6h16", key: "1o0s65" }]
+  ["path", { d: "m10 17 5-5-5-5", key: "1bsop3" }],
+  ["path", { d: "M15 12H3", key: "6jk70r" }],
+  ["path", { d: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4", key: "u53s6r" }]
 ];
-const Menu = createLucideIcon("menu", __iconNode$i);
+const LogIn = createLucideIcon("log-in", __iconNode$i);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -42993,9 +42835,11 @@ const Menu = createLucideIcon("menu", __iconNode$i);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$h = [
-  ["path", { d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z", key: "1lielz" }]
+  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
+  ["path", { d: "M21 12H9", key: "dn1m92" }],
+  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
 ];
-const MessageSquare = createLucideIcon("message-square", __iconNode$h);
+const LogOut = createLucideIcon("log-out", __iconNode$h);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -43003,6 +42847,28 @@ const MessageSquare = createLucideIcon("message-square", __iconNode$h);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$g = [
+  ["path", { d: "M4 12h16", key: "1lakjw" }],
+  ["path", { d: "M4 18h16", key: "19g7jn" }],
+  ["path", { d: "M4 6h16", key: "1o0s65" }]
+];
+const Menu = createLucideIcon("menu", __iconNode$g);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$f = [
+  ["path", { d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z", key: "1lielz" }]
+];
+const MessageSquare = createLucideIcon("message-square", __iconNode$f);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$e = [
   ["path", { d: "M14.531 12.469 6.619 20.38a1 1 0 1 1-3-3l7.912-7.912", key: "we99rg" }],
   [
     "path",
@@ -43026,35 +42892,7 @@ const __iconNode$g = [
     }
   ]
 ];
-const Pickaxe = createLucideIcon("pickaxe", __iconNode$g);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$f = [
-  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
-  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
-];
-const Search = createLucideIcon("search", __iconNode$f);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$e = [
-  [
-    "path",
-    {
-      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
-      key: "1ffxy3"
-    }
-  ],
-  ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
-];
-const Send = createLucideIcon("send", __iconNode$e);
+const Pickaxe = createLucideIcon("pickaxe", __iconNode$e);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -43062,12 +42900,10 @@ const Send = createLucideIcon("send", __iconNode$e);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$d = [
-  ["rect", { width: "20", height: "8", x: "2", y: "2", rx: "2", ry: "2", key: "ngkwjq" }],
-  ["rect", { width: "20", height: "8", x: "2", y: "14", rx: "2", ry: "2", key: "iecqi9" }],
-  ["line", { x1: "6", x2: "6.01", y1: "6", y2: "6", key: "16zg32" }],
-  ["line", { x1: "6", x2: "6.01", y1: "18", y2: "18", key: "nzw8ys" }]
+  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-const Server = createLucideIcon("server", __iconNode$d);
+const Search = createLucideIcon("search", __iconNode$d);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -43078,14 +42914,13 @@ const __iconNode$c = [
   [
     "path",
     {
-      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
-      key: "oel41y"
+      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
+      key: "1ffxy3"
     }
   ],
-  ["path", { d: "M12 8v4", key: "1got3b" }],
-  ["path", { d: "M12 16h.01", key: "1drbdi" }]
+  ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
 ];
-const ShieldAlert = createLucideIcon("shield-alert", __iconNode$c);
+const Send = createLucideIcon("send", __iconNode$c);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -43093,6 +42928,37 @@ const ShieldAlert = createLucideIcon("shield-alert", __iconNode$c);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$b = [
+  ["rect", { width: "20", height: "8", x: "2", y: "2", rx: "2", ry: "2", key: "ngkwjq" }],
+  ["rect", { width: "20", height: "8", x: "2", y: "14", rx: "2", ry: "2", key: "iecqi9" }],
+  ["line", { x1: "6", x2: "6.01", y1: "6", y2: "6", key: "16zg32" }],
+  ["line", { x1: "6", x2: "6.01", y1: "18", y2: "18", key: "nzw8ys" }]
+];
+const Server = createLucideIcon("server", __iconNode$b);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$a = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ],
+  ["path", { d: "M12 8v4", key: "1got3b" }],
+  ["path", { d: "M12 16h.01", key: "1drbdi" }]
+];
+const ShieldAlert = createLucideIcon("shield-alert", __iconNode$a);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$9 = [
   [
     "path",
     {
@@ -43101,14 +42967,14 @@ const __iconNode$b = [
     }
   ]
 ];
-const Shield = createLucideIcon("shield", __iconNode$b);
+const Shield = createLucideIcon("shield", __iconNode$9);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$a = [
+const __iconNode$8 = [
   [
     "path",
     {
@@ -43121,14 +42987,14 @@ const __iconNode$a = [
   ["path", { d: "M4 17v2", key: "vumght" }],
   ["path", { d: "M5 18H3", key: "zchphs" }]
 ];
-const Sparkles = createLucideIcon("sparkles", __iconNode$a);
+const Sparkles = createLucideIcon("sparkles", __iconNode$8);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$9 = [
+const __iconNode$7 = [
   ["path", { d: "M7 20h10", key: "e6iznv" }],
   ["path", { d: "M10 20c5.5-2.5.8-6.4 3-10", key: "161w41" }],
   [
@@ -43146,27 +43012,27 @@ const __iconNode$9 = [
     }
   ]
 ];
-const Sprout = createLucideIcon("sprout", __iconNode$9);
+const Sprout = createLucideIcon("sprout", __iconNode$7);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$8 = [
+const __iconNode$6 = [
   ["polyline", { points: "14.5 17.5 3 6 3 3 6 3 17.5 14.5", key: "1hfsw2" }],
   ["line", { x1: "13", x2: "19", y1: "19", y2: "13", key: "1vrmhu" }],
   ["line", { x1: "16", x2: "20", y1: "16", y2: "20", key: "1bron3" }],
   ["line", { x1: "19", x2: "21", y1: "21", y2: "19", key: "13pww6" }]
 ];
-const Sword = createLucideIcon("sword", __iconNode$8);
+const Sword = createLucideIcon("sword", __iconNode$6);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$7 = [
+const __iconNode$5 = [
   [
     "path",
     {
@@ -43177,39 +43043,7 @@ const __iconNode$7 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-const TriangleAlert = createLucideIcon("triangle-alert", __iconNode$7);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$6 = [
-  ["path", { d: "M12 3v12", key: "1x0j5s" }],
-  ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
-  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
-];
-const Upload = createLucideIcon("upload", __iconNode$6);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$5 = [
-  ["path", { d: "M10 15H6a4 4 0 0 0-4 4v2", key: "1nfge6" }],
-  ["path", { d: "m14.305 16.53.923-.382", key: "1itpsq" }],
-  ["path", { d: "m15.228 13.852-.923-.383", key: "eplpkm" }],
-  ["path", { d: "m16.852 12.228-.383-.923", key: "13v3q0" }],
-  ["path", { d: "m16.852 17.772-.383.924", key: "1i8mnm" }],
-  ["path", { d: "m19.148 12.228.383-.923", key: "1q8j1v" }],
-  ["path", { d: "m19.53 18.696-.382-.924", key: "vk1qj3" }],
-  ["path", { d: "m20.772 13.852.924-.383", key: "n880s0" }],
-  ["path", { d: "m20.772 16.148.924.383", key: "1g6xey" }],
-  ["circle", { cx: "18", cy: "15", r: "3", key: "gjjjvw" }],
-  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
-];
-const UserCog = createLucideIcon("user-cog", __iconNode$5);
+const TriangleAlert = createLucideIcon("triangle-alert", __iconNode$5);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -43274,78 +43108,370 @@ const __iconNode = [
   ]
 ];
 const Zap = createLucideIcon("zap", __iconNode);
-function createContextScope$1(scopeName, createContextScopeDeps = []) {
-  let defaultContexts = [];
-  function createContext3(rootComponentName, defaultContext) {
-    const BaseContext = reactExports.createContext(defaultContext);
-    BaseContext.displayName = rootComponentName + "Context";
-    const index2 = defaultContexts.length;
-    defaultContexts = [...defaultContexts, defaultContext];
-    const Provider = (props) => {
-      var _a3;
-      const { scope, children, ...context } = props;
-      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
-      const value = reactExports.useMemo(() => context, Object.values(context));
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Context.Provider, { value, children });
-    };
-    Provider.displayName = rootComponentName + "Provider";
-    function useContext2(consumerName, scope) {
-      var _a3;
-      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
-      const context = reactExports.useContext(Context);
-      if (context) return context;
-      if (defaultContext !== void 0) return defaultContext;
-      throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
-    }
-    return [Provider, useContext2];
-  }
-  const createScope = () => {
-    const scopeContexts = defaultContexts.map((defaultContext) => {
-      return reactExports.createContext(defaultContext);
-    });
-    return function useScope(scope) {
-      const contexts = (scope == null ? void 0 : scope[scopeName]) || scopeContexts;
-      return reactExports.useMemo(
-        () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
-        [scope, contexts]
-      );
-    };
-  };
-  createScope.scopeName = scopeName;
-  return [createContext3, composeContextScopes$1(createScope, ...createContextScopeDeps)];
-}
-function composeContextScopes$1(...scopes) {
-  const baseScope = scopes[0];
-  if (scopes.length === 1) return baseScope;
-  const createScope = () => {
-    const scopeHooks = scopes.map((createScope2) => ({
-      useScope: createScope2(),
-      scopeName: createScope2.scopeName
-    }));
-    return function useComposedScopes(overrideScopes) {
-      const nextScopes = scopeHooks.reduce((nextScopes2, { useScope, scopeName }) => {
-        const scopeProps = useScope(overrideScopes);
-        const currentScope = scopeProps[`__scope${scopeName}`];
-        return { ...nextScopes2, ...currentScope };
-      }, {});
-      return reactExports.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
-    };
-  };
-  createScope.scopeName = baseScope.scopeName;
-  return createScope;
-}
-function useCallbackRef$1(callback) {
-  const callbackRef = reactExports.useRef(callback);
-  reactExports.useEffect(() => {
-    callbackRef.current = callback;
-  });
-  return reactExports.useMemo(() => (...args) => {
-    var _a3;
-    return (_a3 = callbackRef.current) == null ? void 0 : _a3.call(callbackRef, ...args);
-  }, []);
-}
-var useLayoutEffect2 = (globalThis == null ? void 0 : globalThis.document) ? reactExports.useLayoutEffect : () => {
+var DefaultContext = {
+  color: void 0,
+  size: void 0,
+  className: void 0,
+  style: void 0,
+  attr: void 0
 };
+var IconContext = React$4.createContext && /* @__PURE__ */ React$4.createContext(DefaultContext);
+var _excluded = ["attr", "size", "title"];
+function _objectWithoutProperties(e, t) {
+  if (null == e) return {};
+  var o2, r2, i = _objectWithoutPropertiesLoose(e, t);
+  if (Object.getOwnPropertySymbols) {
+    var n = Object.getOwnPropertySymbols(e);
+    for (r2 = 0; r2 < n.length; r2++) o2 = n[r2], -1 === t.indexOf(o2) && {}.propertyIsEnumerable.call(e, o2) && (i[o2] = e[o2]);
+  }
+  return i;
+}
+function _objectWithoutPropertiesLoose(r2, e) {
+  if (null == r2) return {};
+  var t = {};
+  for (var n in r2) if ({}.hasOwnProperty.call(r2, n)) {
+    if (-1 !== e.indexOf(n)) continue;
+    t[n] = r2[n];
+  }
+  return t;
+}
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function(n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r2 in t) ({}).hasOwnProperty.call(t, r2) && (n[r2] = t[r2]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+function ownKeys(e, r2) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o2 = Object.getOwnPropertySymbols(e);
+    r2 && (o2 = o2.filter(function(r3) {
+      return Object.getOwnPropertyDescriptor(e, r3).enumerable;
+    })), t.push.apply(t, o2);
+  }
+  return t;
+}
+function _objectSpread(e) {
+  for (var r2 = 1; r2 < arguments.length; r2++) {
+    var t = null != arguments[r2] ? arguments[r2] : {};
+    r2 % 2 ? ownKeys(Object(t), true).forEach(function(r3) {
+      _defineProperty(e, r3, t[r3]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r3) {
+      Object.defineProperty(e, r3, Object.getOwnPropertyDescriptor(t, r3));
+    });
+  }
+  return e;
+}
+function _defineProperty(e, r2, t) {
+  return (r2 = _toPropertyKey(r2)) in e ? Object.defineProperty(e, r2, { value: t, enumerable: true, configurable: true, writable: true }) : e[r2] = t, e;
+}
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == typeof i ? i : i + "";
+}
+function _toPrimitive(t, r2) {
+  if ("object" != typeof t || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r2);
+    if ("object" != typeof i) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r2 ? String : Number)(t);
+}
+function Tree2Element(tree) {
+  return tree && tree.map((node, i) => /* @__PURE__ */ React$4.createElement(node.tag, _objectSpread({
+    key: i
+  }, node.attr), Tree2Element(node.child)));
+}
+function GenIcon(data) {
+  return (props) => /* @__PURE__ */ React$4.createElement(IconBase, _extends({
+    attr: _objectSpread({}, data.attr)
+  }, props), Tree2Element(data.child));
+}
+function IconBase(props) {
+  var elem = (conf) => {
+    var {
+      attr,
+      size,
+      title
+    } = props, svgProps = _objectWithoutProperties(props, _excluded);
+    var computedSize = size || conf.size || "1em";
+    var className;
+    if (conf.className) className = conf.className;
+    if (props.className) className = (className ? className + " " : "") + props.className;
+    return /* @__PURE__ */ React$4.createElement("svg", _extends({
+      stroke: "currentColor",
+      fill: "currentColor",
+      strokeWidth: "0"
+    }, conf.attr, attr, svgProps, {
+      className,
+      style: _objectSpread(_objectSpread({
+        color: props.color || conf.color
+      }, conf.style), props.style),
+      height: computedSize,
+      width: computedSize,
+      xmlns: "http://www.w3.org/2000/svg"
+    }), title && /* @__PURE__ */ React$4.createElement("title", null, title), props.children);
+  };
+  return IconContext !== void 0 ? /* @__PURE__ */ React$4.createElement(IconContext.Consumer, null, (conf) => elem(conf)) : elem(DefaultContext);
+}
+function SiDiscord(props) {
+  return GenIcon({ "attr": { "role": "img", "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "d": "M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z" }, "child": [] }] })(props);
+}
+function Footer() {
+  const year = (/* @__PURE__ */ new Date()).getFullYear();
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "footer",
+    {
+      className: "relative overflow-hidden",
+      style: { background: "oklch(0.07 0.03 295)" },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: "h-2 w-full",
+            style: {
+              background: "repeating-linear-gradient(90deg, oklch(0.45 0.20 295) 0px, oklch(0.45 0.20 295) 8px, oklch(0.30 0.14 295) 8px, oklch(0.30 0.14 295) 16px, oklch(0.55 0.22 295) 16px, oklch(0.55 0.22 295) 24px, oklch(0.30 0.14 295) 24px, oklch(0.30 0.14 295) 32px)"
+            }
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 block-texture opacity-10" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-4 gap-8 mb-10", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "md:col-span-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "img",
+                {
+                  src: "/assets/generated/zoritlegends-logo.dim_512x128.png",
+                  alt: "ZoritLegends",
+                  className: "h-10 w-auto object-contain mb-4",
+                  onError: (e) => {
+                    const target = e.currentTarget;
+                    target.style.display = "none";
+                    const fallback = target.nextElementSibling;
+                    if (fallback) fallback.style.display = "block";
+                  }
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "p",
+                {
+                  className: "font-pixel mb-1",
+                  style: {
+                    display: "none",
+                    fontSize: "0.7rem",
+                    color: "oklch(0.80 0.18 295)"
+                  },
+                  children: "ZoritLegends"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "p",
+                {
+                  style: {
+                    fontFamily: '"VT323", monospace',
+                    fontSize: "1.1rem",
+                    color: "oklch(0.50 0.08 295)",
+                    lineHeight: "1.6",
+                    maxWidth: "300px"
+                  },
+                  children: "The ultimate Minecraft server experience. Battle, survive, and forge your legend."
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-3 mt-5", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "a",
+                {
+                  href: "https://discord.gg/UGCjrpj7Jg",
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  "aria-label": "Discord",
+                  className: "w-9 h-9 flex items-center justify-center transition-all duration-150 hover:opacity-80",
+                  style: {
+                    background: "oklch(0.14 0.06 295)",
+                    border: "2px solid oklch(0.25 0.10 295)",
+                    color: "oklch(0.60 0.18 270)"
+                  },
+                  onMouseEnter: (e) => {
+                    e.currentTarget.style.borderColor = "oklch(0.45 0.20 295)";
+                  },
+                  onMouseLeave: (e) => {
+                    e.currentTarget.style.borderColor = "oklch(0.25 0.10 295)";
+                  },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(SiDiscord, { size: 16 })
+                }
+              ) })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "h4",
+                {
+                  className: "font-pixel mb-4",
+                  style: {
+                    fontSize: "0.55rem",
+                    color: "oklch(0.70 0.18 295)",
+                    letterSpacing: "0.1em"
+                  },
+                  children: "QUICK LINKS"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "space-y-2", children: ["Home", "Features"].map((link) => /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "a",
+                {
+                  href: `#${link.toLowerCase()}`,
+                  style: {
+                    fontFamily: '"VT323", monospace',
+                    fontSize: "1.05rem",
+                    color: "oklch(0.50 0.08 295)",
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px"
+                  },
+                  onMouseEnter: (e) => {
+                    e.currentTarget.style.color = "oklch(0.75 0.15 295)";
+                  },
+                  onMouseLeave: (e) => {
+                    e.currentTarget.style.color = "oklch(0.50 0.08 295)";
+                  },
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "oklch(0.45 0.18 295)" }, children: "▸" }),
+                    link
+                  ]
+                }
+              ) }, link)) })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "h4",
+                {
+                  className: "font-pixel mb-4",
+                  style: {
+                    fontSize: "0.55rem",
+                    color: "oklch(0.70 0.18 295)",
+                    letterSpacing: "0.1em"
+                  },
+                  children: "SERVER INFO"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "p",
+                    {
+                      style: {
+                        fontFamily: '"VT323", monospace',
+                        fontSize: "0.85rem",
+                        color: "oklch(0.45 0.10 295)",
+                        letterSpacing: "0.05em"
+                      },
+                      children: "SERVER IP"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "p",
+                    {
+                      style: {
+                        fontFamily: '"VT323", monospace',
+                        fontSize: "1rem",
+                        color: "oklch(0.70 0.18 295)",
+                        letterSpacing: "0.03em"
+                      },
+                      children: "mc.zoritlegends.com:60458"
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "p",
+                    {
+                      style: {
+                        fontFamily: '"VT323", monospace',
+                        fontSize: "0.85rem",
+                        color: "oklch(0.45 0.10 295)",
+                        letterSpacing: "0.05em"
+                      },
+                      children: "VERSION"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "p",
+                    {
+                      style: {
+                        fontFamily: '"VT323", monospace',
+                        fontSize: "1rem",
+                        color: "oklch(0.60 0.10 295)"
+                      },
+                      children: "Java & Bedrock"
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "p",
+                    {
+                      style: {
+                        fontFamily: '"VT323", monospace',
+                        fontSize: "0.85rem",
+                        color: "oklch(0.45 0.10 295)",
+                        letterSpacing: "0.05em"
+                      },
+                      children: "STATUS"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "p",
+                    {
+                      style: {
+                        fontFamily: '"VT323", monospace',
+                        fontSize: "1rem",
+                        color: "oklch(0.65 0.22 145)"
+                      },
+                      children: "● ONLINE"
+                    }
+                  )
+                ] })
+              ] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              className: "pt-6 flex items-center justify-center",
+              style: { borderTop: "1px solid oklch(0.18 0.07 295)" },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "p",
+                {
+                  style: {
+                    fontFamily: '"VT323", monospace',
+                    fontSize: "0.95rem",
+                    color: "oklch(0.38 0.07 295)"
+                  },
+                  children: [
+                    "© ",
+                    year,
+                    " ZoritLegends. All rights reserved."
+                  ]
+                }
+              )
+            }
+          )
+        ] })
+      ]
+    }
+  );
+}
+function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForDefaultPrevented = true } = {}) {
+  return function handleEvent(event) {
+    originalEventHandler == null ? void 0 : originalEventHandler(event);
+    if (checkForDefaultPrevented === false || !event.defaultPrevented) {
+      return ourEventHandler == null ? void 0 : ourEventHandler(event);
+    }
+  };
+}
 function setRef(ref, value) {
   if (typeof ref === "function") {
     return ref(value);
@@ -43380,24 +43506,165 @@ function composeRefs(...refs) {
 function useComposedRefs(...refs) {
   return reactExports.useCallback(composeRefs(...refs), refs);
 }
-var REACT_LAZY_TYPE = Symbol.for("react.lazy");
-var use = React$5[" use ".trim().toString()];
-function isPromiseLike(value) {
-  return typeof value === "object" && value !== null && "then" in value;
+function createContext2(rootComponentName, defaultContext) {
+  const Context = reactExports.createContext(defaultContext);
+  const Provider = (props) => {
+    const { children, ...context } = props;
+    const value = reactExports.useMemo(() => context, Object.values(context));
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Context.Provider, { value, children });
+  };
+  Provider.displayName = rootComponentName + "Provider";
+  function useContext2(consumerName) {
+    const context = reactExports.useContext(Context);
+    if (context) return context;
+    if (defaultContext !== void 0) return defaultContext;
+    throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
+  }
+  return [Provider, useContext2];
 }
-function isLazyComponent(element) {
-  return element != null && typeof element === "object" && "$$typeof" in element && element.$$typeof === REACT_LAZY_TYPE && "_payload" in element && isPromiseLike(element._payload);
+function createContextScope(scopeName, createContextScopeDeps = []) {
+  let defaultContexts = [];
+  function createContext3(rootComponentName, defaultContext) {
+    const BaseContext = reactExports.createContext(defaultContext);
+    const index2 = defaultContexts.length;
+    defaultContexts = [...defaultContexts, defaultContext];
+    const Provider = (props) => {
+      var _a3;
+      const { scope, children, ...context } = props;
+      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
+      const value = reactExports.useMemo(() => context, Object.values(context));
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Context.Provider, { value, children });
+    };
+    Provider.displayName = rootComponentName + "Provider";
+    function useContext2(consumerName, scope) {
+      var _a3;
+      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
+      const context = reactExports.useContext(Context);
+      if (context) return context;
+      if (defaultContext !== void 0) return defaultContext;
+      throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
+    }
+    return [Provider, useContext2];
+  }
+  const createScope = () => {
+    const scopeContexts = defaultContexts.map((defaultContext) => {
+      return reactExports.createContext(defaultContext);
+    });
+    return function useScope(scope) {
+      const contexts = (scope == null ? void 0 : scope[scopeName]) || scopeContexts;
+      return reactExports.useMemo(
+        () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
+        [scope, contexts]
+      );
+    };
+  };
+  createScope.scopeName = scopeName;
+  return [createContext3, composeContextScopes(createScope, ...createContextScopeDeps)];
+}
+function composeContextScopes(...scopes) {
+  const baseScope = scopes[0];
+  if (scopes.length === 1) return baseScope;
+  const createScope = () => {
+    const scopeHooks = scopes.map((createScope2) => ({
+      useScope: createScope2(),
+      scopeName: createScope2.scopeName
+    }));
+    return function useComposedScopes(overrideScopes) {
+      const nextScopes = scopeHooks.reduce((nextScopes2, { useScope, scopeName }) => {
+        const scopeProps = useScope(overrideScopes);
+        const currentScope = scopeProps[`__scope${scopeName}`];
+        return { ...nextScopes2, ...currentScope };
+      }, {});
+      return reactExports.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
+    };
+  };
+  createScope.scopeName = baseScope.scopeName;
+  return createScope;
+}
+var useLayoutEffect2 = (globalThis == null ? void 0 : globalThis.document) ? reactExports.useLayoutEffect : () => {
+};
+var useReactId = React$5[" useId ".trim().toString()] || (() => void 0);
+var count$1 = 0;
+function useId(deterministicId) {
+  const [id2, setId] = reactExports.useState(useReactId());
+  useLayoutEffect2(() => {
+    setId((reactId) => reactId ?? String(count$1++));
+  }, [deterministicId]);
+  return deterministicId || (id2 ? `radix-${id2}` : "");
+}
+var useInsertionEffect = React$5[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
+function useControllableState({
+  prop,
+  defaultProp,
+  onChange = () => {
+  },
+  caller
+}) {
+  const [uncontrolledProp, setUncontrolledProp, onChangeRef] = useUncontrolledState({
+    defaultProp,
+    onChange
+  });
+  const isControlled = prop !== void 0;
+  const value = isControlled ? prop : uncontrolledProp;
+  {
+    const isControlledRef = reactExports.useRef(prop !== void 0);
+    reactExports.useEffect(() => {
+      const wasControlled = isControlledRef.current;
+      if (wasControlled !== isControlled) {
+        const from = wasControlled ? "controlled" : "uncontrolled";
+        const to = isControlled ? "controlled" : "uncontrolled";
+        console.warn(
+          `${caller} is changing from ${from} to ${to}. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.`
+        );
+      }
+      isControlledRef.current = isControlled;
+    }, [isControlled, caller]);
+  }
+  const setValue = reactExports.useCallback(
+    (nextValue) => {
+      var _a3;
+      if (isControlled) {
+        const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
+        if (value2 !== prop) {
+          (_a3 = onChangeRef.current) == null ? void 0 : _a3.call(onChangeRef, value2);
+        }
+      } else {
+        setUncontrolledProp(nextValue);
+      }
+    },
+    [isControlled, prop, setUncontrolledProp, onChangeRef]
+  );
+  return [value, setValue];
+}
+function useUncontrolledState({
+  defaultProp,
+  onChange
+}) {
+  const [value, setValue] = reactExports.useState(defaultProp);
+  const prevValueRef = reactExports.useRef(value);
+  const onChangeRef = reactExports.useRef(onChange);
+  useInsertionEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
+  reactExports.useEffect(() => {
+    var _a3;
+    if (prevValueRef.current !== value) {
+      (_a3 = onChangeRef.current) == null ? void 0 : _a3.call(onChangeRef, value);
+      prevValueRef.current = value;
+    }
+  }, [value, prevValueRef]);
+  return [value, setValue, onChangeRef];
+}
+function isFunction(value) {
+  return typeof value === "function";
 }
 // @__NO_SIDE_EFFECTS__
-function createSlot$1(ownerName) {
-  const SlotClone = /* @__PURE__ */ createSlotClone$1(ownerName);
+function createSlot(ownerName) {
+  const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
   const Slot2 = reactExports.forwardRef((props, forwardedRef) => {
-    let { children, ...slotProps } = props;
-    if (isLazyComponent(children) && typeof use === "function") {
-      children = use(children._payload);
-    }
+    const { children, ...slotProps } = props;
     const childrenArray = reactExports.Children.toArray(children);
-    const slottable = childrenArray.find(isSlottable$1);
+    const slottable = childrenArray.find(isSlottable);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
@@ -43416,15 +43683,12 @@ function createSlot$1(ownerName) {
   return Slot2;
 }
 // @__NO_SIDE_EFFECTS__
-function createSlotClone$1(ownerName) {
+function createSlotClone(ownerName) {
   const SlotClone = reactExports.forwardRef((props, forwardedRef) => {
-    let { children, ...slotProps } = props;
-    if (isLazyComponent(children) && typeof use === "function") {
-      children = use(children._payload);
-    }
+    const { children, ...slotProps } = props;
     if (reactExports.isValidElement(children)) {
-      const childrenRef = getElementRef$2(children);
-      const props2 = mergeProps$1(slotProps, children.props);
+      const childrenRef = getElementRef$1(children);
+      const props2 = mergeProps(slotProps, children.props);
       if (children.type !== reactExports.Fragment) {
         props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
       }
@@ -43435,11 +43699,11 @@ function createSlotClone$1(ownerName) {
   SlotClone.displayName = `${ownerName}.SlotClone`;
   return SlotClone;
 }
-var SLOTTABLE_IDENTIFIER$1 = Symbol("radix.slottable");
-function isSlottable$1(child) {
-  return reactExports.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER$1;
+var SLOTTABLE_IDENTIFIER = Symbol("radix.slottable");
+function isSlottable(child) {
+  return reactExports.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
 }
-function mergeProps$1(slotProps, childProps) {
+function mergeProps(slotProps, childProps) {
   const overrideProps = { ...childProps };
   for (const propName in childProps) {
     const slotPropValue = slotProps[propName];
@@ -43463,7 +43727,7 @@ function mergeProps$1(slotProps, childProps) {
   }
   return { ...slotProps, ...overrideProps };
 }
-function getElementRef$2(element) {
+function getElementRef$1(element) {
   var _a3, _b3;
   let getter = (_a3 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a3.get;
   let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
@@ -43477,7 +43741,7 @@ function getElementRef$2(element) {
   }
   return element.props.ref || element.ref;
 }
-var NODES$1 = [
+var NODES = [
   "a",
   "button",
   "div",
@@ -43496,8 +43760,8 @@ var NODES$1 = [
   "svg",
   "ul"
 ];
-var Primitive$1 = NODES$1.reduce((primitive, node) => {
-  const Slot2 = /* @__PURE__ */ createSlot$1(`Primitive.${node}`);
+var Primitive = NODES.reduce((primitive, node) => {
+  const Slot2 = /* @__PURE__ */ createSlot(`Primitive.${node}`);
   const Node2 = reactExports.forwardRef((props, forwardedRef) => {
     const { asChild, ...primitiveProps } = props;
     const Comp = asChild ? Slot2 : node;
@@ -43509,125 +43773,1674 @@ var Primitive$1 = NODES$1.reduce((primitive, node) => {
   Node2.displayName = `Primitive.${node}`;
   return { ...primitive, [node]: Node2 };
 }, {});
-function useIsHydrated() {
-  return shimExports.useSyncExternalStore(
-    subscribe,
-    () => true,
-    () => false
-  );
+function dispatchDiscreteCustomEvent(target, event) {
+  if (target) reactDomExports.flushSync(() => target.dispatchEvent(event));
 }
-function subscribe() {
-  return () => {
-  };
+function useCallbackRef$1(callback) {
+  const callbackRef = reactExports.useRef(callback);
+  reactExports.useEffect(() => {
+    callbackRef.current = callback;
+  });
+  return reactExports.useMemo(() => (...args) => {
+    var _a3;
+    return (_a3 = callbackRef.current) == null ? void 0 : _a3.call(callbackRef, ...args);
+  }, []);
 }
-var AVATAR_NAME = "Avatar";
-var [createAvatarContext] = createContextScope$1(AVATAR_NAME);
-var [AvatarProvider, useAvatarContext] = createAvatarContext(AVATAR_NAME);
-var Avatar$1 = reactExports.forwardRef(
+function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
+  const onEscapeKeyDown = useCallbackRef$1(onEscapeKeyDownProp);
+  reactExports.useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onEscapeKeyDown(event);
+      }
+    };
+    ownerDocument.addEventListener("keydown", handleKeyDown, { capture: true });
+    return () => ownerDocument.removeEventListener("keydown", handleKeyDown, { capture: true });
+  }, [onEscapeKeyDown, ownerDocument]);
+}
+var DISMISSABLE_LAYER_NAME = "DismissableLayer";
+var CONTEXT_UPDATE = "dismissableLayer.update";
+var POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside";
+var FOCUS_OUTSIDE = "dismissableLayer.focusOutside";
+var originalBodyPointerEvents;
+var DismissableLayerContext = reactExports.createContext({
+  layers: /* @__PURE__ */ new Set(),
+  layersWithOutsidePointerEventsDisabled: /* @__PURE__ */ new Set(),
+  branches: /* @__PURE__ */ new Set()
+});
+var DismissableLayer = reactExports.forwardRef(
   (props, forwardedRef) => {
-    const { __scopeAvatar, ...avatarProps } = props;
-    const [imageLoadingStatus, setImageLoadingStatus] = reactExports.useState("idle");
+    const {
+      disableOutsidePointerEvents = false,
+      onEscapeKeyDown,
+      onPointerDownOutside,
+      onFocusOutside,
+      onInteractOutside,
+      onDismiss,
+      ...layerProps
+    } = props;
+    const context = reactExports.useContext(DismissableLayerContext);
+    const [node, setNode] = reactExports.useState(null);
+    const ownerDocument = (node == null ? void 0 : node.ownerDocument) ?? (globalThis == null ? void 0 : globalThis.document);
+    const [, force] = reactExports.useState({});
+    const composedRefs = useComposedRefs(forwardedRef, (node2) => setNode(node2));
+    const layers = Array.from(context.layers);
+    const [highestLayerWithOutsidePointerEventsDisabled] = [...context.layersWithOutsidePointerEventsDisabled].slice(-1);
+    const highestLayerWithOutsidePointerEventsDisabledIndex = layers.indexOf(highestLayerWithOutsidePointerEventsDisabled);
+    const index2 = node ? layers.indexOf(node) : -1;
+    const isBodyPointerEventsDisabled = context.layersWithOutsidePointerEventsDisabled.size > 0;
+    const isPointerEventsEnabled = index2 >= highestLayerWithOutsidePointerEventsDisabledIndex;
+    const pointerDownOutside = usePointerDownOutside((event) => {
+      const target = event.target;
+      const isPointerDownOnBranch = [...context.branches].some((branch) => branch.contains(target));
+      if (!isPointerEventsEnabled || isPointerDownOnBranch) return;
+      onPointerDownOutside == null ? void 0 : onPointerDownOutside(event);
+      onInteractOutside == null ? void 0 : onInteractOutside(event);
+      if (!event.defaultPrevented) onDismiss == null ? void 0 : onDismiss();
+    }, ownerDocument);
+    const focusOutside = useFocusOutside((event) => {
+      const target = event.target;
+      const isFocusInBranch = [...context.branches].some((branch) => branch.contains(target));
+      if (isFocusInBranch) return;
+      onFocusOutside == null ? void 0 : onFocusOutside(event);
+      onInteractOutside == null ? void 0 : onInteractOutside(event);
+      if (!event.defaultPrevented) onDismiss == null ? void 0 : onDismiss();
+    }, ownerDocument);
+    useEscapeKeydown((event) => {
+      const isHighestLayer = index2 === context.layers.size - 1;
+      if (!isHighestLayer) return;
+      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(event);
+      if (!event.defaultPrevented && onDismiss) {
+        event.preventDefault();
+        onDismiss();
+      }
+    }, ownerDocument);
+    reactExports.useEffect(() => {
+      if (!node) return;
+      if (disableOutsidePointerEvents) {
+        if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
+          originalBodyPointerEvents = ownerDocument.body.style.pointerEvents;
+          ownerDocument.body.style.pointerEvents = "none";
+        }
+        context.layersWithOutsidePointerEventsDisabled.add(node);
+      }
+      context.layers.add(node);
+      dispatchUpdate();
+      return () => {
+        if (disableOutsidePointerEvents && context.layersWithOutsidePointerEventsDisabled.size === 1) {
+          ownerDocument.body.style.pointerEvents = originalBodyPointerEvents;
+        }
+      };
+    }, [node, ownerDocument, disableOutsidePointerEvents, context]);
+    reactExports.useEffect(() => {
+      return () => {
+        if (!node) return;
+        context.layers.delete(node);
+        context.layersWithOutsidePointerEventsDisabled.delete(node);
+        dispatchUpdate();
+      };
+    }, [node, context]);
+    reactExports.useEffect(() => {
+      const handleUpdate = () => force({});
+      document.addEventListener(CONTEXT_UPDATE, handleUpdate);
+      return () => document.removeEventListener(CONTEXT_UPDATE, handleUpdate);
+    }, []);
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
-      AvatarProvider,
+      Primitive.div,
       {
-        scope: __scopeAvatar,
-        imageLoadingStatus,
-        onImageLoadingStatusChange: setImageLoadingStatus,
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive$1.span, { ...avatarProps, ref: forwardedRef })
+        ...layerProps,
+        ref: composedRefs,
+        style: {
+          pointerEvents: isBodyPointerEventsDisabled ? isPointerEventsEnabled ? "auto" : "none" : void 0,
+          ...props.style
+        },
+        onFocusCapture: composeEventHandlers(props.onFocusCapture, focusOutside.onFocusCapture),
+        onBlurCapture: composeEventHandlers(props.onBlurCapture, focusOutside.onBlurCapture),
+        onPointerDownCapture: composeEventHandlers(
+          props.onPointerDownCapture,
+          pointerDownOutside.onPointerDownCapture
+        )
       }
     );
   }
 );
-Avatar$1.displayName = AVATAR_NAME;
-var IMAGE_NAME = "AvatarImage";
-var AvatarImage$1 = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const { __scopeAvatar, src, onLoadingStatusChange = () => {
-    }, ...imageProps } = props;
-    const context = useAvatarContext(IMAGE_NAME, __scopeAvatar);
-    const imageLoadingStatus = useImageLoadingStatus(src, imageProps);
-    const handleLoadingStatusChange = useCallbackRef$1((status) => {
-      onLoadingStatusChange(status);
-      context.onImageLoadingStatusChange(status);
-    });
-    useLayoutEffect2(() => {
-      if (imageLoadingStatus !== "idle") {
-        handleLoadingStatusChange(imageLoadingStatus);
-      }
-    }, [imageLoadingStatus, handleLoadingStatusChange]);
-    return imageLoadingStatus === "loaded" ? /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive$1.img, { ...imageProps, ref: forwardedRef, src }) : null;
-  }
-);
-AvatarImage$1.displayName = IMAGE_NAME;
-var FALLBACK_NAME = "AvatarFallback";
-var AvatarFallback$1 = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const { __scopeAvatar, delayMs, ...fallbackProps } = props;
-    const context = useAvatarContext(FALLBACK_NAME, __scopeAvatar);
-    const [canRender, setCanRender] = reactExports.useState(delayMs === void 0);
-    reactExports.useEffect(() => {
-      if (delayMs !== void 0) {
-        const timerId = window.setTimeout(() => setCanRender(true), delayMs);
-        return () => window.clearTimeout(timerId);
-      }
-    }, [delayMs]);
-    return canRender && context.imageLoadingStatus !== "loaded" ? /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive$1.span, { ...fallbackProps, ref: forwardedRef }) : null;
-  }
-);
-AvatarFallback$1.displayName = FALLBACK_NAME;
-function resolveLoadingStatus(image, src) {
-  if (!image) {
-    return "idle";
-  }
-  if (!src) {
-    return "error";
-  }
-  if (image.src !== src) {
-    image.src = src;
-  }
-  return image.complete && image.naturalWidth > 0 ? "loaded" : "loading";
-}
-function useImageLoadingStatus(src, { referrerPolicy, crossOrigin }) {
-  const isHydrated = useIsHydrated();
-  const imageRef = reactExports.useRef(null);
-  const image = (() => {
-    if (!isHydrated) return null;
-    if (!imageRef.current) {
-      imageRef.current = new window.Image();
+DismissableLayer.displayName = DISMISSABLE_LAYER_NAME;
+var BRANCH_NAME = "DismissableLayerBranch";
+var DismissableLayerBranch = reactExports.forwardRef((props, forwardedRef) => {
+  const context = reactExports.useContext(DismissableLayerContext);
+  const ref = reactExports.useRef(null);
+  const composedRefs = useComposedRefs(forwardedRef, ref);
+  reactExports.useEffect(() => {
+    const node = ref.current;
+    if (node) {
+      context.branches.add(node);
+      return () => {
+        context.branches.delete(node);
+      };
     }
-    return imageRef.current;
-  })();
-  const [loadingStatus, setLoadingStatus] = reactExports.useState(
-    () => resolveLoadingStatus(image, src)
-  );
-  useLayoutEffect2(() => {
-    setLoadingStatus(resolveLoadingStatus(image, src));
-  }, [image, src]);
-  useLayoutEffect2(() => {
-    const updateStatus = (status) => () => {
-      setLoadingStatus(status);
+  }, [context.branches]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.div, { ...props, ref: composedRefs });
+});
+DismissableLayerBranch.displayName = BRANCH_NAME;
+function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
+  const handlePointerDownOutside = useCallbackRef$1(onPointerDownOutside);
+  const isPointerInsideReactTreeRef = reactExports.useRef(false);
+  const handleClickRef = reactExports.useRef(() => {
+  });
+  reactExports.useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (event.target && !isPointerInsideReactTreeRef.current) {
+        let handleAndDispatchPointerDownOutsideEvent2 = function() {
+          handleAndDispatchCustomEvent(
+            POINTER_DOWN_OUTSIDE,
+            handlePointerDownOutside,
+            eventDetail,
+            { discrete: true }
+          );
+        };
+        const eventDetail = { originalEvent: event };
+        if (event.pointerType === "touch") {
+          ownerDocument.removeEventListener("click", handleClickRef.current);
+          handleClickRef.current = handleAndDispatchPointerDownOutsideEvent2;
+          ownerDocument.addEventListener("click", handleClickRef.current, { once: true });
+        } else {
+          handleAndDispatchPointerDownOutsideEvent2();
+        }
+      } else {
+        ownerDocument.removeEventListener("click", handleClickRef.current);
+      }
+      isPointerInsideReactTreeRef.current = false;
     };
-    if (!image) return;
-    const handleLoad = updateStatus("loaded");
-    const handleError = updateStatus("error");
-    image.addEventListener("load", handleLoad);
-    image.addEventListener("error", handleError);
-    if (referrerPolicy) {
-      image.referrerPolicy = referrerPolicy;
-    }
-    if (typeof crossOrigin === "string") {
-      image.crossOrigin = crossOrigin;
-    }
+    const timerId = window.setTimeout(() => {
+      ownerDocument.addEventListener("pointerdown", handlePointerDown);
+    }, 0);
     return () => {
-      image.removeEventListener("load", handleLoad);
-      image.removeEventListener("error", handleError);
+      window.clearTimeout(timerId);
+      ownerDocument.removeEventListener("pointerdown", handlePointerDown);
+      ownerDocument.removeEventListener("click", handleClickRef.current);
     };
-  }, [image, crossOrigin, referrerPolicy]);
-  return loadingStatus;
+  }, [ownerDocument, handlePointerDownOutside]);
+  return {
+    // ensures we check React component tree (not just DOM tree)
+    onPointerDownCapture: () => isPointerInsideReactTreeRef.current = true
+  };
 }
-var Root$2 = Avatar$1;
-var Image$1 = AvatarImage$1;
-var Fallback = AvatarFallback$1;
+function useFocusOutside(onFocusOutside, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
+  const handleFocusOutside = useCallbackRef$1(onFocusOutside);
+  const isFocusInsideReactTreeRef = reactExports.useRef(false);
+  reactExports.useEffect(() => {
+    const handleFocus = (event) => {
+      if (event.target && !isFocusInsideReactTreeRef.current) {
+        const eventDetail = { originalEvent: event };
+        handleAndDispatchCustomEvent(FOCUS_OUTSIDE, handleFocusOutside, eventDetail, {
+          discrete: false
+        });
+      }
+    };
+    ownerDocument.addEventListener("focusin", handleFocus);
+    return () => ownerDocument.removeEventListener("focusin", handleFocus);
+  }, [ownerDocument, handleFocusOutside]);
+  return {
+    onFocusCapture: () => isFocusInsideReactTreeRef.current = true,
+    onBlurCapture: () => isFocusInsideReactTreeRef.current = false
+  };
+}
+function dispatchUpdate() {
+  const event = new CustomEvent(CONTEXT_UPDATE);
+  document.dispatchEvent(event);
+}
+function handleAndDispatchCustomEvent(name, handler, detail, { discrete }) {
+  const target = detail.originalEvent.target;
+  const event = new CustomEvent(name, { bubbles: false, cancelable: true, detail });
+  if (handler) target.addEventListener(name, handler, { once: true });
+  if (discrete) {
+    dispatchDiscreteCustomEvent(target, event);
+  } else {
+    target.dispatchEvent(event);
+  }
+}
+var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
+var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
+var EVENT_OPTIONS = { bubbles: false, cancelable: true };
+var FOCUS_SCOPE_NAME = "FocusScope";
+var FocusScope = reactExports.forwardRef((props, forwardedRef) => {
+  const {
+    loop = false,
+    trapped = false,
+    onMountAutoFocus: onMountAutoFocusProp,
+    onUnmountAutoFocus: onUnmountAutoFocusProp,
+    ...scopeProps
+  } = props;
+  const [container, setContainer] = reactExports.useState(null);
+  const onMountAutoFocus = useCallbackRef$1(onMountAutoFocusProp);
+  const onUnmountAutoFocus = useCallbackRef$1(onUnmountAutoFocusProp);
+  const lastFocusedElementRef = reactExports.useRef(null);
+  const composedRefs = useComposedRefs(forwardedRef, (node) => setContainer(node));
+  const focusScope = reactExports.useRef({
+    paused: false,
+    pause() {
+      this.paused = true;
+    },
+    resume() {
+      this.paused = false;
+    }
+  }).current;
+  reactExports.useEffect(() => {
+    if (trapped) {
+      let handleFocusIn2 = function(event) {
+        if (focusScope.paused || !container) return;
+        const target = event.target;
+        if (container.contains(target)) {
+          lastFocusedElementRef.current = target;
+        } else {
+          focus(lastFocusedElementRef.current, { select: true });
+        }
+      }, handleFocusOut2 = function(event) {
+        if (focusScope.paused || !container) return;
+        const relatedTarget = event.relatedTarget;
+        if (relatedTarget === null) return;
+        if (!container.contains(relatedTarget)) {
+          focus(lastFocusedElementRef.current, { select: true });
+        }
+      }, handleMutations2 = function(mutations) {
+        const focusedElement = document.activeElement;
+        if (focusedElement !== document.body) return;
+        for (const mutation of mutations) {
+          if (mutation.removedNodes.length > 0) focus(container);
+        }
+      };
+      document.addEventListener("focusin", handleFocusIn2);
+      document.addEventListener("focusout", handleFocusOut2);
+      const mutationObserver = new MutationObserver(handleMutations2);
+      if (container) mutationObserver.observe(container, { childList: true, subtree: true });
+      return () => {
+        document.removeEventListener("focusin", handleFocusIn2);
+        document.removeEventListener("focusout", handleFocusOut2);
+        mutationObserver.disconnect();
+      };
+    }
+  }, [trapped, container, focusScope.paused]);
+  reactExports.useEffect(() => {
+    if (container) {
+      focusScopesStack.add(focusScope);
+      const previouslyFocusedElement = document.activeElement;
+      const hasFocusedCandidate = container.contains(previouslyFocusedElement);
+      if (!hasFocusedCandidate) {
+        const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS);
+        container.addEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
+        container.dispatchEvent(mountEvent);
+        if (!mountEvent.defaultPrevented) {
+          focusFirst(removeLinks(getTabbableCandidates(container)), { select: true });
+          if (document.activeElement === previouslyFocusedElement) {
+            focus(container);
+          }
+        }
+      }
+      return () => {
+        container.removeEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
+        setTimeout(() => {
+          const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS);
+          container.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
+          container.dispatchEvent(unmountEvent);
+          if (!unmountEvent.defaultPrevented) {
+            focus(previouslyFocusedElement ?? document.body, { select: true });
+          }
+          container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
+          focusScopesStack.remove(focusScope);
+        }, 0);
+      };
+    }
+  }, [container, onMountAutoFocus, onUnmountAutoFocus, focusScope]);
+  const handleKeyDown = reactExports.useCallback(
+    (event) => {
+      if (!loop && !trapped) return;
+      if (focusScope.paused) return;
+      const isTabKey = event.key === "Tab" && !event.altKey && !event.ctrlKey && !event.metaKey;
+      const focusedElement = document.activeElement;
+      if (isTabKey && focusedElement) {
+        const container2 = event.currentTarget;
+        const [first, last2] = getTabbableEdges(container2);
+        const hasTabbableElementsInside = first && last2;
+        if (!hasTabbableElementsInside) {
+          if (focusedElement === container2) event.preventDefault();
+        } else {
+          if (!event.shiftKey && focusedElement === last2) {
+            event.preventDefault();
+            if (loop) focus(first, { select: true });
+          } else if (event.shiftKey && focusedElement === first) {
+            event.preventDefault();
+            if (loop) focus(last2, { select: true });
+          }
+        }
+      }
+    },
+    [loop, trapped, focusScope.paused]
+  );
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.div, { tabIndex: -1, ...scopeProps, ref: composedRefs, onKeyDown: handleKeyDown });
+});
+FocusScope.displayName = FOCUS_SCOPE_NAME;
+function focusFirst(candidates, { select = false } = {}) {
+  const previouslyFocusedElement = document.activeElement;
+  for (const candidate of candidates) {
+    focus(candidate, { select });
+    if (document.activeElement !== previouslyFocusedElement) return;
+  }
+}
+function getTabbableEdges(container) {
+  const candidates = getTabbableCandidates(container);
+  const first = findVisible(candidates, container);
+  const last2 = findVisible(candidates.reverse(), container);
+  return [first, last2];
+}
+function getTabbableCandidates(container) {
+  const nodes = [];
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
+    acceptNode: (node) => {
+      const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
+      if (node.disabled || node.hidden || isHiddenInput) return NodeFilter.FILTER_SKIP;
+      return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+    }
+  });
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  return nodes;
+}
+function findVisible(elements, container) {
+  for (const element of elements) {
+    if (!isHidden(element, { upTo: container })) return element;
+  }
+}
+function isHidden(node, { upTo }) {
+  if (getComputedStyle(node).visibility === "hidden") return true;
+  while (node) {
+    if (upTo !== void 0 && node === upTo) return false;
+    if (getComputedStyle(node).display === "none") return true;
+    node = node.parentElement;
+  }
+  return false;
+}
+function isSelectableInput(element) {
+  return element instanceof HTMLInputElement && "select" in element;
+}
+function focus(element, { select = false } = {}) {
+  if (element && element.focus) {
+    const previouslyFocusedElement = document.activeElement;
+    element.focus({ preventScroll: true });
+    if (element !== previouslyFocusedElement && isSelectableInput(element) && select)
+      element.select();
+  }
+}
+var focusScopesStack = createFocusScopesStack();
+function createFocusScopesStack() {
+  let stack = [];
+  return {
+    add(focusScope) {
+      const activeFocusScope = stack[0];
+      if (focusScope !== activeFocusScope) {
+        activeFocusScope == null ? void 0 : activeFocusScope.pause();
+      }
+      stack = arrayRemove(stack, focusScope);
+      stack.unshift(focusScope);
+    },
+    remove(focusScope) {
+      var _a3;
+      stack = arrayRemove(stack, focusScope);
+      (_a3 = stack[0]) == null ? void 0 : _a3.resume();
+    }
+  };
+}
+function arrayRemove(array, item) {
+  const updatedArray = [...array];
+  const index2 = updatedArray.indexOf(item);
+  if (index2 !== -1) {
+    updatedArray.splice(index2, 1);
+  }
+  return updatedArray;
+}
+function removeLinks(items) {
+  return items.filter((item) => item.tagName !== "A");
+}
+var PORTAL_NAME$1 = "Portal";
+var Portal$1 = reactExports.forwardRef((props, forwardedRef) => {
+  var _a3;
+  const { container: containerProp, ...portalProps } = props;
+  const [mounted, setMounted] = reactExports.useState(false);
+  useLayoutEffect2(() => setMounted(true), []);
+  const container = containerProp || mounted && ((_a3 = globalThis == null ? void 0 : globalThis.document) == null ? void 0 : _a3.body);
+  return container ? ReactDOM$2.createPortal(/* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.div, { ...portalProps, ref: forwardedRef }), container) : null;
+});
+Portal$1.displayName = PORTAL_NAME$1;
+function useStateMachine$1(initialState, machine) {
+  return reactExports.useReducer((state, event) => {
+    const nextState = machine[state][event];
+    return nextState ?? state;
+  }, initialState);
+}
+var Presence = (props) => {
+  const { present, children } = props;
+  const presence = usePresence(present);
+  const child = typeof children === "function" ? children({ present: presence.isPresent }) : reactExports.Children.only(children);
+  const ref = useComposedRefs(presence.ref, getElementRef(child));
+  const forceMount = typeof children === "function";
+  return forceMount || presence.isPresent ? reactExports.cloneElement(child, { ref }) : null;
+};
+Presence.displayName = "Presence";
+function usePresence(present) {
+  const [node, setNode] = reactExports.useState();
+  const stylesRef = reactExports.useRef(null);
+  const prevPresentRef = reactExports.useRef(present);
+  const prevAnimationNameRef = reactExports.useRef("none");
+  const initialState = present ? "mounted" : "unmounted";
+  const [state, send] = useStateMachine$1(initialState, {
+    mounted: {
+      UNMOUNT: "unmounted",
+      ANIMATION_OUT: "unmountSuspended"
+    },
+    unmountSuspended: {
+      MOUNT: "mounted",
+      ANIMATION_END: "unmounted"
+    },
+    unmounted: {
+      MOUNT: "mounted"
+    }
+  });
+  reactExports.useEffect(() => {
+    const currentAnimationName = getAnimationName(stylesRef.current);
+    prevAnimationNameRef.current = state === "mounted" ? currentAnimationName : "none";
+  }, [state]);
+  useLayoutEffect2(() => {
+    const styles = stylesRef.current;
+    const wasPresent = prevPresentRef.current;
+    const hasPresentChanged = wasPresent !== present;
+    if (hasPresentChanged) {
+      const prevAnimationName = prevAnimationNameRef.current;
+      const currentAnimationName = getAnimationName(styles);
+      if (present) {
+        send("MOUNT");
+      } else if (currentAnimationName === "none" || (styles == null ? void 0 : styles.display) === "none") {
+        send("UNMOUNT");
+      } else {
+        const isAnimating = prevAnimationName !== currentAnimationName;
+        if (wasPresent && isAnimating) {
+          send("ANIMATION_OUT");
+        } else {
+          send("UNMOUNT");
+        }
+      }
+      prevPresentRef.current = present;
+    }
+  }, [present, send]);
+  useLayoutEffect2(() => {
+    if (node) {
+      let timeoutId;
+      const ownerWindow = node.ownerDocument.defaultView ?? window;
+      const handleAnimationEnd = (event) => {
+        const currentAnimationName = getAnimationName(stylesRef.current);
+        const isCurrentAnimation = currentAnimationName.includes(CSS.escape(event.animationName));
+        if (event.target === node && isCurrentAnimation) {
+          send("ANIMATION_END");
+          if (!prevPresentRef.current) {
+            const currentFillMode = node.style.animationFillMode;
+            node.style.animationFillMode = "forwards";
+            timeoutId = ownerWindow.setTimeout(() => {
+              if (node.style.animationFillMode === "forwards") {
+                node.style.animationFillMode = currentFillMode;
+              }
+            });
+          }
+        }
+      };
+      const handleAnimationStart = (event) => {
+        if (event.target === node) {
+          prevAnimationNameRef.current = getAnimationName(stylesRef.current);
+        }
+      };
+      node.addEventListener("animationstart", handleAnimationStart);
+      node.addEventListener("animationcancel", handleAnimationEnd);
+      node.addEventListener("animationend", handleAnimationEnd);
+      return () => {
+        ownerWindow.clearTimeout(timeoutId);
+        node.removeEventListener("animationstart", handleAnimationStart);
+        node.removeEventListener("animationcancel", handleAnimationEnd);
+        node.removeEventListener("animationend", handleAnimationEnd);
+      };
+    } else {
+      send("ANIMATION_END");
+    }
+  }, [node, send]);
+  return {
+    isPresent: ["mounted", "unmountSuspended"].includes(state),
+    ref: reactExports.useCallback((node2) => {
+      stylesRef.current = node2 ? getComputedStyle(node2) : null;
+      setNode(node2);
+    }, [])
+  };
+}
+function getAnimationName(styles) {
+  return (styles == null ? void 0 : styles.animationName) || "none";
+}
+function getElementRef(element) {
+  var _a3, _b3;
+  let getter = (_a3 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a3.get;
+  let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
+  if (mayWarn) {
+    return element.ref;
+  }
+  getter = (_b3 = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b3.get;
+  mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
+  if (mayWarn) {
+    return element.props.ref;
+  }
+  return element.props.ref || element.ref;
+}
+var count = 0;
+function useFocusGuards() {
+  reactExports.useEffect(() => {
+    const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
+    document.body.insertAdjacentElement("afterbegin", edgeGuards[0] ?? createFocusGuard());
+    document.body.insertAdjacentElement("beforeend", edgeGuards[1] ?? createFocusGuard());
+    count++;
+    return () => {
+      if (count === 1) {
+        document.querySelectorAll("[data-radix-focus-guard]").forEach((node) => node.remove());
+      }
+      count--;
+    };
+  }, []);
+}
+function createFocusGuard() {
+  const element = document.createElement("span");
+  element.setAttribute("data-radix-focus-guard", "");
+  element.tabIndex = 0;
+  element.style.outline = "none";
+  element.style.opacity = "0";
+  element.style.position = "fixed";
+  element.style.pointerEvents = "none";
+  return element;
+}
+var __assign = function() {
+  __assign = Object.assign || function __assign2(t) {
+    for (var s2, i = 1, n = arguments.length; i < n; i++) {
+      s2 = arguments[i];
+      for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2)) t[p2] = s2[p2];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
+};
+function __rest(s2, e) {
+  var t = {};
+  for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2) && e.indexOf(p2) < 0)
+    t[p2] = s2[p2];
+  if (s2 != null && typeof Object.getOwnPropertySymbols === "function")
+    for (var i = 0, p2 = Object.getOwnPropertySymbols(s2); i < p2.length; i++) {
+      if (e.indexOf(p2[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p2[i]))
+        t[p2[i]] = s2[p2[i]];
+    }
+  return t;
+}
+function __spreadArray(to, from, pack) {
+  if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+    if (ar || !(i in from)) {
+      if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+      ar[i] = from[i];
+    }
+  }
+  return to.concat(ar || Array.prototype.slice.call(from));
+}
+typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+  var e = new Error(message);
+  return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
+var zeroRightClassName = "right-scroll-bar-position";
+var fullWidthClassName = "width-before-scroll-bar";
+var noScrollbarsClassName = "with-scroll-bars-hidden";
+var removedBarSizeVariable = "--removed-body-scroll-bar-size";
+function assignRef(ref, value) {
+  if (typeof ref === "function") {
+    ref(value);
+  } else if (ref) {
+    ref.current = value;
+  }
+  return ref;
+}
+function useCallbackRef(initialValue, callback) {
+  var ref = reactExports.useState(function() {
+    return {
+      // value
+      value: initialValue,
+      // last callback
+      callback,
+      // "memoized" public interface
+      facade: {
+        get current() {
+          return ref.value;
+        },
+        set current(value) {
+          var last2 = ref.value;
+          if (last2 !== value) {
+            ref.value = value;
+            ref.callback(value, last2);
+          }
+        }
+      }
+    };
+  })[0];
+  ref.callback = callback;
+  return ref.facade;
+}
+var useIsomorphicLayoutEffect = typeof window !== "undefined" ? reactExports.useLayoutEffect : reactExports.useEffect;
+var currentValues = /* @__PURE__ */ new WeakMap();
+function useMergeRefs(refs, defaultValue) {
+  var callbackRef = useCallbackRef(null, function(newValue) {
+    return refs.forEach(function(ref) {
+      return assignRef(ref, newValue);
+    });
+  });
+  useIsomorphicLayoutEffect(function() {
+    var oldValue = currentValues.get(callbackRef);
+    if (oldValue) {
+      var prevRefs_1 = new Set(oldValue);
+      var nextRefs_1 = new Set(refs);
+      var current_1 = callbackRef.current;
+      prevRefs_1.forEach(function(ref) {
+        if (!nextRefs_1.has(ref)) {
+          assignRef(ref, null);
+        }
+      });
+      nextRefs_1.forEach(function(ref) {
+        if (!prevRefs_1.has(ref)) {
+          assignRef(ref, current_1);
+        }
+      });
+    }
+    currentValues.set(callbackRef, refs);
+  }, [refs]);
+  return callbackRef;
+}
+function ItoI(a2) {
+  return a2;
+}
+function innerCreateMedium(defaults, middleware) {
+  if (middleware === void 0) {
+    middleware = ItoI;
+  }
+  var buffer = [];
+  var assigned = false;
+  var medium = {
+    read: function() {
+      if (assigned) {
+        throw new Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");
+      }
+      if (buffer.length) {
+        return buffer[buffer.length - 1];
+      }
+      return defaults;
+    },
+    useMedium: function(data) {
+      var item = middleware(data, assigned);
+      buffer.push(item);
+      return function() {
+        buffer = buffer.filter(function(x2) {
+          return x2 !== item;
+        });
+      };
+    },
+    assignSyncMedium: function(cb) {
+      assigned = true;
+      while (buffer.length) {
+        var cbs = buffer;
+        buffer = [];
+        cbs.forEach(cb);
+      }
+      buffer = {
+        push: function(x2) {
+          return cb(x2);
+        },
+        filter: function() {
+          return buffer;
+        }
+      };
+    },
+    assignMedium: function(cb) {
+      assigned = true;
+      var pendingQueue = [];
+      if (buffer.length) {
+        var cbs = buffer;
+        buffer = [];
+        cbs.forEach(cb);
+        pendingQueue = buffer;
+      }
+      var executeQueue = function() {
+        var cbs2 = pendingQueue;
+        pendingQueue = [];
+        cbs2.forEach(cb);
+      };
+      var cycle = function() {
+        return Promise.resolve().then(executeQueue);
+      };
+      cycle();
+      buffer = {
+        push: function(x2) {
+          pendingQueue.push(x2);
+          cycle();
+        },
+        filter: function(filter2) {
+          pendingQueue = pendingQueue.filter(filter2);
+          return buffer;
+        }
+      };
+    }
+  };
+  return medium;
+}
+function createSidecarMedium(options) {
+  if (options === void 0) {
+    options = {};
+  }
+  var medium = innerCreateMedium(null);
+  medium.options = __assign({ async: true, ssr: false }, options);
+  return medium;
+}
+var SideCar$1 = function(_a3) {
+  var sideCar = _a3.sideCar, rest = __rest(_a3, ["sideCar"]);
+  if (!sideCar) {
+    throw new Error("Sidecar: please provide `sideCar` property to import the right car");
+  }
+  var Target = sideCar.read();
+  if (!Target) {
+    throw new Error("Sidecar medium not found");
+  }
+  return reactExports.createElement(Target, __assign({}, rest));
+};
+SideCar$1.isSideCarExport = true;
+function exportSidecar(medium, exported) {
+  medium.useMedium(exported);
+  return SideCar$1;
+}
+var effectCar = createSidecarMedium();
+var nothing = function() {
+  return;
+};
+var RemoveScroll = reactExports.forwardRef(function(props, parentRef) {
+  var ref = reactExports.useRef(null);
+  var _a3 = reactExports.useState({
+    onScrollCapture: nothing,
+    onWheelCapture: nothing,
+    onTouchMoveCapture: nothing
+  }), callbacks = _a3[0], setCallbacks = _a3[1];
+  var forwardProps = props.forwardProps, children = props.children, className = props.className, removeScrollBar = props.removeScrollBar, enabled = props.enabled, shards = props.shards, sideCar = props.sideCar, noRelative = props.noRelative, noIsolation = props.noIsolation, inert = props.inert, allowPinchZoom = props.allowPinchZoom, _b3 = props.as, Container = _b3 === void 0 ? "div" : _b3, gapMode = props.gapMode, rest = __rest(props, ["forwardProps", "children", "className", "removeScrollBar", "enabled", "shards", "sideCar", "noRelative", "noIsolation", "inert", "allowPinchZoom", "as", "gapMode"]);
+  var SideCar2 = sideCar;
+  var containerRef = useMergeRefs([ref, parentRef]);
+  var containerProps = __assign(__assign({}, rest), callbacks);
+  return reactExports.createElement(
+    reactExports.Fragment,
+    null,
+    enabled && reactExports.createElement(SideCar2, { sideCar: effectCar, removeScrollBar, shards, noRelative, noIsolation, inert, setCallbacks, allowPinchZoom: !!allowPinchZoom, lockRef: ref, gapMode }),
+    forwardProps ? reactExports.cloneElement(reactExports.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : reactExports.createElement(Container, __assign({}, containerProps, { className, ref: containerRef }), children)
+  );
+});
+RemoveScroll.defaultProps = {
+  enabled: true,
+  removeScrollBar: true,
+  inert: false
+};
+RemoveScroll.classNames = {
+  fullWidth: fullWidthClassName,
+  zeroRight: zeroRightClassName
+};
+var getNonce = function() {
+  if (typeof __webpack_nonce__ !== "undefined") {
+    return __webpack_nonce__;
+  }
+  return void 0;
+};
+function makeStyleTag() {
+  if (!document)
+    return null;
+  var tag = document.createElement("style");
+  tag.type = "text/css";
+  var nonce = getNonce();
+  if (nonce) {
+    tag.setAttribute("nonce", nonce);
+  }
+  return tag;
+}
+function injectStyles(tag, css) {
+  if (tag.styleSheet) {
+    tag.styleSheet.cssText = css;
+  } else {
+    tag.appendChild(document.createTextNode(css));
+  }
+}
+function insertStyleTag(tag) {
+  var head = document.head || document.getElementsByTagName("head")[0];
+  head.appendChild(tag);
+}
+var stylesheetSingleton = function() {
+  var counter = 0;
+  var stylesheet = null;
+  return {
+    add: function(style2) {
+      if (counter == 0) {
+        if (stylesheet = makeStyleTag()) {
+          injectStyles(stylesheet, style2);
+          insertStyleTag(stylesheet);
+        }
+      }
+      counter++;
+    },
+    remove: function() {
+      counter--;
+      if (!counter && stylesheet) {
+        stylesheet.parentNode && stylesheet.parentNode.removeChild(stylesheet);
+        stylesheet = null;
+      }
+    }
+  };
+};
+var styleHookSingleton = function() {
+  var sheet = stylesheetSingleton();
+  return function(styles, isDynamic) {
+    reactExports.useEffect(function() {
+      sheet.add(styles);
+      return function() {
+        sheet.remove();
+      };
+    }, [styles && isDynamic]);
+  };
+};
+var styleSingleton = function() {
+  var useStyle2 = styleHookSingleton();
+  var Sheet = function(_a3) {
+    var styles = _a3.styles, dynamic = _a3.dynamic;
+    useStyle2(styles, dynamic);
+    return null;
+  };
+  return Sheet;
+};
+var zeroGap = {
+  left: 0,
+  top: 0,
+  right: 0,
+  gap: 0
+};
+var parse = function(x2) {
+  return parseInt(x2 || "", 10) || 0;
+};
+var getOffset = function(gapMode) {
+  var cs = window.getComputedStyle(document.body);
+  var left = cs[gapMode === "padding" ? "paddingLeft" : "marginLeft"];
+  var top = cs[gapMode === "padding" ? "paddingTop" : "marginTop"];
+  var right = cs[gapMode === "padding" ? "paddingRight" : "marginRight"];
+  return [parse(left), parse(top), parse(right)];
+};
+var getGapWidth = function(gapMode) {
+  if (gapMode === void 0) {
+    gapMode = "margin";
+  }
+  if (typeof window === "undefined") {
+    return zeroGap;
+  }
+  var offsets = getOffset(gapMode);
+  var documentWidth = document.documentElement.clientWidth;
+  var windowWidth = window.innerWidth;
+  return {
+    left: offsets[0],
+    top: offsets[1],
+    right: offsets[2],
+    gap: Math.max(0, windowWidth - documentWidth + offsets[2] - offsets[0])
+  };
+};
+var Style = styleSingleton();
+var lockAttribute = "data-scroll-locked";
+var getStyles = function(_a3, allowRelative, gapMode, important) {
+  var left = _a3.left, top = _a3.top, right = _a3.right, gap = _a3.gap;
+  if (gapMode === void 0) {
+    gapMode = "margin";
+  }
+  return "\n  .".concat(noScrollbarsClassName, " {\n   overflow: hidden ").concat(important, ";\n   padding-right: ").concat(gap, "px ").concat(important, ";\n  }\n  body[").concat(lockAttribute, "] {\n    overflow: hidden ").concat(important, ";\n    overscroll-behavior: contain;\n    ").concat([
+    allowRelative && "position: relative ".concat(important, ";"),
+    gapMode === "margin" && "\n    padding-left: ".concat(left, "px;\n    padding-top: ").concat(top, "px;\n    padding-right: ").concat(right, "px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: ").concat(gap, "px ").concat(important, ";\n    "),
+    gapMode === "padding" && "padding-right: ".concat(gap, "px ").concat(important, ";")
+  ].filter(Boolean).join(""), "\n  }\n  \n  .").concat(zeroRightClassName, " {\n    right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " {\n    margin-right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(zeroRightClassName, " .").concat(zeroRightClassName, " {\n    right: 0 ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " .").concat(fullWidthClassName, " {\n    margin-right: 0 ").concat(important, ";\n  }\n  \n  body[").concat(lockAttribute, "] {\n    ").concat(removedBarSizeVariable, ": ").concat(gap, "px;\n  }\n");
+};
+var getCurrentUseCounter = function() {
+  var counter = parseInt(document.body.getAttribute(lockAttribute) || "0", 10);
+  return isFinite(counter) ? counter : 0;
+};
+var useLockAttribute = function() {
+  reactExports.useEffect(function() {
+    document.body.setAttribute(lockAttribute, (getCurrentUseCounter() + 1).toString());
+    return function() {
+      var newCounter = getCurrentUseCounter() - 1;
+      if (newCounter <= 0) {
+        document.body.removeAttribute(lockAttribute);
+      } else {
+        document.body.setAttribute(lockAttribute, newCounter.toString());
+      }
+    };
+  }, []);
+};
+var RemoveScrollBar = function(_a3) {
+  var noRelative = _a3.noRelative, noImportant = _a3.noImportant, _b3 = _a3.gapMode, gapMode = _b3 === void 0 ? "margin" : _b3;
+  useLockAttribute();
+  var gap = reactExports.useMemo(function() {
+    return getGapWidth(gapMode);
+  }, [gapMode]);
+  return reactExports.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
+};
+var passiveSupported = false;
+if (typeof window !== "undefined") {
+  try {
+    var options = Object.defineProperty({}, "passive", {
+      get: function() {
+        passiveSupported = true;
+        return true;
+      }
+    });
+    window.addEventListener("test", options, options);
+    window.removeEventListener("test", options, options);
+  } catch (err) {
+    passiveSupported = false;
+  }
+}
+var nonPassive = passiveSupported ? { passive: false } : false;
+var alwaysContainsScroll = function(node) {
+  return node.tagName === "TEXTAREA";
+};
+var elementCanBeScrolled = function(node, overflow) {
+  if (!(node instanceof Element)) {
+    return false;
+  }
+  var styles = window.getComputedStyle(node);
+  return (
+    // not-not-scrollable
+    styles[overflow] !== "hidden" && // contains scroll inside self
+    !(styles.overflowY === styles.overflowX && !alwaysContainsScroll(node) && styles[overflow] === "visible")
+  );
+};
+var elementCouldBeVScrolled = function(node) {
+  return elementCanBeScrolled(node, "overflowY");
+};
+var elementCouldBeHScrolled = function(node) {
+  return elementCanBeScrolled(node, "overflowX");
+};
+var locationCouldBeScrolled = function(axis, node) {
+  var ownerDocument = node.ownerDocument;
+  var current = node;
+  do {
+    if (typeof ShadowRoot !== "undefined" && current instanceof ShadowRoot) {
+      current = current.host;
+    }
+    var isScrollable = elementCouldBeScrolled(axis, current);
+    if (isScrollable) {
+      var _a3 = getScrollVariables(axis, current), scrollHeight = _a3[1], clientHeight = _a3[2];
+      if (scrollHeight > clientHeight) {
+        return true;
+      }
+    }
+    current = current.parentNode;
+  } while (current && current !== ownerDocument.body);
+  return false;
+};
+var getVScrollVariables = function(_a3) {
+  var scrollTop = _a3.scrollTop, scrollHeight = _a3.scrollHeight, clientHeight = _a3.clientHeight;
+  return [
+    scrollTop,
+    scrollHeight,
+    clientHeight
+  ];
+};
+var getHScrollVariables = function(_a3) {
+  var scrollLeft = _a3.scrollLeft, scrollWidth = _a3.scrollWidth, clientWidth = _a3.clientWidth;
+  return [
+    scrollLeft,
+    scrollWidth,
+    clientWidth
+  ];
+};
+var elementCouldBeScrolled = function(axis, node) {
+  return axis === "v" ? elementCouldBeVScrolled(node) : elementCouldBeHScrolled(node);
+};
+var getScrollVariables = function(axis, node) {
+  return axis === "v" ? getVScrollVariables(node) : getHScrollVariables(node);
+};
+var getDirectionFactor = function(axis, direction) {
+  return axis === "h" && direction === "rtl" ? -1 : 1;
+};
+var handleScroll = function(axis, endTarget, event, sourceDelta, noOverscroll) {
+  var directionFactor = getDirectionFactor(axis, window.getComputedStyle(endTarget).direction);
+  var delta = directionFactor * sourceDelta;
+  var target = event.target;
+  var targetInLock = endTarget.contains(target);
+  var shouldCancelScroll = false;
+  var isDeltaPositive = delta > 0;
+  var availableScroll = 0;
+  var availableScrollTop = 0;
+  do {
+    if (!target) {
+      break;
+    }
+    var _a3 = getScrollVariables(axis, target), position = _a3[0], scroll_1 = _a3[1], capacity = _a3[2];
+    var elementScroll = scroll_1 - capacity - directionFactor * position;
+    if (position || elementScroll) {
+      if (elementCouldBeScrolled(axis, target)) {
+        availableScroll += elementScroll;
+        availableScrollTop += position;
+      }
+    }
+    var parent_1 = target.parentNode;
+    target = parent_1 && parent_1.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? parent_1.host : parent_1;
+  } while (
+    // portaled content
+    !targetInLock && target !== document.body || // self content
+    targetInLock && (endTarget.contains(target) || endTarget === target)
+  );
+  if (isDeltaPositive && (Math.abs(availableScroll) < 1 || false)) {
+    shouldCancelScroll = true;
+  } else if (!isDeltaPositive && (Math.abs(availableScrollTop) < 1 || false)) {
+    shouldCancelScroll = true;
+  }
+  return shouldCancelScroll;
+};
+var getTouchXY = function(event) {
+  return "changedTouches" in event ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY] : [0, 0];
+};
+var getDeltaXY = function(event) {
+  return [event.deltaX, event.deltaY];
+};
+var extractRef = function(ref) {
+  return ref && "current" in ref ? ref.current : ref;
+};
+var deltaCompare = function(x2, y2) {
+  return x2[0] === y2[0] && x2[1] === y2[1];
+};
+var generateStyle = function(id2) {
+  return "\n  .block-interactivity-".concat(id2, " {pointer-events: none;}\n  .allow-interactivity-").concat(id2, " {pointer-events: all;}\n");
+};
+var idCounter = 0;
+var lockStack = [];
+function RemoveScrollSideCar(props) {
+  var shouldPreventQueue = reactExports.useRef([]);
+  var touchStartRef = reactExports.useRef([0, 0]);
+  var activeAxis = reactExports.useRef();
+  var id2 = reactExports.useState(idCounter++)[0];
+  var Style2 = reactExports.useState(styleSingleton)[0];
+  var lastProps = reactExports.useRef(props);
+  reactExports.useEffect(function() {
+    lastProps.current = props;
+  }, [props]);
+  reactExports.useEffect(function() {
+    if (props.inert) {
+      document.body.classList.add("block-interactivity-".concat(id2));
+      var allow_1 = __spreadArray([props.lockRef.current], (props.shards || []).map(extractRef), true).filter(Boolean);
+      allow_1.forEach(function(el) {
+        return el.classList.add("allow-interactivity-".concat(id2));
+      });
+      return function() {
+        document.body.classList.remove("block-interactivity-".concat(id2));
+        allow_1.forEach(function(el) {
+          return el.classList.remove("allow-interactivity-".concat(id2));
+        });
+      };
+    }
+    return;
+  }, [props.inert, props.lockRef.current, props.shards]);
+  var shouldCancelEvent = reactExports.useCallback(function(event, parent) {
+    if ("touches" in event && event.touches.length === 2 || event.type === "wheel" && event.ctrlKey) {
+      return !lastProps.current.allowPinchZoom;
+    }
+    var touch = getTouchXY(event);
+    var touchStart = touchStartRef.current;
+    var deltaX = "deltaX" in event ? event.deltaX : touchStart[0] - touch[0];
+    var deltaY = "deltaY" in event ? event.deltaY : touchStart[1] - touch[1];
+    var currentAxis;
+    var target = event.target;
+    var moveDirection = Math.abs(deltaX) > Math.abs(deltaY) ? "h" : "v";
+    if ("touches" in event && moveDirection === "h" && target.type === "range") {
+      return false;
+    }
+    var selection = window.getSelection();
+    var anchorNode = selection && selection.anchorNode;
+    var isTouchingSelection = anchorNode ? anchorNode === target || anchorNode.contains(target) : false;
+    if (isTouchingSelection) {
+      return false;
+    }
+    var canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
+    if (!canBeScrolledInMainDirection) {
+      return true;
+    }
+    if (canBeScrolledInMainDirection) {
+      currentAxis = moveDirection;
+    } else {
+      currentAxis = moveDirection === "v" ? "h" : "v";
+      canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
+    }
+    if (!canBeScrolledInMainDirection) {
+      return false;
+    }
+    if (!activeAxis.current && "changedTouches" in event && (deltaX || deltaY)) {
+      activeAxis.current = currentAxis;
+    }
+    if (!currentAxis) {
+      return true;
+    }
+    var cancelingAxis = activeAxis.current || currentAxis;
+    return handleScroll(cancelingAxis, parent, event, cancelingAxis === "h" ? deltaX : deltaY);
+  }, []);
+  var shouldPrevent = reactExports.useCallback(function(_event) {
+    var event = _event;
+    if (!lockStack.length || lockStack[lockStack.length - 1] !== Style2) {
+      return;
+    }
+    var delta = "deltaY" in event ? getDeltaXY(event) : getTouchXY(event);
+    var sourceEvent = shouldPreventQueue.current.filter(function(e) {
+      return e.name === event.type && (e.target === event.target || event.target === e.shadowParent) && deltaCompare(e.delta, delta);
+    })[0];
+    if (sourceEvent && sourceEvent.should) {
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+      return;
+    }
+    if (!sourceEvent) {
+      var shardNodes = (lastProps.current.shards || []).map(extractRef).filter(Boolean).filter(function(node) {
+        return node.contains(event.target);
+      });
+      var shouldStop = shardNodes.length > 0 ? shouldCancelEvent(event, shardNodes[0]) : !lastProps.current.noIsolation;
+      if (shouldStop) {
+        if (event.cancelable) {
+          event.preventDefault();
+        }
+      }
+    }
+  }, []);
+  var shouldCancel = reactExports.useCallback(function(name, delta, target, should) {
+    var event = { name, delta, target, should, shadowParent: getOutermostShadowParent(target) };
+    shouldPreventQueue.current.push(event);
+    setTimeout(function() {
+      shouldPreventQueue.current = shouldPreventQueue.current.filter(function(e) {
+        return e !== event;
+      });
+    }, 1);
+  }, []);
+  var scrollTouchStart = reactExports.useCallback(function(event) {
+    touchStartRef.current = getTouchXY(event);
+    activeAxis.current = void 0;
+  }, []);
+  var scrollWheel = reactExports.useCallback(function(event) {
+    shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+  }, []);
+  var scrollTouchMove = reactExports.useCallback(function(event) {
+    shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+  }, []);
+  reactExports.useEffect(function() {
+    lockStack.push(Style2);
+    props.setCallbacks({
+      onScrollCapture: scrollWheel,
+      onWheelCapture: scrollWheel,
+      onTouchMoveCapture: scrollTouchMove
+    });
+    document.addEventListener("wheel", shouldPrevent, nonPassive);
+    document.addEventListener("touchmove", shouldPrevent, nonPassive);
+    document.addEventListener("touchstart", scrollTouchStart, nonPassive);
+    return function() {
+      lockStack = lockStack.filter(function(inst) {
+        return inst !== Style2;
+      });
+      document.removeEventListener("wheel", shouldPrevent, nonPassive);
+      document.removeEventListener("touchmove", shouldPrevent, nonPassive);
+      document.removeEventListener("touchstart", scrollTouchStart, nonPassive);
+    };
+  }, []);
+  var removeScrollBar = props.removeScrollBar, inert = props.inert;
+  return reactExports.createElement(
+    reactExports.Fragment,
+    null,
+    inert ? reactExports.createElement(Style2, { styles: generateStyle(id2) }) : null,
+    removeScrollBar ? reactExports.createElement(RemoveScrollBar, { noRelative: props.noRelative, gapMode: props.gapMode }) : null
+  );
+}
+function getOutermostShadowParent(node) {
+  var shadowParent = null;
+  while (node !== null) {
+    if (node instanceof ShadowRoot) {
+      shadowParent = node.host;
+      node = node.host;
+    }
+    node = node.parentNode;
+  }
+  return shadowParent;
+}
+const SideCar = exportSidecar(effectCar, RemoveScrollSideCar);
+var ReactRemoveScroll = reactExports.forwardRef(function(props, ref) {
+  return reactExports.createElement(RemoveScroll, __assign({}, props, { ref, sideCar: SideCar }));
+});
+ReactRemoveScroll.classNames = RemoveScroll.classNames;
+var getDefaultParent = function(originalTarget) {
+  if (typeof document === "undefined") {
+    return null;
+  }
+  var sampleTarget = Array.isArray(originalTarget) ? originalTarget[0] : originalTarget;
+  return sampleTarget.ownerDocument.body;
+};
+var counterMap = /* @__PURE__ */ new WeakMap();
+var uncontrolledNodes = /* @__PURE__ */ new WeakMap();
+var markerMap = {};
+var lockCount = 0;
+var unwrapHost = function(node) {
+  return node && (node.host || unwrapHost(node.parentNode));
+};
+var correctTargets = function(parent, targets) {
+  return targets.map(function(target) {
+    if (parent.contains(target)) {
+      return target;
+    }
+    var correctedTarget = unwrapHost(target);
+    if (correctedTarget && parent.contains(correctedTarget)) {
+      return correctedTarget;
+    }
+    console.error("aria-hidden", target, "in not contained inside", parent, ". Doing nothing");
+    return null;
+  }).filter(function(x2) {
+    return Boolean(x2);
+  });
+};
+var applyAttributeToOthers = function(originalTarget, parentNode, markerName, controlAttribute) {
+  var targets = correctTargets(parentNode, Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
+  if (!markerMap[markerName]) {
+    markerMap[markerName] = /* @__PURE__ */ new WeakMap();
+  }
+  var markerCounter = markerMap[markerName];
+  var hiddenNodes = [];
+  var elementsToKeep = /* @__PURE__ */ new Set();
+  var elementsToStop = new Set(targets);
+  var keep = function(el) {
+    if (!el || elementsToKeep.has(el)) {
+      return;
+    }
+    elementsToKeep.add(el);
+    keep(el.parentNode);
+  };
+  targets.forEach(keep);
+  var deep = function(parent) {
+    if (!parent || elementsToStop.has(parent)) {
+      return;
+    }
+    Array.prototype.forEach.call(parent.children, function(node) {
+      if (elementsToKeep.has(node)) {
+        deep(node);
+      } else {
+        try {
+          var attr = node.getAttribute(controlAttribute);
+          var alreadyHidden = attr !== null && attr !== "false";
+          var counterValue = (counterMap.get(node) || 0) + 1;
+          var markerValue = (markerCounter.get(node) || 0) + 1;
+          counterMap.set(node, counterValue);
+          markerCounter.set(node, markerValue);
+          hiddenNodes.push(node);
+          if (counterValue === 1 && alreadyHidden) {
+            uncontrolledNodes.set(node, true);
+          }
+          if (markerValue === 1) {
+            node.setAttribute(markerName, "true");
+          }
+          if (!alreadyHidden) {
+            node.setAttribute(controlAttribute, "true");
+          }
+        } catch (e) {
+          console.error("aria-hidden: cannot operate on ", node, e);
+        }
+      }
+    });
+  };
+  deep(parentNode);
+  elementsToKeep.clear();
+  lockCount++;
+  return function() {
+    hiddenNodes.forEach(function(node) {
+      var counterValue = counterMap.get(node) - 1;
+      var markerValue = markerCounter.get(node) - 1;
+      counterMap.set(node, counterValue);
+      markerCounter.set(node, markerValue);
+      if (!counterValue) {
+        if (!uncontrolledNodes.has(node)) {
+          node.removeAttribute(controlAttribute);
+        }
+        uncontrolledNodes.delete(node);
+      }
+      if (!markerValue) {
+        node.removeAttribute(markerName);
+      }
+    });
+    lockCount--;
+    if (!lockCount) {
+      counterMap = /* @__PURE__ */ new WeakMap();
+      counterMap = /* @__PURE__ */ new WeakMap();
+      uncontrolledNodes = /* @__PURE__ */ new WeakMap();
+      markerMap = {};
+    }
+  };
+};
+var hideOthers = function(originalTarget, parentNode, markerName) {
+  if (markerName === void 0) {
+    markerName = "data-aria-hidden";
+  }
+  var targets = Array.from(Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
+  var activeParentNode = getDefaultParent(originalTarget);
+  if (!activeParentNode) {
+    return function() {
+      return null;
+    };
+  }
+  targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live], script")));
+  return applyAttributeToOthers(targets, activeParentNode, markerName, "aria-hidden");
+};
+var DIALOG_NAME = "Dialog";
+var [createDialogContext] = createContextScope(DIALOG_NAME);
+var [DialogProvider, useDialogContext] = createDialogContext(DIALOG_NAME);
+var Dialog$1 = (props) => {
+  const {
+    __scopeDialog,
+    children,
+    open: openProp,
+    defaultOpen,
+    onOpenChange,
+    modal = true
+  } = props;
+  const triggerRef = reactExports.useRef(null);
+  const contentRef = reactExports.useRef(null);
+  const [open, setOpen] = useControllableState({
+    prop: openProp,
+    defaultProp: defaultOpen ?? false,
+    onChange: onOpenChange,
+    caller: DIALOG_NAME
+  });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    DialogProvider,
+    {
+      scope: __scopeDialog,
+      triggerRef,
+      contentRef,
+      contentId: useId(),
+      titleId: useId(),
+      descriptionId: useId(),
+      open,
+      onOpenChange: setOpen,
+      onOpenToggle: reactExports.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
+      modal,
+      children
+    }
+  );
+};
+Dialog$1.displayName = DIALOG_NAME;
+var TRIGGER_NAME = "DialogTrigger";
+var DialogTrigger = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeDialog, ...triggerProps } = props;
+    const context = useDialogContext(TRIGGER_NAME, __scopeDialog);
+    const composedTriggerRef = useComposedRefs(forwardedRef, context.triggerRef);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Primitive.button,
+      {
+        type: "button",
+        "aria-haspopup": "dialog",
+        "aria-expanded": context.open,
+        "aria-controls": context.contentId,
+        "data-state": getState(context.open),
+        ...triggerProps,
+        ref: composedTriggerRef,
+        onClick: composeEventHandlers(props.onClick, context.onOpenToggle)
+      }
+    );
+  }
+);
+DialogTrigger.displayName = TRIGGER_NAME;
+var PORTAL_NAME = "DialogPortal";
+var [PortalProvider, usePortalContext] = createDialogContext(PORTAL_NAME, {
+  forceMount: void 0
+});
+var DialogPortal$1 = (props) => {
+  const { __scopeDialog, forceMount, children, container } = props;
+  const context = useDialogContext(PORTAL_NAME, __scopeDialog);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(PortalProvider, { scope: __scopeDialog, forceMount, children: reactExports.Children.map(children, (child) => /* @__PURE__ */ jsxRuntimeExports.jsx(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Portal$1, { asChild: true, container, children: child }) })) });
+};
+DialogPortal$1.displayName = PORTAL_NAME;
+var OVERLAY_NAME = "DialogOverlay";
+var DialogOverlay$1 = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const portalContext = usePortalContext(OVERLAY_NAME, props.__scopeDialog);
+    const { forceMount = portalContext.forceMount, ...overlayProps } = props;
+    const context = useDialogContext(OVERLAY_NAME, props.__scopeDialog);
+    return context.modal ? /* @__PURE__ */ jsxRuntimeExports.jsx(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsxRuntimeExports.jsx(DialogOverlayImpl, { ...overlayProps, ref: forwardedRef }) }) : null;
+  }
+);
+DialogOverlay$1.displayName = OVERLAY_NAME;
+var Slot = /* @__PURE__ */ createSlot("DialogOverlay.RemoveScroll");
+var DialogOverlayImpl = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeDialog, ...overlayProps } = props;
+    const context = useDialogContext(OVERLAY_NAME, __scopeDialog);
+    return (
+      // Make sure `Content` is scrollable even when it doesn't live inside `RemoveScroll`
+      // ie. when `Overlay` and `Content` are siblings
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ReactRemoveScroll, { as: Slot, allowPinchZoom: true, shards: [context.contentRef], children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Primitive.div,
+        {
+          "data-state": getState(context.open),
+          ...overlayProps,
+          ref: forwardedRef,
+          style: { pointerEvents: "auto", ...overlayProps.style }
+        }
+      ) })
+    );
+  }
+);
+var CONTENT_NAME = "DialogContent";
+var DialogContent$1 = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const portalContext = usePortalContext(CONTENT_NAME, props.__scopeDialog);
+    const { forceMount = portalContext.forceMount, ...contentProps } = props;
+    const context = useDialogContext(CONTENT_NAME, props.__scopeDialog);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Presence, { present: forceMount || context.open, children: context.modal ? /* @__PURE__ */ jsxRuntimeExports.jsx(DialogContentModal, { ...contentProps, ref: forwardedRef }) : /* @__PURE__ */ jsxRuntimeExports.jsx(DialogContentNonModal, { ...contentProps, ref: forwardedRef }) });
+  }
+);
+DialogContent$1.displayName = CONTENT_NAME;
+var DialogContentModal = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const context = useDialogContext(CONTENT_NAME, props.__scopeDialog);
+    const contentRef = reactExports.useRef(null);
+    const composedRefs = useComposedRefs(forwardedRef, context.contentRef, contentRef);
+    reactExports.useEffect(() => {
+      const content = contentRef.current;
+      if (content) return hideOthers(content);
+    }, []);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      DialogContentImpl,
+      {
+        ...props,
+        ref: composedRefs,
+        trapFocus: context.open,
+        disableOutsidePointerEvents: true,
+        onCloseAutoFocus: composeEventHandlers(props.onCloseAutoFocus, (event) => {
+          var _a3;
+          event.preventDefault();
+          (_a3 = context.triggerRef.current) == null ? void 0 : _a3.focus();
+        }),
+        onPointerDownOutside: composeEventHandlers(props.onPointerDownOutside, (event) => {
+          const originalEvent = event.detail.originalEvent;
+          const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
+          const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
+          if (isRightClick) event.preventDefault();
+        }),
+        onFocusOutside: composeEventHandlers(
+          props.onFocusOutside,
+          (event) => event.preventDefault()
+        )
+      }
+    );
+  }
+);
+var DialogContentNonModal = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const context = useDialogContext(CONTENT_NAME, props.__scopeDialog);
+    const hasInteractedOutsideRef = reactExports.useRef(false);
+    const hasPointerDownOutsideRef = reactExports.useRef(false);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      DialogContentImpl,
+      {
+        ...props,
+        ref: forwardedRef,
+        trapFocus: false,
+        disableOutsidePointerEvents: false,
+        onCloseAutoFocus: (event) => {
+          var _a3, _b3;
+          (_a3 = props.onCloseAutoFocus) == null ? void 0 : _a3.call(props, event);
+          if (!event.defaultPrevented) {
+            if (!hasInteractedOutsideRef.current) (_b3 = context.triggerRef.current) == null ? void 0 : _b3.focus();
+            event.preventDefault();
+          }
+          hasInteractedOutsideRef.current = false;
+          hasPointerDownOutsideRef.current = false;
+        },
+        onInteractOutside: (event) => {
+          var _a3, _b3;
+          (_a3 = props.onInteractOutside) == null ? void 0 : _a3.call(props, event);
+          if (!event.defaultPrevented) {
+            hasInteractedOutsideRef.current = true;
+            if (event.detail.originalEvent.type === "pointerdown") {
+              hasPointerDownOutsideRef.current = true;
+            }
+          }
+          const target = event.target;
+          const targetIsTrigger = (_b3 = context.triggerRef.current) == null ? void 0 : _b3.contains(target);
+          if (targetIsTrigger) event.preventDefault();
+          if (event.detail.originalEvent.type === "focusin" && hasPointerDownOutsideRef.current) {
+            event.preventDefault();
+          }
+        }
+      }
+    );
+  }
+);
+var DialogContentImpl = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeDialog, trapFocus, onOpenAutoFocus, onCloseAutoFocus, ...contentProps } = props;
+    const context = useDialogContext(CONTENT_NAME, __scopeDialog);
+    const contentRef = reactExports.useRef(null);
+    const composedRefs = useComposedRefs(forwardedRef, contentRef);
+    useFocusGuards();
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        FocusScope,
+        {
+          asChild: true,
+          loop: true,
+          trapped: trapFocus,
+          onMountAutoFocus: onOpenAutoFocus,
+          onUnmountAutoFocus: onCloseAutoFocus,
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            DismissableLayer,
+            {
+              role: "dialog",
+              id: context.contentId,
+              "aria-describedby": context.descriptionId,
+              "aria-labelledby": context.titleId,
+              "data-state": getState(context.open),
+              ...contentProps,
+              ref: composedRefs,
+              onDismiss: () => context.onOpenChange(false)
+            }
+          )
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(TitleWarning, { titleId: context.titleId }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(DescriptionWarning, { contentRef, descriptionId: context.descriptionId })
+      ] })
+    ] });
+  }
+);
+var TITLE_NAME = "DialogTitle";
+var DialogTitle$1 = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeDialog, ...titleProps } = props;
+    const context = useDialogContext(TITLE_NAME, __scopeDialog);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.h2, { id: context.titleId, ...titleProps, ref: forwardedRef });
+  }
+);
+DialogTitle$1.displayName = TITLE_NAME;
+var DESCRIPTION_NAME = "DialogDescription";
+var DialogDescription$1 = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeDialog, ...descriptionProps } = props;
+    const context = useDialogContext(DESCRIPTION_NAME, __scopeDialog);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.p, { id: context.descriptionId, ...descriptionProps, ref: forwardedRef });
+  }
+);
+DialogDescription$1.displayName = DESCRIPTION_NAME;
+var CLOSE_NAME = "DialogClose";
+var DialogClose = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeDialog, ...closeProps } = props;
+    const context = useDialogContext(CLOSE_NAME, __scopeDialog);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Primitive.button,
+      {
+        type: "button",
+        ...closeProps,
+        ref: forwardedRef,
+        onClick: composeEventHandlers(props.onClick, () => context.onOpenChange(false))
+      }
+    );
+  }
+);
+DialogClose.displayName = CLOSE_NAME;
+function getState(open) {
+  return open ? "open" : "closed";
+}
+var TITLE_WARNING_NAME = "DialogTitleWarning";
+var [WarningProvider, useWarningContext] = createContext2(TITLE_WARNING_NAME, {
+  contentName: CONTENT_NAME,
+  titleName: TITLE_NAME,
+  docsSlug: "dialog"
+});
+var TitleWarning = ({ titleId }) => {
+  const titleWarningContext = useWarningContext(TITLE_WARNING_NAME);
+  const MESSAGE = `\`${titleWarningContext.contentName}\` requires a \`${titleWarningContext.titleName}\` for the component to be accessible for screen reader users.
+
+If you want to hide the \`${titleWarningContext.titleName}\`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/${titleWarningContext.docsSlug}`;
+  reactExports.useEffect(() => {
+    if (titleId) {
+      const hasTitle = document.getElementById(titleId);
+      if (!hasTitle) console.error(MESSAGE);
+    }
+  }, [MESSAGE, titleId]);
+  return null;
+};
+var DESCRIPTION_WARNING_NAME = "DialogDescriptionWarning";
+var DescriptionWarning = ({ contentRef, descriptionId }) => {
+  const descriptionWarningContext = useWarningContext(DESCRIPTION_WARNING_NAME);
+  const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${descriptionWarningContext.contentName}}.`;
+  reactExports.useEffect(() => {
+    var _a3;
+    const describedById = (_a3 = contentRef.current) == null ? void 0 : _a3.getAttribute("aria-describedby");
+    if (descriptionId && describedById) {
+      const hasDescription = document.getElementById(descriptionId);
+      if (!hasDescription) console.warn(MESSAGE);
+    }
+  }, [MESSAGE, contentRef, descriptionId]);
+  return null;
+};
+var Root$1 = Dialog$1;
+var Portal = DialogPortal$1;
+var Overlay = DialogOverlay$1;
+var Content = DialogContent$1;
+var Title = DialogTitle$1;
+var Description = DialogDescription$1;
+var Close = DialogClose;
 function r(e) {
   var t, f, n = "";
   if ("string" == typeof e || "number" == typeof e) n += e;
@@ -46103,2419 +47916,6 @@ const twMerge = /* @__PURE__ */ createTailwindMerge(getDefaultConfig);
 function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
-function Avatar({
-  className,
-  ...props
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    Root$2,
-    {
-      "data-slot": "avatar",
-      className: cn(
-        "relative flex size-8 shrink-0 overflow-hidden rounded-full",
-        className
-      ),
-      ...props
-    }
-  );
-}
-function AvatarImage({
-  className,
-  ...props
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    Image$1,
-    {
-      "data-slot": "avatar-image",
-      className: cn("aspect-square size-full", className),
-      ...props
-    }
-  );
-}
-function AvatarFallback({
-  className,
-  ...props
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    Fallback,
-    {
-      "data-slot": "avatar-fallback",
-      className: cn(
-        "bg-muted flex size-full items-center justify-center rounded-full",
-        className
-      ),
-      ...props
-    }
-  );
-}
-function presetAvatarUrl(presetId) {
-  return `/assets/generated/avatar-preset-${presetId}.png`;
-}
-function uploadedAvatarUrl(blob) {
-  return `/assets/blob/${encodeURIComponent(blob.key)}`;
-}
-function avatarImageUrl(avatar) {
-  if (!avatar) return null;
-  if (avatar.__kind__ === "preset") return presetAvatarUrl(avatar.preset);
-  if (avatar.__kind__ === "uploaded") return uploadedAvatarUrl(avatar.uploaded);
-  return null;
-}
-const SIZE_STYLES = {
-  // Navbar user chip — small pixelated square with purple ring.
-  sm: { box: 32, fallbackFont: 20, ringClass: "navbar-avatar" },
-  // Message list + bubble — slightly larger, subtle ring.
-  md: { box: 36, fallbackFont: 22, ringClass: "message-avatar" },
-  // Profile preview — large, handled separately by the profile page.
-  lg: { box: 128, fallbackFont: 64, ringClass: "avatar-preview" }
-};
-function UserAvatar({
-  username,
-  size = "md",
-  avatar,
-  skipFetch = false,
-  className,
-  alt
-}) {
-  const query = useGetAvatar(
-    skipFetch || avatar !== void 0 ? null : username
-  );
-  const resolved = avatar !== void 0 ? avatar : query.data ?? null;
-  const url = avatarImageUrl(resolved);
-  const style2 = SIZE_STYLES[size];
-  const initial = ((username == null ? void 0 : username.charAt(0)) ?? "?").toUpperCase();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    Avatar,
-    {
-      className: `${style2.ringClass} ${className ?? ""}`,
-      style: {
-        width: style2.box,
-        height: style2.box,
-        borderRadius: 0
-        // Radix Avatar defaults to rounded-full; we override to a crisp
-        // pixel square to match the Minecraft/pixel theme.
-      },
-      children: [
-        url ? /* @__PURE__ */ jsxRuntimeExports.jsx(
-          AvatarImage,
-          {
-            src: url,
-            alt: alt ?? `${username}'s avatar`,
-            style: {
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              imageRendering: "pixelated"
-            }
-          }
-        ) : null,
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          AvatarFallback,
-          {
-            style: {
-              width: "100%",
-              height: "100%",
-              borderRadius: 0,
-              background: "oklch(0.18 0.09 295)",
-              color: "oklch(0.85 0.15 295)",
-              fontFamily: '"VT323", monospace',
-              fontSize: style2.fallbackFont,
-              textTransform: "uppercase",
-              imageRendering: "pixelated"
-            },
-            children: initial
-          }
-        )
-      ]
-    }
-  );
-}
-var DefaultContext = {
-  color: void 0,
-  size: void 0,
-  className: void 0,
-  style: void 0,
-  attr: void 0
-};
-var IconContext = React$4.createContext && /* @__PURE__ */ React$4.createContext(DefaultContext);
-var _excluded = ["attr", "size", "title"];
-function _objectWithoutProperties(e, t) {
-  if (null == e) return {};
-  var o2, r2, i = _objectWithoutPropertiesLoose(e, t);
-  if (Object.getOwnPropertySymbols) {
-    var n = Object.getOwnPropertySymbols(e);
-    for (r2 = 0; r2 < n.length; r2++) o2 = n[r2], -1 === t.indexOf(o2) && {}.propertyIsEnumerable.call(e, o2) && (i[o2] = e[o2]);
-  }
-  return i;
-}
-function _objectWithoutPropertiesLoose(r2, e) {
-  if (null == r2) return {};
-  var t = {};
-  for (var n in r2) if ({}.hasOwnProperty.call(r2, n)) {
-    if (-1 !== e.indexOf(n)) continue;
-    t[n] = r2[n];
-  }
-  return t;
-}
-function _extends() {
-  return _extends = Object.assign ? Object.assign.bind() : function(n) {
-    for (var e = 1; e < arguments.length; e++) {
-      var t = arguments[e];
-      for (var r2 in t) ({}).hasOwnProperty.call(t, r2) && (n[r2] = t[r2]);
-    }
-    return n;
-  }, _extends.apply(null, arguments);
-}
-function ownKeys(e, r2) {
-  var t = Object.keys(e);
-  if (Object.getOwnPropertySymbols) {
-    var o2 = Object.getOwnPropertySymbols(e);
-    r2 && (o2 = o2.filter(function(r3) {
-      return Object.getOwnPropertyDescriptor(e, r3).enumerable;
-    })), t.push.apply(t, o2);
-  }
-  return t;
-}
-function _objectSpread(e) {
-  for (var r2 = 1; r2 < arguments.length; r2++) {
-    var t = null != arguments[r2] ? arguments[r2] : {};
-    r2 % 2 ? ownKeys(Object(t), true).forEach(function(r3) {
-      _defineProperty(e, r3, t[r3]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r3) {
-      Object.defineProperty(e, r3, Object.getOwnPropertyDescriptor(t, r3));
-    });
-  }
-  return e;
-}
-function _defineProperty(e, r2, t) {
-  return (r2 = _toPropertyKey(r2)) in e ? Object.defineProperty(e, r2, { value: t, enumerable: true, configurable: true, writable: true }) : e[r2] = t, e;
-}
-function _toPropertyKey(t) {
-  var i = _toPrimitive(t, "string");
-  return "symbol" == typeof i ? i : i + "";
-}
-function _toPrimitive(t, r2) {
-  if ("object" != typeof t || !t) return t;
-  var e = t[Symbol.toPrimitive];
-  if (void 0 !== e) {
-    var i = e.call(t, r2);
-    if ("object" != typeof i) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r2 ? String : Number)(t);
-}
-function Tree2Element(tree) {
-  return tree && tree.map((node, i) => /* @__PURE__ */ React$4.createElement(node.tag, _objectSpread({
-    key: i
-  }, node.attr), Tree2Element(node.child)));
-}
-function GenIcon(data) {
-  return (props) => /* @__PURE__ */ React$4.createElement(IconBase, _extends({
-    attr: _objectSpread({}, data.attr)
-  }, props), Tree2Element(data.child));
-}
-function IconBase(props) {
-  var elem = (conf) => {
-    var {
-      attr,
-      size,
-      title
-    } = props, svgProps = _objectWithoutProperties(props, _excluded);
-    var computedSize = size || conf.size || "1em";
-    var className;
-    if (conf.className) className = conf.className;
-    if (props.className) className = (className ? className + " " : "") + props.className;
-    return /* @__PURE__ */ React$4.createElement("svg", _extends({
-      stroke: "currentColor",
-      fill: "currentColor",
-      strokeWidth: "0"
-    }, conf.attr, attr, svgProps, {
-      className,
-      style: _objectSpread(_objectSpread({
-        color: props.color || conf.color
-      }, conf.style), props.style),
-      height: computedSize,
-      width: computedSize,
-      xmlns: "http://www.w3.org/2000/svg"
-    }), title && /* @__PURE__ */ React$4.createElement("title", null, title), props.children);
-  };
-  return IconContext !== void 0 ? /* @__PURE__ */ React$4.createElement(IconContext.Consumer, null, (conf) => elem(conf)) : elem(DefaultContext);
-}
-function SiDiscord(props) {
-  return GenIcon({ "attr": { "role": "img", "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "d": "M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z" }, "child": [] }] })(props);
-}
-function Footer() {
-  const year = (/* @__PURE__ */ new Date()).getFullYear();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    "footer",
-    {
-      className: "relative overflow-hidden",
-      style: { background: "oklch(0.07 0.03 295)" },
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "div",
-          {
-            className: "h-2 w-full",
-            style: {
-              background: "repeating-linear-gradient(90deg, oklch(0.45 0.20 295) 0px, oklch(0.45 0.20 295) 8px, oklch(0.30 0.14 295) 8px, oklch(0.30 0.14 295) 16px, oklch(0.55 0.22 295) 16px, oklch(0.55 0.22 295) 24px, oklch(0.30 0.14 295) 24px, oklch(0.30 0.14 295) 32px)"
-            }
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 block-texture opacity-10" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-4 gap-8 mb-10", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "md:col-span-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "img",
-                {
-                  src: "/assets/generated/zoritlegends-logo.dim_512x128.png",
-                  alt: "ZoritLegends",
-                  className: "h-10 w-auto object-contain mb-4",
-                  onError: (e) => {
-                    const target = e.currentTarget;
-                    target.style.display = "none";
-                    const fallback = target.nextElementSibling;
-                    if (fallback) fallback.style.display = "block";
-                  }
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "p",
-                {
-                  className: "font-pixel mb-1",
-                  style: {
-                    display: "none",
-                    fontSize: "0.7rem",
-                    color: "oklch(0.80 0.18 295)"
-                  },
-                  children: "ZoritLegends"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "p",
-                {
-                  style: {
-                    fontFamily: '"VT323", monospace',
-                    fontSize: "1.1rem",
-                    color: "oklch(0.50 0.08 295)",
-                    lineHeight: "1.6",
-                    maxWidth: "300px"
-                  },
-                  children: "The ultimate Minecraft server experience. Battle, survive, and forge your legend."
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-3 mt-5", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "a",
-                {
-                  href: "https://discord.gg/UGCjrpj7Jg",
-                  target: "_blank",
-                  rel: "noopener noreferrer",
-                  "aria-label": "Discord",
-                  className: "w-9 h-9 flex items-center justify-center transition-all duration-150 hover:opacity-80",
-                  style: {
-                    background: "oklch(0.14 0.06 295)",
-                    border: "2px solid oklch(0.25 0.10 295)",
-                    color: "oklch(0.60 0.18 270)"
-                  },
-                  onMouseEnter: (e) => {
-                    e.currentTarget.style.borderColor = "oklch(0.45 0.20 295)";
-                  },
-                  onMouseLeave: (e) => {
-                    e.currentTarget.style.borderColor = "oklch(0.25 0.10 295)";
-                  },
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(SiDiscord, { size: 16 })
-                }
-              ) })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "h4",
-                {
-                  className: "font-pixel mb-4",
-                  style: {
-                    fontSize: "0.55rem",
-                    color: "oklch(0.70 0.18 295)",
-                    letterSpacing: "0.1em"
-                  },
-                  children: "QUICK LINKS"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "space-y-2", children: ["Home", "Features"].map((link) => /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "a",
-                {
-                  href: `#${link.toLowerCase()}`,
-                  style: {
-                    fontFamily: '"VT323", monospace',
-                    fontSize: "1.05rem",
-                    color: "oklch(0.50 0.08 295)",
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px"
-                  },
-                  onMouseEnter: (e) => {
-                    e.currentTarget.style.color = "oklch(0.75 0.15 295)";
-                  },
-                  onMouseLeave: (e) => {
-                    e.currentTarget.style.color = "oklch(0.50 0.08 295)";
-                  },
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "oklch(0.45 0.18 295)" }, children: "▸" }),
-                    link
-                  ]
-                }
-              ) }, link)) })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "h4",
-                {
-                  className: "font-pixel mb-4",
-                  style: {
-                    fontSize: "0.55rem",
-                    color: "oklch(0.70 0.18 295)",
-                    letterSpacing: "0.1em"
-                  },
-                  children: "SERVER INFO"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "p",
-                    {
-                      style: {
-                        fontFamily: '"VT323", monospace',
-                        fontSize: "0.85rem",
-                        color: "oklch(0.45 0.10 295)",
-                        letterSpacing: "0.05em"
-                      },
-                      children: "SERVER IP"
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "p",
-                    {
-                      style: {
-                        fontFamily: '"VT323", monospace',
-                        fontSize: "1rem",
-                        color: "oklch(0.70 0.18 295)",
-                        letterSpacing: "0.03em"
-                      },
-                      children: "mc.zoritlegends.com:60458"
-                    }
-                  )
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "p",
-                    {
-                      style: {
-                        fontFamily: '"VT323", monospace',
-                        fontSize: "0.85rem",
-                        color: "oklch(0.45 0.10 295)",
-                        letterSpacing: "0.05em"
-                      },
-                      children: "VERSION"
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "p",
-                    {
-                      style: {
-                        fontFamily: '"VT323", monospace',
-                        fontSize: "1rem",
-                        color: "oklch(0.60 0.10 295)"
-                      },
-                      children: "Java & Bedrock"
-                    }
-                  )
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "p",
-                    {
-                      style: {
-                        fontFamily: '"VT323", monospace',
-                        fontSize: "0.85rem",
-                        color: "oklch(0.45 0.10 295)",
-                        letterSpacing: "0.05em"
-                      },
-                      children: "STATUS"
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "p",
-                    {
-                      style: {
-                        fontFamily: '"VT323", monospace',
-                        fontSize: "1rem",
-                        color: "oklch(0.65 0.22 145)"
-                      },
-                      children: "● ONLINE"
-                    }
-                  )
-                ] })
-              ] })
-            ] })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "div",
-            {
-              className: "pt-6 flex items-center justify-center",
-              style: { borderTop: "1px solid oklch(0.18 0.07 295)" },
-              children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "p",
-                {
-                  style: {
-                    fontFamily: '"VT323", monospace',
-                    fontSize: "0.95rem",
-                    color: "oklch(0.38 0.07 295)"
-                  },
-                  children: [
-                    "© ",
-                    year,
-                    " ZoritLegends. All rights reserved."
-                  ]
-                }
-              )
-            }
-          )
-        ] })
-      ]
-    }
-  );
-}
-function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForDefaultPrevented = true } = {}) {
-  return function handleEvent(event) {
-    originalEventHandler == null ? void 0 : originalEventHandler(event);
-    if (checkForDefaultPrevented === false || !event.defaultPrevented) {
-      return ourEventHandler == null ? void 0 : ourEventHandler(event);
-    }
-  };
-}
-function createContext2(rootComponentName, defaultContext) {
-  const Context = reactExports.createContext(defaultContext);
-  const Provider = (props) => {
-    const { children, ...context } = props;
-    const value = reactExports.useMemo(() => context, Object.values(context));
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(Context.Provider, { value, children });
-  };
-  Provider.displayName = rootComponentName + "Provider";
-  function useContext2(consumerName) {
-    const context = reactExports.useContext(Context);
-    if (context) return context;
-    if (defaultContext !== void 0) return defaultContext;
-    throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
-  }
-  return [Provider, useContext2];
-}
-function createContextScope(scopeName, createContextScopeDeps = []) {
-  let defaultContexts = [];
-  function createContext3(rootComponentName, defaultContext) {
-    const BaseContext = reactExports.createContext(defaultContext);
-    const index2 = defaultContexts.length;
-    defaultContexts = [...defaultContexts, defaultContext];
-    const Provider = (props) => {
-      var _a3;
-      const { scope, children, ...context } = props;
-      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
-      const value = reactExports.useMemo(() => context, Object.values(context));
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Context.Provider, { value, children });
-    };
-    Provider.displayName = rootComponentName + "Provider";
-    function useContext2(consumerName, scope) {
-      var _a3;
-      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
-      const context = reactExports.useContext(Context);
-      if (context) return context;
-      if (defaultContext !== void 0) return defaultContext;
-      throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
-    }
-    return [Provider, useContext2];
-  }
-  const createScope = () => {
-    const scopeContexts = defaultContexts.map((defaultContext) => {
-      return reactExports.createContext(defaultContext);
-    });
-    return function useScope(scope) {
-      const contexts = (scope == null ? void 0 : scope[scopeName]) || scopeContexts;
-      return reactExports.useMemo(
-        () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
-        [scope, contexts]
-      );
-    };
-  };
-  createScope.scopeName = scopeName;
-  return [createContext3, composeContextScopes(createScope, ...createContextScopeDeps)];
-}
-function composeContextScopes(...scopes) {
-  const baseScope = scopes[0];
-  if (scopes.length === 1) return baseScope;
-  const createScope = () => {
-    const scopeHooks = scopes.map((createScope2) => ({
-      useScope: createScope2(),
-      scopeName: createScope2.scopeName
-    }));
-    return function useComposedScopes(overrideScopes) {
-      const nextScopes = scopeHooks.reduce((nextScopes2, { useScope, scopeName }) => {
-        const scopeProps = useScope(overrideScopes);
-        const currentScope = scopeProps[`__scope${scopeName}`];
-        return { ...nextScopes2, ...currentScope };
-      }, {});
-      return reactExports.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
-    };
-  };
-  createScope.scopeName = baseScope.scopeName;
-  return createScope;
-}
-var useReactId = React$5[" useId ".trim().toString()] || (() => void 0);
-var count$1 = 0;
-function useId(deterministicId) {
-  const [id2, setId] = reactExports.useState(useReactId());
-  useLayoutEffect2(() => {
-    setId((reactId) => reactId ?? String(count$1++));
-  }, [deterministicId]);
-  return deterministicId || (id2 ? `radix-${id2}` : "");
-}
-var useInsertionEffect = React$5[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
-function useControllableState({
-  prop,
-  defaultProp,
-  onChange = () => {
-  },
-  caller
-}) {
-  const [uncontrolledProp, setUncontrolledProp, onChangeRef] = useUncontrolledState({
-    defaultProp,
-    onChange
-  });
-  const isControlled = prop !== void 0;
-  const value = isControlled ? prop : uncontrolledProp;
-  {
-    const isControlledRef = reactExports.useRef(prop !== void 0);
-    reactExports.useEffect(() => {
-      const wasControlled = isControlledRef.current;
-      if (wasControlled !== isControlled) {
-        const from = wasControlled ? "controlled" : "uncontrolled";
-        const to = isControlled ? "controlled" : "uncontrolled";
-        console.warn(
-          `${caller} is changing from ${from} to ${to}. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.`
-        );
-      }
-      isControlledRef.current = isControlled;
-    }, [isControlled, caller]);
-  }
-  const setValue = reactExports.useCallback(
-    (nextValue) => {
-      var _a3;
-      if (isControlled) {
-        const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
-        if (value2 !== prop) {
-          (_a3 = onChangeRef.current) == null ? void 0 : _a3.call(onChangeRef, value2);
-        }
-      } else {
-        setUncontrolledProp(nextValue);
-      }
-    },
-    [isControlled, prop, setUncontrolledProp, onChangeRef]
-  );
-  return [value, setValue];
-}
-function useUncontrolledState({
-  defaultProp,
-  onChange
-}) {
-  const [value, setValue] = reactExports.useState(defaultProp);
-  const prevValueRef = reactExports.useRef(value);
-  const onChangeRef = reactExports.useRef(onChange);
-  useInsertionEffect(() => {
-    onChangeRef.current = onChange;
-  }, [onChange]);
-  reactExports.useEffect(() => {
-    var _a3;
-    if (prevValueRef.current !== value) {
-      (_a3 = onChangeRef.current) == null ? void 0 : _a3.call(onChangeRef, value);
-      prevValueRef.current = value;
-    }
-  }, [value, prevValueRef]);
-  return [value, setValue, onChangeRef];
-}
-function isFunction(value) {
-  return typeof value === "function";
-}
-// @__NO_SIDE_EFFECTS__
-function createSlot(ownerName) {
-  const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
-  const Slot2 = reactExports.forwardRef((props, forwardedRef) => {
-    const { children, ...slotProps } = props;
-    const childrenArray = reactExports.Children.toArray(children);
-    const slottable = childrenArray.find(isSlottable);
-    if (slottable) {
-      const newElement = slottable.props.children;
-      const newChildren = childrenArray.map((child) => {
-        if (child === slottable) {
-          if (reactExports.Children.count(newElement) > 1) return reactExports.Children.only(null);
-          return reactExports.isValidElement(newElement) ? newElement.props.children : null;
-        } else {
-          return child;
-        }
-      });
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: reactExports.isValidElement(newElement) ? reactExports.cloneElement(newElement, void 0, newChildren) : null });
-    }
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children });
-  });
-  Slot2.displayName = `${ownerName}.Slot`;
-  return Slot2;
-}
-// @__NO_SIDE_EFFECTS__
-function createSlotClone(ownerName) {
-  const SlotClone = reactExports.forwardRef((props, forwardedRef) => {
-    const { children, ...slotProps } = props;
-    if (reactExports.isValidElement(children)) {
-      const childrenRef = getElementRef$1(children);
-      const props2 = mergeProps(slotProps, children.props);
-      if (children.type !== reactExports.Fragment) {
-        props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
-      }
-      return reactExports.cloneElement(children, props2);
-    }
-    return reactExports.Children.count(children) > 1 ? reactExports.Children.only(null) : null;
-  });
-  SlotClone.displayName = `${ownerName}.SlotClone`;
-  return SlotClone;
-}
-var SLOTTABLE_IDENTIFIER = Symbol("radix.slottable");
-function isSlottable(child) {
-  return reactExports.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
-}
-function mergeProps(slotProps, childProps) {
-  const overrideProps = { ...childProps };
-  for (const propName in childProps) {
-    const slotPropValue = slotProps[propName];
-    const childPropValue = childProps[propName];
-    const isHandler = /^on[A-Z]/.test(propName);
-    if (isHandler) {
-      if (slotPropValue && childPropValue) {
-        overrideProps[propName] = (...args) => {
-          const result = childPropValue(...args);
-          slotPropValue(...args);
-          return result;
-        };
-      } else if (slotPropValue) {
-        overrideProps[propName] = slotPropValue;
-      }
-    } else if (propName === "style") {
-      overrideProps[propName] = { ...slotPropValue, ...childPropValue };
-    } else if (propName === "className") {
-      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(" ");
-    }
-  }
-  return { ...slotProps, ...overrideProps };
-}
-function getElementRef$1(element) {
-  var _a3, _b3;
-  let getter = (_a3 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a3.get;
-  let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.ref;
-  }
-  getter = (_b3 = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b3.get;
-  mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.props.ref;
-  }
-  return element.props.ref || element.ref;
-}
-var NODES = [
-  "a",
-  "button",
-  "div",
-  "form",
-  "h2",
-  "h3",
-  "img",
-  "input",
-  "label",
-  "li",
-  "nav",
-  "ol",
-  "p",
-  "select",
-  "span",
-  "svg",
-  "ul"
-];
-var Primitive = NODES.reduce((primitive, node) => {
-  const Slot2 = /* @__PURE__ */ createSlot(`Primitive.${node}`);
-  const Node2 = reactExports.forwardRef((props, forwardedRef) => {
-    const { asChild, ...primitiveProps } = props;
-    const Comp = asChild ? Slot2 : node;
-    if (typeof window !== "undefined") {
-      window[Symbol.for("radix-ui")] = true;
-    }
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(Comp, { ...primitiveProps, ref: forwardedRef });
-  });
-  Node2.displayName = `Primitive.${node}`;
-  return { ...primitive, [node]: Node2 };
-}, {});
-function dispatchDiscreteCustomEvent(target, event) {
-  if (target) reactDomExports.flushSync(() => target.dispatchEvent(event));
-}
-function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
-  const onEscapeKeyDown = useCallbackRef$1(onEscapeKeyDownProp);
-  reactExports.useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        onEscapeKeyDown(event);
-      }
-    };
-    ownerDocument.addEventListener("keydown", handleKeyDown, { capture: true });
-    return () => ownerDocument.removeEventListener("keydown", handleKeyDown, { capture: true });
-  }, [onEscapeKeyDown, ownerDocument]);
-}
-var DISMISSABLE_LAYER_NAME = "DismissableLayer";
-var CONTEXT_UPDATE = "dismissableLayer.update";
-var POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside";
-var FOCUS_OUTSIDE = "dismissableLayer.focusOutside";
-var originalBodyPointerEvents;
-var DismissableLayerContext = reactExports.createContext({
-  layers: /* @__PURE__ */ new Set(),
-  layersWithOutsidePointerEventsDisabled: /* @__PURE__ */ new Set(),
-  branches: /* @__PURE__ */ new Set()
-});
-var DismissableLayer = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const {
-      disableOutsidePointerEvents = false,
-      onEscapeKeyDown,
-      onPointerDownOutside,
-      onFocusOutside,
-      onInteractOutside,
-      onDismiss,
-      ...layerProps
-    } = props;
-    const context = reactExports.useContext(DismissableLayerContext);
-    const [node, setNode] = reactExports.useState(null);
-    const ownerDocument = (node == null ? void 0 : node.ownerDocument) ?? (globalThis == null ? void 0 : globalThis.document);
-    const [, force] = reactExports.useState({});
-    const composedRefs = useComposedRefs(forwardedRef, (node2) => setNode(node2));
-    const layers = Array.from(context.layers);
-    const [highestLayerWithOutsidePointerEventsDisabled] = [...context.layersWithOutsidePointerEventsDisabled].slice(-1);
-    const highestLayerWithOutsidePointerEventsDisabledIndex = layers.indexOf(highestLayerWithOutsidePointerEventsDisabled);
-    const index2 = node ? layers.indexOf(node) : -1;
-    const isBodyPointerEventsDisabled = context.layersWithOutsidePointerEventsDisabled.size > 0;
-    const isPointerEventsEnabled = index2 >= highestLayerWithOutsidePointerEventsDisabledIndex;
-    const pointerDownOutside = usePointerDownOutside((event) => {
-      const target = event.target;
-      const isPointerDownOnBranch = [...context.branches].some((branch) => branch.contains(target));
-      if (!isPointerEventsEnabled || isPointerDownOnBranch) return;
-      onPointerDownOutside == null ? void 0 : onPointerDownOutside(event);
-      onInteractOutside == null ? void 0 : onInteractOutside(event);
-      if (!event.defaultPrevented) onDismiss == null ? void 0 : onDismiss();
-    }, ownerDocument);
-    const focusOutside = useFocusOutside((event) => {
-      const target = event.target;
-      const isFocusInBranch = [...context.branches].some((branch) => branch.contains(target));
-      if (isFocusInBranch) return;
-      onFocusOutside == null ? void 0 : onFocusOutside(event);
-      onInteractOutside == null ? void 0 : onInteractOutside(event);
-      if (!event.defaultPrevented) onDismiss == null ? void 0 : onDismiss();
-    }, ownerDocument);
-    useEscapeKeydown((event) => {
-      const isHighestLayer = index2 === context.layers.size - 1;
-      if (!isHighestLayer) return;
-      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(event);
-      if (!event.defaultPrevented && onDismiss) {
-        event.preventDefault();
-        onDismiss();
-      }
-    }, ownerDocument);
-    reactExports.useEffect(() => {
-      if (!node) return;
-      if (disableOutsidePointerEvents) {
-        if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
-          originalBodyPointerEvents = ownerDocument.body.style.pointerEvents;
-          ownerDocument.body.style.pointerEvents = "none";
-        }
-        context.layersWithOutsidePointerEventsDisabled.add(node);
-      }
-      context.layers.add(node);
-      dispatchUpdate();
-      return () => {
-        if (disableOutsidePointerEvents && context.layersWithOutsidePointerEventsDisabled.size === 1) {
-          ownerDocument.body.style.pointerEvents = originalBodyPointerEvents;
-        }
-      };
-    }, [node, ownerDocument, disableOutsidePointerEvents, context]);
-    reactExports.useEffect(() => {
-      return () => {
-        if (!node) return;
-        context.layers.delete(node);
-        context.layersWithOutsidePointerEventsDisabled.delete(node);
-        dispatchUpdate();
-      };
-    }, [node, context]);
-    reactExports.useEffect(() => {
-      const handleUpdate = () => force({});
-      document.addEventListener(CONTEXT_UPDATE, handleUpdate);
-      return () => document.removeEventListener(CONTEXT_UPDATE, handleUpdate);
-    }, []);
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Primitive.div,
-      {
-        ...layerProps,
-        ref: composedRefs,
-        style: {
-          pointerEvents: isBodyPointerEventsDisabled ? isPointerEventsEnabled ? "auto" : "none" : void 0,
-          ...props.style
-        },
-        onFocusCapture: composeEventHandlers(props.onFocusCapture, focusOutside.onFocusCapture),
-        onBlurCapture: composeEventHandlers(props.onBlurCapture, focusOutside.onBlurCapture),
-        onPointerDownCapture: composeEventHandlers(
-          props.onPointerDownCapture,
-          pointerDownOutside.onPointerDownCapture
-        )
-      }
-    );
-  }
-);
-DismissableLayer.displayName = DISMISSABLE_LAYER_NAME;
-var BRANCH_NAME = "DismissableLayerBranch";
-var DismissableLayerBranch = reactExports.forwardRef((props, forwardedRef) => {
-  const context = reactExports.useContext(DismissableLayerContext);
-  const ref = reactExports.useRef(null);
-  const composedRefs = useComposedRefs(forwardedRef, ref);
-  reactExports.useEffect(() => {
-    const node = ref.current;
-    if (node) {
-      context.branches.add(node);
-      return () => {
-        context.branches.delete(node);
-      };
-    }
-  }, [context.branches]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.div, { ...props, ref: composedRefs });
-});
-DismissableLayerBranch.displayName = BRANCH_NAME;
-function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
-  const handlePointerDownOutside = useCallbackRef$1(onPointerDownOutside);
-  const isPointerInsideReactTreeRef = reactExports.useRef(false);
-  const handleClickRef = reactExports.useRef(() => {
-  });
-  reactExports.useEffect(() => {
-    const handlePointerDown = (event) => {
-      if (event.target && !isPointerInsideReactTreeRef.current) {
-        let handleAndDispatchPointerDownOutsideEvent2 = function() {
-          handleAndDispatchCustomEvent(
-            POINTER_DOWN_OUTSIDE,
-            handlePointerDownOutside,
-            eventDetail,
-            { discrete: true }
-          );
-        };
-        const eventDetail = { originalEvent: event };
-        if (event.pointerType === "touch") {
-          ownerDocument.removeEventListener("click", handleClickRef.current);
-          handleClickRef.current = handleAndDispatchPointerDownOutsideEvent2;
-          ownerDocument.addEventListener("click", handleClickRef.current, { once: true });
-        } else {
-          handleAndDispatchPointerDownOutsideEvent2();
-        }
-      } else {
-        ownerDocument.removeEventListener("click", handleClickRef.current);
-      }
-      isPointerInsideReactTreeRef.current = false;
-    };
-    const timerId = window.setTimeout(() => {
-      ownerDocument.addEventListener("pointerdown", handlePointerDown);
-    }, 0);
-    return () => {
-      window.clearTimeout(timerId);
-      ownerDocument.removeEventListener("pointerdown", handlePointerDown);
-      ownerDocument.removeEventListener("click", handleClickRef.current);
-    };
-  }, [ownerDocument, handlePointerDownOutside]);
-  return {
-    // ensures we check React component tree (not just DOM tree)
-    onPointerDownCapture: () => isPointerInsideReactTreeRef.current = true
-  };
-}
-function useFocusOutside(onFocusOutside, ownerDocument = globalThis == null ? void 0 : globalThis.document) {
-  const handleFocusOutside = useCallbackRef$1(onFocusOutside);
-  const isFocusInsideReactTreeRef = reactExports.useRef(false);
-  reactExports.useEffect(() => {
-    const handleFocus = (event) => {
-      if (event.target && !isFocusInsideReactTreeRef.current) {
-        const eventDetail = { originalEvent: event };
-        handleAndDispatchCustomEvent(FOCUS_OUTSIDE, handleFocusOutside, eventDetail, {
-          discrete: false
-        });
-      }
-    };
-    ownerDocument.addEventListener("focusin", handleFocus);
-    return () => ownerDocument.removeEventListener("focusin", handleFocus);
-  }, [ownerDocument, handleFocusOutside]);
-  return {
-    onFocusCapture: () => isFocusInsideReactTreeRef.current = true,
-    onBlurCapture: () => isFocusInsideReactTreeRef.current = false
-  };
-}
-function dispatchUpdate() {
-  const event = new CustomEvent(CONTEXT_UPDATE);
-  document.dispatchEvent(event);
-}
-function handleAndDispatchCustomEvent(name, handler, detail, { discrete }) {
-  const target = detail.originalEvent.target;
-  const event = new CustomEvent(name, { bubbles: false, cancelable: true, detail });
-  if (handler) target.addEventListener(name, handler, { once: true });
-  if (discrete) {
-    dispatchDiscreteCustomEvent(target, event);
-  } else {
-    target.dispatchEvent(event);
-  }
-}
-var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
-var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
-var EVENT_OPTIONS = { bubbles: false, cancelable: true };
-var FOCUS_SCOPE_NAME = "FocusScope";
-var FocusScope = reactExports.forwardRef((props, forwardedRef) => {
-  const {
-    loop = false,
-    trapped = false,
-    onMountAutoFocus: onMountAutoFocusProp,
-    onUnmountAutoFocus: onUnmountAutoFocusProp,
-    ...scopeProps
-  } = props;
-  const [container, setContainer] = reactExports.useState(null);
-  const onMountAutoFocus = useCallbackRef$1(onMountAutoFocusProp);
-  const onUnmountAutoFocus = useCallbackRef$1(onUnmountAutoFocusProp);
-  const lastFocusedElementRef = reactExports.useRef(null);
-  const composedRefs = useComposedRefs(forwardedRef, (node) => setContainer(node));
-  const focusScope = reactExports.useRef({
-    paused: false,
-    pause() {
-      this.paused = true;
-    },
-    resume() {
-      this.paused = false;
-    }
-  }).current;
-  reactExports.useEffect(() => {
-    if (trapped) {
-      let handleFocusIn2 = function(event) {
-        if (focusScope.paused || !container) return;
-        const target = event.target;
-        if (container.contains(target)) {
-          lastFocusedElementRef.current = target;
-        } else {
-          focus(lastFocusedElementRef.current, { select: true });
-        }
-      }, handleFocusOut2 = function(event) {
-        if (focusScope.paused || !container) return;
-        const relatedTarget = event.relatedTarget;
-        if (relatedTarget === null) return;
-        if (!container.contains(relatedTarget)) {
-          focus(lastFocusedElementRef.current, { select: true });
-        }
-      }, handleMutations2 = function(mutations) {
-        const focusedElement = document.activeElement;
-        if (focusedElement !== document.body) return;
-        for (const mutation of mutations) {
-          if (mutation.removedNodes.length > 0) focus(container);
-        }
-      };
-      document.addEventListener("focusin", handleFocusIn2);
-      document.addEventListener("focusout", handleFocusOut2);
-      const mutationObserver = new MutationObserver(handleMutations2);
-      if (container) mutationObserver.observe(container, { childList: true, subtree: true });
-      return () => {
-        document.removeEventListener("focusin", handleFocusIn2);
-        document.removeEventListener("focusout", handleFocusOut2);
-        mutationObserver.disconnect();
-      };
-    }
-  }, [trapped, container, focusScope.paused]);
-  reactExports.useEffect(() => {
-    if (container) {
-      focusScopesStack.add(focusScope);
-      const previouslyFocusedElement = document.activeElement;
-      const hasFocusedCandidate = container.contains(previouslyFocusedElement);
-      if (!hasFocusedCandidate) {
-        const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS);
-        container.addEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
-        container.dispatchEvent(mountEvent);
-        if (!mountEvent.defaultPrevented) {
-          focusFirst(removeLinks(getTabbableCandidates(container)), { select: true });
-          if (document.activeElement === previouslyFocusedElement) {
-            focus(container);
-          }
-        }
-      }
-      return () => {
-        container.removeEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
-        setTimeout(() => {
-          const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS);
-          container.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
-          container.dispatchEvent(unmountEvent);
-          if (!unmountEvent.defaultPrevented) {
-            focus(previouslyFocusedElement ?? document.body, { select: true });
-          }
-          container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
-          focusScopesStack.remove(focusScope);
-        }, 0);
-      };
-    }
-  }, [container, onMountAutoFocus, onUnmountAutoFocus, focusScope]);
-  const handleKeyDown = reactExports.useCallback(
-    (event) => {
-      if (!loop && !trapped) return;
-      if (focusScope.paused) return;
-      const isTabKey = event.key === "Tab" && !event.altKey && !event.ctrlKey && !event.metaKey;
-      const focusedElement = document.activeElement;
-      if (isTabKey && focusedElement) {
-        const container2 = event.currentTarget;
-        const [first, last2] = getTabbableEdges(container2);
-        const hasTabbableElementsInside = first && last2;
-        if (!hasTabbableElementsInside) {
-          if (focusedElement === container2) event.preventDefault();
-        } else {
-          if (!event.shiftKey && focusedElement === last2) {
-            event.preventDefault();
-            if (loop) focus(first, { select: true });
-          } else if (event.shiftKey && focusedElement === first) {
-            event.preventDefault();
-            if (loop) focus(last2, { select: true });
-          }
-        }
-      }
-    },
-    [loop, trapped, focusScope.paused]
-  );
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.div, { tabIndex: -1, ...scopeProps, ref: composedRefs, onKeyDown: handleKeyDown });
-});
-FocusScope.displayName = FOCUS_SCOPE_NAME;
-function focusFirst(candidates, { select = false } = {}) {
-  const previouslyFocusedElement = document.activeElement;
-  for (const candidate of candidates) {
-    focus(candidate, { select });
-    if (document.activeElement !== previouslyFocusedElement) return;
-  }
-}
-function getTabbableEdges(container) {
-  const candidates = getTabbableCandidates(container);
-  const first = findVisible(candidates, container);
-  const last2 = findVisible(candidates.reverse(), container);
-  return [first, last2];
-}
-function getTabbableCandidates(container) {
-  const nodes = [];
-  const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
-    acceptNode: (node) => {
-      const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
-      if (node.disabled || node.hidden || isHiddenInput) return NodeFilter.FILTER_SKIP;
-      return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
-    }
-  });
-  while (walker.nextNode()) nodes.push(walker.currentNode);
-  return nodes;
-}
-function findVisible(elements, container) {
-  for (const element of elements) {
-    if (!isHidden(element, { upTo: container })) return element;
-  }
-}
-function isHidden(node, { upTo }) {
-  if (getComputedStyle(node).visibility === "hidden") return true;
-  while (node) {
-    if (upTo !== void 0 && node === upTo) return false;
-    if (getComputedStyle(node).display === "none") return true;
-    node = node.parentElement;
-  }
-  return false;
-}
-function isSelectableInput(element) {
-  return element instanceof HTMLInputElement && "select" in element;
-}
-function focus(element, { select = false } = {}) {
-  if (element && element.focus) {
-    const previouslyFocusedElement = document.activeElement;
-    element.focus({ preventScroll: true });
-    if (element !== previouslyFocusedElement && isSelectableInput(element) && select)
-      element.select();
-  }
-}
-var focusScopesStack = createFocusScopesStack();
-function createFocusScopesStack() {
-  let stack = [];
-  return {
-    add(focusScope) {
-      const activeFocusScope = stack[0];
-      if (focusScope !== activeFocusScope) {
-        activeFocusScope == null ? void 0 : activeFocusScope.pause();
-      }
-      stack = arrayRemove(stack, focusScope);
-      stack.unshift(focusScope);
-    },
-    remove(focusScope) {
-      var _a3;
-      stack = arrayRemove(stack, focusScope);
-      (_a3 = stack[0]) == null ? void 0 : _a3.resume();
-    }
-  };
-}
-function arrayRemove(array, item) {
-  const updatedArray = [...array];
-  const index2 = updatedArray.indexOf(item);
-  if (index2 !== -1) {
-    updatedArray.splice(index2, 1);
-  }
-  return updatedArray;
-}
-function removeLinks(items) {
-  return items.filter((item) => item.tagName !== "A");
-}
-var PORTAL_NAME$1 = "Portal";
-var Portal$1 = reactExports.forwardRef((props, forwardedRef) => {
-  var _a3;
-  const { container: containerProp, ...portalProps } = props;
-  const [mounted, setMounted] = reactExports.useState(false);
-  useLayoutEffect2(() => setMounted(true), []);
-  const container = containerProp || mounted && ((_a3 = globalThis == null ? void 0 : globalThis.document) == null ? void 0 : _a3.body);
-  return container ? ReactDOM$2.createPortal(/* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.div, { ...portalProps, ref: forwardedRef }), container) : null;
-});
-Portal$1.displayName = PORTAL_NAME$1;
-function useStateMachine$1(initialState, machine) {
-  return reactExports.useReducer((state, event) => {
-    const nextState = machine[state][event];
-    return nextState ?? state;
-  }, initialState);
-}
-var Presence = (props) => {
-  const { present, children } = props;
-  const presence = usePresence(present);
-  const child = typeof children === "function" ? children({ present: presence.isPresent }) : reactExports.Children.only(children);
-  const ref = useComposedRefs(presence.ref, getElementRef(child));
-  const forceMount = typeof children === "function";
-  return forceMount || presence.isPresent ? reactExports.cloneElement(child, { ref }) : null;
-};
-Presence.displayName = "Presence";
-function usePresence(present) {
-  const [node, setNode] = reactExports.useState();
-  const stylesRef = reactExports.useRef(null);
-  const prevPresentRef = reactExports.useRef(present);
-  const prevAnimationNameRef = reactExports.useRef("none");
-  const initialState = present ? "mounted" : "unmounted";
-  const [state, send] = useStateMachine$1(initialState, {
-    mounted: {
-      UNMOUNT: "unmounted",
-      ANIMATION_OUT: "unmountSuspended"
-    },
-    unmountSuspended: {
-      MOUNT: "mounted",
-      ANIMATION_END: "unmounted"
-    },
-    unmounted: {
-      MOUNT: "mounted"
-    }
-  });
-  reactExports.useEffect(() => {
-    const currentAnimationName = getAnimationName(stylesRef.current);
-    prevAnimationNameRef.current = state === "mounted" ? currentAnimationName : "none";
-  }, [state]);
-  useLayoutEffect2(() => {
-    const styles = stylesRef.current;
-    const wasPresent = prevPresentRef.current;
-    const hasPresentChanged = wasPresent !== present;
-    if (hasPresentChanged) {
-      const prevAnimationName = prevAnimationNameRef.current;
-      const currentAnimationName = getAnimationName(styles);
-      if (present) {
-        send("MOUNT");
-      } else if (currentAnimationName === "none" || (styles == null ? void 0 : styles.display) === "none") {
-        send("UNMOUNT");
-      } else {
-        const isAnimating = prevAnimationName !== currentAnimationName;
-        if (wasPresent && isAnimating) {
-          send("ANIMATION_OUT");
-        } else {
-          send("UNMOUNT");
-        }
-      }
-      prevPresentRef.current = present;
-    }
-  }, [present, send]);
-  useLayoutEffect2(() => {
-    if (node) {
-      let timeoutId;
-      const ownerWindow = node.ownerDocument.defaultView ?? window;
-      const handleAnimationEnd = (event) => {
-        const currentAnimationName = getAnimationName(stylesRef.current);
-        const isCurrentAnimation = currentAnimationName.includes(CSS.escape(event.animationName));
-        if (event.target === node && isCurrentAnimation) {
-          send("ANIMATION_END");
-          if (!prevPresentRef.current) {
-            const currentFillMode = node.style.animationFillMode;
-            node.style.animationFillMode = "forwards";
-            timeoutId = ownerWindow.setTimeout(() => {
-              if (node.style.animationFillMode === "forwards") {
-                node.style.animationFillMode = currentFillMode;
-              }
-            });
-          }
-        }
-      };
-      const handleAnimationStart = (event) => {
-        if (event.target === node) {
-          prevAnimationNameRef.current = getAnimationName(stylesRef.current);
-        }
-      };
-      node.addEventListener("animationstart", handleAnimationStart);
-      node.addEventListener("animationcancel", handleAnimationEnd);
-      node.addEventListener("animationend", handleAnimationEnd);
-      return () => {
-        ownerWindow.clearTimeout(timeoutId);
-        node.removeEventListener("animationstart", handleAnimationStart);
-        node.removeEventListener("animationcancel", handleAnimationEnd);
-        node.removeEventListener("animationend", handleAnimationEnd);
-      };
-    } else {
-      send("ANIMATION_END");
-    }
-  }, [node, send]);
-  return {
-    isPresent: ["mounted", "unmountSuspended"].includes(state),
-    ref: reactExports.useCallback((node2) => {
-      stylesRef.current = node2 ? getComputedStyle(node2) : null;
-      setNode(node2);
-    }, [])
-  };
-}
-function getAnimationName(styles) {
-  return (styles == null ? void 0 : styles.animationName) || "none";
-}
-function getElementRef(element) {
-  var _a3, _b3;
-  let getter = (_a3 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a3.get;
-  let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.ref;
-  }
-  getter = (_b3 = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b3.get;
-  mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.props.ref;
-  }
-  return element.props.ref || element.ref;
-}
-var count = 0;
-function useFocusGuards() {
-  reactExports.useEffect(() => {
-    const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
-    document.body.insertAdjacentElement("afterbegin", edgeGuards[0] ?? createFocusGuard());
-    document.body.insertAdjacentElement("beforeend", edgeGuards[1] ?? createFocusGuard());
-    count++;
-    return () => {
-      if (count === 1) {
-        document.querySelectorAll("[data-radix-focus-guard]").forEach((node) => node.remove());
-      }
-      count--;
-    };
-  }, []);
-}
-function createFocusGuard() {
-  const element = document.createElement("span");
-  element.setAttribute("data-radix-focus-guard", "");
-  element.tabIndex = 0;
-  element.style.outline = "none";
-  element.style.opacity = "0";
-  element.style.position = "fixed";
-  element.style.pointerEvents = "none";
-  return element;
-}
-var __assign = function() {
-  __assign = Object.assign || function __assign2(t) {
-    for (var s2, i = 1, n = arguments.length; i < n; i++) {
-      s2 = arguments[i];
-      for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2)) t[p2] = s2[p2];
-    }
-    return t;
-  };
-  return __assign.apply(this, arguments);
-};
-function __rest(s2, e) {
-  var t = {};
-  for (var p2 in s2) if (Object.prototype.hasOwnProperty.call(s2, p2) && e.indexOf(p2) < 0)
-    t[p2] = s2[p2];
-  if (s2 != null && typeof Object.getOwnPropertySymbols === "function")
-    for (var i = 0, p2 = Object.getOwnPropertySymbols(s2); i < p2.length; i++) {
-      if (e.indexOf(p2[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p2[i]))
-        t[p2[i]] = s2[p2[i]];
-    }
-  return t;
-}
-function __spreadArray(to, from, pack) {
-  if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-    if (ar || !(i in from)) {
-      if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-      ar[i] = from[i];
-    }
-  }
-  return to.concat(ar || Array.prototype.slice.call(from));
-}
-typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
-  var e = new Error(message);
-  return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-};
-var zeroRightClassName = "right-scroll-bar-position";
-var fullWidthClassName = "width-before-scroll-bar";
-var noScrollbarsClassName = "with-scroll-bars-hidden";
-var removedBarSizeVariable = "--removed-body-scroll-bar-size";
-function assignRef(ref, value) {
-  if (typeof ref === "function") {
-    ref(value);
-  } else if (ref) {
-    ref.current = value;
-  }
-  return ref;
-}
-function useCallbackRef(initialValue, callback) {
-  var ref = reactExports.useState(function() {
-    return {
-      // value
-      value: initialValue,
-      // last callback
-      callback,
-      // "memoized" public interface
-      facade: {
-        get current() {
-          return ref.value;
-        },
-        set current(value) {
-          var last2 = ref.value;
-          if (last2 !== value) {
-            ref.value = value;
-            ref.callback(value, last2);
-          }
-        }
-      }
-    };
-  })[0];
-  ref.callback = callback;
-  return ref.facade;
-}
-var useIsomorphicLayoutEffect = typeof window !== "undefined" ? reactExports.useLayoutEffect : reactExports.useEffect;
-var currentValues = /* @__PURE__ */ new WeakMap();
-function useMergeRefs(refs, defaultValue) {
-  var callbackRef = useCallbackRef(null, function(newValue) {
-    return refs.forEach(function(ref) {
-      return assignRef(ref, newValue);
-    });
-  });
-  useIsomorphicLayoutEffect(function() {
-    var oldValue = currentValues.get(callbackRef);
-    if (oldValue) {
-      var prevRefs_1 = new Set(oldValue);
-      var nextRefs_1 = new Set(refs);
-      var current_1 = callbackRef.current;
-      prevRefs_1.forEach(function(ref) {
-        if (!nextRefs_1.has(ref)) {
-          assignRef(ref, null);
-        }
-      });
-      nextRefs_1.forEach(function(ref) {
-        if (!prevRefs_1.has(ref)) {
-          assignRef(ref, current_1);
-        }
-      });
-    }
-    currentValues.set(callbackRef, refs);
-  }, [refs]);
-  return callbackRef;
-}
-function ItoI(a2) {
-  return a2;
-}
-function innerCreateMedium(defaults, middleware) {
-  if (middleware === void 0) {
-    middleware = ItoI;
-  }
-  var buffer = [];
-  var assigned = false;
-  var medium = {
-    read: function() {
-      if (assigned) {
-        throw new Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");
-      }
-      if (buffer.length) {
-        return buffer[buffer.length - 1];
-      }
-      return defaults;
-    },
-    useMedium: function(data) {
-      var item = middleware(data, assigned);
-      buffer.push(item);
-      return function() {
-        buffer = buffer.filter(function(x2) {
-          return x2 !== item;
-        });
-      };
-    },
-    assignSyncMedium: function(cb) {
-      assigned = true;
-      while (buffer.length) {
-        var cbs = buffer;
-        buffer = [];
-        cbs.forEach(cb);
-      }
-      buffer = {
-        push: function(x2) {
-          return cb(x2);
-        },
-        filter: function() {
-          return buffer;
-        }
-      };
-    },
-    assignMedium: function(cb) {
-      assigned = true;
-      var pendingQueue = [];
-      if (buffer.length) {
-        var cbs = buffer;
-        buffer = [];
-        cbs.forEach(cb);
-        pendingQueue = buffer;
-      }
-      var executeQueue = function() {
-        var cbs2 = pendingQueue;
-        pendingQueue = [];
-        cbs2.forEach(cb);
-      };
-      var cycle = function() {
-        return Promise.resolve().then(executeQueue);
-      };
-      cycle();
-      buffer = {
-        push: function(x2) {
-          pendingQueue.push(x2);
-          cycle();
-        },
-        filter: function(filter2) {
-          pendingQueue = pendingQueue.filter(filter2);
-          return buffer;
-        }
-      };
-    }
-  };
-  return medium;
-}
-function createSidecarMedium(options) {
-  if (options === void 0) {
-    options = {};
-  }
-  var medium = innerCreateMedium(null);
-  medium.options = __assign({ async: true, ssr: false }, options);
-  return medium;
-}
-var SideCar$1 = function(_a3) {
-  var sideCar = _a3.sideCar, rest = __rest(_a3, ["sideCar"]);
-  if (!sideCar) {
-    throw new Error("Sidecar: please provide `sideCar` property to import the right car");
-  }
-  var Target = sideCar.read();
-  if (!Target) {
-    throw new Error("Sidecar medium not found");
-  }
-  return reactExports.createElement(Target, __assign({}, rest));
-};
-SideCar$1.isSideCarExport = true;
-function exportSidecar(medium, exported) {
-  medium.useMedium(exported);
-  return SideCar$1;
-}
-var effectCar = createSidecarMedium();
-var nothing = function() {
-  return;
-};
-var RemoveScroll = reactExports.forwardRef(function(props, parentRef) {
-  var ref = reactExports.useRef(null);
-  var _a3 = reactExports.useState({
-    onScrollCapture: nothing,
-    onWheelCapture: nothing,
-    onTouchMoveCapture: nothing
-  }), callbacks = _a3[0], setCallbacks = _a3[1];
-  var forwardProps = props.forwardProps, children = props.children, className = props.className, removeScrollBar = props.removeScrollBar, enabled = props.enabled, shards = props.shards, sideCar = props.sideCar, noRelative = props.noRelative, noIsolation = props.noIsolation, inert = props.inert, allowPinchZoom = props.allowPinchZoom, _b3 = props.as, Container = _b3 === void 0 ? "div" : _b3, gapMode = props.gapMode, rest = __rest(props, ["forwardProps", "children", "className", "removeScrollBar", "enabled", "shards", "sideCar", "noRelative", "noIsolation", "inert", "allowPinchZoom", "as", "gapMode"]);
-  var SideCar2 = sideCar;
-  var containerRef = useMergeRefs([ref, parentRef]);
-  var containerProps = __assign(__assign({}, rest), callbacks);
-  return reactExports.createElement(
-    reactExports.Fragment,
-    null,
-    enabled && reactExports.createElement(SideCar2, { sideCar: effectCar, removeScrollBar, shards, noRelative, noIsolation, inert, setCallbacks, allowPinchZoom: !!allowPinchZoom, lockRef: ref, gapMode }),
-    forwardProps ? reactExports.cloneElement(reactExports.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : reactExports.createElement(Container, __assign({}, containerProps, { className, ref: containerRef }), children)
-  );
-});
-RemoveScroll.defaultProps = {
-  enabled: true,
-  removeScrollBar: true,
-  inert: false
-};
-RemoveScroll.classNames = {
-  fullWidth: fullWidthClassName,
-  zeroRight: zeroRightClassName
-};
-var getNonce = function() {
-  if (typeof __webpack_nonce__ !== "undefined") {
-    return __webpack_nonce__;
-  }
-  return void 0;
-};
-function makeStyleTag() {
-  if (!document)
-    return null;
-  var tag = document.createElement("style");
-  tag.type = "text/css";
-  var nonce = getNonce();
-  if (nonce) {
-    tag.setAttribute("nonce", nonce);
-  }
-  return tag;
-}
-function injectStyles(tag, css) {
-  if (tag.styleSheet) {
-    tag.styleSheet.cssText = css;
-  } else {
-    tag.appendChild(document.createTextNode(css));
-  }
-}
-function insertStyleTag(tag) {
-  var head = document.head || document.getElementsByTagName("head")[0];
-  head.appendChild(tag);
-}
-var stylesheetSingleton = function() {
-  var counter = 0;
-  var stylesheet = null;
-  return {
-    add: function(style2) {
-      if (counter == 0) {
-        if (stylesheet = makeStyleTag()) {
-          injectStyles(stylesheet, style2);
-          insertStyleTag(stylesheet);
-        }
-      }
-      counter++;
-    },
-    remove: function() {
-      counter--;
-      if (!counter && stylesheet) {
-        stylesheet.parentNode && stylesheet.parentNode.removeChild(stylesheet);
-        stylesheet = null;
-      }
-    }
-  };
-};
-var styleHookSingleton = function() {
-  var sheet = stylesheetSingleton();
-  return function(styles, isDynamic) {
-    reactExports.useEffect(function() {
-      sheet.add(styles);
-      return function() {
-        sheet.remove();
-      };
-    }, [styles && isDynamic]);
-  };
-};
-var styleSingleton = function() {
-  var useStyle2 = styleHookSingleton();
-  var Sheet = function(_a3) {
-    var styles = _a3.styles, dynamic = _a3.dynamic;
-    useStyle2(styles, dynamic);
-    return null;
-  };
-  return Sheet;
-};
-var zeroGap = {
-  left: 0,
-  top: 0,
-  right: 0,
-  gap: 0
-};
-var parse = function(x2) {
-  return parseInt(x2 || "", 10) || 0;
-};
-var getOffset = function(gapMode) {
-  var cs = window.getComputedStyle(document.body);
-  var left = cs[gapMode === "padding" ? "paddingLeft" : "marginLeft"];
-  var top = cs[gapMode === "padding" ? "paddingTop" : "marginTop"];
-  var right = cs[gapMode === "padding" ? "paddingRight" : "marginRight"];
-  return [parse(left), parse(top), parse(right)];
-};
-var getGapWidth = function(gapMode) {
-  if (gapMode === void 0) {
-    gapMode = "margin";
-  }
-  if (typeof window === "undefined") {
-    return zeroGap;
-  }
-  var offsets = getOffset(gapMode);
-  var documentWidth = document.documentElement.clientWidth;
-  var windowWidth = window.innerWidth;
-  return {
-    left: offsets[0],
-    top: offsets[1],
-    right: offsets[2],
-    gap: Math.max(0, windowWidth - documentWidth + offsets[2] - offsets[0])
-  };
-};
-var Style = styleSingleton();
-var lockAttribute = "data-scroll-locked";
-var getStyles = function(_a3, allowRelative, gapMode, important) {
-  var left = _a3.left, top = _a3.top, right = _a3.right, gap = _a3.gap;
-  if (gapMode === void 0) {
-    gapMode = "margin";
-  }
-  return "\n  .".concat(noScrollbarsClassName, " {\n   overflow: hidden ").concat(important, ";\n   padding-right: ").concat(gap, "px ").concat(important, ";\n  }\n  body[").concat(lockAttribute, "] {\n    overflow: hidden ").concat(important, ";\n    overscroll-behavior: contain;\n    ").concat([
-    allowRelative && "position: relative ".concat(important, ";"),
-    gapMode === "margin" && "\n    padding-left: ".concat(left, "px;\n    padding-top: ").concat(top, "px;\n    padding-right: ").concat(right, "px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: ").concat(gap, "px ").concat(important, ";\n    "),
-    gapMode === "padding" && "padding-right: ".concat(gap, "px ").concat(important, ";")
-  ].filter(Boolean).join(""), "\n  }\n  \n  .").concat(zeroRightClassName, " {\n    right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " {\n    margin-right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(zeroRightClassName, " .").concat(zeroRightClassName, " {\n    right: 0 ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " .").concat(fullWidthClassName, " {\n    margin-right: 0 ").concat(important, ";\n  }\n  \n  body[").concat(lockAttribute, "] {\n    ").concat(removedBarSizeVariable, ": ").concat(gap, "px;\n  }\n");
-};
-var getCurrentUseCounter = function() {
-  var counter = parseInt(document.body.getAttribute(lockAttribute) || "0", 10);
-  return isFinite(counter) ? counter : 0;
-};
-var useLockAttribute = function() {
-  reactExports.useEffect(function() {
-    document.body.setAttribute(lockAttribute, (getCurrentUseCounter() + 1).toString());
-    return function() {
-      var newCounter = getCurrentUseCounter() - 1;
-      if (newCounter <= 0) {
-        document.body.removeAttribute(lockAttribute);
-      } else {
-        document.body.setAttribute(lockAttribute, newCounter.toString());
-      }
-    };
-  }, []);
-};
-var RemoveScrollBar = function(_a3) {
-  var noRelative = _a3.noRelative, noImportant = _a3.noImportant, _b3 = _a3.gapMode, gapMode = _b3 === void 0 ? "margin" : _b3;
-  useLockAttribute();
-  var gap = reactExports.useMemo(function() {
-    return getGapWidth(gapMode);
-  }, [gapMode]);
-  return reactExports.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
-};
-var passiveSupported = false;
-if (typeof window !== "undefined") {
-  try {
-    var options = Object.defineProperty({}, "passive", {
-      get: function() {
-        passiveSupported = true;
-        return true;
-      }
-    });
-    window.addEventListener("test", options, options);
-    window.removeEventListener("test", options, options);
-  } catch (err) {
-    passiveSupported = false;
-  }
-}
-var nonPassive = passiveSupported ? { passive: false } : false;
-var alwaysContainsScroll = function(node) {
-  return node.tagName === "TEXTAREA";
-};
-var elementCanBeScrolled = function(node, overflow) {
-  if (!(node instanceof Element)) {
-    return false;
-  }
-  var styles = window.getComputedStyle(node);
-  return (
-    // not-not-scrollable
-    styles[overflow] !== "hidden" && // contains scroll inside self
-    !(styles.overflowY === styles.overflowX && !alwaysContainsScroll(node) && styles[overflow] === "visible")
-  );
-};
-var elementCouldBeVScrolled = function(node) {
-  return elementCanBeScrolled(node, "overflowY");
-};
-var elementCouldBeHScrolled = function(node) {
-  return elementCanBeScrolled(node, "overflowX");
-};
-var locationCouldBeScrolled = function(axis, node) {
-  var ownerDocument = node.ownerDocument;
-  var current = node;
-  do {
-    if (typeof ShadowRoot !== "undefined" && current instanceof ShadowRoot) {
-      current = current.host;
-    }
-    var isScrollable = elementCouldBeScrolled(axis, current);
-    if (isScrollable) {
-      var _a3 = getScrollVariables(axis, current), scrollHeight = _a3[1], clientHeight = _a3[2];
-      if (scrollHeight > clientHeight) {
-        return true;
-      }
-    }
-    current = current.parentNode;
-  } while (current && current !== ownerDocument.body);
-  return false;
-};
-var getVScrollVariables = function(_a3) {
-  var scrollTop = _a3.scrollTop, scrollHeight = _a3.scrollHeight, clientHeight = _a3.clientHeight;
-  return [
-    scrollTop,
-    scrollHeight,
-    clientHeight
-  ];
-};
-var getHScrollVariables = function(_a3) {
-  var scrollLeft = _a3.scrollLeft, scrollWidth = _a3.scrollWidth, clientWidth = _a3.clientWidth;
-  return [
-    scrollLeft,
-    scrollWidth,
-    clientWidth
-  ];
-};
-var elementCouldBeScrolled = function(axis, node) {
-  return axis === "v" ? elementCouldBeVScrolled(node) : elementCouldBeHScrolled(node);
-};
-var getScrollVariables = function(axis, node) {
-  return axis === "v" ? getVScrollVariables(node) : getHScrollVariables(node);
-};
-var getDirectionFactor = function(axis, direction) {
-  return axis === "h" && direction === "rtl" ? -1 : 1;
-};
-var handleScroll = function(axis, endTarget, event, sourceDelta, noOverscroll) {
-  var directionFactor = getDirectionFactor(axis, window.getComputedStyle(endTarget).direction);
-  var delta = directionFactor * sourceDelta;
-  var target = event.target;
-  var targetInLock = endTarget.contains(target);
-  var shouldCancelScroll = false;
-  var isDeltaPositive = delta > 0;
-  var availableScroll = 0;
-  var availableScrollTop = 0;
-  do {
-    if (!target) {
-      break;
-    }
-    var _a3 = getScrollVariables(axis, target), position = _a3[0], scroll_1 = _a3[1], capacity = _a3[2];
-    var elementScroll = scroll_1 - capacity - directionFactor * position;
-    if (position || elementScroll) {
-      if (elementCouldBeScrolled(axis, target)) {
-        availableScroll += elementScroll;
-        availableScrollTop += position;
-      }
-    }
-    var parent_1 = target.parentNode;
-    target = parent_1 && parent_1.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? parent_1.host : parent_1;
-  } while (
-    // portaled content
-    !targetInLock && target !== document.body || // self content
-    targetInLock && (endTarget.contains(target) || endTarget === target)
-  );
-  if (isDeltaPositive && (Math.abs(availableScroll) < 1 || false)) {
-    shouldCancelScroll = true;
-  } else if (!isDeltaPositive && (Math.abs(availableScrollTop) < 1 || false)) {
-    shouldCancelScroll = true;
-  }
-  return shouldCancelScroll;
-};
-var getTouchXY = function(event) {
-  return "changedTouches" in event ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY] : [0, 0];
-};
-var getDeltaXY = function(event) {
-  return [event.deltaX, event.deltaY];
-};
-var extractRef = function(ref) {
-  return ref && "current" in ref ? ref.current : ref;
-};
-var deltaCompare = function(x2, y2) {
-  return x2[0] === y2[0] && x2[1] === y2[1];
-};
-var generateStyle = function(id2) {
-  return "\n  .block-interactivity-".concat(id2, " {pointer-events: none;}\n  .allow-interactivity-").concat(id2, " {pointer-events: all;}\n");
-};
-var idCounter = 0;
-var lockStack = [];
-function RemoveScrollSideCar(props) {
-  var shouldPreventQueue = reactExports.useRef([]);
-  var touchStartRef = reactExports.useRef([0, 0]);
-  var activeAxis = reactExports.useRef();
-  var id2 = reactExports.useState(idCounter++)[0];
-  var Style2 = reactExports.useState(styleSingleton)[0];
-  var lastProps = reactExports.useRef(props);
-  reactExports.useEffect(function() {
-    lastProps.current = props;
-  }, [props]);
-  reactExports.useEffect(function() {
-    if (props.inert) {
-      document.body.classList.add("block-interactivity-".concat(id2));
-      var allow_1 = __spreadArray([props.lockRef.current], (props.shards || []).map(extractRef), true).filter(Boolean);
-      allow_1.forEach(function(el) {
-        return el.classList.add("allow-interactivity-".concat(id2));
-      });
-      return function() {
-        document.body.classList.remove("block-interactivity-".concat(id2));
-        allow_1.forEach(function(el) {
-          return el.classList.remove("allow-interactivity-".concat(id2));
-        });
-      };
-    }
-    return;
-  }, [props.inert, props.lockRef.current, props.shards]);
-  var shouldCancelEvent = reactExports.useCallback(function(event, parent) {
-    if ("touches" in event && event.touches.length === 2 || event.type === "wheel" && event.ctrlKey) {
-      return !lastProps.current.allowPinchZoom;
-    }
-    var touch = getTouchXY(event);
-    var touchStart = touchStartRef.current;
-    var deltaX = "deltaX" in event ? event.deltaX : touchStart[0] - touch[0];
-    var deltaY = "deltaY" in event ? event.deltaY : touchStart[1] - touch[1];
-    var currentAxis;
-    var target = event.target;
-    var moveDirection = Math.abs(deltaX) > Math.abs(deltaY) ? "h" : "v";
-    if ("touches" in event && moveDirection === "h" && target.type === "range") {
-      return false;
-    }
-    var selection = window.getSelection();
-    var anchorNode = selection && selection.anchorNode;
-    var isTouchingSelection = anchorNode ? anchorNode === target || anchorNode.contains(target) : false;
-    if (isTouchingSelection) {
-      return false;
-    }
-    var canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
-    if (!canBeScrolledInMainDirection) {
-      return true;
-    }
-    if (canBeScrolledInMainDirection) {
-      currentAxis = moveDirection;
-    } else {
-      currentAxis = moveDirection === "v" ? "h" : "v";
-      canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
-    }
-    if (!canBeScrolledInMainDirection) {
-      return false;
-    }
-    if (!activeAxis.current && "changedTouches" in event && (deltaX || deltaY)) {
-      activeAxis.current = currentAxis;
-    }
-    if (!currentAxis) {
-      return true;
-    }
-    var cancelingAxis = activeAxis.current || currentAxis;
-    return handleScroll(cancelingAxis, parent, event, cancelingAxis === "h" ? deltaX : deltaY);
-  }, []);
-  var shouldPrevent = reactExports.useCallback(function(_event) {
-    var event = _event;
-    if (!lockStack.length || lockStack[lockStack.length - 1] !== Style2) {
-      return;
-    }
-    var delta = "deltaY" in event ? getDeltaXY(event) : getTouchXY(event);
-    var sourceEvent = shouldPreventQueue.current.filter(function(e) {
-      return e.name === event.type && (e.target === event.target || event.target === e.shadowParent) && deltaCompare(e.delta, delta);
-    })[0];
-    if (sourceEvent && sourceEvent.should) {
-      if (event.cancelable) {
-        event.preventDefault();
-      }
-      return;
-    }
-    if (!sourceEvent) {
-      var shardNodes = (lastProps.current.shards || []).map(extractRef).filter(Boolean).filter(function(node) {
-        return node.contains(event.target);
-      });
-      var shouldStop = shardNodes.length > 0 ? shouldCancelEvent(event, shardNodes[0]) : !lastProps.current.noIsolation;
-      if (shouldStop) {
-        if (event.cancelable) {
-          event.preventDefault();
-        }
-      }
-    }
-  }, []);
-  var shouldCancel = reactExports.useCallback(function(name, delta, target, should) {
-    var event = { name, delta, target, should, shadowParent: getOutermostShadowParent(target) };
-    shouldPreventQueue.current.push(event);
-    setTimeout(function() {
-      shouldPreventQueue.current = shouldPreventQueue.current.filter(function(e) {
-        return e !== event;
-      });
-    }, 1);
-  }, []);
-  var scrollTouchStart = reactExports.useCallback(function(event) {
-    touchStartRef.current = getTouchXY(event);
-    activeAxis.current = void 0;
-  }, []);
-  var scrollWheel = reactExports.useCallback(function(event) {
-    shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
-  }, []);
-  var scrollTouchMove = reactExports.useCallback(function(event) {
-    shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
-  }, []);
-  reactExports.useEffect(function() {
-    lockStack.push(Style2);
-    props.setCallbacks({
-      onScrollCapture: scrollWheel,
-      onWheelCapture: scrollWheel,
-      onTouchMoveCapture: scrollTouchMove
-    });
-    document.addEventListener("wheel", shouldPrevent, nonPassive);
-    document.addEventListener("touchmove", shouldPrevent, nonPassive);
-    document.addEventListener("touchstart", scrollTouchStart, nonPassive);
-    return function() {
-      lockStack = lockStack.filter(function(inst) {
-        return inst !== Style2;
-      });
-      document.removeEventListener("wheel", shouldPrevent, nonPassive);
-      document.removeEventListener("touchmove", shouldPrevent, nonPassive);
-      document.removeEventListener("touchstart", scrollTouchStart, nonPassive);
-    };
-  }, []);
-  var removeScrollBar = props.removeScrollBar, inert = props.inert;
-  return reactExports.createElement(
-    reactExports.Fragment,
-    null,
-    inert ? reactExports.createElement(Style2, { styles: generateStyle(id2) }) : null,
-    removeScrollBar ? reactExports.createElement(RemoveScrollBar, { noRelative: props.noRelative, gapMode: props.gapMode }) : null
-  );
-}
-function getOutermostShadowParent(node) {
-  var shadowParent = null;
-  while (node !== null) {
-    if (node instanceof ShadowRoot) {
-      shadowParent = node.host;
-      node = node.host;
-    }
-    node = node.parentNode;
-  }
-  return shadowParent;
-}
-const SideCar = exportSidecar(effectCar, RemoveScrollSideCar);
-var ReactRemoveScroll = reactExports.forwardRef(function(props, ref) {
-  return reactExports.createElement(RemoveScroll, __assign({}, props, { ref, sideCar: SideCar }));
-});
-ReactRemoveScroll.classNames = RemoveScroll.classNames;
-var getDefaultParent = function(originalTarget) {
-  if (typeof document === "undefined") {
-    return null;
-  }
-  var sampleTarget = Array.isArray(originalTarget) ? originalTarget[0] : originalTarget;
-  return sampleTarget.ownerDocument.body;
-};
-var counterMap = /* @__PURE__ */ new WeakMap();
-var uncontrolledNodes = /* @__PURE__ */ new WeakMap();
-var markerMap = {};
-var lockCount = 0;
-var unwrapHost = function(node) {
-  return node && (node.host || unwrapHost(node.parentNode));
-};
-var correctTargets = function(parent, targets) {
-  return targets.map(function(target) {
-    if (parent.contains(target)) {
-      return target;
-    }
-    var correctedTarget = unwrapHost(target);
-    if (correctedTarget && parent.contains(correctedTarget)) {
-      return correctedTarget;
-    }
-    console.error("aria-hidden", target, "in not contained inside", parent, ". Doing nothing");
-    return null;
-  }).filter(function(x2) {
-    return Boolean(x2);
-  });
-};
-var applyAttributeToOthers = function(originalTarget, parentNode, markerName, controlAttribute) {
-  var targets = correctTargets(parentNode, Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
-  if (!markerMap[markerName]) {
-    markerMap[markerName] = /* @__PURE__ */ new WeakMap();
-  }
-  var markerCounter = markerMap[markerName];
-  var hiddenNodes = [];
-  var elementsToKeep = /* @__PURE__ */ new Set();
-  var elementsToStop = new Set(targets);
-  var keep = function(el) {
-    if (!el || elementsToKeep.has(el)) {
-      return;
-    }
-    elementsToKeep.add(el);
-    keep(el.parentNode);
-  };
-  targets.forEach(keep);
-  var deep = function(parent) {
-    if (!parent || elementsToStop.has(parent)) {
-      return;
-    }
-    Array.prototype.forEach.call(parent.children, function(node) {
-      if (elementsToKeep.has(node)) {
-        deep(node);
-      } else {
-        try {
-          var attr = node.getAttribute(controlAttribute);
-          var alreadyHidden = attr !== null && attr !== "false";
-          var counterValue = (counterMap.get(node) || 0) + 1;
-          var markerValue = (markerCounter.get(node) || 0) + 1;
-          counterMap.set(node, counterValue);
-          markerCounter.set(node, markerValue);
-          hiddenNodes.push(node);
-          if (counterValue === 1 && alreadyHidden) {
-            uncontrolledNodes.set(node, true);
-          }
-          if (markerValue === 1) {
-            node.setAttribute(markerName, "true");
-          }
-          if (!alreadyHidden) {
-            node.setAttribute(controlAttribute, "true");
-          }
-        } catch (e) {
-          console.error("aria-hidden: cannot operate on ", node, e);
-        }
-      }
-    });
-  };
-  deep(parentNode);
-  elementsToKeep.clear();
-  lockCount++;
-  return function() {
-    hiddenNodes.forEach(function(node) {
-      var counterValue = counterMap.get(node) - 1;
-      var markerValue = markerCounter.get(node) - 1;
-      counterMap.set(node, counterValue);
-      markerCounter.set(node, markerValue);
-      if (!counterValue) {
-        if (!uncontrolledNodes.has(node)) {
-          node.removeAttribute(controlAttribute);
-        }
-        uncontrolledNodes.delete(node);
-      }
-      if (!markerValue) {
-        node.removeAttribute(markerName);
-      }
-    });
-    lockCount--;
-    if (!lockCount) {
-      counterMap = /* @__PURE__ */ new WeakMap();
-      counterMap = /* @__PURE__ */ new WeakMap();
-      uncontrolledNodes = /* @__PURE__ */ new WeakMap();
-      markerMap = {};
-    }
-  };
-};
-var hideOthers = function(originalTarget, parentNode, markerName) {
-  if (markerName === void 0) {
-    markerName = "data-aria-hidden";
-  }
-  var targets = Array.from(Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
-  var activeParentNode = getDefaultParent(originalTarget);
-  if (!activeParentNode) {
-    return function() {
-      return null;
-    };
-  }
-  targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live], script")));
-  return applyAttributeToOthers(targets, activeParentNode, markerName, "aria-hidden");
-};
-var DIALOG_NAME = "Dialog";
-var [createDialogContext] = createContextScope(DIALOG_NAME);
-var [DialogProvider, useDialogContext] = createDialogContext(DIALOG_NAME);
-var Dialog$1 = (props) => {
-  const {
-    __scopeDialog,
-    children,
-    open: openProp,
-    defaultOpen,
-    onOpenChange,
-    modal = true
-  } = props;
-  const triggerRef = reactExports.useRef(null);
-  const contentRef = reactExports.useRef(null);
-  const [open, setOpen] = useControllableState({
-    prop: openProp,
-    defaultProp: defaultOpen ?? false,
-    onChange: onOpenChange,
-    caller: DIALOG_NAME
-  });
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    DialogProvider,
-    {
-      scope: __scopeDialog,
-      triggerRef,
-      contentRef,
-      contentId: useId(),
-      titleId: useId(),
-      descriptionId: useId(),
-      open,
-      onOpenChange: setOpen,
-      onOpenToggle: reactExports.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
-      modal,
-      children
-    }
-  );
-};
-Dialog$1.displayName = DIALOG_NAME;
-var TRIGGER_NAME = "DialogTrigger";
-var DialogTrigger = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const { __scopeDialog, ...triggerProps } = props;
-    const context = useDialogContext(TRIGGER_NAME, __scopeDialog);
-    const composedTriggerRef = useComposedRefs(forwardedRef, context.triggerRef);
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Primitive.button,
-      {
-        type: "button",
-        "aria-haspopup": "dialog",
-        "aria-expanded": context.open,
-        "aria-controls": context.contentId,
-        "data-state": getState(context.open),
-        ...triggerProps,
-        ref: composedTriggerRef,
-        onClick: composeEventHandlers(props.onClick, context.onOpenToggle)
-      }
-    );
-  }
-);
-DialogTrigger.displayName = TRIGGER_NAME;
-var PORTAL_NAME = "DialogPortal";
-var [PortalProvider, usePortalContext] = createDialogContext(PORTAL_NAME, {
-  forceMount: void 0
-});
-var DialogPortal$1 = (props) => {
-  const { __scopeDialog, forceMount, children, container } = props;
-  const context = useDialogContext(PORTAL_NAME, __scopeDialog);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(PortalProvider, { scope: __scopeDialog, forceMount, children: reactExports.Children.map(children, (child) => /* @__PURE__ */ jsxRuntimeExports.jsx(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Portal$1, { asChild: true, container, children: child }) })) });
-};
-DialogPortal$1.displayName = PORTAL_NAME;
-var OVERLAY_NAME = "DialogOverlay";
-var DialogOverlay$1 = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const portalContext = usePortalContext(OVERLAY_NAME, props.__scopeDialog);
-    const { forceMount = portalContext.forceMount, ...overlayProps } = props;
-    const context = useDialogContext(OVERLAY_NAME, props.__scopeDialog);
-    return context.modal ? /* @__PURE__ */ jsxRuntimeExports.jsx(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsxRuntimeExports.jsx(DialogOverlayImpl, { ...overlayProps, ref: forwardedRef }) }) : null;
-  }
-);
-DialogOverlay$1.displayName = OVERLAY_NAME;
-var Slot = /* @__PURE__ */ createSlot("DialogOverlay.RemoveScroll");
-var DialogOverlayImpl = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const { __scopeDialog, ...overlayProps } = props;
-    const context = useDialogContext(OVERLAY_NAME, __scopeDialog);
-    return (
-      // Make sure `Content` is scrollable even when it doesn't live inside `RemoveScroll`
-      // ie. when `Overlay` and `Content` are siblings
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ReactRemoveScroll, { as: Slot, allowPinchZoom: true, shards: [context.contentRef], children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Primitive.div,
-        {
-          "data-state": getState(context.open),
-          ...overlayProps,
-          ref: forwardedRef,
-          style: { pointerEvents: "auto", ...overlayProps.style }
-        }
-      ) })
-    );
-  }
-);
-var CONTENT_NAME = "DialogContent";
-var DialogContent$1 = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const portalContext = usePortalContext(CONTENT_NAME, props.__scopeDialog);
-    const { forceMount = portalContext.forceMount, ...contentProps } = props;
-    const context = useDialogContext(CONTENT_NAME, props.__scopeDialog);
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(Presence, { present: forceMount || context.open, children: context.modal ? /* @__PURE__ */ jsxRuntimeExports.jsx(DialogContentModal, { ...contentProps, ref: forwardedRef }) : /* @__PURE__ */ jsxRuntimeExports.jsx(DialogContentNonModal, { ...contentProps, ref: forwardedRef }) });
-  }
-);
-DialogContent$1.displayName = CONTENT_NAME;
-var DialogContentModal = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const context = useDialogContext(CONTENT_NAME, props.__scopeDialog);
-    const contentRef = reactExports.useRef(null);
-    const composedRefs = useComposedRefs(forwardedRef, context.contentRef, contentRef);
-    reactExports.useEffect(() => {
-      const content = contentRef.current;
-      if (content) return hideOthers(content);
-    }, []);
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(
-      DialogContentImpl,
-      {
-        ...props,
-        ref: composedRefs,
-        trapFocus: context.open,
-        disableOutsidePointerEvents: true,
-        onCloseAutoFocus: composeEventHandlers(props.onCloseAutoFocus, (event) => {
-          var _a3;
-          event.preventDefault();
-          (_a3 = context.triggerRef.current) == null ? void 0 : _a3.focus();
-        }),
-        onPointerDownOutside: composeEventHandlers(props.onPointerDownOutside, (event) => {
-          const originalEvent = event.detail.originalEvent;
-          const ctrlLeftClick = originalEvent.button === 0 && originalEvent.ctrlKey === true;
-          const isRightClick = originalEvent.button === 2 || ctrlLeftClick;
-          if (isRightClick) event.preventDefault();
-        }),
-        onFocusOutside: composeEventHandlers(
-          props.onFocusOutside,
-          (event) => event.preventDefault()
-        )
-      }
-    );
-  }
-);
-var DialogContentNonModal = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const context = useDialogContext(CONTENT_NAME, props.__scopeDialog);
-    const hasInteractedOutsideRef = reactExports.useRef(false);
-    const hasPointerDownOutsideRef = reactExports.useRef(false);
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(
-      DialogContentImpl,
-      {
-        ...props,
-        ref: forwardedRef,
-        trapFocus: false,
-        disableOutsidePointerEvents: false,
-        onCloseAutoFocus: (event) => {
-          var _a3, _b3;
-          (_a3 = props.onCloseAutoFocus) == null ? void 0 : _a3.call(props, event);
-          if (!event.defaultPrevented) {
-            if (!hasInteractedOutsideRef.current) (_b3 = context.triggerRef.current) == null ? void 0 : _b3.focus();
-            event.preventDefault();
-          }
-          hasInteractedOutsideRef.current = false;
-          hasPointerDownOutsideRef.current = false;
-        },
-        onInteractOutside: (event) => {
-          var _a3, _b3;
-          (_a3 = props.onInteractOutside) == null ? void 0 : _a3.call(props, event);
-          if (!event.defaultPrevented) {
-            hasInteractedOutsideRef.current = true;
-            if (event.detail.originalEvent.type === "pointerdown") {
-              hasPointerDownOutsideRef.current = true;
-            }
-          }
-          const target = event.target;
-          const targetIsTrigger = (_b3 = context.triggerRef.current) == null ? void 0 : _b3.contains(target);
-          if (targetIsTrigger) event.preventDefault();
-          if (event.detail.originalEvent.type === "focusin" && hasPointerDownOutsideRef.current) {
-            event.preventDefault();
-          }
-        }
-      }
-    );
-  }
-);
-var DialogContentImpl = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const { __scopeDialog, trapFocus, onOpenAutoFocus, onCloseAutoFocus, ...contentProps } = props;
-    const context = useDialogContext(CONTENT_NAME, __scopeDialog);
-    const contentRef = reactExports.useRef(null);
-    const composedRefs = useComposedRefs(forwardedRef, contentRef);
-    useFocusGuards();
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        FocusScope,
-        {
-          asChild: true,
-          loop: true,
-          trapped: trapFocus,
-          onMountAutoFocus: onOpenAutoFocus,
-          onUnmountAutoFocus: onCloseAutoFocus,
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-            DismissableLayer,
-            {
-              role: "dialog",
-              id: context.contentId,
-              "aria-describedby": context.descriptionId,
-              "aria-labelledby": context.titleId,
-              "data-state": getState(context.open),
-              ...contentProps,
-              ref: composedRefs,
-              onDismiss: () => context.onOpenChange(false)
-            }
-          )
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(TitleWarning, { titleId: context.titleId }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(DescriptionWarning, { contentRef, descriptionId: context.descriptionId })
-      ] })
-    ] });
-  }
-);
-var TITLE_NAME = "DialogTitle";
-var DialogTitle$1 = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const { __scopeDialog, ...titleProps } = props;
-    const context = useDialogContext(TITLE_NAME, __scopeDialog);
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.h2, { id: context.titleId, ...titleProps, ref: forwardedRef });
-  }
-);
-DialogTitle$1.displayName = TITLE_NAME;
-var DESCRIPTION_NAME = "DialogDescription";
-var DialogDescription$1 = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const { __scopeDialog, ...descriptionProps } = props;
-    const context = useDialogContext(DESCRIPTION_NAME, __scopeDialog);
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(Primitive.p, { id: context.descriptionId, ...descriptionProps, ref: forwardedRef });
-  }
-);
-DialogDescription$1.displayName = DESCRIPTION_NAME;
-var CLOSE_NAME = "DialogClose";
-var DialogClose = reactExports.forwardRef(
-  (props, forwardedRef) => {
-    const { __scopeDialog, ...closeProps } = props;
-    const context = useDialogContext(CLOSE_NAME, __scopeDialog);
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Primitive.button,
-      {
-        type: "button",
-        ...closeProps,
-        ref: forwardedRef,
-        onClick: composeEventHandlers(props.onClick, () => context.onOpenChange(false))
-      }
-    );
-  }
-);
-DialogClose.displayName = CLOSE_NAME;
-function getState(open) {
-  return open ? "open" : "closed";
-}
-var TITLE_WARNING_NAME = "DialogTitleWarning";
-var [WarningProvider, useWarningContext] = createContext2(TITLE_WARNING_NAME, {
-  contentName: CONTENT_NAME,
-  titleName: TITLE_NAME,
-  docsSlug: "dialog"
-});
-var TitleWarning = ({ titleId }) => {
-  const titleWarningContext = useWarningContext(TITLE_WARNING_NAME);
-  const MESSAGE = `\`${titleWarningContext.contentName}\` requires a \`${titleWarningContext.titleName}\` for the component to be accessible for screen reader users.
-
-If you want to hide the \`${titleWarningContext.titleName}\`, you can wrap it with our VisuallyHidden component.
-
-For more information, see https://radix-ui.com/primitives/docs/components/${titleWarningContext.docsSlug}`;
-  reactExports.useEffect(() => {
-    if (titleId) {
-      const hasTitle = document.getElementById(titleId);
-      if (!hasTitle) console.error(MESSAGE);
-    }
-  }, [MESSAGE, titleId]);
-  return null;
-};
-var DESCRIPTION_WARNING_NAME = "DialogDescriptionWarning";
-var DescriptionWarning = ({ contentRef, descriptionId }) => {
-  const descriptionWarningContext = useWarningContext(DESCRIPTION_WARNING_NAME);
-  const MESSAGE = `Warning: Missing \`Description\` or \`aria-describedby={undefined}\` for {${descriptionWarningContext.contentName}}.`;
-  reactExports.useEffect(() => {
-    var _a3;
-    const describedById = (_a3 = contentRef.current) == null ? void 0 : _a3.getAttribute("aria-describedby");
-    if (descriptionId && describedById) {
-      const hasDescription = document.getElementById(descriptionId);
-      if (!hasDescription) console.warn(MESSAGE);
-    }
-  }, [MESSAGE, contentRef, descriptionId]);
-  return null;
-};
-var Root$1 = Dialog$1;
-var Portal = DialogPortal$1;
-var Overlay = DialogOverlay$1;
-var Content = DialogContent$1;
-var Title = DialogTitle$1;
-var Description = DialogDescription$1;
-var Close = DialogClose;
 function Dialog({
   ...props
 }) {
@@ -49393,7 +48793,7 @@ function Navbar() {
   const [logoutOpen, setLogoutOpen] = reactExports.useState(false);
   const navigate = useNavigate();
   const location2 = useLocation();
-  const { username, role, avatar, logout, refreshRole } = useAuth();
+  const { username, role, logout, refreshRole } = useAuth();
   reactExports.useEffect(() => {
     if (username) void refreshRole();
   }, [username, refreshRole]);
@@ -49556,30 +48956,29 @@ function Navbar() {
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hidden md:flex items-center gap-2", children: [
               username ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                  "button",
+                  "div",
                   {
-                    type: "button",
-                    "data-ocid": "navbar.profile_link",
-                    onClick: () => navigate({ to: "/profile" }),
-                    className: "flex items-center gap-2 px-3 py-1.5 border-2 transition-all duration-150 cursor-pointer",
+                    className: "flex items-center gap-2 px-3 py-1.5 border-2",
                     style: {
                       background: "oklch(0.18 0.08 295)",
                       borderColor: "oklch(0.40 0.18 295)"
                     },
-                    onMouseEnter: (e) => {
-                      e.currentTarget.style.borderColor = "oklch(0.55 0.20 295)";
-                    },
-                    onMouseLeave: (e) => {
-                      e.currentTarget.style.borderColor = "oklch(0.40 0.18 295)";
-                    },
                     children: [
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        UserAvatar,
+                        "span",
                         {
-                          username,
-                          avatar,
-                          skipFetch: true,
-                          size: "sm"
+                          className: "flex items-center justify-center font-pixel",
+                          style: {
+                            width: "1.5rem",
+                            height: "1.5rem",
+                            background: "oklch(0.30 0.12 295)",
+                            color: "oklch(0.95 0.05 295)",
+                            fontSize: "0.55rem",
+                            letterSpacing: "0.02em",
+                            border: "1px solid oklch(0.45 0.18 295)"
+                          },
+                          "aria-hidden": "true",
+                          children: username.charAt(0).toUpperCase()
                         }
                       ),
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -49747,33 +49146,29 @@ function Navbar() {
                 ),
                 username ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pt-2 space-y-2", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "button",
+                    "div",
                     {
-                      type: "button",
-                      "data-ocid": "navbar.profile_link",
-                      onClick: () => {
-                        setMenuOpen(false);
-                        navigate({ to: "/profile" });
-                      },
-                      className: "flex items-center gap-2 px-3 py-2 border-2 flex-wrap w-full text-left transition-all duration-150 cursor-pointer",
+                      className: "flex items-center gap-2 px-3 py-2 border-2 flex-wrap w-full text-left",
                       style: {
                         background: "oklch(0.18 0.08 295)",
                         borderColor: "oklch(0.40 0.18 295)"
                       },
-                      onMouseEnter: (e) => {
-                        e.currentTarget.style.borderColor = "oklch(0.55 0.20 295)";
-                      },
-                      onMouseLeave: (e) => {
-                        e.currentTarget.style.borderColor = "oklch(0.40 0.18 295)";
-                      },
                       children: [
                         /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          UserAvatar,
+                          "span",
                           {
-                            username,
-                            avatar,
-                            skipFetch: true,
-                            size: "sm"
+                            className: "flex items-center justify-center font-pixel",
+                            style: {
+                              width: "1.5rem",
+                              height: "1.5rem",
+                              background: "oklch(0.30 0.12 295)",
+                              color: "oklch(0.95 0.05 295)",
+                              fontSize: "0.55rem",
+                              letterSpacing: "0.02em",
+                              border: "1px solid oklch(0.45 0.18 295)"
+                            },
+                            "aria-hidden": "true",
+                            children: username.charAt(0).toUpperCase()
                           }
                         ),
                         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -50466,7 +49861,7 @@ function useFadeIn(delay2 = 0) {
   }, [delay2]);
   return ref;
 }
-function FadeSection$8({
+function FadeSection$7({
   children,
   delay: delay2 = 0
 }) {
@@ -50476,12 +49871,14 @@ function FadeSection$8({
 const APPLIED_ROLE_BADGE = {
   [AppliedRole.Mod]: "role-badge role-coadmin",
   [AppliedRole.Admin]: "role-badge role-admin",
-  [AppliedRole.Builder]: "role-badge role-member"
+  [AppliedRole.Builder]: "role-badge role-member",
+  [AppliedRole.Developer]: "role-badge role-coadmin"
 };
 const APPLIED_ROLE_LABEL = {
   [AppliedRole.Mod]: "MOD",
   [AppliedRole.Admin]: "ADMIN",
-  [AppliedRole.Builder]: "BUILDER"
+  [AppliedRole.Builder]: "BUILDER",
+  [AppliedRole.Developer]: "DEVELOPER"
 };
 const STATUS_BADGE = {
   [ApplicationStatus.Pending]: "status-badge status-pending",
@@ -50573,20 +49970,64 @@ function rankAccessTier(rank) {
     isAdmin
   };
 }
-const APPLICATION_QUESTIONS = [
-  "Full Name",
-  "Minecraft Username",
-  "Discord Username (with #tag)",
-  "Age",
-  "Timezone",
-  "How long have you been playing on ZoritLegends?",
-  "Do you have any previous experience as a Moderator, Support staff, or similar role? If yes, please describe.",
-  "What skills or qualities do you possess that make you a good fit for the Moderator/Support role? (e.g., communication, patience, problem-solving)",
-  "How would you handle a situation where a player is repeatedly breaking minor rules (e.g., spamming, mild disrespect)?",
-  "If a player asks you for help with an in-game issue, but you're busy with other tasks, how would you handle the situation?",
-  "How would you handle a situation where a player is upset about being warned or punished, and they're becoming aggressive towards staff?",
-  "How much time can you commit to moderating ZoritLegends each week, and are you available during peak hours?"
-];
+const APPLICATION_QUESTIONS = {
+  [AppliedRole.Mod]: [
+    "Full Name",
+    "Minecraft Username",
+    "Discord Username (with #tag)",
+    "Age",
+    "Timezone",
+    "How long have you been playing on ZoritLegends?",
+    "Do you have any previous experience as a Moderator, Support staff, or similar role? If yes, please describe.",
+    "What skills or qualities do you possess that make you a good fit for the Moderator/Support role? (e.g., communication, patience, problem-solving)",
+    "How would you handle a situation where a player is repeatedly breaking minor rules (e.g., spamming, mild disrespect)?",
+    "If a player asks you for help with an in-game issue, but you're busy with other tasks, how would you handle the situation?",
+    "How would you handle a situation where a player is upset about being warned or punished, and they're becoming aggressive towards staff?",
+    "How much time can you commit to moderating ZoritLegends each week, and are you available during peak hours?"
+  ],
+  [AppliedRole.Admin]: [
+    "Full Name",
+    "Minecraft Username",
+    "Discord Username (with #tag)",
+    "Age",
+    "Timezone",
+    "How long have you been playing on ZoritLegends?",
+    "Do you have any previous experience as a server admin or in a similar role? If yes, please describe.",
+    "What skills or knowledge make you a good fit for the admin role? (e.g., moderation, event management, troubleshooting)",
+    "How would you handle a player who is breaking server rules but is insisting they did nothing wrong?",
+    "What would you do if there's an argument between staff members that's affecting the team's performance?",
+    "How would you handle a situation where a player is harassing another player, and both parties are involved in the conflict?",
+    "How much time can you commit to managing ZoritLegends each week, and are you available during peak hours?"
+  ],
+  [AppliedRole.Builder]: [
+    "Full Name",
+    "Minecraft Username",
+    "Discord Username (with #tag)",
+    "Age",
+    "Timezone",
+    "How long have you been playing on ZoritLegends?",
+    "Do you have any previous experience as a server builder or in a similar role? If yes, please describe your experience.",
+    "What building tools, mods, or plugins do you commonly use to create structures or environments?",
+    "Can you provide examples of previous builds or projects you've worked on (either in ZoritLegends or other servers)?",
+    "How comfortable are you with large-scale builds and working with server staff to create themed areas, spawn points, or events?",
+    "Describe your building style. How would you approach building a new spawn or town on ZoritLegends?",
+    "If given a creative direction for a build (e.g., a medieval village or futuristic city), how do you typically approach the project, from planning to execution?"
+  ],
+  [AppliedRole.Developer]: [
+    "Full Name",
+    "Minecraft Username",
+    "Discord Username (with #tag)",
+    "Age",
+    "TimeZone",
+    "How long have you been playing on ZoritLegends?",
+    "What programming languages are you proficient in (Java, Python, etc.)?",
+    "Do you have any previous experience in Minecraft server development? If yes, please describe your experience.",
+    "Do you have experience with Minecraft server plugins (e.g., Spigot, Bukkit, Paper)? If yes, can you list some you've developed or worked on?",
+    "How comfortable are you with troubleshooting and debugging server issues or code problems?",
+    "If given a task to implement a new feature or fix a bug, how would you approach it?",
+    "What would you do if your development work caused an issue on the server during peak hours?"
+  ]
+};
 function isAdminRole$2(role) {
   return role === Role.Administrator || role === Role.CoAdministrator;
 }
@@ -50832,7 +50273,7 @@ function AcceptModal({
   onConfirm,
   onClose
 }) {
-  const defaultRank = application.appliedRole === AppliedRole.Admin ? RosterRank.Admin : application.appliedRole === AppliedRole.Builder ? RosterRank.Builder : RosterRank.Mod;
+  const defaultRank = application.appliedRole === AppliedRole.Admin ? RosterRank.Admin : application.appliedRole === AppliedRole.Builder ? RosterRank.Builder : application.appliedRole === AppliedRole.Developer ? RosterRank.Developer : RosterRank.Mod;
   const [selectedRank, setSelectedRank] = reactExports.useState(defaultRank);
   reactExports.useEffect(() => {
     const onKey = (e) => {
@@ -51284,43 +50725,53 @@ function ApplicationCard$1({
                 ]
               }
             ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "apply-answers space-y-3", children: application.answers.map((answer, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "div",
-                {
-                  className: "flex items-baseline gap-2",
-                  style: {
-                    fontFamily: '"VT323", monospace',
-                    fontSize: "0.9rem",
-                    color: "oklch(0.62 0.22 295)",
-                    letterSpacing: "0.04em",
-                    textTransform: "uppercase"
-                  },
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-pixel", style: { fontSize: "0.5rem" }, children: [
-                      "Q",
-                      String(i + 1).padStart(2, "0")
-                    ] }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "oklch(0.75 0.12 295)" }, children: APPLICATION_QUESTIONS[i] ?? `Question ${i + 1}` })
-                  ]
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "p",
-                {
-                  className: "mt-1",
-                  style: {
-                    fontFamily: '"VT323", monospace',
-                    fontSize: "1.05rem",
-                    color: "oklch(0.88 0.08 295)",
-                    lineHeight: 1.4,
-                    paddingLeft: "0.5rem",
-                    borderLeft: "2px solid oklch(0.35 0.14 295)"
-                  },
-                  children: (answer == null ? void 0 : answer.trim()) ? answer : "—"
-                }
-              )
-            ] }, `q${i}-${answer.slice(0, 12)}`)) })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "apply-answers space-y-3", children: application.answers.map((answer, i) => {
+              const roleQuestions = APPLICATION_QUESTIONS[application.appliedRole];
+              return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "div",
+                  {
+                    className: "flex items-baseline gap-2",
+                    style: {
+                      fontFamily: '"VT323", monospace',
+                      fontSize: "0.9rem",
+                      color: "oklch(0.62 0.22 295)",
+                      letterSpacing: "0.04em",
+                      textTransform: "uppercase"
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                        "span",
+                        {
+                          className: "font-pixel",
+                          style: { fontSize: "0.5rem" },
+                          children: [
+                            "Q",
+                            String(i + 1).padStart(2, "0")
+                          ]
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "oklch(0.75 0.12 295)" }, children: roleQuestions[i] ?? `Question ${i + 1}` })
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "p",
+                  {
+                    className: "mt-1",
+                    style: {
+                      fontFamily: '"VT323", monospace',
+                      fontSize: "1.05rem",
+                      color: "oklch(0.88 0.08 295)",
+                      lineHeight: 1.4,
+                      paddingLeft: "0.5rem",
+                      borderLeft: "2px solid oklch(0.35 0.14 295)"
+                    },
+                    children: (answer == null ? void 0 : answer.trim()) ? answer : "—"
+                  }
+                )
+              ] }, `q${i}-${answer.slice(0, 12)}`);
+            }) })
           ] }),
           isPending && canReviewApps && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4 flex flex-wrap gap-3", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -51700,7 +51151,26 @@ function UsersDropdown({ callerUsername }) {
                       transition: "opacity 0.15s"
                     },
                     children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(UserAvatar, { username: user.username, size: "sm" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "span",
+                        {
+                          "aria-hidden": true,
+                          className: "flex items-center justify-center flex-shrink-0",
+                          style: {
+                            width: "32px",
+                            height: "32px",
+                            background: "oklch(0.18 0.10 295)",
+                            border: "2px solid oklch(0.45 0.18 295)",
+                            boxShadow: "inset 1px 1px 0 oklch(0.10 0.05 295)",
+                            fontFamily: '"VT323", monospace',
+                            fontSize: "1.1rem",
+                            color: "oklch(0.85 0.15 295)",
+                            letterSpacing: "0.02em",
+                            textTransform: "uppercase"
+                          },
+                          children: (user.username || "?").slice(0, 1)
+                        }
+                      ),
                       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-w-0 flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 flex-wrap", children: [
                         /* @__PURE__ */ jsxRuntimeExports.jsx(
                           "span",
@@ -51919,7 +51389,7 @@ function Admin() {
       style: { background: "oklch(0.10 0.04 295)" },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Navbar, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "pt-16", children: !hasAccess ? /* @__PURE__ */ jsxRuntimeExports.jsx(AccessDenied$2, { authenticated: isAuthenticated }) : /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$8, { delay: 300, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "pt-16", children: !hasAccess ? /* @__PURE__ */ jsxRuntimeExports.jsx(AccessDenied$2, { authenticated: isAuthenticated }) : /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$7, { delay: 300, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "section",
           {
             className: "relative overflow-hidden",
@@ -52112,7 +51582,7 @@ function Admin() {
     }
   );
 }
-function FadeSection$7({
+function FadeSection$6({
   children,
   delay: delay2 = 0
 }) {
@@ -52125,6 +51595,8 @@ function roleBadgeClass(appliedRole) {
       return "role-admin";
     case AppliedRole.Builder:
       return "role-coadmin";
+    case AppliedRole.Developer:
+      return "role-coadmin";
     default:
       return "role-member";
   }
@@ -52135,6 +51607,8 @@ function roleLabel(appliedRole) {
       return "Admin";
     case AppliedRole.Builder:
       return "Builder";
+    case AppliedRole.Developer:
+      return "Developer";
     default:
       return "Mod";
   }
@@ -52389,7 +51863,7 @@ function MyApplicationsSection() {
   );
   if (!isAuthenticated || !username) return null;
   const applications = data ?? [];
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$7, { delay: 400, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$6, { delay: 400, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "section",
     {
       className: "relative overflow-hidden",
@@ -52473,55 +51947,192 @@ function MyApplicationsSection() {
     }
   ) });
 }
-const QUESTIONS = [
+const PROFILE_QUESTIONS = [
   { id: 1, text: "Full Name", multiline: false },
   { id: 2, text: "Minecraft Username", multiline: false },
   { id: 3, text: "Discord Username (with #tag)", multiline: false },
   { id: 4, text: "Age", multiline: false },
-  { id: 5, text: "Timezone", multiline: false },
-  {
-    id: 6,
-    text: "How long have you been playing on ZoritLegends?",
-    multiline: true
-  },
-  {
-    id: 7,
-    text: "Do you have any previous experience as a Moderator, Support staff, or similar role? If yes, please describe.",
-    multiline: true
-  },
-  {
-    id: 8,
-    text: "What skills or qualities do you possess that make you a good fit for the Moderator/Support role? (e.g., communication, patience, problem-solving)",
-    multiline: true
-  },
-  {
-    id: 9,
-    text: "How would you handle a situation where a player is repeatedly breaking minor rules (e.g., spamming, mild disrespect)?",
-    multiline: true
-  },
-  {
-    id: 10,
-    text: "If a player asks you for help with an in-game issue, but you're busy with other tasks, how would you handle the situation?",
-    multiline: true
-  },
-  {
-    id: 11,
-    text: "How would you handle a situation where a player is upset about being warned or punished, and they're becoming aggressive towards staff?",
-    multiline: true
-  },
-  {
-    id: 12,
-    text: "How much time can you commit to moderating ZoritLegends each week, and are you available during peak hours?",
-    multiline: true
-  }
+  { id: 5, text: "Timezone", multiline: false }
 ];
-const TOTAL = QUESTIONS.length;
+const ROLE_TAIL_QUESTIONS = {
+  [AppliedRole.Mod]: [
+    {
+      id: 6,
+      text: "How long have you been playing on ZoritLegends?",
+      multiline: true
+    },
+    {
+      id: 7,
+      text: "Do you have any previous experience as a Moderator, Support staff, or similar role? If yes, please describe.",
+      multiline: true
+    },
+    {
+      id: 8,
+      text: "What skills or qualities do you possess that make you a good fit for the Moderator/Support role? (e.g., communication, patience, problem-solving)",
+      multiline: true
+    },
+    {
+      id: 9,
+      text: "How would you handle a situation where a player is repeatedly breaking minor rules (e.g., spamming, mild disrespect)?",
+      multiline: true
+    },
+    {
+      id: 10,
+      text: "If a player asks you for help with an in-game issue, but you're busy with other tasks, how would you handle the situation?",
+      multiline: true
+    },
+    {
+      id: 11,
+      text: "How would you handle a situation where a player is upset about being warned or punished, and they're becoming aggressive towards staff?",
+      multiline: true
+    },
+    {
+      id: 12,
+      text: "How much time can you commit to moderating ZoritLegends each week, and are you available during peak hours?",
+      multiline: true
+    }
+  ],
+  [AppliedRole.Admin]: [
+    {
+      id: 6,
+      text: "How long have you been playing on ZoritLegends?",
+      multiline: true
+    },
+    {
+      id: 7,
+      text: "Do you have any previous experience as a server admin or in a similar role? If yes, please describe.",
+      multiline: true
+    },
+    {
+      id: 8,
+      text: "What skills or knowledge make you a good fit for the admin role? (e.g., moderation, event management, troubleshooting)",
+      multiline: true
+    },
+    {
+      id: 9,
+      text: "How would you handle a player who is breaking server rules but is insisting they did nothing wrong?",
+      multiline: true
+    },
+    {
+      id: 10,
+      text: "What would you do if there's an argument between staff members that's affecting the team's performance?",
+      multiline: true
+    },
+    {
+      id: 11,
+      text: "How would you handle a situation where a player is harassing another player, and both parties are involved in the conflict?",
+      multiline: true
+    },
+    {
+      id: 12,
+      text: "How much time can you commit to managing ZoritLegends each week, and are you available during peak hours?",
+      multiline: true
+    }
+  ],
+  [AppliedRole.Builder]: [
+    {
+      id: 6,
+      text: "How long have you been playing on ZoritLegends?",
+      multiline: true
+    },
+    {
+      id: 7,
+      text: "Do you have any previous experience as a server builder or in a similar role? If yes, please describe your experience.",
+      multiline: true
+    },
+    {
+      id: 8,
+      text: "What building tools, mods, or plugins do you commonly use to create structures or environments?",
+      multiline: true
+    },
+    {
+      id: 9,
+      text: "Can you provide examples of previous builds or projects you've worked on (either in ZoritLegends or other servers)?",
+      multiline: true
+    },
+    {
+      id: 10,
+      text: "How comfortable are you with large-scale builds and working with server staff to create themed areas, spawn points, or events?",
+      multiline: true
+    },
+    {
+      id: 11,
+      text: "Describe your building style. How would you approach building a new spawn or town on ZoritLegends?",
+      multiline: true
+    },
+    {
+      id: 12,
+      text: "If given a creative direction for a build (e.g., a medieval village or futuristic city), how do you typically approach the project, from planning to execution?",
+      multiline: true
+    }
+  ],
+  [AppliedRole.Developer]: [
+    {
+      id: 6,
+      text: "How long have you been playing on ZoritLegends?",
+      multiline: true
+    },
+    {
+      id: 7,
+      text: "What programming languages are you proficient in (Java, Python, etc.)?",
+      multiline: true
+    },
+    {
+      id: 8,
+      text: "Do you have any previous experience in Minecraft server development? If yes, please describe your experience.",
+      multiline: true
+    },
+    {
+      id: 9,
+      text: "Do you have experience with Minecraft server plugins (e.g., Spigot, Bukkit, Paper)? If yes, can you list some you've developed or worked on?",
+      multiline: true
+    },
+    {
+      id: 10,
+      text: "How comfortable are you with troubleshooting and debugging server issues or code problems?",
+      multiline: true
+    },
+    {
+      id: 11,
+      text: "If given a task to implement a new feature or fix a bug, how would you approach it?",
+      multiline: true
+    },
+    {
+      id: 12,
+      text: "What would you do if your development work caused an issue on the server during peak hours?",
+      multiline: true
+    }
+  ]
+};
+const DEVELOPER_PROFILE_QUESTIONS = [
+  { id: 1, text: "Full Name", multiline: false },
+  { id: 2, text: "Minecraft Username", multiline: false },
+  { id: 3, text: "Discord Username (with #tag)", multiline: false },
+  { id: 4, text: "Age", multiline: false },
+  { id: 5, text: "TimeZone", multiline: false }
+];
+function getQuestions(role) {
+  const profile = role === AppliedRole.Developer ? DEVELOPER_PROFILE_QUESTIONS : PROFILE_QUESTIONS;
+  return [...profile, ...ROLE_TAIL_QUESTIONS[role]];
+}
+const TOTAL = 12;
 const ROLE_OPTIONS = [
   { key: AppliedRole.Mod, label: "Mod", available: true, tag: "available" },
-  { key: AppliedRole.Admin, label: "Admin", available: false, tag: "soon" },
-  { key: AppliedRole.Builder, label: "Builder", available: false, tag: "soon" }
+  { key: AppliedRole.Admin, label: "Admin", available: true, tag: "available" },
+  {
+    key: AppliedRole.Builder,
+    label: "Builder",
+    available: true,
+    tag: "available"
+  },
+  {
+    key: AppliedRole.Developer,
+    label: "Developer",
+    available: true,
+    tag: "available"
+  }
 ];
-function FadeSection$6({
+function FadeSection$5({
   children,
   delay: delay2 = 0
 }) {
@@ -52531,20 +52142,26 @@ function FadeSection$6({
 function Apply() {
   const { username, isAuthenticated } = useAuth();
   const submitMutation = useSubmitApplication();
-  const [answers, setAnswers] = reactExports.useState(
-    () => Array.from({ length: TOTAL }, () => "")
-  );
   const [selectedRole, setSelectedRole] = reactExports.useState(
     AppliedRole.Mod
   );
+  const [answers, setAnswers] = reactExports.useState(
+    () => Array.from({ length: TOTAL }, () => "")
+  );
   const [authOpen, setAuthOpen] = reactExports.useState(false);
   const [submittedApp, setSubmittedApp] = reactExports.useState(null);
+  const questions = getQuestions(selectedRole);
   const setAnswer = (index2, value) => {
     setAnswers((prev) => {
       const next = [...prev];
       next[index2] = value;
       return next;
     });
+  };
+  const selectRole = (role) => {
+    if (role === selectedRole) return;
+    setSelectedRole(role);
+    setAnswers(Array.from({ length: TOTAL }, () => ""));
   };
   const allAnswered = answers.every((a2) => a2.trim().length > 0);
   const handleSubmit = async (e) => {
@@ -52582,7 +52199,7 @@ function Apply() {
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Navbar, {}),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "pt-16", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$6, { delay: 300, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$5, { delay: 300, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
             "section",
             {
               className: "relative overflow-hidden",
@@ -52621,7 +52238,7 @@ function Apply() {
               ]
             }
           ) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$6, { delay: 400, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "relative overflow-hidden py-12", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$5, { delay: 400, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "relative overflow-hidden py-12", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 block-texture opacity-5" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8", children: !isAuthenticated ? /* @__PURE__ */ jsxRuntimeExports.jsx(NotLoggedInPrompt, { onLogin: () => setAuthOpen(true) }) : submittedApp ? /* @__PURE__ */ jsxRuntimeExports.jsx(
               SubmittedConfirmation,
@@ -52643,7 +52260,7 @@ function Apply() {
                     children: "SELECT A ROLE"
                   }
                 ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-4", children: ROLE_OPTIONS.map((opt) => {
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4", children: ROLE_OPTIONS.map((opt) => {
                   const isSelected = selectedRole === opt.key;
                   const cardClass = [
                     "role-picker-card p-4 text-left",
@@ -52656,30 +52273,21 @@ function Apply() {
                       type: "button",
                       "data-ocid": `apply.role_picker.${opt.label.toLowerCase()}`,
                       disabled: !opt.available,
-                      onClick: () => opt.available && setSelectedRole(opt.key),
+                      onClick: () => opt.available && selectRole(opt.key),
                       className: `${cardClass} w-full appearance-none cursor-pointer disabled:cursor-not-allowed`,
                       children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-2", children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "span",
-                            {
-                              className: "font-pixel",
-                              style: {
-                                fontSize: "0.6rem",
-                                color: opt.available ? "oklch(0.97 0.01 295)" : "oklch(0.55 0.10 295)",
-                                letterSpacing: "0.06em"
-                              },
-                              children: opt.label.toUpperCase()
-                            }
-                          ),
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "span",
-                            {
-                              className: `role-picker-tag ${opt.tag === "available" ? "role-picker-tag-available" : "role-picker-tag-soon"}`,
-                              children: opt.tag === "available" ? "AVAILABLE" : "SOON"
-                            }
-                          )
-                        ] }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center mb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "span",
+                          {
+                            className: "font-pixel",
+                            style: {
+                              fontSize: "0.6rem",
+                              color: opt.available ? "oklch(0.97 0.01 295)" : "oklch(0.55 0.10 295)",
+                              letterSpacing: "0.06em"
+                            },
+                            children: opt.label.toUpperCase()
+                          }
+                        ) }),
                         /* @__PURE__ */ jsxRuntimeExports.jsx(
                           "p",
                           {
@@ -52698,7 +52306,7 @@ function Apply() {
                   );
                 }) })
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-6", children: QUESTIONS.map((q2, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-6", children: questions.map((q2, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsxs(
                   "label",
                   {
@@ -52963,7 +52571,7 @@ const POST_TYPE_TABS = [
   { type: PostType.suggestion, label: "Suggestions" },
   { type: PostType.eventSuggestion, label: "Event Suggestions" }
 ];
-function FadeSection$5({
+function FadeSection$4({
   children,
   delay: delay2 = 0
 }) {
@@ -52972,6 +52580,10 @@ function FadeSection$5({
 }
 function isAdminRole$1(role) {
   return role === Role.Administrator || role === Role.CoAdministrator;
+}
+function initialOf(username) {
+  const trimmed = (username ?? "").trim();
+  return trimmed.charAt(0).toUpperCase() || "?";
 }
 function timeAgo(ns) {
   const ms = Number(ns / 1000000n);
@@ -53347,11 +52959,20 @@ function CommentThread({
               children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: cls, children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-1", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    UserAvatar,
+                    "span",
                     {
-                      username: c2.authorUsername,
-                      size: "sm",
-                      className: "flex-shrink-0"
+                      className: "flex-shrink-0 flex items-center justify-center font-pixel",
+                      style: {
+                        width: "24px",
+                        height: "24px",
+                        background: "oklch(0.18 0.08 295)",
+                        border: "1px solid oklch(0.40 0.18 295)",
+                        color: "oklch(0.75 0.18 295)",
+                        fontSize: "0.5rem",
+                        letterSpacing: "0.04em"
+                      },
+                      "aria-hidden": true,
+                      children: initialOf(c2.authorUsername)
                     }
                   ),
                   /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "comment-author", children: c2.authorUsername }),
@@ -53507,11 +53128,20 @@ function PostCard({ index: index2, post, isStaff, currentUsername }) {
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mt-2 flex-wrap", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  UserAvatar,
+                  "span",
                   {
-                    username: post.authorUsername,
-                    size: "sm",
-                    className: "flex-shrink-0"
+                    className: "flex-shrink-0 flex items-center justify-center font-pixel",
+                    style: {
+                      width: "24px",
+                      height: "24px",
+                      background: "oklch(0.18 0.08 295)",
+                      border: "1px solid oklch(0.40 0.18 295)",
+                      color: "oklch(0.75 0.18 295)",
+                      fontSize: "0.5rem",
+                      letterSpacing: "0.04em"
+                    },
+                    "aria-hidden": true,
+                    children: initialOf(post.authorUsername)
                   }
                 ),
                 /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -53792,7 +53422,7 @@ function Community() {
       style: { background: "oklch(0.10 0.04 295)" },
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Navbar, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "pt-16 flex-1 flex flex-col", children: !hasAccess ? /* @__PURE__ */ jsxRuntimeExports.jsx(AccessDenied$1, { authenticated: isAuthenticated }) : /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$5, { delay: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "pt-16 flex-1 flex flex-col", children: !hasAccess ? /* @__PURE__ */ jsxRuntimeExports.jsx(AccessDenied$1, { authenticated: isAuthenticated }) : /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$4, { delay: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "section",
           {
             className: "relative overflow-hidden flex-1 flex flex-col",
@@ -56519,7 +56149,7 @@ function WebsiteUpdateSection() {
     }
   );
 }
-function FadeSection$4({
+function FadeSection$3({
   children,
   delay: delay2 = 0
 }) {
@@ -56536,16 +56166,16 @@ function Home() {
         /* @__PURE__ */ jsxRuntimeExports.jsx(Navbar, {}),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(HeroSection, {}),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$4, { delay: 0, children: /* @__PURE__ */ jsxRuntimeExports.jsx(FeaturesSection, {}) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$4, { delay: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RanksSection, {}) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$4, { delay: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsx(WebsiteUpdateSection, {}) })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$3, { delay: 0, children: /* @__PURE__ */ jsxRuntimeExports.jsx(FeaturesSection, {}) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$3, { delay: 100, children: /* @__PURE__ */ jsxRuntimeExports.jsx(RanksSection, {}) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$3, { delay: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsx(WebsiteUpdateSection, {}) })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
       ]
     }
   );
 }
-function FadeSection$3({
+function FadeSection$2({
   children,
   delay: delay2 = 0
 }) {
@@ -56722,6 +56352,33 @@ function AccessDenied({ authenticated }) {
     }
   );
 }
+function InitialTile({
+  username,
+  size = "md"
+}) {
+  var _a3;
+  const dim = size === "sm" ? 22 : 36;
+  const fontSize = size === "sm" ? "0.5rem" : "0.7rem";
+  const initial = (((_a3 = username == null ? void 0 : username.trim()) == null ? void 0 : _a3[0]) ?? "?").toUpperCase();
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "span",
+    {
+      "aria-hidden": true,
+      className: "flex-shrink-0 flex items-center justify-center font-pixel",
+      style: {
+        width: `${dim}px`,
+        height: `${dim}px`,
+        fontSize,
+        letterSpacing: "0.04em",
+        background: "oklch(0.18 0.08 295)",
+        border: "2px solid oklch(0.40 0.18 295)",
+        color: "oklch(0.85 0.12 295)",
+        imageRendering: "pixelated"
+      },
+      children: initial
+    }
+  );
+}
 const STAFF_RANK_ORDER = [
   RosterRank.Owner,
   RosterRank.CoOwner,
@@ -56866,14 +56523,7 @@ function StaffList({
                   e.currentTarget.style.background = "transparent";
               },
               children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  UserAvatar,
-                  {
-                    username: entry.username,
-                    size: "md",
-                    className: "flex-shrink-0"
-                  }
-                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(InitialTile, { username: entry.username, size: "md" }),
                 /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-w-0 flex-1", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "div",
@@ -56903,13 +56553,10 @@ function MessageBubble({
   senderRole,
   senderRank,
   index: index2,
-  currentUsername,
-  currentAvatar
+  currentUsername
 }) {
   const badge = senderRole !== null ? badgeForRole(senderRole, senderRank) : null;
   const metaUsername = isOwn ? currentUsername : message.senderUsername;
-  const metaAvatar = isOwn ? currentAvatar : void 0;
-  const metaSkipFetch = isOwn;
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
     {
@@ -56925,16 +56572,7 @@ function MessageBubble({
               {
                 className: `flex items-center gap-2 mb-1 px-1 ${isOwn ? "flex-row-reverse" : "flex-row"}`,
                 children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    UserAvatar,
-                    {
-                      username: metaUsername,
-                      size: "sm",
-                      avatar: metaAvatar,
-                      skipFetch: metaSkipFetch,
-                      className: "flex-shrink-0"
-                    }
-                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(InitialTile, { username: metaUsername, size: "sm" }),
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "span",
                     {
@@ -57002,7 +56640,6 @@ function MessageBubble({
 function ChatPanel({
   peer,
   currentUsername,
-  currentAvatar,
   messages,
   isLoading,
   isError,
@@ -57277,8 +56914,7 @@ function ChatPanel({
                 senderRole: msg.senderUsername === peer.username ? peer.role : null,
                 senderRank: msg.senderUsername === peer.username ? peer.rank : null,
                 index: i,
-                currentUsername,
-                currentAvatar
+                currentUsername
               },
               msg.id.toString()
             )) })
@@ -57377,7 +57013,7 @@ function ChatPanel({
   );
 }
 function Messages() {
-  const { username, role, avatar, isAuthenticated, refreshRole } = useAuth();
+  const { username, role, isAuthenticated, refreshRole } = useAuth();
   const [activePeer, setActivePeer] = reactExports.useState(null);
   const [roleChecked, setRoleChecked] = reactExports.useState(false);
   reactExports.useEffect(() => {
@@ -57446,7 +57082,7 @@ function Messages() {
               }
             )
           }
-        ) : !hasAccess ? /* @__PURE__ */ jsxRuntimeExports.jsx(AccessDenied, { authenticated: isAuthenticated }) : /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$3, { delay: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        ) : !hasAccess ? /* @__PURE__ */ jsxRuntimeExports.jsx(AccessDenied, { authenticated: isAuthenticated }) : /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$2, { delay: 200, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "section",
           {
             className: "relative overflow-hidden flex-1 flex flex-col",
@@ -57515,51 +57151,43 @@ function Messages() {
                     }
                   )
                 ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                  "div",
-                  {
-                    className: "flex-1 grid grid-cols-1 md:grid-cols-[280px_1fr] gap-4 min-h-[60vh]",
-                    style: { maxHeight: "70vh" },
-                    children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "aside",
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 grid grid-cols-1 md:grid-cols-[280px_1fr] md:grid-rows-[minmax(0,1fr)] gap-4 h-[70vh] overflow-hidden", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "aside",
+                    {
+                      className: "md:h-full min-h-[200px] md:min-h-0",
+                      style: {
+                        background: "oklch(0.10 0.04 295)",
+                        border: "2px solid oklch(0.30 0.10 295)",
+                        boxShadow: "4px 4px 0px oklch(0.08 0.04 295)"
+                      },
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        StaffList,
                         {
-                          className: "md:h-full min-h-[200px] md:min-h-0",
-                          style: {
-                            background: "oklch(0.10 0.04 295)",
-                            border: "2px solid oklch(0.30 0.10 295)",
-                            boxShadow: "4px 4px 0px oklch(0.08 0.04 295)"
-                          },
-                          children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            StaffList,
-                            {
-                              entries: directory.data ?? [],
-                              currentUsername: username ?? "",
-                              activePeer,
-                              onSelect: setActivePeer,
-                              isLoading: directory.isLoading,
-                              isError: directory.isError
-                            }
-                          )
-                        }
-                      ),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "md:h-full min-h-[400px] md:min-h-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        ChatPanel,
-                        {
-                          peer: peerEntry,
+                          entries: directory.data ?? [],
                           currentUsername: username ?? "",
-                          currentAvatar: avatar,
-                          messages: conversation.data ?? [],
-                          isLoading: conversation.isLoading,
-                          isError: conversation.isError,
-                          error: conversation.error,
-                          onSend: handleSend,
-                          sending: sendMutation.isPending
+                          activePeer,
+                          onSelect: setActivePeer,
+                          isLoading: directory.isLoading,
+                          isError: directory.isError
                         }
-                      ) })
-                    ]
-                  }
-                )
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "md:h-full min-h-0 overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    ChatPanel,
+                    {
+                      peer: peerEntry,
+                      currentUsername: username ?? "",
+                      messages: conversation.data ?? [],
+                      isLoading: conversation.isLoading,
+                      isError: conversation.isError,
+                      error: conversation.error,
+                      onSend: handleSend,
+                      sending: sendMutation.isPending
+                    }
+                  ) })
+                ] })
               ] })
             ]
           }
@@ -57568,1648 +57196,6 @@ function Messages() {
       ]
     }
   );
-}
-var ReplicaRejectCode;
-(function(ReplicaRejectCode2) {
-  ReplicaRejectCode2[ReplicaRejectCode2["SysFatal"] = 1] = "SysFatal";
-  ReplicaRejectCode2[ReplicaRejectCode2["SysTransient"] = 2] = "SysTransient";
-  ReplicaRejectCode2[ReplicaRejectCode2["DestinationInvalid"] = 3] = "DestinationInvalid";
-  ReplicaRejectCode2[ReplicaRejectCode2["CanisterReject"] = 4] = "CanisterReject";
-  ReplicaRejectCode2[ReplicaRejectCode2["CanisterError"] = 5] = "CanisterError";
-})(ReplicaRejectCode || (ReplicaRejectCode = {}));
-var QueryResponseStatus;
-(function(QueryResponseStatus2) {
-  QueryResponseStatus2["Replied"] = "replied";
-  QueryResponseStatus2["Rejected"] = "rejected";
-})(QueryResponseStatus || (QueryResponseStatus = {}));
-function isV4ResponseBody(body) {
-  return body !== null && body !== void 0 && "certificate" in body;
-}
-function concat(...uint8Arrays) {
-  const result = new Uint8Array(uint8Arrays.reduce((acc, curr) => acc + curr.byteLength, 0));
-  let index2 = 0;
-  for (const b2 of uint8Arrays) {
-    result.set(b2, index2);
-    index2 += b2.byteLength;
-  }
-  return result;
-}
-class PipeArrayBuffer2 {
-  /**
-   * Save a checkpoint of the reading view (for backtracking)
-   */
-  save() {
-    return this._view;
-  }
-  /**
-   * Restore a checkpoint of the reading view (for backtracking)
-   * @param checkPoint a previously saved checkpoint
-   */
-  restore(checkPoint) {
-    if (!(checkPoint instanceof Uint8Array)) {
-      throw new Error("Checkpoint must be a Uint8Array");
-    }
-    this._view = checkPoint;
-  }
-  /**
-   * Creates a new instance of a pipe
-   * @param buffer an optional buffer to start with
-   * @param length an optional amount of bytes to use for the length.
-   */
-  constructor(buffer, length = (buffer == null ? void 0 : buffer.byteLength) || 0) {
-    if (buffer && !(buffer instanceof Uint8Array)) {
-      try {
-        buffer = uint8FromBufLike(buffer);
-      } catch {
-        throw new Error("Buffer must be a Uint8Array");
-      }
-    }
-    if (length < 0 || !Number.isInteger(length)) {
-      throw new Error("Length must be a non-negative integer");
-    }
-    if (buffer && length > buffer.byteLength) {
-      throw new Error("Length cannot exceed buffer length");
-    }
-    this._buffer = buffer || new Uint8Array(0);
-    this._view = new Uint8Array(this._buffer.buffer, 0, length);
-  }
-  get buffer() {
-    return this._view.slice();
-  }
-  get byteLength() {
-    return this._view.byteLength;
-  }
-  /**
-   * Read `num` number of bytes from the front of the pipe.
-   * @param num The number of bytes to read.
-   */
-  read(num) {
-    const result = this._view.subarray(0, num);
-    this._view = this._view.subarray(num);
-    return result.slice();
-  }
-  readUint8() {
-    if (this._view.byteLength === 0) {
-      return void 0;
-    }
-    const result = this._view[0];
-    this._view = this._view.subarray(1);
-    return result;
-  }
-  /**
-   * Write a buffer to the end of the pipe.
-   * @param buf The bytes to write.
-   */
-  write(buf) {
-    if (!(buf instanceof Uint8Array)) {
-      throw new Error("Buffer must be a Uint8Array");
-    }
-    const offset = this._view.byteLength;
-    if (this._view.byteOffset + this._view.byteLength + buf.byteLength >= this._buffer.byteLength) {
-      this.alloc(buf.byteLength);
-    } else {
-      this._view = new Uint8Array(this._buffer.buffer, this._view.byteOffset, this._view.byteLength + buf.byteLength);
-    }
-    this._view.set(buf, offset);
-  }
-  /**
-   * Whether or not there is more data to read from the buffer
-   */
-  get end() {
-    return this._view.byteLength === 0;
-  }
-  /**
-   * Allocate a fixed amount of memory in the buffer. This does not affect the view.
-   * @param amount A number of bytes to add to the buffer.
-   */
-  alloc(amount) {
-    if (amount <= 0 || !Number.isInteger(amount)) {
-      throw new Error("Amount must be a positive integer");
-    }
-    const b2 = new Uint8Array((this._buffer.byteLength + amount) * 1.2 | 0);
-    const v2 = new Uint8Array(b2.buffer, 0, this._view.byteLength + amount);
-    v2.set(this._view);
-    this._buffer = b2;
-    this._view = v2;
-  }
-}
-function uint8FromBufLike(bufLike) {
-  if (!bufLike) {
-    throw new Error("Input cannot be null or undefined");
-  }
-  if (bufLike instanceof Uint8Array) {
-    return bufLike;
-  }
-  if (bufLike instanceof ArrayBuffer) {
-    return new Uint8Array(bufLike);
-  }
-  if (Array.isArray(bufLike)) {
-    return new Uint8Array(bufLike);
-  }
-  if ("buffer" in bufLike) {
-    return uint8FromBufLike(bufLike.buffer);
-  }
-  return new Uint8Array(bufLike);
-}
-function uint8ToDataView(uint8) {
-  if (!(uint8 instanceof Uint8Array)) {
-    throw new Error("Input must be a Uint8Array");
-  }
-  return new DataView(uint8.buffer, uint8.byteOffset, uint8.byteLength);
-}
-function ilog2(n) {
-  const nBig = BigInt(n);
-  if (n <= 0) {
-    throw new RangeError("Input must be positive");
-  }
-  return nBig.toString(2).length - 1;
-}
-function iexp2(n) {
-  const nBig = BigInt(n);
-  if (n < 0) {
-    throw new RangeError("Input must be non-negative");
-  }
-  return BigInt(1) << nBig;
-}
-function eob() {
-  throw new Error("unexpected end of buffer");
-}
-function safeRead(pipe2, num) {
-  if (pipe2.byteLength < num) {
-    eob();
-  }
-  return pipe2.read(num);
-}
-function safeReadUint8(pipe2) {
-  const byte = pipe2.readUint8();
-  if (byte === void 0) {
-    eob();
-  }
-  return byte;
-}
-function lebEncode(value) {
-  if (typeof value === "number") {
-    value = BigInt(value);
-  }
-  if (value < BigInt(0)) {
-    throw new Error("Cannot leb encode negative values.");
-  }
-  const byteLength = (value === BigInt(0) ? 0 : ilog2(value)) + 1;
-  const pipe2 = new PipeArrayBuffer2(new Uint8Array(byteLength), 0);
-  while (true) {
-    const i = Number(value & BigInt(127));
-    value /= BigInt(128);
-    if (value === BigInt(0)) {
-      pipe2.write(new Uint8Array([i]));
-      break;
-    } else {
-      pipe2.write(new Uint8Array([i | 128]));
-    }
-  }
-  return pipe2.buffer;
-}
-function lebDecode(pipe2) {
-  let weight = BigInt(1);
-  let value = BigInt(0);
-  let byte;
-  do {
-    byte = safeReadUint8(pipe2);
-    value += BigInt(byte & 127).valueOf() * weight;
-    weight *= BigInt(128);
-  } while (byte >= 128);
-  return value;
-}
-function slebEncode(value) {
-  if (typeof value === "number") {
-    value = BigInt(value);
-  }
-  const isNeg = value < BigInt(0);
-  if (isNeg) {
-    value = -value - BigInt(1);
-  }
-  const byteLength = (value === BigInt(0) ? 0 : ilog2(value)) + 1;
-  const pipe2 = new PipeArrayBuffer2(new Uint8Array(byteLength), 0);
-  while (true) {
-    const i = getLowerBytes(value);
-    value /= BigInt(128);
-    if (isNeg && value === BigInt(0) && (i & 64) !== 0 || !isNeg && value === BigInt(0) && (i & 64) === 0) {
-      pipe2.write(new Uint8Array([i]));
-      break;
-    } else {
-      pipe2.write(new Uint8Array([i | 128]));
-    }
-  }
-  function getLowerBytes(num) {
-    const bytes = num % BigInt(128);
-    if (isNeg) {
-      return Number(BigInt(128) - bytes - BigInt(1));
-    }
-    return Number(bytes);
-  }
-  return pipe2.buffer;
-}
-function writeUIntLE(value, byteLength) {
-  if (BigInt(value) < BigInt(0)) {
-    throw new Error("Cannot write negative values.");
-  }
-  return writeIntLE(value, byteLength);
-}
-function writeIntLE(value, byteLength) {
-  value = BigInt(value);
-  const pipe2 = new PipeArrayBuffer2(new Uint8Array(Math.min(1, byteLength)), 0);
-  let i = 0;
-  let mul = BigInt(256);
-  let sub = BigInt(0);
-  let byte = Number(value % mul);
-  pipe2.write(new Uint8Array([byte]));
-  while (++i < byteLength) {
-    if (value < 0 && sub === BigInt(0) && byte !== 0) {
-      sub = BigInt(1);
-    }
-    byte = Number((value / mul - sub) % BigInt(256));
-    pipe2.write(new Uint8Array([byte]));
-    mul *= BigInt(256);
-  }
-  return pipe2.buffer;
-}
-function readUIntLE(pipe2, byteLength) {
-  if (byteLength <= 0 || !Number.isInteger(byteLength)) {
-    throw new Error("Byte length must be a positive integer");
-  }
-  let val = BigInt(safeReadUint8(pipe2));
-  let mul = BigInt(1);
-  let i = 0;
-  while (++i < byteLength) {
-    mul *= BigInt(256);
-    const byte = BigInt(safeReadUint8(pipe2));
-    val = val + mul * byte;
-  }
-  return val;
-}
-function readIntLE(pipe2, byteLength) {
-  if (byteLength <= 0 || !Number.isInteger(byteLength)) {
-    throw new Error("Byte length must be a positive integer");
-  }
-  let val = readUIntLE(pipe2, byteLength);
-  const mul = BigInt(2) ** (BigInt(8) * BigInt(byteLength - 1) + BigInt(7));
-  if (val >= mul) {
-    val -= mul * BigInt(2);
-  }
-  return val;
-}
-class CandidDecodeError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "CandidDecodeError";
-    Object.setPrototypeOf(this, CandidDecodeError.prototype);
-  }
-}
-var IDLTypeIds;
-(function(IDLTypeIds2) {
-  IDLTypeIds2[IDLTypeIds2["Null"] = -1] = "Null";
-  IDLTypeIds2[IDLTypeIds2["Bool"] = -2] = "Bool";
-  IDLTypeIds2[IDLTypeIds2["Nat"] = -3] = "Nat";
-  IDLTypeIds2[IDLTypeIds2["Int"] = -4] = "Int";
-  IDLTypeIds2[IDLTypeIds2["Float32"] = -13] = "Float32";
-  IDLTypeIds2[IDLTypeIds2["Float64"] = -14] = "Float64";
-  IDLTypeIds2[IDLTypeIds2["Text"] = -15] = "Text";
-  IDLTypeIds2[IDLTypeIds2["Reserved"] = -16] = "Reserved";
-  IDLTypeIds2[IDLTypeIds2["Empty"] = -17] = "Empty";
-  IDLTypeIds2[IDLTypeIds2["Opt"] = -18] = "Opt";
-  IDLTypeIds2[IDLTypeIds2["Vector"] = -19] = "Vector";
-  IDLTypeIds2[IDLTypeIds2["Record"] = -20] = "Record";
-  IDLTypeIds2[IDLTypeIds2["Variant"] = -21] = "Variant";
-  IDLTypeIds2[IDLTypeIds2["Func"] = -22] = "Func";
-  IDLTypeIds2[IDLTypeIds2["Service"] = -23] = "Service";
-  IDLTypeIds2[IDLTypeIds2["Principal"] = -24] = "Principal";
-})(IDLTypeIds || (IDLTypeIds = {}));
-const magicNumber = "DIDL";
-const magicNumberBytes = new TextEncoder().encode(magicNumber);
-const toReadableString_max = 400;
-function zipWith(xs, ys, f) {
-  return xs.map((x2, i) => f(x2, ys[i]));
-}
-class TypeTable2 {
-  constructor() {
-    this._typs = [];
-    this._idx = /* @__PURE__ */ new Map();
-    this._idxRefCount = /* @__PURE__ */ new Map();
-  }
-  has(obj) {
-    return this._idx.has(obj.name);
-  }
-  add(type, buf) {
-    const idx = this._typs.length;
-    this._idx.set(type.name, idx);
-    this._idxRefCount.set(idx, 1);
-    this._typs.push(buf);
-  }
-  merge(obj, knot) {
-    const idx = this._idx.get(obj.name);
-    const knotIdx = this._idx.get(knot);
-    if (idx === void 0) {
-      throw new Error(`Missing type index for ${obj}`);
-    }
-    if (knotIdx === void 0) {
-      throw new Error(`Missing type index for ${knot}`);
-    }
-    this._typs[idx] = this._typs[knotIdx];
-    const idxRefCount = this._getIdxRefCount(idx);
-    const knotRefCount = this._getIdxRefCount(knotIdx);
-    this._idxRefCount.set(idx, idxRefCount + knotRefCount);
-    this._idx.set(knot, idx);
-    this._idxRefCount.set(knotIdx, 0);
-    this._compactFromEnd();
-  }
-  _getIdxRefCount(idx) {
-    return this._idxRefCount.get(idx) || 0;
-  }
-  _compactFromEnd() {
-    while (this._typs.length > 0) {
-      const lastIndex = this._typs.length - 1;
-      if (this._getIdxRefCount(lastIndex) > 0) {
-        break;
-      }
-      this._typs.pop();
-      this._idxRefCount.delete(lastIndex);
-    }
-  }
-  encode() {
-    const len = lebEncode(this._typs.length);
-    const buf = concat(...this._typs);
-    return concat(len, buf);
-  }
-  indexOf(typeName) {
-    if (!this._idx.has(typeName)) {
-      throw new Error(`Missing type index for ${typeName}`);
-    }
-    return slebEncode(this._idx.get(typeName) || 0);
-  }
-}
-var IdlTypeName;
-(function(IdlTypeName2) {
-  IdlTypeName2["EmptyClass"] = "__IDL_EmptyClass__";
-  IdlTypeName2["UnknownClass"] = "__IDL_UnknownClass__";
-  IdlTypeName2["BoolClass"] = "__IDL_BoolClass__";
-  IdlTypeName2["NullClass"] = "__IDL_NullClass__";
-  IdlTypeName2["ReservedClass"] = "__IDL_ReservedClass__";
-  IdlTypeName2["TextClass"] = "__IDL_TextClass__";
-  IdlTypeName2["IntClass"] = "__IDL_IntClass__";
-  IdlTypeName2["NatClass"] = "__IDL_NatClass__";
-  IdlTypeName2["FloatClass"] = "__IDL_FloatClass__";
-  IdlTypeName2["FixedIntClass"] = "__IDL_FixedIntClass__";
-  IdlTypeName2["FixedNatClass"] = "__IDL_FixedNatClass__";
-  IdlTypeName2["VecClass"] = "__IDL_VecClass__";
-  IdlTypeName2["OptClass"] = "__IDL_OptClass__";
-  IdlTypeName2["RecordClass"] = "__IDL_RecordClass__";
-  IdlTypeName2["TupleClass"] = "__IDL_TupleClass__";
-  IdlTypeName2["VariantClass"] = "__IDL_VariantClass__";
-  IdlTypeName2["RecClass"] = "__IDL_RecClass__";
-  IdlTypeName2["PrincipalClass"] = "__IDL_PrincipalClass__";
-  IdlTypeName2["FuncClass"] = "__IDL_FuncClass__";
-  IdlTypeName2["ServiceClass"] = "__IDL_ServiceClass__";
-})(IdlTypeName || (IdlTypeName = {}));
-class Type2 {
-  /* Display type name */
-  display() {
-    return this.name;
-  }
-  valueToString(x2) {
-    return toReadableString(x2);
-  }
-  /* Implement `T` in the IDL spec, only needed for non-primitive types */
-  buildTypeTable(typeTable) {
-    if (!typeTable.has(this)) {
-      this._buildTypeTableImpl(typeTable);
-    }
-  }
-}
-class PrimitiveType2 extends Type2 {
-  checkType(t) {
-    if (this.name !== t.name) {
-      throw new Error(`type mismatch: type on the wire ${t.name}, expect type ${this.name}`);
-    }
-    return t;
-  }
-  _buildTypeTableImpl(_typeTable) {
-  }
-}
-class ConstructType2 extends Type2 {
-  checkType(t) {
-    if (t instanceof RecClass) {
-      const ty = t.getType();
-      if (typeof ty === "undefined") {
-        throw new CandidDecodeError("Type mismatch: cannot decode from uninitialized recursive type");
-      }
-      return ty;
-    }
-    throw new Error(`type mismatch: type on the wire ${t.name}, expect type ${this.name}`);
-  }
-  encodeType(typeTable) {
-    return typeTable.indexOf(this.name);
-  }
-}
-class TextClass2 extends PrimitiveType2 {
-  get typeName() {
-    return IdlTypeName.TextClass;
-  }
-  static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName.TextClass;
-  }
-  accept(v2, d2) {
-    return v2.visitText(this, d2);
-  }
-  covariant(x2) {
-    if (typeof x2 === "string") {
-      return true;
-    }
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
-  }
-  encodeValue(x2) {
-    const buf = new TextEncoder().encode(x2);
-    const len = lebEncode(buf.byteLength);
-    return concat(len, buf);
-  }
-  encodeType() {
-    return slebEncode(IDLTypeIds.Text);
-  }
-  decodeValue(b2, t) {
-    this.checkType(t);
-    const len = lebDecode(b2);
-    const buf = safeRead(b2, Number(len));
-    const decoder = new TextDecoder("utf8", { fatal: true });
-    return decoder.decode(buf);
-  }
-  get name() {
-    return "text";
-  }
-  valueToString(x2) {
-    return `"${x2}"`;
-  }
-}
-class FloatClass2 extends PrimitiveType2 {
-  get typeName() {
-    return IdlTypeName.FloatClass;
-  }
-  static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName.FloatClass;
-  }
-  constructor(_bits) {
-    super();
-    this._bits = _bits;
-    if (_bits !== 32 && _bits !== 64) {
-      throw new Error("not a valid float type");
-    }
-  }
-  accept(v2, d2) {
-    return v2.visitFloat(this, d2);
-  }
-  covariant(x2) {
-    if (typeof x2 === "number" || x2 instanceof Number) {
-      return true;
-    }
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
-  }
-  encodeValue(x2) {
-    const buf = new ArrayBuffer(this._bits / 8);
-    const view = new DataView(buf);
-    if (this._bits === 32) {
-      view.setFloat32(0, x2, true);
-    } else {
-      view.setFloat64(0, x2, true);
-    }
-    return new Uint8Array(buf);
-  }
-  encodeType() {
-    const opcode = this._bits === 32 ? IDLTypeIds.Float32 : IDLTypeIds.Float64;
-    return slebEncode(opcode);
-  }
-  decodeValue(b2, t) {
-    this.checkType(t);
-    const bytes = safeRead(b2, this._bits / 8);
-    const view = uint8ToDataView(bytes);
-    if (this._bits === 32) {
-      return view.getFloat32(0, true);
-    }
-    return view.getFloat64(0, true);
-  }
-  get name() {
-    return `float${this._bits}`;
-  }
-  valueToString(x2) {
-    return x2.toString();
-  }
-}
-class FixedIntClass2 extends PrimitiveType2 {
-  get typeName() {
-    return IdlTypeName.FixedIntClass;
-  }
-  static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName.FixedIntClass;
-  }
-  constructor(_bits) {
-    super();
-    this._bits = _bits;
-  }
-  accept(v2, d2) {
-    return v2.visitFixedInt(this, d2);
-  }
-  covariant(x2) {
-    const min = iexp2(this._bits - 1) * BigInt(-1);
-    const max = iexp2(this._bits - 1) - BigInt(1);
-    if (typeof x2 === "bigint") {
-      if (x2 >= min && x2 <= max) {
-        return true;
-      }
-    } else if (Number.isInteger(x2)) {
-      const v2 = BigInt(x2);
-      if (v2 >= min && v2 <= max) {
-        return true;
-      }
-    }
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
-  }
-  encodeValue(x2) {
-    return writeIntLE(x2, this._bits / 8);
-  }
-  encodeType() {
-    const offset = Math.log2(this._bits) - 3;
-    return slebEncode(-9 - offset);
-  }
-  decodeValue(b2, t) {
-    this.checkType(t);
-    const num = readIntLE(b2, this._bits / 8);
-    if (this._bits <= 32) {
-      return Number(num);
-    }
-    return num;
-  }
-  get name() {
-    return `int${this._bits}`;
-  }
-  valueToString(x2) {
-    return x2.toString();
-  }
-}
-class FixedNatClass2 extends PrimitiveType2 {
-  get typeName() {
-    return IdlTypeName.FixedNatClass;
-  }
-  static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName.FixedNatClass;
-  }
-  constructor(_bits) {
-    super();
-    this._bits = _bits;
-  }
-  accept(v2, d2) {
-    return v2.visitFixedNat(this, d2);
-  }
-  covariant(x2) {
-    const max = iexp2(this._bits);
-    if (typeof x2 === "bigint" && x2 >= BigInt(0)) {
-      if (x2 < max) {
-        return true;
-      }
-    } else if (Number.isInteger(x2) && x2 >= 0) {
-      const v2 = BigInt(x2);
-      if (v2 < max) {
-        return true;
-      }
-    }
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
-  }
-  encodeValue(x2) {
-    return writeUIntLE(x2, this._bits / 8);
-  }
-  encodeType() {
-    const offset = Math.log2(this._bits) - 3;
-    return slebEncode(-5 - offset);
-  }
-  decodeValue(b2, t) {
-    this.checkType(t);
-    const num = readUIntLE(b2, this._bits / 8);
-    if (this._bits <= 32) {
-      return Number(num);
-    }
-    return num;
-  }
-  get name() {
-    return `nat${this._bits}`;
-  }
-  valueToString(x2) {
-    return x2.toString();
-  }
-}
-const _RecClass = class _RecClass extends ConstructType2 {
-  constructor() {
-    super(...arguments);
-    this._id = _RecClass._counter++;
-  }
-  get typeName() {
-    return IdlTypeName.RecClass;
-  }
-  static [Symbol.hasInstance](instance) {
-    return instance.typeName === IdlTypeName.RecClass;
-  }
-  accept(v2, d2) {
-    if (!this._type) {
-      throw Error("Recursive type uninitialized.");
-    }
-    return v2.visitRec(this, this._type, d2);
-  }
-  fill(t) {
-    this._type = t;
-  }
-  getType() {
-    return this._type;
-  }
-  covariant(x2) {
-    if (this._type ? this._type.covariant(x2) : false) {
-      return true;
-    }
-    throw new Error(`Invalid ${this.display()} argument: ${toReadableString(x2)}`);
-  }
-  encodeValue(x2) {
-    if (!this._type) {
-      throw Error("Recursive type uninitialized.");
-    }
-    return this._type.encodeValue(x2);
-  }
-  _buildTypeTableImpl(typeTable) {
-    if (!this._type) {
-      throw Error("Recursive type uninitialized.");
-    }
-    typeTable.add(this, new Uint8Array([]));
-    this._type.buildTypeTable(typeTable);
-    typeTable.merge(this, this._type.name);
-  }
-  decodeValue(b2, t) {
-    if (!this._type) {
-      throw Error("Recursive type uninitialized.");
-    }
-    return this._type.decodeValue(b2, t);
-  }
-  get name() {
-    return `rec_${this._id}`;
-  }
-  display() {
-    if (!this._type) {
-      throw Error("Recursive type uninitialized.");
-    }
-    return `μ${this.name}.${this._type.name}`;
-  }
-  valueToString(x2) {
-    if (!this._type) {
-      throw Error("Recursive type uninitialized.");
-    }
-    return this._type.valueToString(x2);
-  }
-};
-_RecClass._counter = 0;
-let RecClass = _RecClass;
-function toReadableString(x2) {
-  const str = JSON.stringify(x2, (_key, value) => typeof value === "bigint" ? `BigInt(${value})` : value);
-  return str && str.length > toReadableString_max ? `${str.substring(0, toReadableString_max - 3)}...` : str;
-}
-function encode(argTypes, args) {
-  if (args.length < argTypes.length) {
-    throw Error("Wrong number of message arguments");
-  }
-  const typeTable = new TypeTable2();
-  argTypes.forEach((t) => t.buildTypeTable(typeTable));
-  const table = typeTable.encode();
-  const len = lebEncode(args.length);
-  const typs = concat(...argTypes.map((t) => t.encodeType(typeTable)));
-  const vals = concat(...zipWith(argTypes, args, (t, x2) => {
-    try {
-      t.covariant(x2);
-    } catch (e) {
-      const err = new Error(`${e.message}
-
-`);
-      throw err;
-    }
-    return t.encodeValue(x2);
-  }));
-  return concat(magicNumberBytes, table, len, typs, vals);
-}
-const Text = new TextClass2();
-new FloatClass2(32);
-new FloatClass2(64);
-new FixedIntClass2(8);
-new FixedIntClass2(16);
-new FixedIntClass2(32);
-new FixedIntClass2(64);
-new FixedNatClass2(8);
-new FixedNatClass2(16);
-new FixedNatClass2(32);
-new FixedNatClass2(64);
-const MAXIMUM_CONCURRENT_UPLOADS = 10;
-const MAX_RETRIES = 3;
-const BASE_DELAY_MS = 1e3;
-const MAX_DELAY_MS = 3e4;
-const GATEWAY_VERSION = "v1";
-const HASH_ALGORITHM = "SHA-256";
-const SHA256_PREFIX = "sha256:";
-const DOMAIN_SEPARATOR_FOR_CHUNKS = new TextEncoder().encode("icfs-chunk/");
-const DOMAIN_SEPARATOR_FOR_METADATA = new TextEncoder().encode("icfs-metadata/");
-const DOMAIN_SEPARATOR_FOR_NODES = new TextEncoder().encode("ynode/");
-async function withRetry(operation) {
-  let lastError;
-  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-    try {
-      return await operation();
-    } catch (error) {
-      lastError = error instanceof Error ? error : new Error(String(error));
-      const shouldRetry = isRetriableError(error);
-      if (attempt === MAX_RETRIES || !shouldRetry) {
-        if (!shouldRetry && attempt < MAX_RETRIES) {
-          console.warn(`Non-retriable error encountered: ${lastError.message}. Not retrying.`);
-        }
-        throw error;
-      }
-      const delay2 = Math.min(BASE_DELAY_MS * 2 ** attempt + Math.random() * 1e3, MAX_DELAY_MS);
-      console.warn(`Request failed (attempt ${attempt + 1}/${MAX_RETRIES + 1}): ${lastError.message}. Retrying in ${Math.round(delay2)}ms...`);
-      await new Promise((resolve) => setTimeout(resolve, delay2));
-    }
-  }
-  throw lastError || new Error("Unknown error occurred during retry attempts");
-}
-function isRetriableError(error) {
-  var _a3, _b3;
-  const errorMessage = ((_a3 = error == null ? void 0 : error.message) == null ? void 0 : _a3.toLowerCase()) || "";
-  if ((_b3 = error == null ? void 0 : error.response) == null ? void 0 : _b3.status) {
-    const status = error.response.status;
-    if (status === 408 || status === 429)
-      return true;
-    if (status >= 400 && status < 500)
-      return false;
-    if (status >= 500)
-      return true;
-  }
-  if (errorMessage.includes("ssl") || errorMessage.includes("tls") || errorMessage.includes("network error") || errorMessage.includes("connection") || errorMessage.includes("timeout") || errorMessage.includes("fetch")) {
-    return true;
-  }
-  if (errorMessage.includes("validation") || errorMessage.includes("invalid") || errorMessage.includes("malformed") || errorMessage.includes("unauthorized") || errorMessage.includes("forbidden") || errorMessage.includes("not found")) {
-    return false;
-  }
-  return true;
-}
-function validateHashFormat(hash, context) {
-  if (!hash) {
-    throw new Error(`${context}: Hash cannot be empty`);
-  }
-  if (!hash.startsWith(SHA256_PREFIX)) {
-    throw new Error(`${context}: Invalid hash format. Expected format: ${SHA256_PREFIX}<64-char-hex>, got: ${hash}`);
-  }
-  const hexPart = hash.substring(SHA256_PREFIX.length);
-  if (hexPart.length !== 64) {
-    throw new Error(`${context}: Invalid hash format. Expected 64 hex characters after ${SHA256_PREFIX}, got ${hexPart.length} characters: ${hash}`);
-  }
-  if (!/^[0-9a-f]{64}$/i.test(hexPart)) {
-    throw new Error(`${context}: Invalid hash format. Hash must contain only hex characters (0-9, a-f), got: ${hash}`);
-  }
-}
-class YHash2 {
-  constructor(bytes) {
-    __publicField(this, "bytes");
-    if (bytes.length !== 32) {
-      throw new Error(`YHash must be exactly 32 bytes, got ${bytes.length}`);
-    }
-    this.bytes = new Uint8Array(bytes);
-  }
-  static async fromNodes(left, right) {
-    const leftBytes = left instanceof YHash2 ? left.bytes : new TextEncoder().encode("UNBALANCED");
-    const rightBytes = right instanceof YHash2 ? right.bytes : new TextEncoder().encode("UNBALANCED");
-    const combined = new Uint8Array(DOMAIN_SEPARATOR_FOR_NODES.length + leftBytes.length + rightBytes.length);
-    const arrays = [DOMAIN_SEPARATOR_FOR_NODES, leftBytes, rightBytes];
-    let offset = 0;
-    for (const data of arrays) {
-      combined.set(data, offset);
-      offset += data.length;
-    }
-    const hashBuffer = await crypto.subtle.digest(HASH_ALGORITHM, combined);
-    return new YHash2(new Uint8Array(hashBuffer));
-  }
-  static async fromChunk(data) {
-    return YHash2.fromBytes(DOMAIN_SEPARATOR_FOR_CHUNKS, data);
-  }
-  static async fromHeaders(headers) {
-    const headerLines = [];
-    for (const [key, value] of Object.entries(headers)) {
-      headerLines.push(`${key.trim()}: ${value.trim()}
-`);
-    }
-    headerLines.sort();
-    const hash = await YHash2.fromBytes(DOMAIN_SEPARATOR_FOR_METADATA, new TextEncoder().encode(headerLines.join("")));
-    return hash;
-  }
-  static async fromBytes(domainSeparator, data) {
-    const combined = new Uint8Array(domainSeparator.length + data.length);
-    combined.set(domainSeparator);
-    combined.set(data, domainSeparator.length);
-    const hashBuffer = await crypto.subtle.digest(HASH_ALGORITHM, combined);
-    return new YHash2(new Uint8Array(hashBuffer));
-  }
-  static fromHex(hexString) {
-    const bytes = new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => Number.parseInt(byte, 16)));
-    return new YHash2(bytes);
-  }
-  toShaString() {
-    return `${SHA256_PREFIX}${this.toHex()}`;
-  }
-  toString() {
-    throw new Error("toString is not supported for YHash");
-  }
-  toHex() {
-    return Array.from(this.bytes).map((b2) => b2.toString(16).padStart(2, "0")).join("");
-  }
-}
-function nodeToJSON(node) {
-  return {
-    hash: node.hash.toShaString(),
-    left: node.left ? nodeToJSON(node.left) : null,
-    right: node.right ? nodeToJSON(node.right) : null
-  };
-}
-class BlobHashTree2 {
-  constructor(chunk_hashes, tree, headers = null) {
-    __publicField(this, "tree_type");
-    __publicField(this, "chunk_hashes");
-    __publicField(this, "tree");
-    __publicField(this, "headers");
-    this.tree_type = "DSBMTWH";
-    this.chunk_hashes = chunk_hashes;
-    this.tree = tree;
-    if (headers == null) {
-      this.headers = [];
-    } else if (Array.isArray(headers)) {
-      this.headers = headers;
-    } else {
-      this.headers = Object.entries(headers).map(([key, value]) => `${key.trim()}: ${value.trim()}`);
-    }
-    this.headers.sort();
-  }
-  static async build(chunkHashes, headers = {}) {
-    if (chunkHashes.length === 0) {
-      const hex2 = "8b8e620f084e48da0be2287fd12c5aaa4dbe14b468fd2e360f48d741fe7628a0";
-      const bytes = new TextEncoder().encode(hex2);
-      chunkHashes.push(new YHash2(bytes));
-    }
-    let level = chunkHashes.map((hash) => ({
-      hash,
-      left: null,
-      right: null
-    }));
-    while (level.length > 1) {
-      const nextLevel = [];
-      for (let i = 0; i < level.length; i += 2) {
-        const left = level[i];
-        const right = level[i + 1] || null;
-        const parentHash = await YHash2.fromNodes(left.hash, right ? right.hash : null);
-        nextLevel.push({
-          hash: parentHash,
-          left,
-          right
-        });
-      }
-      level = nextLevel;
-    }
-    const chunksRoot = level[0];
-    if (headers && Object.keys(headers).length > 0) {
-      const metadataRootHash = await YHash2.fromHeaders(headers);
-      const metadataRoot = {
-        hash: metadataRootHash,
-        left: null,
-        right: null
-      };
-      const combinedRootHash = await YHash2.fromNodes(chunksRoot.hash, metadataRoot.hash);
-      const combinedRoot = {
-        hash: combinedRootHash,
-        left: chunksRoot,
-        right: metadataRoot
-      };
-      return new BlobHashTree2(chunkHashes, combinedRoot, headers);
-    }
-    return new BlobHashTree2(chunkHashes, chunksRoot, headers);
-  }
-  toJSON() {
-    return {
-      tree_type: this.tree_type,
-      chunk_hashes: this.chunk_hashes.map((h2) => h2.toShaString()),
-      tree: nodeToJSON(this.tree),
-      headers: this.headers
-    };
-  }
-}
-class StorageGatewayClient2 {
-  constructor(storageGatewayUrl) {
-    __publicField(this, "storageGatewayUrl");
-    this.storageGatewayUrl = storageGatewayUrl;
-  }
-  getStorageGatewayUrl() {
-    return this.storageGatewayUrl;
-  }
-  async uploadChunk(params) {
-    const blobHashString = params.blobRootHash.toShaString();
-    const chunkHashString = params.chunkHash.toShaString();
-    validateHashFormat(blobHashString, `uploadChunk[${params.chunkIndex}] blob_hash`);
-    validateHashFormat(chunkHashString, `uploadChunk[${params.chunkIndex}] chunk_hash`);
-    return await withRetry(async () => {
-      const queryParams = new URLSearchParams({
-        owner_id: params.owner,
-        blob_hash: blobHashString,
-        chunk_hash: chunkHashString,
-        chunk_index: params.chunkIndex.toString(),
-        bucket_name: params.bucketName,
-        project_id: params.projectId
-      });
-      const url = `${this.storageGatewayUrl}/${GATEWAY_VERSION}/chunk/?${queryParams.toString()}`;
-      const response = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/octet-stream",
-          "X-Caffeine-Project-ID": params.projectId
-        },
-        body: params.chunkData
-      });
-      if (!response.ok) {
-        const errorText = await response.text();
-        const error = new Error(`Failed to upload chunk ${params.chunkIndex}: ${response.status} ${response.statusText} - ${errorText}`);
-        error.response = { status: response.status };
-        throw error;
-      }
-      const result = await response.json();
-      return {
-        isComplete: result.status === "blob_complete"
-      };
-    });
-  }
-  async uploadBlobTree(blobHashTree, bucketName, numBlobBytes, owner, projectId, certificateBytes) {
-    const treeJSON = blobHashTree.toJSON();
-    validateHashFormat(treeJSON.tree.hash, "uploadBlobTree root hash");
-    treeJSON.chunk_hashes.forEach((hash, index2) => {
-      validateHashFormat(hash, `uploadBlobTree chunk_hash[${index2}]`);
-    });
-    return await withRetry(async () => {
-      const url = `${this.storageGatewayUrl}/${GATEWAY_VERSION}/blob-tree/`;
-      const requestBody = {
-        blob_tree: treeJSON,
-        bucket_name: bucketName,
-        num_blob_bytes: numBlobBytes,
-        owner,
-        project_id: projectId,
-        headers: blobHashTree.headers,
-        auth: {
-          OwnerEgressSignature: Array.from(certificateBytes)
-        }
-      };
-      const response = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Caffeine-Project-ID": projectId
-        },
-        body: JSON.stringify(requestBody)
-      });
-      if (!response.ok) {
-        const errorText = await response.text();
-        const error = new Error(`Failed to upload blob tree: ${response.status} ${response.statusText} - ${errorText}`);
-        error.response = { status: response.status };
-        throw error;
-      }
-    });
-  }
-}
-class StorageClient2 {
-  constructor(bucket, storageGatewayUrl, backendCanisterId, projectId, agent) {
-    __publicField(this, "bucket");
-    __publicField(this, "backendCanisterId");
-    __publicField(this, "projectId");
-    __publicField(this, "agent");
-    __publicField(this, "storageGatewayClient");
-    this.bucket = bucket;
-    this.backendCanisterId = backendCanisterId;
-    this.projectId = projectId;
-    this.agent = agent;
-    this.storageGatewayClient = new StorageGatewayClient2(storageGatewayUrl);
-  }
-  async getCertificate(hash) {
-    const args = encode([Text], [hash]);
-    const result = await this.agent.call(this.backendCanisterId, {
-      methodName: "_immutableObjectStorageCreateCertificate",
-      arg: args,
-      effectiveCanisterId: this.backendCanisterId
-    });
-    const respone = result.response.body;
-    if (isV4ResponseBody(respone)) {
-      console.log("Certificate:", respone.certificate);
-      return respone.certificate;
-    }
-    throw new Error("Expected v4 response body");
-  }
-  async putFile(blobBytes, onProgress) {
-    const httpHeaders = {
-      "Content-Type": "application/json"
-    };
-    const file = new Blob([new Uint8Array(blobBytes)], {
-      type: "application/octet-stream"
-    });
-    const fileHeaders = {
-      "Content-Type": "application/octet-stream",
-      "Content-Length": file.size.toString()
-    };
-    const { chunks, chunkHashes, blobHashTree } = await this.processFileForUpload(file, fileHeaders);
-    const blobRootHash = blobHashTree.tree.hash;
-    const hashString2 = blobRootHash.toShaString();
-    const certificateBytes = await this.getCertificate(hashString2);
-    await this.storageGatewayClient.uploadBlobTree(blobHashTree, this.bucket, file.size, this.backendCanisterId, this.projectId, certificateBytes);
-    await this.parallelUpload(chunks, chunkHashes, blobRootHash, httpHeaders, onProgress);
-    return { hash: hashString2 };
-  }
-  async getDirectURL(hash) {
-    if (!hash) {
-      throw new Error("Hash must not be empty");
-    }
-    validateHashFormat(hash, `getDirectURL for path '${hash}'`);
-    return `${this.storageGatewayClient.getStorageGatewayUrl()}/${GATEWAY_VERSION}/blob/?blob_hash=${encodeURIComponent(hash)}&owner_id=${encodeURIComponent(this.backendCanisterId)}&project_id=${encodeURIComponent(this.projectId)}`;
-  }
-  async processFileForUpload(file, headers) {
-    const chunks = this.createFileChunks(file);
-    const chunkHashes = [];
-    for (let i = 0; i < chunks.length; i++) {
-      const chunkData = new Uint8Array(await chunks[i].arrayBuffer());
-      const hash = await YHash2.fromChunk(chunkData);
-      chunkHashes.push(hash);
-    }
-    const blobHashTree = await BlobHashTree2.build(chunkHashes, headers);
-    return { chunks, chunkHashes, blobHashTree };
-  }
-  async parallelUpload(chunks, chunkHashes, blobRootHash, httpHeaders, onProgress) {
-    let completedChunks = 0;
-    const uploadSingleChunk = async (index2) => {
-      const chunkData = new Uint8Array(await chunks[index2].arrayBuffer());
-      const chunkHash = chunkHashes[index2];
-      await this.storageGatewayClient.uploadChunk({
-        blobRootHash,
-        chunkHash,
-        chunkIndex: index2,
-        chunkData,
-        bucketName: this.bucket,
-        owner: this.backendCanisterId,
-        projectId: this.projectId,
-        httpHeaders
-      });
-      const currentCompleted = ++completedChunks;
-      if (onProgress != null) {
-        const percentage = chunks.length === 0 ? 100 : Math.round(currentCompleted / chunks.length * 100);
-        onProgress(percentage);
-      }
-    };
-    await Promise.all(Array.from({ length: MAXIMUM_CONCURRENT_UPLOADS }, async (_2, workerId) => {
-      for (let i = workerId; i < chunks.length; i += MAXIMUM_CONCURRENT_UPLOADS) {
-        await uploadSingleChunk(i);
-      }
-    }));
-  }
-  createFileChunks(file, chunkSize = 1024 * 1024) {
-    const chunks = [];
-    const totalChunks = Math.ceil(file.size / chunkSize);
-    for (let index2 = 0; index2 < totalChunks; index2++) {
-      const start = index2 * chunkSize;
-      const end = Math.min(start + chunkSize, file.size);
-      const chunk = file.slice(start, end);
-      chunks.push(chunk);
-    }
-    return chunks;
-  }
-}
-const PRESETS = [
-  "steve",
-  "enderman",
-  "creeper",
-  "zombie",
-  "skeleton",
-  "witch",
-  "villager",
-  "piglin",
-  "axolotl",
-  "fox",
-  "bee",
-  "allay"
-];
-function FadeSection$2({
-  children,
-  delay: delay2 = 0
-}) {
-  const ref = useFadeIn(delay2);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref, children });
-}
-function ProfilePage() {
-  const { username, role, avatar, refreshAvatar } = useAuth();
-  const { identity } = useInternetIdentity();
-  const headerRef = useFadeIn(0);
-  const setMyAvatar = useSetMyAvatar();
-  const [selectedPreset, setSelectedPreset] = reactExports.useState(null);
-  const [selectedUploaded, setSelectedUploaded] = reactExports.useState(
-    null
-  );
-  const [uploadProgress, setUploadProgress] = reactExports.useState(0);
-  const [uploadStatus, setUploadStatus] = reactExports.useState("idle");
-  const [uploadMessage, setUploadMessage] = reactExports.useState("");
-  const [saveStatus, setSaveStatus] = reactExports.useState("idle");
-  const [saveMessage, setSaveMessage] = reactExports.useState("");
-  const fileInputRef = reactExports.useRef(null);
-  const [isDragover, setIsDragover] = reactExports.useState(false);
-  const previewAvatar = selectedUploaded ? { __kind__: "uploaded", uploaded: selectedUploaded } : selectedPreset ? { __kind__: "preset", preset: selectedPreset } : avatar ?? null;
-  const previewUrl = previewAvatar ? avatarImageUrl(previewAvatar) : null;
-  const resetUploadState = () => {
-    setUploadProgress(0);
-    setUploadStatus("idle");
-    setUploadMessage("");
-  };
-  const processAndUploadFile = async (file) => {
-    if (!file.type.match(/^(image\/(png|jpeg|gif|webp))$/)) {
-      setUploadStatus("error");
-      setUploadMessage("Unsupported file. Use PNG, JPG, GIF, or WEBP.");
-      return;
-    }
-    setUploadStatus("uploading");
-    setUploadMessage("Processing image...");
-    setUploadProgress(0);
-    setSelectedPreset(null);
-    try {
-      const img = new Image();
-      const objectUrl = URL.createObjectURL(file);
-      await new Promise((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = () => reject(new Error("Failed to load image"));
-        img.src = objectUrl;
-      });
-      URL.revokeObjectURL(objectUrl);
-      const canvas = document.createElement("canvas");
-      canvas.width = 256;
-      canvas.height = 256;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) throw new Error("Canvas not supported");
-      ctx.imageSmoothingEnabled = false;
-      const sourceSize = Math.min(img.width, img.height);
-      const sourceX = (img.width - sourceSize) / 2;
-      const sourceY = (img.height - sourceSize) / 2;
-      ctx.drawImage(
-        img,
-        sourceX,
-        sourceY,
-        sourceSize,
-        sourceSize,
-        0,
-        0,
-        256,
-        256
-      );
-      const blob = await new Promise((resolve, reject) => {
-        canvas.toBlob(
-          (b2) => b2 ? resolve(b2) : reject(new Error("toBlob failed")),
-          "image/png"
-        );
-      });
-      const bytes = new Uint8Array(await blob.arrayBuffer());
-      setUploadMessage("Uploading...");
-      const agent = await HttpAgent.create({ identity });
-      const config = await loadConfig();
-      const storageClient = new StorageClient2(
-        config.bucket_name,
-        config.storage_gateway_url,
-        config.backend_canister_id,
-        config.project_id,
-        agent
-      );
-      const { hash } = await storageClient.putFile(
-        bytes,
-        (pct) => setUploadProgress(pct)
-      );
-      const blobRef = { key: `!caf!${hash}`, contentType: "image/png" };
-      setSelectedUploaded(blobRef);
-      setUploadStatus("complete");
-      setUploadMessage("Upload complete. Save to apply.");
-    } catch (err) {
-      setUploadStatus("error");
-      setUploadMessage(
-        err instanceof Error ? err.message : "Upload failed. Try again."
-      );
-    }
-  };
-  const handleFileInput = (e) => {
-    var _a3;
-    const file = (_a3 = e.target.files) == null ? void 0 : _a3[0];
-    if (file) void processAndUploadFile(file);
-    e.target.value = "";
-  };
-  const handleDrop = (e) => {
-    var _a3;
-    e.preventDefault();
-    setIsDragover(false);
-    const file = (_a3 = e.dataTransfer.files) == null ? void 0 : _a3[0];
-    if (file) void processAndUploadFile(file);
-  };
-  const handleSave = async () => {
-    if (!username) return;
-    let avatarToSave = null;
-    if (selectedUploaded) {
-      avatarToSave = { __kind__: "uploaded", uploaded: selectedUploaded };
-    } else if (selectedPreset) {
-      avatarToSave = { __kind__: "preset", preset: selectedPreset };
-    } else {
-      return;
-    }
-    setSaveStatus("saving");
-    setSaveMessage("Saving avatar...");
-    setMyAvatar.mutate(
-      { username, avatar: avatarToSave },
-      {
-        onSuccess: async () => {
-          await refreshAvatar();
-          setSaveStatus("saved");
-          setSaveMessage("Avatar saved!");
-          setSelectedPreset(null);
-          setSelectedUploaded(null);
-          resetUploadState();
-          setTimeout(() => {
-            setSaveStatus("idle");
-            setSaveMessage("");
-          }, 4e3);
-        },
-        onError: (err) => {
-          setSaveStatus("error");
-          setSaveMessage(
-            err instanceof Error ? err.message : "Save failed. Try again."
-          );
-        }
-      }
-    );
-  };
-  const canSave = (selectedPreset !== null || selectedUploaded !== null) && saveStatus !== "saving";
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    "div",
-    {
-      className: "min-h-screen flex flex-col",
-      style: { background: "oklch(0.10 0.04 295)" },
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Navbar, {}),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "pt-16 flex-1 flex flex-col", children: /* @__PURE__ */ jsxRuntimeExports.jsx(FadeSection$2, { delay: 150, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "relative overflow-hidden flex-1 flex flex-col", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 block-texture opacity-10 pointer-events-none" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 flex flex-col", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref: headerRef, className: "profile-header p-6 mb-8", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-3", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  UserCog,
-                  {
-                    size: 18,
-                    style: { color: "oklch(0.70 0.22 295)" },
-                    "aria-hidden": true
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "span",
-                  {
-                    className: "font-pixel",
-                    style: {
-                      fontSize: "0.45rem",
-                      color: "oklch(0.70 0.22 295)",
-                      letterSpacing: "0.1em"
-                    },
-                    children: "ACCOUNT"
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "profile-header-title", children: "PROFILE" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "profile-header-subtitle mt-3", children: "Pick a preset or upload your own — your avatar, your block." }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4 flex items-center gap-3", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "span",
-                  {
-                    className: "font-pixel",
-                    style: {
-                      fontSize: "0.55rem",
-                      color: "oklch(0.85 0.15 295)",
-                      letterSpacing: "0.05em"
-                    },
-                    children: username ?? "—"
-                  }
-                ),
-                role && /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "span",
-                  {
-                    className: "role-badge role-member",
-                    style: { fontSize: "0.45rem" },
-                    children: role.toUpperCase()
-                  }
-                )
-              ] })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-8 flex flex-col items-center", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "avatar-preview", children: previewUrl ? /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "img",
-                {
-                  src: previewUrl,
-                  alt: "Current avatar preview",
-                  className: "avatar-preview-img"
-                }
-              ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "avatar-preview-fallback", children: (username ?? "?").charAt(0).toUpperCase() }) }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "p",
-                {
-                  className: "mt-3",
-                  style: {
-                    fontFamily: '"VT323", monospace',
-                    fontSize: "1.1rem",
-                    color: "oklch(0.65 0.10 295)",
-                    letterSpacing: "0.04em"
-                  },
-                  children: selectedUploaded ? "Custom upload ready" : selectedPreset ? `Preset: ${selectedPreset}` : avatar ? "Current avatar" : "No avatar set"
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-8", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "h2",
-                {
-                  className: "font-pixel mb-4",
-                  style: {
-                    fontSize: "0.6rem",
-                    color: "oklch(0.85 0.12 295)",
-                    letterSpacing: "0.08em"
-                  },
-                  children: "PRESET AVATARS"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "avatar-gallery", children: PRESETS.map((id2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  type: "button",
-                  "data-ocid": `profile.preset.tile.${id2}`,
-                  className: `avatar-tile${selectedPreset === id2 ? " is-selected" : ""}`,
-                  onClick: () => {
-                    setSelectedPreset(id2);
-                    setSelectedUploaded(null);
-                    resetUploadState();
-                  },
-                  "aria-pressed": selectedPreset === id2,
-                  "aria-label": `Select ${id2} preset avatar`,
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "img",
-                    {
-                      src: presetAvatarUrl(id2),
-                      alt: `${id2} preset avatar`,
-                      className: "avatar-tile-img"
-                    }
-                  )
-                },
-                id2
-              )) })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-8", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "h2",
-                {
-                  className: "font-pixel mb-4",
-                  style: {
-                    fontSize: "0.6rem",
-                    color: "oklch(0.85 0.12 295)",
-                    letterSpacing: "0.08em"
-                  },
-                  children: "UPLOAD CUSTOM"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "button",
-                {
-                  type: "button",
-                  className: `upload-dropzone${isDragover ? " is-dragover" : ""}`,
-                  onDragOver: (e) => {
-                    e.preventDefault();
-                    setIsDragover(true);
-                  },
-                  onDragLeave: () => setIsDragover(false),
-                  onDrop: handleDrop,
-                  onClick: () => {
-                    var _a3;
-                    return (_a3 = fileInputRef.current) == null ? void 0 : _a3.click();
-                  },
-                  "data-ocid": "profile.upload.dropzone",
-                  style: { display: "block", width: "100%", textAlign: "left" },
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      "input",
-                      {
-                        ref: fileInputRef,
-                        type: "file",
-                        accept: "image/png,image/jpeg,image/gif,image/webp",
-                        onChange: handleFileInput,
-                        className: "sr-only",
-                        "data-ocid": "profile.upload.input"
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      Upload,
-                      {
-                        size: 28,
-                        style: { color: "oklch(0.70 0.22 295)" },
-                        "aria-hidden": true
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      "p",
-                      {
-                        className: "mt-3",
-                        style: {
-                          fontFamily: '"VT323", monospace',
-                          fontSize: "1.2rem",
-                          color: "oklch(0.80 0.10 295)"
-                        },
-                        children: "Drop an image here, or click to browse"
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      "p",
-                      {
-                        style: {
-                          fontFamily: '"VT323", monospace',
-                          fontSize: "1rem",
-                          color: "oklch(0.55 0.10 295)"
-                        },
-                        children: "PNG, JPG, GIF, or WEBP — auto-cropped to 256×256"
-                      }
-                    )
-                  ]
-                }
-              ),
-              uploadStatus !== "idle" && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "div",
-                {
-                  className: `upload-progress${uploadStatus === "complete" ? " is-complete" : ""}${uploadStatus === "error" ? " is-error" : ""}`,
-                  "data-ocid": "profile.upload.progress",
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      "div",
-                      {
-                        className: "upload-progress-bar",
-                        style: { width: `${uploadProgress}%` }
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "upload-progress-text", children: [
-                      uploadStatus === "uploading" && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                        "span",
-                        {
-                          style: {
-                            fontFamily: '"VT323", monospace',
-                            fontSize: "1rem",
-                            color: "oklch(0.80 0.10 295)"
-                          },
-                          children: [
-                            uploadMessage,
-                            " (",
-                            Math.round(uploadProgress),
-                            "%)"
-                          ]
-                        }
-                      ),
-                      uploadStatus === "complete" && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                        "span",
-                        {
-                          style: {
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "0.4rem",
-                            fontFamily: '"VT323", monospace',
-                            fontSize: "1rem",
-                            color: "oklch(0.75 0.18 145)"
-                          },
-                          children: [
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { size: 14, "aria-hidden": true }),
-                            uploadMessage
-                          ]
-                        }
-                      ),
-                      uploadStatus === "error" && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                        "span",
-                        {
-                          style: {
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "0.4rem",
-                            fontFamily: '"VT323", monospace',
-                            fontSize: "1rem",
-                            color: "oklch(0.75 0.18 25)"
-                          },
-                          children: [
-                            /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleAlert, { size: 14, "aria-hidden": true }),
-                            uploadMessage
-                          ]
-                        }
-                      )
-                    ] })
-                  ]
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col sm:flex-row gap-3 items-stretch sm:items-center", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  type: "button",
-                  className: "profile-save-btn",
-                  onClick: handleSave,
-                  disabled: !canSave,
-                  "data-ocid": "profile.save_button",
-                  children: saveStatus === "saving" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { size: 14, className: "animate-spin", "aria-hidden": true }),
-                    "SAVING..."
-                  ] }) : saveStatus === "saved" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { size: 14, "aria-hidden": true }),
-                    "SAVED!"
-                  ] }) : "SAVE AVATAR"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  type: "button",
-                  className: "profile-cancel-btn",
-                  onClick: () => window.history.back(),
-                  "data-ocid": "profile.cancel_button",
-                  children: "CANCEL"
-                }
-              )
-            ] }),
-            saveStatus === "error" && saveMessage && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              "p",
-              {
-                className: "mt-3",
-                style: {
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.4rem",
-                  fontFamily: '"VT323", monospace',
-                  fontSize: "1rem",
-                  color: "oklch(0.75 0.18 25)"
-                },
-                "data-ocid": "profile.save.error_state",
-                children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleAlert, { size: 14, "aria-hidden": true }),
-                  saveMessage
-                ]
-              }
-            )
-          ] })
-        ] }) }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
-      ]
-    }
-  );
-}
-function Profile() {
-  const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-  reactExports.useEffect(() => {
-    if (!isAuthenticated) {
-      void navigate({ to: "/" });
-    }
-  }, [isAuthenticated, navigate]);
-  if (!isAuthenticated) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "div",
-      {
-        className: "min-h-screen flex items-center justify-center",
-        style: { background: "oklch(0.10 0.04 295)" },
-        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "div",
-          {
-            className: "flex items-center gap-3",
-            style: {
-              fontFamily: '"VT323", monospace',
-              color: "oklch(0.65 0.10 295)",
-              fontSize: "1.2rem",
-              letterSpacing: "0.04em"
-            },
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                LoaderCircle,
-                {
-                  size: 18,
-                  className: "animate-spin",
-                  style: { color: "oklch(0.62 0.22 295)" }
-                }
-              ),
-              "REDIRECTING..."
-            ]
-          }
-        )
-      }
-    );
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(ProfilePage, {});
 }
 function FadeSection$1({
   children,
@@ -60800,11 +58786,26 @@ function StaffListSection() {
                               children: [
                                 member.occupied ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
                                   /* @__PURE__ */ jsxRuntimeExports.jsx(
-                                    UserAvatar,
+                                    "span",
                                     {
-                                      username: member.name,
-                                      size: "sm",
-                                      alt: `${member.name}'s avatar`
+                                      "aria-hidden": "true",
+                                      style: {
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        width: "32px",
+                                        height: "32px",
+                                        flexShrink: 0,
+                                        background: group.accentColor,
+                                        border: `2px solid ${group.borderColor}`,
+                                        imageRendering: "pixelated",
+                                        fontFamily: '"Press Start 2P", monospace',
+                                        fontSize: "0.7rem",
+                                        color: "oklch(0.10 0.04 295)",
+                                        textShadow: "none",
+                                        letterSpacing: 0
+                                      },
+                                      children: member.name.charAt(0).toUpperCase()
                                     }
                                   ),
                                   /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -61120,11 +59121,6 @@ const messagesRoute = createRoute({
   path: "/messages",
   component: Messages
 });
-const profileRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/profile",
-  component: Profile
-});
 const communityRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/community",
@@ -61141,7 +59137,6 @@ const routeTree = rootRoute.addChildren([
   applyRoute,
   adminRoute,
   messagesRoute,
-  profileRoute,
   communityRoute,
   rulesRoute
 ]);

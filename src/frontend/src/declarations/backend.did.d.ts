@@ -33,10 +33,8 @@ export type ApplicationStatus = { 'Accepted' : null } |
   { 'Pending' : null };
 export type AppliedRole = { 'Mod' : null } |
   { 'Builder' : null } |
+  { 'Developer' : null } |
   { 'Admin' : null };
-export type Avatar = { 'uploaded' : BlobRef } |
-  { 'preset' : string };
-export interface BlobRef { 'key' : string, 'contentType' : string }
 export interface Comment {
   'id' : CommentId,
   'authorUsername' : Username,
@@ -116,7 +114,6 @@ export interface SendMessageResult {
   'messageId' : [] | [MessageId],
   'success' : boolean,
 }
-export interface SetAvatarResult { 'success' : boolean }
 export interface SetRankSlotResult { 'success' : boolean }
 export interface SetRoleResult { 'error' : [] | [string], 'success' : boolean }
 export interface StaffDirectoryEntry {
@@ -144,10 +141,17 @@ export interface VoteTally {
   'postId' : PostId,
 }
 export interface _SERVICE {
+  /**
+   * / Auth/applications state record shared with mixins — wrapped so `var`
+   * / mutations propagate.
+   */
   'acceptApplication' : ActorMethod<
     [string, bigint, RosterRank],
     AcceptApplicationResult
   >,
+  /**
+   * / Monotonic counter for new message ids.
+   */
   'addCommunityComment' : ActorMethod<
     [bigint, string, string],
     AddCommentResult
@@ -163,26 +167,14 @@ export interface _SERVICE {
   'declineApplication' : ActorMethod<[bigint], boolean>,
   'getAllApplications' : ActorMethod<[], Array<Application>>,
   'getAllUsers' : ActorMethod<[], Array<UserEntry>>,
-  'getAvatar' : ActorMethod<[string], [] | [Avatar]>,
-  /**
-   * / applications : ApplicationId -> Application (persisted across upgrades).
-   */
   'getCommunityVoteTally' : ActorMethod<[bigint], VoteTally>,
   'getMyApplications' : ActorMethod<[string], Array<Application>>,
   'getMyRole' : ActorMethod<[string], [] | [Role]>,
   'getRankSlots' : ActorMethod<[], Array<RankSlot>>,
   'getRoster' : ActorMethod<[], Array<RosterGroup>>,
   'getStaffConversation' : ActorMethod<[string, string], Array<Message>>,
-  /**
-   * / users : Username -> User (persisted across upgrades via enhanced
-   * / orthogonal persistence).
-   */
   'getStaffDirectory' : ActorMethod<[string], Array<StaffDirectoryEntry>>,
   'listActiveCommunityPosts' : ActorMethod<[PostType], Array<Post>>,
-  /**
-   * / Auth/applications state record shared with mixins — wrapped so `var`
-   * / mutations propagate.
-   */
   'listCommunityComments' : ActorMethod<[bigint], Array<Comment>>,
   'login' : ActorMethod<[string, string], LoginResult>,
   'register' : ActorMethod<[string, string], RegisterResult>,
@@ -192,7 +184,6 @@ export interface _SERVICE {
   >,
   'reviewApplication' : ActorMethod<[bigint, ApplicationStatus], boolean>,
   'sendStaffMessage' : ActorMethod<[string, string, string], SendMessageResult>,
-  'setMyAvatar' : ActorMethod<[string, Avatar], SetAvatarResult>,
   'setRankSlot' : ActorMethod<[string, RosterRank, bigint], SetRankSlotResult>,
   'setRole' : ActorMethod<[string, string, Role], SetRoleResult>,
   'submitApplication' : ActorMethod<

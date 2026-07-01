@@ -35,7 +35,6 @@ type SetRoleResult =
    success: bool;
  };
 type SetRankSlotResult = record {success: bool;};
-type SetAvatarResult = record {success: bool;};
 type SendMessageResult = 
  record {
    messageId: opt MessageId;
@@ -143,20 +142,11 @@ type Comment =
    postId: PostId;
    timestamp: Timestamp;
  };
-type BlobRef = 
- record {
-   contentType: text;
-   key: text;
- };
-type Avatar = 
- variant {
-   preset: text;
-   uploaded: BlobRef;
- };
 type AppliedRole = 
  variant {
    Admin;
    Builder;
+   Developer;
    Mod;
  };
 type ApplicationStatus = 
@@ -187,8 +177,11 @@ type AddCommentResult =
  };
 type AcceptApplicationResult = record {success: bool;};
 service : {
+  /// Auth/applications state record shared with mixins — wrapped so `var`
+  /// mutations propagate.
   acceptApplication: (callerUsername: text, applicationId: nat, assignedRank:
    RosterRank) -> (AcceptApplicationResult);
+  /// Monotonic counter for new message ids.
   addCommunityComment: (postId: nat, authorUsername: text, content: text) ->
    (AddCommentResult);
   addStaffRosterMember: (callerUsername: text, name: text, rank:
@@ -198,8 +191,6 @@ service : {
   declineApplication: (applicationId: nat) -> (bool);
   getAllApplications: () -> (vec Application) query;
   getAllUsers: () -> (vec UserEntry) query;
-  getAvatar: (username: text) -> (opt Avatar) query;
-  /// applications : ApplicationId -> Application (persisted across upgrades).
   getCommunityVoteTally: (postId: nat) -> (VoteTally) query;
   getMyApplications: (username: text) -> (vec Application) query;
   getMyRole: (username: text) -> (opt Role) query;
@@ -207,13 +198,9 @@ service : {
   getRoster: () -> (vec RosterGroup) query;
   getStaffConversation: (requesterUsername: text, peerUsername: text) ->
    (vec Message) query;
-  /// users : Username -> User (persisted across upgrades via enhanced
-  /// orthogonal persistence).
   getStaffDirectory: (requesterUsername: text) ->
    (vec StaffDirectoryEntry) query;
   listActiveCommunityPosts: (postType: PostType) -> (vec Post) query;
-  /// Auth/applications state record shared with mixins — wrapped so `var`
-  /// mutations propagate.
   listCommunityComments: (postId: nat) -> (vec Comment) query;
   login: (username: text, password: text) -> (LoginResult);
   register: (username: text, password: text) -> (RegisterResult);
@@ -223,7 +210,6 @@ service : {
    (bool);
   sendStaffMessage: (senderUsername: text, recipientUsername: text, content:
    text) -> (SendMessageResult);
-  setMyAvatar: (username: text, avatar: Avatar) -> (SetAvatarResult);
   setRankSlot: (callerUsername: text, rank: RosterRank, slots: nat) ->
    (SetRankSlotResult);
   setRole: (callerUsername: text, targetUsername: text, newRole: Role) ->

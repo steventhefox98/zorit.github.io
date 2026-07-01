@@ -1,4 +1,4 @@
-import { type backendInterface, ApplicationStatus, AppliedRole, PostType, Role, RosterRank, VoteStatus, type Avatar } from "../backend";
+import { type backendInterface, ApplicationStatus, AppliedRole, PostType, Role, RosterRank, VoteStatus } from "../backend";
 
 // Timestamps in nanoseconds (Motoko Timestamp = bigint). 1 ms = 1_000_000 ns.
 const now = Date.now();
@@ -242,21 +242,6 @@ export const mockBackend: backendInterface = {
   removeStaffRosterMember: async () => ({ success: true }),
   acceptApplication: async () => ({ success: true }),
   declineApplication: async () => true,
-  getAvatar: async (username) => {
-    // Default every staff member to a pixel-art preset avatar so the navbar,
-    // messages, and profile render avatars without an upload step.
-    const presets: Record<string, string> = {
-      Steven: "knight",
-      qbhinoor: "wizard",
-      Notch: "creeper",
-      Jeb_: "enderman",
-      Alex: "alex",
-    };
-    const preset = presets[username];
-    if (!preset) return null;
-    return { __kind__: "preset" as const, preset };
-  },
-  setMyAvatar: async () => ({ success: true }),
   getAllUsers: async () => [
     { username: "Steven", role: Role.Administrator, rank: RosterRank.CoOwner },
     { username: "qbhinoor", role: Role.Administrator, rank: RosterRank.Admin },

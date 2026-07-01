@@ -6,7 +6,6 @@ import type {
   Application,
   ApplicationStatus,
   AppliedRole,
-  Avatar,
   Comment,
   CreatePostResult,
   LoginResult,
@@ -20,7 +19,6 @@ import type {
   RosterGroup,
   RosterRank,
   SendMessageResult,
-  SetAvatarResult,
   SetRankSlotResult,
   SetRoleResult,
   StaffDirectoryEntry,
@@ -92,58 +90,6 @@ export function useSendStaffMessage() {
           variables.senderUsername,
           variables.recipientUsername,
         ],
-      });
-    },
-  });
-}
-
-/* ------------------------------------------------------------------
-   Avatar queries + mutations
-   ------------------------------------------------------------------ */
-
-/**
- * Fetch a user's avatar by username. Returns null when the user has no
- * avatar set. The result is an Avatar variant: { __kind__: "preset",
- * preset } or { __kind__: "uploaded", uploaded: BlobRef }.
- *
- * Pass `null` to disable the query (used by UserAvatar when a cached
- * avatar is supplied via props).
- */
-export function useGetAvatar(username: string | null) {
-  const { actor, isFetching } = useActor(createActor);
-  return useQuery<Avatar | null>({
-    queryKey: ["avatar", username],
-    queryFn: async () => {
-      if (!actor || !username) return null;
-      return actor.getAvatar(username);
-    },
-    enabled: !!actor && !isFetching && !!username,
-    staleTime: 60_000,
-  });
-}
-
-/**
- * Persist the current user's avatar choice (preset id or uploaded blob
- * reference) to the backend. On success, invalidates the avatar query
- * for the user so every UserAvatar instance re-renders with the new
- * image.
- */
-export function useSetMyAvatar() {
-  const { actor, isFetching } = useActor(createActor);
-  const queryClient = useQueryClient();
-  return useMutation<
-    SetAvatarResult,
-    Error,
-    { username: string; avatar: Avatar }
-  >({
-    mutationFn: async ({ username, avatar }) => {
-      if (!actor) throw new Error("Backend actor not ready");
-      return actor.setMyAvatar(username, avatar);
-    },
-    meta: { isFetching },
-    onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: ["avatar", variables.username],
       });
     },
   });

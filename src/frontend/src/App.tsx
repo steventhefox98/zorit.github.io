@@ -12,7 +12,6 @@ import Apply from "./pages/Apply";
 import Community from "./pages/Community";
 import Home from "./pages/Home";
 import Messages from "./pages/Messages";
-import Profile from "./pages/Profile";
 import Rules from "./pages/Rules";
 import Team from "./pages/Team";
 
@@ -59,12 +58,6 @@ const messagesRoute = createRoute({
   component: Messages,
 });
 
-const profileRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/profile",
-  component: Profile,
-});
-
 const communityRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/community",
@@ -83,7 +76,6 @@ const routeTree = rootRoute.addChildren([
   applyRoute,
   adminRoute,
   messagesRoute,
-  profileRoute,
   communityRoute,
   rulesRoute,
 ]);

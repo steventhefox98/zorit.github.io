@@ -54,6 +54,7 @@ export const Username = IDL.Text;
 export const AppliedRole = IDL.Variant({
   'Mod' : IDL.Null,
   'Builder' : IDL.Null,
+  'Developer' : IDL.Null,
   'Admin' : IDL.Null,
 });
 export const Timestamp = IDL.Int;
@@ -87,14 +88,6 @@ export const UserEntry = IDL.Record({
   'username' : Username,
   'rank' : IDL.Opt(RosterRank),
   'role' : Role,
-});
-export const BlobRef = IDL.Record({
-  'key' : IDL.Text,
-  'contentType' : IDL.Text,
-});
-export const Avatar = IDL.Variant({
-  'uploaded' : BlobRef,
-  'preset' : IDL.Text,
 });
 export const VoteTally = IDL.Record({
   'approved' : IDL.Nat,
@@ -149,7 +142,6 @@ export const SendMessageResult = IDL.Record({
   'messageId' : IDL.Opt(MessageId),
   'success' : IDL.Bool,
 });
-export const SetAvatarResult = IDL.Record({ 'success' : IDL.Bool });
 export const SetRankSlotResult = IDL.Record({ 'success' : IDL.Bool });
 export const SetRoleResult = IDL.Record({
   'error' : IDL.Opt(IDL.Text),
@@ -189,7 +181,6 @@ export const idlService = IDL.Service({
   'declineApplication' : IDL.Func([IDL.Nat], [IDL.Bool], []),
   'getAllApplications' : IDL.Func([], [IDL.Vec(Application)], ['query']),
   'getAllUsers' : IDL.Func([], [IDL.Vec(UserEntry)], ['query']),
-  'getAvatar' : IDL.Func([IDL.Text], [IDL.Opt(Avatar)], ['query']),
   'getCommunityVoteTally' : IDL.Func([IDL.Nat], [VoteTally], ['query']),
   'getMyApplications' : IDL.Func([IDL.Text], [IDL.Vec(Application)], ['query']),
   'getMyRole' : IDL.Func([IDL.Text], [IDL.Opt(Role)], ['query']),
@@ -220,7 +211,6 @@ export const idlService = IDL.Service({
       [SendMessageResult],
       [],
     ),
-  'setMyAvatar' : IDL.Func([IDL.Text, Avatar], [SetAvatarResult], []),
   'setRankSlot' : IDL.Func(
       [IDL.Text, RosterRank, IDL.Nat],
       [SetRankSlotResult],
@@ -288,6 +278,7 @@ export const idlFactory = ({ IDL }) => {
   const AppliedRole = IDL.Variant({
     'Mod' : IDL.Null,
     'Builder' : IDL.Null,
+    'Developer' : IDL.Null,
     'Admin' : IDL.Null,
   });
   const Timestamp = IDL.Int;
@@ -322,8 +313,6 @@ export const idlFactory = ({ IDL }) => {
     'rank' : IDL.Opt(RosterRank),
     'role' : Role,
   });
-  const BlobRef = IDL.Record({ 'key' : IDL.Text, 'contentType' : IDL.Text });
-  const Avatar = IDL.Variant({ 'uploaded' : BlobRef, 'preset' : IDL.Text });
   const VoteTally = IDL.Record({
     'approved' : IDL.Nat,
     'rejected' : IDL.Nat,
@@ -374,7 +363,6 @@ export const idlFactory = ({ IDL }) => {
     'messageId' : IDL.Opt(MessageId),
     'success' : IDL.Bool,
   });
-  const SetAvatarResult = IDL.Record({ 'success' : IDL.Bool });
   const SetRankSlotResult = IDL.Record({ 'success' : IDL.Bool });
   const SetRoleResult = IDL.Record({
     'error' : IDL.Opt(IDL.Text),
@@ -414,7 +402,6 @@ export const idlFactory = ({ IDL }) => {
     'declineApplication' : IDL.Func([IDL.Nat], [IDL.Bool], []),
     'getAllApplications' : IDL.Func([], [IDL.Vec(Application)], ['query']),
     'getAllUsers' : IDL.Func([], [IDL.Vec(UserEntry)], ['query']),
-    'getAvatar' : IDL.Func([IDL.Text], [IDL.Opt(Avatar)], ['query']),
     'getCommunityVoteTally' : IDL.Func([IDL.Nat], [VoteTally], ['query']),
     'getMyApplications' : IDL.Func(
         [IDL.Text],
@@ -461,7 +448,6 @@ export const idlFactory = ({ IDL }) => {
         [SendMessageResult],
         [],
       ),
-    'setMyAvatar' : IDL.Func([IDL.Text, Avatar], [SetAvatarResult], []),
     'setRankSlot' : IDL.Func(
         [IDL.Text, RosterRank, IDL.Nat],
         [SetRankSlotResult],
