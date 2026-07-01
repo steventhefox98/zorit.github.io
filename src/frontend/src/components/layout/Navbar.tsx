@@ -1,33 +1,109 @@
+import { Role } from "@/backend";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLocation, useNavigate } from "@tanstack/react-router";
-import { ChevronDown, LogOut, Menu, Sword, X } from "lucide-react";
-import { useState } from "react";
+import {
+  ChevronDown,
+  LogOut,
+  Menu,
+  MessageSquare,
+  Shield,
+  Sword,
+  X,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 import AuthModal from "../AuthModal";
 import JoinServerModal from "../JoinServerModal";
+import LogoutConfirmModal from "../LogoutConfirmModal";
+import { UserAvatar } from "../UserAvatar";
+
+const ROLE_BADGE_CLASS: Record<Role, string> = {
+  [Role.Administrator]: "role-badge role-admin",
+  [Role.CoAdministrator]: "role-badge role-coadmin",
+  [Role.Member]: "role-badge role-member",
+  [Role.Owner]: "role-badge role-admin",
+  [Role.CoOwner]: "role-badge role-coadmin",
+  [Role.Manager]: "role-badge role-coadmin",
+  [Role.AdvertiseManager]: "role-badge role-coadmin",
+  [Role.ChiefAdmin]: "role-badge role-admin",
+  [Role.SrDeveloper]: "role-badge role-coadmin",
+  [Role.Developer]: "role-badge role-coadmin",
+  [Role.Admin]: "role-badge role-admin",
+  [Role.JrAdmin]: "role-badge role-coadmin",
+  [Role.Mod]: "role-badge role-member",
+  [Role.Cop]: "role-badge role-member",
+  [Role.Builder]: "role-badge role-member",
+  [Role.SrCop]: "role-badge role-coadmin",
+};
+
+const ROLE_LABEL: Record<Role, string> = {
+  [Role.Administrator]: "ADMIN",
+  [Role.CoAdministrator]: "CO-ADMIN",
+  [Role.Member]: "MEMBER",
+  [Role.Owner]: "OWNER",
+  [Role.CoOwner]: "CO-OWNER",
+  [Role.Manager]: "MANAGER",
+  [Role.AdvertiseManager]: "AD-MANAGER",
+  [Role.ChiefAdmin]: "CHIEF-ADMIN",
+  [Role.SrDeveloper]: "SR-DEV",
+  [Role.Developer]: "DEV",
+  [Role.Admin]: "ADMIN",
+  [Role.JrAdmin]: "JR-ADMIN",
+  [Role.Mod]: "MOD",
+  [Role.Cop]: "COP",
+  [Role.Builder]: "BUILDER",
+  [Role.SrCop]: "SR-COP",
+};
+
+function isAdminRole(role: Role | null): boolean {
+  return role === Role.Administrator || role === Role.CoAdministrator;
+}
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { username, logout } = useAuth();
+  const { username, role, avatar, logout, refreshRole } = useAuth();
 
-  const isTeamPage = location.pathname === "/team";
+  // Refresh the backend role on mount so the MESSAGES link reflects the
+  // current role (e.g. after a two-step accept promotes the user) without
+  // requiring a re-login. The role state updates reactively, so
+  // showMessagesLink recomputes automatically.
+  useEffect(() => {
+    if (username) void refreshRole();
+    // refreshRole is stable per AuthContext; re-run only when the user changes.
+  }, [username, refreshRole]);
+
+  const isHomePage = location.pathname === "/";
+  const showAdminLink = isAdminRole(role);
+  const showMessagesLink = isAdminRole(role);
+
+  const handleLogoutClick = () => {
+    setLogoutOpen(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    setLogoutOpen(false);
+    setMenuOpen(false);
+    logout();
+  };
+
+  const scrollToAnchor = (href: string) => {
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleNavClick = (href: string, isAnchor: boolean) => {
     setMenuOpen(false);
     if (isAnchor) {
-      if (isTeamPage) {
-        navigate({ to: "/" }).then(() => {
-          setTimeout(() => {
-            const el = document.querySelector(href);
-            if (el) el.scrollIntoView({ behavior: "smooth" });
-          }, 100);
-        });
+      if (isHomePage) {
+        scrollToAnchor(href);
       } else {
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
+        navigate({ to: "/" }).then(() => {
+          setTimeout(() => scrollToAnchor(href), 100);
+        });
       }
     } else {
       navigate({ to: href });
@@ -38,6 +114,9 @@ export default function Navbar() {
     { label: "Home", href: "#home", isAnchor: true },
     { label: "Features", href: "#features", isAnchor: true },
     { label: "Team", href: "/team", isAnchor: false },
+    { label: "Apply", href: "/apply", isAnchor: false },
+    { label: "Community", href: "/community", isAnchor: false },
+    { label: "Rules", href: "/rules", isAnchor: false },
   ];
 
   return (
@@ -55,7 +134,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => navigate({ to: "/" })}
-              className="flex items-center gap-3 group bg-transparent border-0 p-0 cursor-pointer"
+              className="flex items-center gap-3 group bg-transparent border-0 cursor-pointer transition-shadow duration-150"
             >
               <img
                 src="/assets/generated/zoritlegends-logo.dim_512x128.png"
@@ -108,30 +187,93 @@ export default function Navbar() {
                   {link.label}
                 </button>
               ))}
+              {showAdminLink && (
+                <button
+                  type="button"
+                  onClick={() => handleNavClick("/admin", false)}
+                  className="px-4 py-2 text-xs font-pixel transition-all duration-150 hover:opacity-80 bg-transparent border-0 cursor-pointer flex items-center gap-1"
+                  style={{
+                    color:
+                      location.pathname === "/admin"
+                        ? "oklch(0.97 0.01 295)"
+                        : "oklch(0.70 0.20 295)",
+                    fontSize: "0.55rem",
+                    letterSpacing: "0.05em",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.color =
+                      "oklch(0.97 0.01 295)";
+                  }}
+                  onMouseLeave={(e) => {
+                    const isActive = location.pathname === "/admin";
+                    (e.currentTarget as HTMLElement).style.color = isActive
+                      ? "oklch(0.97 0.01 295)"
+                      : "oklch(0.70 0.20 295)";
+                  }}
+                >
+                  <Shield size={11} />
+                  ADMIN
+                </button>
+              )}
+              {showMessagesLink && (
+                <button
+                  type="button"
+                  data-ocid="navbar.messages_link"
+                  onClick={() => handleNavClick("/messages", false)}
+                  className="px-4 py-2 text-xs font-pixel transition-all duration-150 hover:opacity-80 bg-transparent border-0 cursor-pointer flex items-center gap-1"
+                  style={{
+                    color:
+                      location.pathname === "/messages"
+                        ? "oklch(0.97 0.01 295)"
+                        : "oklch(0.70 0.20 295)",
+                    fontSize: "0.55rem",
+                    letterSpacing: "0.05em",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.color =
+                      "oklch(0.97 0.01 295)";
+                  }}
+                  onMouseLeave={(e) => {
+                    const isActive = location.pathname === "/messages";
+                    (e.currentTarget as HTMLElement).style.color = isActive
+                      ? "oklch(0.97 0.01 295)"
+                      : "oklch(0.70 0.20 295)";
+                  }}
+                >
+                  <MessageSquare size={11} />
+                  MESSAGES
+                </button>
+              )}
             </div>
 
             {/* Desktop right actions */}
             <div className="hidden md:flex items-center gap-2">
               {username ? (
                 <div className="flex items-center gap-2">
-                  <div
-                    className="flex items-center gap-2 px-3 py-1.5 border-2"
+                  <button
+                    type="button"
+                    data-ocid="navbar.profile_link"
+                    onClick={() => navigate({ to: "/profile" })}
+                    className="flex items-center gap-2 px-3 py-1.5 border-2 transition-all duration-150 cursor-pointer"
                     style={{
                       background: "oklch(0.18 0.08 295)",
                       borderColor: "oklch(0.40 0.18 295)",
                     }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor =
+                        "oklch(0.55 0.20 295)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor =
+                        "oklch(0.40 0.18 295)";
+                    }}
                   >
-                    <div
-                      className="w-5 h-5 flex items-center justify-center"
-                      style={{
-                        background: "oklch(0.45 0.20 295)",
-                        fontSize: "0.6rem",
-                        color: "oklch(0.99 0 0)",
-                        fontFamily: '"VT323", monospace',
-                      }}
-                    >
-                      {username.charAt(0).toUpperCase()}
-                    </div>
+                    <UserAvatar
+                      username={username}
+                      avatar={avatar}
+                      skipFetch
+                      size="sm"
+                    />
                     <span
                       className="font-pixel"
                       style={{
@@ -146,10 +288,16 @@ export default function Navbar() {
                     >
                       {username}
                     </span>
-                  </div>
+                    {role && (
+                      <span className={ROLE_BADGE_CLASS[role]}>
+                        {ROLE_LABEL[role]}
+                      </span>
+                    )}
+                  </button>
                   <button
                     type="button"
-                    onClick={logout}
+                    data-ocid="navbar.logout_button"
+                    onClick={handleLogoutClick}
                     className="flex items-center gap-1 px-3 py-1.5 font-pixel transition-all duration-150 border-2"
                     style={{
                       background: "oklch(0.14 0.06 295)",
@@ -267,27 +415,71 @@ export default function Navbar() {
                   {link.label}
                 </button>
               ))}
+              {showAdminLink && (
+                <button
+                  type="button"
+                  onClick={() => handleNavClick("/admin", false)}
+                  className="flex items-center gap-2 w-full text-left px-3 py-3 font-pixel text-xs bg-transparent border-0 cursor-pointer"
+                  style={{
+                    color:
+                      location.pathname === "/admin"
+                        ? "oklch(0.97 0.01 295)"
+                        : "oklch(0.70 0.20 295)",
+                    fontSize: "0.55rem",
+                  }}
+                >
+                  <Shield size={12} />
+                  ADMIN
+                </button>
+              )}
+              {showMessagesLink && (
+                <button
+                  type="button"
+                  data-ocid="navbar.messages_link"
+                  onClick={() => handleNavClick("/messages", false)}
+                  className="flex items-center gap-2 w-full text-left px-3 py-3 font-pixel text-xs bg-transparent border-0 cursor-pointer"
+                  style={{
+                    color:
+                      location.pathname === "/messages"
+                        ? "oklch(0.97 0.01 295)"
+                        : "oklch(0.70 0.20 295)",
+                    fontSize: "0.55rem",
+                  }}
+                >
+                  <MessageSquare size={12} />
+                  MESSAGES
+                </button>
+              )}
 
               {username ? (
                 <div className="pt-2 space-y-2">
-                  <div
-                    className="flex items-center gap-2 px-3 py-2 border-2"
+                  <button
+                    type="button"
+                    data-ocid="navbar.profile_link"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      navigate({ to: "/profile" });
+                    }}
+                    className="flex items-center gap-2 px-3 py-2 border-2 flex-wrap w-full text-left transition-all duration-150 cursor-pointer"
                     style={{
                       background: "oklch(0.18 0.08 295)",
                       borderColor: "oklch(0.40 0.18 295)",
                     }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor =
+                        "oklch(0.55 0.20 295)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor =
+                        "oklch(0.40 0.18 295)";
+                    }}
                   >
-                    <div
-                      className="w-6 h-6 flex items-center justify-center flex-shrink-0"
-                      style={{
-                        background: "oklch(0.45 0.20 295)",
-                        color: "oklch(0.99 0 0)",
-                        fontFamily: '"VT323", monospace',
-                        fontSize: "0.9rem",
-                      }}
-                    >
-                      {username.charAt(0).toUpperCase()}
-                    </div>
+                    <UserAvatar
+                      username={username}
+                      avatar={avatar}
+                      skipFetch
+                      size="sm"
+                    />
                     <span
                       className="font-pixel"
                       style={{
@@ -297,13 +489,16 @@ export default function Navbar() {
                     >
                       {username}
                     </span>
-                  </div>
+                    {role && (
+                      <span className={ROLE_BADGE_CLASS[role]}>
+                        {ROLE_LABEL[role]}
+                      </span>
+                    )}
+                  </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      logout();
-                      setMenuOpen(false);
-                    }}
+                    data-ocid="navbar.logout_button"
+                    onClick={handleLogoutClick}
                     className="flex items-center gap-2 w-full px-3 py-2 font-pixel border-2 bg-transparent cursor-pointer"
                     style={{
                       borderColor: "oklch(0.35 0.14 295)",
@@ -358,6 +553,12 @@ export default function Navbar() {
 
       <JoinServerModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
+      <LogoutConfirmModal
+        open={logoutOpen}
+        username={username}
+        onConfirm={handleLogoutConfirm}
+        onCancel={() => setLogoutOpen(false)}
+      />
     </>
   );
 }

@@ -10,9 +10,9 @@ interface Rank {
   price: string;
   tier: number;
   perks: {
-    auctions: number;
-    spawnerDiscount: number;
-    shopDiscount: number;
+    auctions: number | string;
+    spawnerDiscount: number | string;
+    shopDiscount: number | string;
     maxHomes: number | null;
     commands: string[];
     inheritsFrom?: string;
@@ -207,6 +207,42 @@ const ranks: Rank[] = [
       inheritsFrom: "Devil",
     },
   },
+  {
+    name: "Immortal",
+    emoji: "🔮",
+    color: "oklch(0.72 0.30 285)",
+    borderColor: "oklch(0.55 0.28 285)",
+    bgColor: "oklch(0.20 0.14 285)",
+    description: "Beyond the veil of mortality",
+    price: "???",
+    tier: 11,
+    perks: {
+      auctions: "???",
+      spawnerDiscount: "???",
+      shopDiscount: "???",
+      maxHomes: null,
+      commands: ["???"],
+      inheritsFrom: "God",
+    },
+  },
+  {
+    name: "Cosmic",
+    emoji: "🌌",
+    color: "oklch(0.78 0.28 260)",
+    borderColor: "oklch(0.60 0.26 260)",
+    bgColor: "oklch(0.22 0.16 260)",
+    description: "One with the endless cosmos",
+    price: "???",
+    tier: 12,
+    perks: {
+      auctions: "???",
+      spawnerDiscount: "???",
+      shopDiscount: "???",
+      maxHomes: null,
+      commands: ["???"],
+      inheritsFrom: "Immortal",
+    },
+  },
 ];
 
 function RankPerksModal({
@@ -322,7 +358,9 @@ function RankPerksModal({
                 color: "oklch(0.90 0.05 295)",
               }}
             >
-              {rank.perks.auctions}%
+              {typeof rank.perks.auctions === "number"
+                ? `${rank.perks.auctions}%`
+                : rank.perks.auctions}
             </div>
           </div>
           <div className="text-center p-2">
@@ -343,7 +381,9 @@ function RankPerksModal({
                 color: "oklch(0.90 0.05 295)",
               }}
             >
-              {rank.perks.spawnerDiscount}%
+              {typeof rank.perks.spawnerDiscount === "number"
+                ? `${rank.perks.spawnerDiscount}%`
+                : rank.perks.spawnerDiscount}
             </div>
           </div>
           <div className="text-center p-2">
@@ -364,7 +404,9 @@ function RankPerksModal({
                 color: "oklch(0.90 0.05 295)",
               }}
             >
-              {rank.perks.shopDiscount}%
+              {typeof rank.perks.shopDiscount === "number"
+                ? `${rank.perks.shopDiscount}%`
+                : rank.perks.shopDiscount}
             </div>
           </div>
           {rank.perks.maxHomes !== null && (
@@ -448,6 +490,106 @@ function RankPerksModal({
   );
 }
 
+function RankCard({
+  rank,
+  onSelect,
+  className = "",
+}: {
+  rank: Rank;
+  onSelect: (rank: Rank) => void;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`relative flex flex-col items-center text-center p-6 transition-all duration-300 cursor-pointer ${className}`}
+      style={{
+        background: rank.bgColor,
+        border: `2px solid ${rank.borderColor}`,
+        boxShadow: "4px 4px 0 oklch(0.07 0.03 295)",
+      }}
+      onClick={() => onSelect(rank)}
+      onKeyDown={(e) => e.key === "Enter" && onSelect(rank)}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.borderColor = rank.color;
+        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+        (e.currentTarget as HTMLElement).style.boxShadow =
+          `4px 4px 0 oklch(0.07 0.03 295), 0 0 16px ${rank.color}40`;
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.borderColor = rank.borderColor;
+        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+        (e.currentTarget as HTMLElement).style.boxShadow =
+          "4px 4px 0 oklch(0.07 0.03 295)";
+      }}
+    >
+      <div
+        className="absolute top-0 left-0 right-0 h-1"
+        style={{ background: rank.color }}
+      />
+
+      <div
+        className="w-14 h-14 flex items-center justify-center mb-4 mt-2"
+        style={{
+          background: "oklch(0.10 0.04 295)",
+          border: `2px solid ${rank.color}`,
+          fontSize: "1.6rem",
+        }}
+      >
+        {rank.emoji}
+      </div>
+
+      <div
+        className="font-pixel mb-1"
+        style={{
+          fontSize: "0.65rem",
+          color: rank.color,
+          textShadow: "1px 1px 0 oklch(0.08 0.03 295)",
+          letterSpacing: "0.08em",
+        }}
+      >
+        {rank.name}
+      </div>
+
+      <p
+        className="mb-3"
+        style={{
+          fontFamily: '"VT323", monospace',
+          fontSize: "0.95rem",
+          color: "oklch(0.60 0.08 295)",
+          lineHeight: "1.4",
+        }}
+      >
+        {rank.description}
+      </p>
+
+      <div
+        className="mt-auto px-3 py-1 font-pixel"
+        style={{
+          background: "oklch(0.10 0.04 295)",
+          border: `1px solid ${rank.color}`,
+          color: rank.color,
+          fontSize: "0.45rem",
+          letterSpacing: "0.08em",
+        }}
+      >
+        💰 {rank.price} IN-GAME
+      </div>
+
+      {/* Click hint */}
+      <div
+        className="mt-2 font-pixel"
+        style={{
+          fontSize: "0.35rem",
+          color: "oklch(0.45 0.08 295)",
+          letterSpacing: "0.06em",
+        }}
+      >
+        CLICK FOR PERKS
+      </div>
+    </div>
+  );
+}
+
 export default function RanksSection() {
   const [selectedRank, setSelectedRank] = useState<Rank | null>(null);
 
@@ -498,99 +640,29 @@ export default function RanksSection() {
           </p>
         </div>
 
+        {/* First 10 ranks fill two complete 5-column rows on lg,
+            3-column rows on sm, and 2-column rows on mobile. */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-          {ranks.map((rank) => (
-            <div
+          {ranks.slice(0, 10).map((rank) => (
+            <RankCard key={rank.name} rank={rank} onSelect={setSelectedRank} />
+          ))}
+        </div>
+
+        {/* Final two ranks (Immortal tier 11, Cosmic tier 12) — centered in
+            their own partial row so they sit in the visual center of the
+            last row instead of flush-left. On lg the row holds 2 of 5 columns,
+            so we center via justify-center with the same max-width as the grid
+            above (5 cols * card + 4 gaps). On smaller breakpoints the row
+            naturally holds 2 of 2 / 2 of 3, which are already centered or
+            near-centered; justify-center keeps them tidy. */}
+        <div className="mt-5 flex flex-wrap justify-center gap-5">
+          {ranks.slice(10).map((rank) => (
+            <RankCard
               key={rank.name}
-              className="relative flex flex-col items-center text-center p-6 transition-all duration-300 cursor-pointer"
-              style={{
-                background: rank.bgColor,
-                border: `2px solid ${rank.borderColor}`,
-                boxShadow: "4px 4px 0 oklch(0.07 0.03 295)",
-              }}
-              onClick={() => setSelectedRank(rank)}
-              onKeyDown={(e) => e.key === "Enter" && setSelectedRank(rank)}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = rank.color;
-                (e.currentTarget as HTMLElement).style.transform =
-                  "translateY(-4px)";
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  `4px 4px 0 oklch(0.07 0.03 295), 0 0 16px ${rank.color}40`;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor =
-                  rank.borderColor;
-                (e.currentTarget as HTMLElement).style.transform =
-                  "translateY(0)";
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  "4px 4px 0 oklch(0.07 0.03 295)";
-              }}
-            >
-              <div
-                className="absolute top-0 left-0 right-0 h-1"
-                style={{ background: rank.color }}
-              />
-
-              <div
-                className="w-14 h-14 flex items-center justify-center mb-4 mt-2"
-                style={{
-                  background: "oklch(0.10 0.04 295)",
-                  border: `2px solid ${rank.color}`,
-                  fontSize: "1.6rem",
-                }}
-              >
-                {rank.emoji}
-              </div>
-
-              <div
-                className="font-pixel mb-1"
-                style={{
-                  fontSize: "0.65rem",
-                  color: rank.color,
-                  textShadow: "1px 1px 0 oklch(0.08 0.03 295)",
-                  letterSpacing: "0.08em",
-                }}
-              >
-                {rank.name}
-              </div>
-
-              <p
-                className="mb-3"
-                style={{
-                  fontFamily: '"VT323", monospace',
-                  fontSize: "0.95rem",
-                  color: "oklch(0.60 0.08 295)",
-                  lineHeight: "1.4",
-                }}
-              >
-                {rank.description}
-              </p>
-
-              <div
-                className="mt-auto px-3 py-1 font-pixel"
-                style={{
-                  background: "oklch(0.10 0.04 295)",
-                  border: `1px solid ${rank.color}`,
-                  color: rank.color,
-                  fontSize: "0.45rem",
-                  letterSpacing: "0.08em",
-                }}
-              >
-                💰 {rank.price} IN-GAME
-              </div>
-
-              {/* Click hint */}
-              <div
-                className="mt-2 font-pixel"
-                style={{
-                  fontSize: "0.35rem",
-                  color: "oklch(0.45 0.08 295)",
-                  letterSpacing: "0.06em",
-                }}
-              >
-                CLICK FOR PERKS
-              </div>
-            </div>
+              rank={rank}
+              onSelect={setSelectedRank}
+              className="w-full sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-5rem)/5)]"
+            />
           ))}
         </div>
 

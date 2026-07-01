@@ -10,10 +10,196 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
+export interface AcceptApplicationResult { 'success' : boolean }
+export interface AddCommentResult {
+  'commentId' : [] | [CommentId],
+  'success' : boolean,
+}
+export interface AddRosterMemberResult {
+  'memberId' : [] | [RosterMemberId],
+  'success' : boolean,
+}
+export interface Application {
+  'id' : ApplicationId,
+  'status' : ApplicationStatus,
+  'applicantUsername' : Username,
+  'answers' : Array<string>,
+  'appliedRole' : AppliedRole,
+  'timestamp' : Timestamp,
+}
+export type ApplicationId = bigint;
+export type ApplicationStatus = { 'Accepted' : null } |
+  { 'Declined' : null } |
+  { 'Pending' : null };
+export type AppliedRole = { 'Mod' : null } |
+  { 'Builder' : null } |
+  { 'Admin' : null };
+export type Avatar = { 'uploaded' : BlobRef } |
+  { 'preset' : string };
+export interface BlobRef { 'key' : string, 'contentType' : string }
+export interface Comment {
+  'id' : CommentId,
+  'authorUsername' : Username,
+  'content' : string,
+  'timestamp' : Timestamp,
+  'postId' : PostId,
+}
+export type CommentId = bigint;
+export interface CreatePostResult {
+  'success' : boolean,
+  'postId' : [] | [PostId],
+}
+export interface LoginResult { 'role' : Role, 'success' : boolean }
+export interface Message {
+  'id' : MessageId,
+  'content' : string,
+  'senderUsername' : Username,
+  'timestamp' : Timestamp,
+  'recipientUsername' : Username,
+}
+export type MessageId = bigint;
+export interface Post {
+  'id' : PostId,
+  'postType' : PostType,
+  'title' : string,
+  'authorUsername' : Username,
+  'body' : string,
+  'createdAt' : Timestamp,
+}
+export type PostId = bigint;
+export type PostType = { 'eventSuggestion' : null } |
+  { 'suggestion' : null } |
+  { 'bugReport' : null };
+export interface RankSlot { 'rank' : RosterRank, 'slots' : bigint }
+export interface RegisterResult { 'role' : Role, 'success' : boolean }
+export interface RemoveRosterMemberResult { 'success' : boolean }
+export type Role = { 'Cop' : null } |
+  { 'Mod' : null } |
+  { 'SrDeveloper' : null } |
+  { 'CoOwner' : null } |
+  { 'SrCop' : null } |
+  { 'Administrator' : null } |
+  { 'Member' : null } |
+  { 'Builder' : null } |
+  { 'JrAdmin' : null } |
+  { 'ChiefAdmin' : null } |
+  { 'CoAdministrator' : null } |
+  { 'Developer' : null } |
+  { 'Admin' : null } |
+  { 'AdvertiseManager' : null } |
+  { 'Owner' : null } |
+  { 'Manager' : null };
+export interface RosterGroup {
+  'members' : Array<RosterMember>,
+  'rank' : RosterRank,
+}
+export interface RosterMember {
+  'id' : RosterMemberId,
+  'name' : string,
+  'rank' : RosterRank,
+}
+export type RosterMemberId = bigint;
+export type RosterRank = { 'Cop' : null } |
+  { 'Mod' : null } |
+  { 'SrDeveloper' : null } |
+  { 'CoOwner' : null } |
+  { 'SrCop' : null } |
+  { 'Builder' : null } |
+  { 'JrAdmin' : null } |
+  { 'ChiefAdmin' : null } |
+  { 'Developer' : null } |
+  { 'Admin' : null } |
+  { 'AdvertiseManager' : null } |
+  { 'Owner' : null } |
+  { 'Manager' : null };
+export interface SendMessageResult {
+  'messageId' : [] | [MessageId],
+  'success' : boolean,
+}
+export interface SetAvatarResult { 'success' : boolean }
+export interface SetRankSlotResult { 'success' : boolean }
+export interface SetRoleResult { 'error' : [] | [string], 'success' : boolean }
+export interface StaffDirectoryEntry {
+  'username' : Username,
+  'rank' : [] | [RosterRank],
+  'role' : Role,
+}
+export interface SubmitApplicationResult {
+  'applicationId' : [] | [ApplicationId],
+  'success' : boolean,
+}
+export type Timestamp = bigint;
+export interface UserEntry {
+  'username' : Username,
+  'rank' : [] | [RosterRank],
+  'role' : Role,
+}
 export type Username = string;
+export interface VoteResult { 'success' : boolean }
+export type VoteStatus = { 'approved' : null } |
+  { 'rejected' : null };
+export interface VoteTally {
+  'approved' : bigint,
+  'rejected' : bigint,
+  'postId' : PostId,
+}
 export interface _SERVICE {
-  'login' : ActorMethod<[Username, string], boolean>,
-  'register' : ActorMethod<[Username, string], boolean>,
+  'acceptApplication' : ActorMethod<
+    [string, bigint, RosterRank],
+    AcceptApplicationResult
+  >,
+  'addCommunityComment' : ActorMethod<
+    [bigint, string, string],
+    AddCommentResult
+  >,
+  'addStaffRosterMember' : ActorMethod<
+    [string, string, RosterRank],
+    AddRosterMemberResult
+  >,
+  'createCommunityPost' : ActorMethod<
+    [PostType, string, string, string],
+    CreatePostResult
+  >,
+  'declineApplication' : ActorMethod<[bigint], boolean>,
+  'getAllApplications' : ActorMethod<[], Array<Application>>,
+  'getAllUsers' : ActorMethod<[], Array<UserEntry>>,
+  'getAvatar' : ActorMethod<[string], [] | [Avatar]>,
+  /**
+   * / applications : ApplicationId -> Application (persisted across upgrades).
+   */
+  'getCommunityVoteTally' : ActorMethod<[bigint], VoteTally>,
+  'getMyApplications' : ActorMethod<[string], Array<Application>>,
+  'getMyRole' : ActorMethod<[string], [] | [Role]>,
+  'getRankSlots' : ActorMethod<[], Array<RankSlot>>,
+  'getRoster' : ActorMethod<[], Array<RosterGroup>>,
+  'getStaffConversation' : ActorMethod<[string, string], Array<Message>>,
+  /**
+   * / users : Username -> User (persisted across upgrades via enhanced
+   * / orthogonal persistence).
+   */
+  'getStaffDirectory' : ActorMethod<[string], Array<StaffDirectoryEntry>>,
+  'listActiveCommunityPosts' : ActorMethod<[PostType], Array<Post>>,
+  /**
+   * / Auth/applications state record shared with mixins — wrapped so `var`
+   * / mutations propagate.
+   */
+  'listCommunityComments' : ActorMethod<[bigint], Array<Comment>>,
+  'login' : ActorMethod<[string, string], LoginResult>,
+  'register' : ActorMethod<[string, string], RegisterResult>,
+  'removeStaffRosterMember' : ActorMethod<
+    [string, bigint],
+    RemoveRosterMemberResult
+  >,
+  'reviewApplication' : ActorMethod<[bigint, ApplicationStatus], boolean>,
+  'sendStaffMessage' : ActorMethod<[string, string, string], SendMessageResult>,
+  'setMyAvatar' : ActorMethod<[string, Avatar], SetAvatarResult>,
+  'setRankSlot' : ActorMethod<[string, RosterRank, bigint], SetRankSlotResult>,
+  'setRole' : ActorMethod<[string, string, Role], SetRoleResult>,
+  'submitApplication' : ActorMethod<
+    [string, AppliedRole, Array<string>],
+    SubmitApplicationResult
+  >,
+  'voteOnCommunityPost' : ActorMethod<[bigint, string, VoteStatus], VoteResult>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

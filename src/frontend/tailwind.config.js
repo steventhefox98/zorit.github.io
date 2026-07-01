@@ -115,12 +115,48 @@ export default {
           from: { opacity: '0' },
           to: { opacity: '1' }
         },
+        'status-pulse-pending': {
+          '0%, 100%': { boxShadow: '0 0 0 0 oklch(0.78 0.16 85 / 0)' },
+          '50%': { boxShadow: '0 0 10px 1px oklch(0.78 0.16 85 / 0.45)' },
+        },
+        'status-settle-accepted': {
+          '0%': { boxShadow: '0 0 0 0 oklch(0.65 0.18 145 / 0.6)', transform: 'scale(1.08)' },
+          '60%': { transform: 'scale(0.98)' },
+          '100%': { boxShadow: '0 0 6px 0 oklch(0.65 0.18 145 / 0.25)', transform: 'scale(1)' },
+        },
+        'status-flicker-declined': {
+          '0%': { opacity: '0.3', boxShadow: '0 0 0 0 oklch(0.62 0.24 27 / 0.6)' },
+          '25%': { opacity: '1' },
+          '50%': { opacity: '0.5' },
+          '75%': { opacity: '1' },
+          '100%': { opacity: '1', boxShadow: '0 0 6px 0 oklch(0.62 0.24 27 / 0.25)' },
+        },
+        'vote-pop': {
+          '0%': { transform: 'scale(1)' },
+          '45%': { transform: 'scale(1.18)' },
+          '100%': { transform: 'scale(1)' },
+        },
+        'coming-soon-shimmer': {
+          '0%, 100%': { boxShadow: '0 0 0 0 oklch(0.78 0.16 85 / 0)', color: 'oklch(0.78 0.16 85)' },
+          '50%': { boxShadow: '0 0 12px 1px oklch(0.78 0.16 85 / 0.4)', color: 'oklch(0.88 0.18 85)' },
+        },
+        'avatar-select-pulse': {
+          '0%': { boxShadow: '3px 3px 0px oklch(0.10 0.04 295), 0 0 0 0 oklch(0.62 0.22 295 / 0.6)' },
+          '60%': { boxShadow: '3px 3px 0px oklch(0.30 0.15 295), 0 0 22px 6px oklch(0.62 0.22 295 / 0.4)' },
+          '100%': { boxShadow: '3px 3px 0px oklch(0.30 0.15 295), 0 0 20px oklch(0.62 0.22 295 / 0.5), inset 0 0 0 1px oklch(0.62 0.22 295 / 0.3)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-up': 'fade-in-up 0.6s ease-out forwards',
         'fade-in': 'fade-in 0.4s ease-out forwards',
+        'status-pulse-pending': 'status-pulse-pending 2.2s ease-in-out infinite',
+        'status-settle-accepted': 'status-settle-accepted 0.6s ease-out',
+        'status-flicker-declined': 'status-flicker-declined 0.5s steps(2, end)',
+        'vote-pop': 'vote-pop 0.4s ease-out',
+        'coming-soon-shimmer': 'coming-soon-shimmer 3s ease-in-out infinite',
+        'avatar-select-pulse': 'avatar-select-pulse 0.5s ease-out',
       }
     }
   },

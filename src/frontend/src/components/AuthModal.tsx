@@ -25,7 +25,7 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const { login: setLoggedIn } = useAuth();
+  const { login, register } = useAuth();
   const loginMutation = useLogin();
   const registerMutation = useRegister();
 
@@ -58,12 +58,8 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
       return;
     }
     try {
-      const ok = await loginMutation.mutateAsync({
-        username: username.trim(),
-        password,
-      });
-      if (ok) {
-        setLoggedIn(username.trim());
+      const outcome = await login(username.trim(), password);
+      if (outcome.success && outcome.role) {
         setSuccess("Login successful!");
         setTimeout(() => handleClose(), 800);
       } else {
@@ -95,13 +91,9 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
       return;
     }
     try {
-      const ok = await registerMutation.mutateAsync({
-        username: username.trim(),
-        password,
-      });
-      if (ok) {
+      const outcome = await register(username.trim(), password);
+      if (outcome.success && outcome.role) {
         setSuccess("Account created! Logging you in...");
-        setLoggedIn(username.trim());
         setTimeout(() => handleClose(), 900);
       } else {
         setError("Username already taken. Please choose another.");
@@ -110,24 +102,6 @@ export default function AuthModal({ open, onClose }: AuthModalProps) {
       setError("Connection error. Please try again.");
     }
   };
-
-  const inputStyle: React.CSSProperties = {
-    background: "oklch(0.08 0.04 295)",
-    border: "2px solid oklch(0.35 0.14 295)",
-    color: "oklch(0.90 0.06 295)",
-    fontFamily: '"VT323", monospace',
-    fontSize: "1.1rem",
-    padding: "0.6rem 0.75rem",
-    width: "100%",
-    outline: "none",
-    letterSpacing: "0.04em",
-  };
-
-  const _inputFocusStyle = (focused: boolean): React.CSSProperties => ({
-    ...inputStyle,
-    borderColor: focused ? "oklch(0.62 0.22 295)" : "oklch(0.35 0.14 295)",
-    boxShadow: focused ? "0 0 0 1px oklch(0.62 0.22 295 / 0.4)" : "none",
-  });
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && handleClose()}>

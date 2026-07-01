@@ -89,41 +89,1225 @@ export class ExternalBlob {
         return this;
     }
 }
-export type Username = string;
-export interface backendInterface {
-    login(username: Username, password: string): Promise<boolean>;
-    register(username: Username, password: string): Promise<boolean>;
+export type Timestamp = bigint;
+export interface CreatePostResult {
+    success: boolean;
+    postId?: PostId;
 }
+export interface RemoveRosterMemberResult {
+    success: boolean;
+}
+export interface Application {
+    id: ApplicationId;
+    status: ApplicationStatus;
+    applicantUsername: Username;
+    answers: Array<string>;
+    appliedRole: AppliedRole;
+    timestamp: Timestamp;
+}
+export interface VoteResult {
+    success: boolean;
+}
+export interface SetRankSlotResult {
+    success: boolean;
+}
+export interface SetAvatarResult {
+    success: boolean;
+}
+export type PostId = bigint;
+export interface AcceptApplicationResult {
+    success: boolean;
+}
+export interface RankSlot {
+    rank: RosterRank;
+    slots: bigint;
+}
+export interface RegisterResult {
+    role: Role;
+    success: boolean;
+}
+export interface Post {
+    id: PostId;
+    postType: PostType;
+    title: string;
+    authorUsername: Username;
+    body: string;
+    createdAt: Timestamp;
+}
+export interface StaffDirectoryEntry {
+    username: Username;
+    rank?: RosterRank;
+    role: Role;
+}
+export type Username = string;
+export interface RosterMember {
+    id: RosterMemberId;
+    name: string;
+    rank: RosterRank;
+}
+export type CommentId = bigint;
+export interface Comment {
+    id: CommentId;
+    authorUsername: Username;
+    content: string;
+    timestamp: Timestamp;
+    postId: PostId;
+}
+export type Avatar = {
+    __kind__: "uploaded";
+    uploaded: BlobRef;
+} | {
+    __kind__: "preset";
+    preset: string;
+};
+export interface SubmitApplicationResult {
+    applicationId?: ApplicationId;
+    success: boolean;
+}
+export type RosterMemberId = bigint;
+export interface VoteTally {
+    approved: bigint;
+    rejected: bigint;
+    postId: PostId;
+}
+export interface SendMessageResult {
+    messageId?: MessageId;
+    success: boolean;
+}
+export interface SetRoleResult {
+    error?: string;
+    success: boolean;
+}
+export interface AddCommentResult {
+    commentId?: CommentId;
+    success: boolean;
+}
+export interface RosterGroup {
+    members: Array<RosterMember>;
+    rank: RosterRank;
+}
+export interface UserEntry {
+    username: Username;
+    rank?: RosterRank;
+    role: Role;
+}
+export type MessageId = bigint;
+export interface AddRosterMemberResult {
+    memberId?: RosterMemberId;
+    success: boolean;
+}
+export interface Message {
+    id: MessageId;
+    content: string;
+    senderUsername: Username;
+    timestamp: Timestamp;
+    recipientUsername: Username;
+}
+export interface LoginResult {
+    role: Role;
+    success: boolean;
+}
+export interface BlobRef {
+    key: string;
+    contentType: string;
+}
+export type ApplicationId = bigint;
+export enum ApplicationStatus {
+    Accepted = "Accepted",
+    Declined = "Declined",
+    Pending = "Pending"
+}
+export enum AppliedRole {
+    Mod = "Mod",
+    Builder = "Builder",
+    Admin = "Admin"
+}
+export enum PostType {
+    eventSuggestion = "eventSuggestion",
+    suggestion = "suggestion",
+    bugReport = "bugReport"
+}
+export enum Role {
+    Cop = "Cop",
+    Mod = "Mod",
+    SrDeveloper = "SrDeveloper",
+    CoOwner = "CoOwner",
+    SrCop = "SrCop",
+    Administrator = "Administrator",
+    Member = "Member",
+    Builder = "Builder",
+    JrAdmin = "JrAdmin",
+    ChiefAdmin = "ChiefAdmin",
+    CoAdministrator = "CoAdministrator",
+    Developer = "Developer",
+    Admin = "Admin",
+    AdvertiseManager = "AdvertiseManager",
+    Owner = "Owner",
+    Manager = "Manager"
+}
+export enum RosterRank {
+    Cop = "Cop",
+    Mod = "Mod",
+    SrDeveloper = "SrDeveloper",
+    CoOwner = "CoOwner",
+    SrCop = "SrCop",
+    Builder = "Builder",
+    JrAdmin = "JrAdmin",
+    ChiefAdmin = "ChiefAdmin",
+    Developer = "Developer",
+    Admin = "Admin",
+    AdvertiseManager = "AdvertiseManager",
+    Owner = "Owner",
+    Manager = "Manager"
+}
+export enum VoteStatus {
+    approved = "approved",
+    rejected = "rejected"
+}
+export interface backendInterface {
+    acceptApplication(callerUsername: string, applicationId: bigint, assignedRank: RosterRank): Promise<AcceptApplicationResult>;
+    addCommunityComment(postId: bigint, authorUsername: string, content: string): Promise<AddCommentResult>;
+    addStaffRosterMember(callerUsername: string, name: string, rank: RosterRank): Promise<AddRosterMemberResult>;
+    createCommunityPost(postType: PostType, title: string, body: string, authorUsername: string): Promise<CreatePostResult>;
+    declineApplication(applicationId: bigint): Promise<boolean>;
+    getAllApplications(): Promise<Array<Application>>;
+    getAllUsers(): Promise<Array<UserEntry>>;
+    getAvatar(username: string): Promise<Avatar | null>;
+    /**
+     * / applications : ApplicationId -> Application (persisted across upgrades).
+     */
+    getCommunityVoteTally(postId: bigint): Promise<VoteTally>;
+    getMyApplications(username: string): Promise<Array<Application>>;
+    getMyRole(username: string): Promise<Role | null>;
+    getRankSlots(): Promise<Array<RankSlot>>;
+    getRoster(): Promise<Array<RosterGroup>>;
+    getStaffConversation(requesterUsername: string, peerUsername: string): Promise<Array<Message>>;
+    /**
+     * / users : Username -> User (persisted across upgrades via enhanced
+     * / orthogonal persistence).
+     */
+    getStaffDirectory(requesterUsername: string): Promise<Array<StaffDirectoryEntry>>;
+    listActiveCommunityPosts(postType: PostType): Promise<Array<Post>>;
+    /**
+     * / Auth/applications state record shared with mixins — wrapped so `var`
+     * / mutations propagate.
+     */
+    listCommunityComments(postId: bigint): Promise<Array<Comment>>;
+    login(username: string, password: string): Promise<LoginResult>;
+    register(username: string, password: string): Promise<RegisterResult>;
+    removeStaffRosterMember(callerUsername: string, memberId: bigint): Promise<RemoveRosterMemberResult>;
+    reviewApplication(applicationId: bigint, decision: ApplicationStatus): Promise<boolean>;
+    sendStaffMessage(senderUsername: string, recipientUsername: string, content: string): Promise<SendMessageResult>;
+    setMyAvatar(username: string, avatar: Avatar): Promise<SetAvatarResult>;
+    setRankSlot(callerUsername: string, rank: RosterRank, slots: bigint): Promise<SetRankSlotResult>;
+    setRole(callerUsername: string, targetUsername: string, newRole: Role): Promise<SetRoleResult>;
+    submitApplication(username: string, appliedRole: AppliedRole, answers: Array<string>): Promise<SubmitApplicationResult>;
+    voteOnCommunityPost(postId: bigint, voterUsername: string, status: VoteStatus): Promise<VoteResult>;
+}
+import type { AddCommentResult as _AddCommentResult, AddRosterMemberResult as _AddRosterMemberResult, Application as _Application, ApplicationId as _ApplicationId, ApplicationStatus as _ApplicationStatus, AppliedRole as _AppliedRole, Avatar as _Avatar, BlobRef as _BlobRef, CommentId as _CommentId, CreatePostResult as _CreatePostResult, LoginResult as _LoginResult, MessageId as _MessageId, Post as _Post, PostId as _PostId, PostType as _PostType, RankSlot as _RankSlot, RegisterResult as _RegisterResult, Role as _Role, RosterGroup as _RosterGroup, RosterMember as _RosterMember, RosterMemberId as _RosterMemberId, RosterRank as _RosterRank, SendMessageResult as _SendMessageResult, SetRoleResult as _SetRoleResult, StaffDirectoryEntry as _StaffDirectoryEntry, SubmitApplicationResult as _SubmitApplicationResult, Timestamp as _Timestamp, UserEntry as _UserEntry, Username as _Username, VoteStatus as _VoteStatus } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
-    async login(arg0: Username, arg1: string): Promise<boolean> {
+    async acceptApplication(arg0: string, arg1: bigint, arg2: RosterRank): Promise<AcceptApplicationResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.acceptApplication(arg0, arg1, to_candid_RosterRank_n1(this._uploadFile, this._downloadFile, arg2));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.acceptApplication(arg0, arg1, to_candid_RosterRank_n1(this._uploadFile, this._downloadFile, arg2));
+            return result;
+        }
+    }
+    async addCommunityComment(arg0: bigint, arg1: string, arg2: string): Promise<AddCommentResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addCommunityComment(arg0, arg1, arg2);
+                return from_candid_AddCommentResult_n3(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addCommunityComment(arg0, arg1, arg2);
+            return from_candid_AddCommentResult_n3(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async addStaffRosterMember(arg0: string, arg1: string, arg2: RosterRank): Promise<AddRosterMemberResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addStaffRosterMember(arg0, arg1, to_candid_RosterRank_n1(this._uploadFile, this._downloadFile, arg2));
+                return from_candid_AddRosterMemberResult_n6(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addStaffRosterMember(arg0, arg1, to_candid_RosterRank_n1(this._uploadFile, this._downloadFile, arg2));
+            return from_candid_AddRosterMemberResult_n6(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async createCommunityPost(arg0: PostType, arg1: string, arg2: string, arg3: string): Promise<CreatePostResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createCommunityPost(to_candid_PostType_n9(this._uploadFile, this._downloadFile, arg0), arg1, arg2, arg3);
+                return from_candid_CreatePostResult_n11(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createCommunityPost(to_candid_PostType_n9(this._uploadFile, this._downloadFile, arg0), arg1, arg2, arg3);
+            return from_candid_CreatePostResult_n11(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async declineApplication(arg0: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.declineApplication(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.declineApplication(arg0);
+            return result;
+        }
+    }
+    async getAllApplications(): Promise<Array<Application>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllApplications();
+                return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllApplications();
+            return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getAllUsers(): Promise<Array<UserEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllUsers();
+                return from_candid_vec_n21(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllUsers();
+            return from_candid_vec_n21(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getAvatar(arg0: string): Promise<Avatar | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAvatar(arg0);
+                return from_candid_opt_n29(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAvatar(arg0);
+            return from_candid_opt_n29(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getCommunityVoteTally(arg0: bigint): Promise<VoteTally> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCommunityVoteTally(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCommunityVoteTally(arg0);
+            return result;
+        }
+    }
+    async getMyApplications(arg0: string): Promise<Array<Application>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMyApplications(arg0);
+                return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMyApplications(arg0);
+            return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getMyRole(arg0: string): Promise<Role | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMyRole(arg0);
+                return from_candid_opt_n32(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMyRole(arg0);
+            return from_candid_opt_n32(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getRankSlots(): Promise<Array<RankSlot>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getRankSlots();
+                return from_candid_vec_n33(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getRankSlots();
+            return from_candid_vec_n33(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getRoster(): Promise<Array<RosterGroup>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getRoster();
+                return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getRoster();
+            return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getStaffConversation(arg0: string, arg1: string): Promise<Array<Message>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getStaffConversation(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getStaffConversation(arg0, arg1);
+            return result;
+        }
+    }
+    async getStaffDirectory(arg0: string): Promise<Array<StaffDirectoryEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getStaffDirectory(arg0);
+                return from_candid_vec_n42(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getStaffDirectory(arg0);
+            return from_candid_vec_n42(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async listActiveCommunityPosts(arg0: PostType): Promise<Array<Post>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listActiveCommunityPosts(to_candid_PostType_n9(this._uploadFile, this._downloadFile, arg0));
+                return from_candid_vec_n44(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listActiveCommunityPosts(to_candid_PostType_n9(this._uploadFile, this._downloadFile, arg0));
+            return from_candid_vec_n44(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async listCommunityComments(arg0: bigint): Promise<Array<Comment>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.listCommunityComments(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.listCommunityComments(arg0);
+            return result;
+        }
+    }
+    async login(arg0: string, arg1: string): Promise<LoginResult> {
         if (this.processError) {
             try {
                 const result = await this.actor.login(arg0, arg1);
-                return result;
+                return from_candid_LoginResult_n49(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.login(arg0, arg1);
-            return result;
+            return from_candid_LoginResult_n49(this._uploadFile, this._downloadFile, result);
         }
     }
-    async register(arg0: Username, arg1: string): Promise<boolean> {
+    async register(arg0: string, arg1: string): Promise<RegisterResult> {
         if (this.processError) {
             try {
                 const result = await this.actor.register(arg0, arg1);
-                return result;
+                return from_candid_RegisterResult_n51(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.register(arg0, arg1);
+            return from_candid_RegisterResult_n51(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async removeStaffRosterMember(arg0: string, arg1: bigint): Promise<RemoveRosterMemberResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.removeStaffRosterMember(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.removeStaffRosterMember(arg0, arg1);
             return result;
         }
     }
+    async reviewApplication(arg0: bigint, arg1: ApplicationStatus): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.reviewApplication(arg0, to_candid_ApplicationStatus_n52(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.reviewApplication(arg0, to_candid_ApplicationStatus_n52(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async sendStaffMessage(arg0: string, arg1: string, arg2: string): Promise<SendMessageResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.sendStaffMessage(arg0, arg1, arg2);
+                return from_candid_SendMessageResult_n54(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.sendStaffMessage(arg0, arg1, arg2);
+            return from_candid_SendMessageResult_n54(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async setMyAvatar(arg0: string, arg1: Avatar): Promise<SetAvatarResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setMyAvatar(arg0, to_candid_Avatar_n57(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setMyAvatar(arg0, to_candid_Avatar_n57(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async setRankSlot(arg0: string, arg1: RosterRank, arg2: bigint): Promise<SetRankSlotResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setRankSlot(arg0, to_candid_RosterRank_n1(this._uploadFile, this._downloadFile, arg1), arg2);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setRankSlot(arg0, to_candid_RosterRank_n1(this._uploadFile, this._downloadFile, arg1), arg2);
+            return result;
+        }
+    }
+    async setRole(arg0: string, arg1: string, arg2: Role): Promise<SetRoleResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setRole(arg0, arg1, to_candid_Role_n59(this._uploadFile, this._downloadFile, arg2));
+                return from_candid_SetRoleResult_n61(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setRole(arg0, arg1, to_candid_Role_n59(this._uploadFile, this._downloadFile, arg2));
+            return from_candid_SetRoleResult_n61(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async submitApplication(arg0: string, arg1: AppliedRole, arg2: Array<string>): Promise<SubmitApplicationResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitApplication(arg0, to_candid_AppliedRole_n64(this._uploadFile, this._downloadFile, arg1), arg2);
+                return from_candid_SubmitApplicationResult_n66(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitApplication(arg0, to_candid_AppliedRole_n64(this._uploadFile, this._downloadFile, arg1), arg2);
+            return from_candid_SubmitApplicationResult_n66(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async voteOnCommunityPost(arg0: bigint, arg1: string, arg2: VoteStatus): Promise<VoteResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n69(this._uploadFile, this._downloadFile, arg2));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n69(this._uploadFile, this._downloadFile, arg2));
+            return result;
+        }
+    }
+}
+function from_candid_AddCommentResult_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AddCommentResult): AddCommentResult {
+    return from_candid_record_n4(_uploadFile, _downloadFile, value);
+}
+function from_candid_AddRosterMemberResult_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AddRosterMemberResult): AddRosterMemberResult {
+    return from_candid_record_n7(_uploadFile, _downloadFile, value);
+}
+function from_candid_ApplicationStatus_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ApplicationStatus): ApplicationStatus {
+    return from_candid_variant_n18(_uploadFile, _downloadFile, value);
+}
+function from_candid_Application_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Application): Application {
+    return from_candid_record_n16(_uploadFile, _downloadFile, value);
+}
+function from_candid_AppliedRole_n19(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AppliedRole): AppliedRole {
+    return from_candid_variant_n20(_uploadFile, _downloadFile, value);
+}
+function from_candid_Avatar_n30(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Avatar): Avatar {
+    return from_candid_variant_n31(_uploadFile, _downloadFile, value);
+}
+function from_candid_CreatePostResult_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CreatePostResult): CreatePostResult {
+    return from_candid_record_n12(_uploadFile, _downloadFile, value);
+}
+function from_candid_LoginResult_n49(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _LoginResult): LoginResult {
+    return from_candid_record_n50(_uploadFile, _downloadFile, value);
+}
+function from_candid_PostType_n47(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _PostType): PostType {
+    return from_candid_variant_n48(_uploadFile, _downloadFile, value);
+}
+function from_candid_Post_n45(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Post): Post {
+    return from_candid_record_n46(_uploadFile, _downloadFile, value);
+}
+function from_candid_RankSlot_n34(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _RankSlot): RankSlot {
+    return from_candid_record_n35(_uploadFile, _downloadFile, value);
+}
+function from_candid_RegisterResult_n51(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _RegisterResult): RegisterResult {
+    return from_candid_record_n50(_uploadFile, _downloadFile, value);
+}
+function from_candid_Role_n27(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Role): Role {
+    return from_candid_variant_n28(_uploadFile, _downloadFile, value);
+}
+function from_candid_RosterGroup_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _RosterGroup): RosterGroup {
+    return from_candid_record_n38(_uploadFile, _downloadFile, value);
+}
+function from_candid_RosterMember_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _RosterMember): RosterMember {
+    return from_candid_record_n41(_uploadFile, _downloadFile, value);
+}
+function from_candid_RosterRank_n25(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _RosterRank): RosterRank {
+    return from_candid_variant_n26(_uploadFile, _downloadFile, value);
+}
+function from_candid_SendMessageResult_n54(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _SendMessageResult): SendMessageResult {
+    return from_candid_record_n55(_uploadFile, _downloadFile, value);
+}
+function from_candid_SetRoleResult_n61(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _SetRoleResult): SetRoleResult {
+    return from_candid_record_n62(_uploadFile, _downloadFile, value);
+}
+function from_candid_StaffDirectoryEntry_n43(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _StaffDirectoryEntry): StaffDirectoryEntry {
+    return from_candid_record_n23(_uploadFile, _downloadFile, value);
+}
+function from_candid_SubmitApplicationResult_n66(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _SubmitApplicationResult): SubmitApplicationResult {
+    return from_candid_record_n67(_uploadFile, _downloadFile, value);
+}
+function from_candid_UserEntry_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserEntry): UserEntry {
+    return from_candid_record_n23(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_PostId]): PostId | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n24(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_RosterRank]): RosterRank | null {
+    return value.length === 0 ? null : from_candid_RosterRank_n25(_uploadFile, _downloadFile, value[0]);
+}
+function from_candid_opt_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Avatar]): Avatar | null {
+    return value.length === 0 ? null : from_candid_Avatar_n30(_uploadFile, _downloadFile, value[0]);
+}
+function from_candid_opt_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Role]): Role | null {
+    return value.length === 0 ? null : from_candid_Role_n27(_uploadFile, _downloadFile, value[0]);
+}
+function from_candid_opt_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_CommentId]): CommentId | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n56(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_MessageId]): MessageId | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n63(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [string]): string | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n68(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_ApplicationId]): ApplicationId | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_RosterMemberId]): RosterMemberId | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_record_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    success: boolean;
+    postId: [] | [_PostId];
+}): {
+    success: boolean;
+    postId?: PostId;
+} {
+    return {
+        success: value.success,
+        postId: record_opt_to_undefined(from_candid_opt_n13(_uploadFile, _downloadFile, value.postId))
+    };
+}
+function from_candid_record_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    id: _ApplicationId;
+    status: _ApplicationStatus;
+    applicantUsername: _Username;
+    answers: Array<string>;
+    appliedRole: _AppliedRole;
+    timestamp: _Timestamp;
+}): {
+    id: ApplicationId;
+    status: ApplicationStatus;
+    applicantUsername: Username;
+    answers: Array<string>;
+    appliedRole: AppliedRole;
+    timestamp: Timestamp;
+} {
+    return {
+        id: value.id,
+        status: from_candid_ApplicationStatus_n17(_uploadFile, _downloadFile, value.status),
+        applicantUsername: value.applicantUsername,
+        answers: value.answers,
+        appliedRole: from_candid_AppliedRole_n19(_uploadFile, _downloadFile, value.appliedRole),
+        timestamp: value.timestamp
+    };
+}
+function from_candid_record_n23(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    username: _Username;
+    rank: [] | [_RosterRank];
+    role: _Role;
+}): {
+    username: Username;
+    rank?: RosterRank;
+    role: Role;
+} {
+    return {
+        username: value.username,
+        rank: record_opt_to_undefined(from_candid_opt_n24(_uploadFile, _downloadFile, value.rank)),
+        role: from_candid_Role_n27(_uploadFile, _downloadFile, value.role)
+    };
+}
+function from_candid_record_n35(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    rank: _RosterRank;
+    slots: bigint;
+}): {
+    rank: RosterRank;
+    slots: bigint;
+} {
+    return {
+        rank: from_candid_RosterRank_n25(_uploadFile, _downloadFile, value.rank),
+        slots: value.slots
+    };
+}
+function from_candid_record_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    members: Array<_RosterMember>;
+    rank: _RosterRank;
+}): {
+    members: Array<RosterMember>;
+    rank: RosterRank;
+} {
+    return {
+        members: from_candid_vec_n39(_uploadFile, _downloadFile, value.members),
+        rank: from_candid_RosterRank_n25(_uploadFile, _downloadFile, value.rank)
+    };
+}
+function from_candid_record_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    commentId: [] | [_CommentId];
+    success: boolean;
+}): {
+    commentId?: CommentId;
+    success: boolean;
+} {
+    return {
+        commentId: record_opt_to_undefined(from_candid_opt_n5(_uploadFile, _downloadFile, value.commentId)),
+        success: value.success
+    };
+}
+function from_candid_record_n41(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    id: _RosterMemberId;
+    name: string;
+    rank: _RosterRank;
+}): {
+    id: RosterMemberId;
+    name: string;
+    rank: RosterRank;
+} {
+    return {
+        id: value.id,
+        name: value.name,
+        rank: from_candid_RosterRank_n25(_uploadFile, _downloadFile, value.rank)
+    };
+}
+function from_candid_record_n46(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    id: _PostId;
+    postType: _PostType;
+    title: string;
+    authorUsername: _Username;
+    body: string;
+    createdAt: _Timestamp;
+}): {
+    id: PostId;
+    postType: PostType;
+    title: string;
+    authorUsername: Username;
+    body: string;
+    createdAt: Timestamp;
+} {
+    return {
+        id: value.id,
+        postType: from_candid_PostType_n47(_uploadFile, _downloadFile, value.postType),
+        title: value.title,
+        authorUsername: value.authorUsername,
+        body: value.body,
+        createdAt: value.createdAt
+    };
+}
+function from_candid_record_n50(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    role: _Role;
+    success: boolean;
+}): {
+    role: Role;
+    success: boolean;
+} {
+    return {
+        role: from_candid_Role_n27(_uploadFile, _downloadFile, value.role),
+        success: value.success
+    };
+}
+function from_candid_record_n55(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    messageId: [] | [_MessageId];
+    success: boolean;
+}): {
+    messageId?: MessageId;
+    success: boolean;
+} {
+    return {
+        messageId: record_opt_to_undefined(from_candid_opt_n56(_uploadFile, _downloadFile, value.messageId)),
+        success: value.success
+    };
+}
+function from_candid_record_n62(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    error: [] | [string];
+    success: boolean;
+}): {
+    error?: string;
+    success: boolean;
+} {
+    return {
+        error: record_opt_to_undefined(from_candid_opt_n63(_uploadFile, _downloadFile, value.error)),
+        success: value.success
+    };
+}
+function from_candid_record_n67(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    applicationId: [] | [_ApplicationId];
+    success: boolean;
+}): {
+    applicationId?: ApplicationId;
+    success: boolean;
+} {
+    return {
+        applicationId: record_opt_to_undefined(from_candid_opt_n68(_uploadFile, _downloadFile, value.applicationId)),
+        success: value.success
+    };
+}
+function from_candid_record_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    memberId: [] | [_RosterMemberId];
+    success: boolean;
+}): {
+    memberId?: RosterMemberId;
+    success: boolean;
+} {
+    return {
+        memberId: record_opt_to_undefined(from_candid_opt_n8(_uploadFile, _downloadFile, value.memberId)),
+        success: value.success
+    };
+}
+function from_candid_variant_n18(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    Accepted: null;
+} | {
+    Declined: null;
+} | {
+    Pending: null;
+}): ApplicationStatus {
+    return "Accepted" in value ? ApplicationStatus.Accepted : "Declined" in value ? ApplicationStatus.Declined : "Pending" in value ? ApplicationStatus.Pending : value;
+}
+function from_candid_variant_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    Mod: null;
+} | {
+    Builder: null;
+} | {
+    Admin: null;
+}): AppliedRole {
+    return "Mod" in value ? AppliedRole.Mod : "Builder" in value ? AppliedRole.Builder : "Admin" in value ? AppliedRole.Admin : value;
+}
+function from_candid_variant_n26(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    Cop: null;
+} | {
+    Mod: null;
+} | {
+    SrDeveloper: null;
+} | {
+    CoOwner: null;
+} | {
+    SrCop: null;
+} | {
+    Builder: null;
+} | {
+    JrAdmin: null;
+} | {
+    ChiefAdmin: null;
+} | {
+    Developer: null;
+} | {
+    Admin: null;
+} | {
+    AdvertiseManager: null;
+} | {
+    Owner: null;
+} | {
+    Manager: null;
+}): RosterRank {
+    return "Cop" in value ? RosterRank.Cop : "Mod" in value ? RosterRank.Mod : "SrDeveloper" in value ? RosterRank.SrDeveloper : "CoOwner" in value ? RosterRank.CoOwner : "SrCop" in value ? RosterRank.SrCop : "Builder" in value ? RosterRank.Builder : "JrAdmin" in value ? RosterRank.JrAdmin : "ChiefAdmin" in value ? RosterRank.ChiefAdmin : "Developer" in value ? RosterRank.Developer : "Admin" in value ? RosterRank.Admin : "AdvertiseManager" in value ? RosterRank.AdvertiseManager : "Owner" in value ? RosterRank.Owner : "Manager" in value ? RosterRank.Manager : value;
+}
+function from_candid_variant_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    Cop: null;
+} | {
+    Mod: null;
+} | {
+    SrDeveloper: null;
+} | {
+    CoOwner: null;
+} | {
+    SrCop: null;
+} | {
+    Administrator: null;
+} | {
+    Member: null;
+} | {
+    Builder: null;
+} | {
+    JrAdmin: null;
+} | {
+    ChiefAdmin: null;
+} | {
+    CoAdministrator: null;
+} | {
+    Developer: null;
+} | {
+    Admin: null;
+} | {
+    AdvertiseManager: null;
+} | {
+    Owner: null;
+} | {
+    Manager: null;
+}): Role {
+    return "Cop" in value ? Role.Cop : "Mod" in value ? Role.Mod : "SrDeveloper" in value ? Role.SrDeveloper : "CoOwner" in value ? Role.CoOwner : "SrCop" in value ? Role.SrCop : "Administrator" in value ? Role.Administrator : "Member" in value ? Role.Member : "Builder" in value ? Role.Builder : "JrAdmin" in value ? Role.JrAdmin : "ChiefAdmin" in value ? Role.ChiefAdmin : "CoAdministrator" in value ? Role.CoAdministrator : "Developer" in value ? Role.Developer : "Admin" in value ? Role.Admin : "AdvertiseManager" in value ? Role.AdvertiseManager : "Owner" in value ? Role.Owner : "Manager" in value ? Role.Manager : value;
+}
+function from_candid_variant_n31(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    uploaded: _BlobRef;
+} | {
+    preset: string;
+}): {
+    __kind__: "uploaded";
+    uploaded: BlobRef;
+} | {
+    __kind__: "preset";
+    preset: string;
+} {
+    return "uploaded" in value ? {
+        __kind__: "uploaded",
+        uploaded: value.uploaded
+    } : "preset" in value ? {
+        __kind__: "preset",
+        preset: value.preset
+    } : value;
+}
+function from_candid_variant_n48(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    eventSuggestion: null;
+} | {
+    suggestion: null;
+} | {
+    bugReport: null;
+}): PostType {
+    return "eventSuggestion" in value ? PostType.eventSuggestion : "suggestion" in value ? PostType.suggestion : "bugReport" in value ? PostType.bugReport : value;
+}
+function from_candid_vec_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Application>): Array<Application> {
+    return value.map((x)=>from_candid_Application_n15(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_UserEntry>): Array<UserEntry> {
+    return value.map((x)=>from_candid_UserEntry_n22(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_RankSlot>): Array<RankSlot> {
+    return value.map((x)=>from_candid_RankSlot_n34(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_RosterGroup>): Array<RosterGroup> {
+    return value.map((x)=>from_candid_RosterGroup_n37(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n39(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_RosterMember>): Array<RosterMember> {
+    return value.map((x)=>from_candid_RosterMember_n40(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n42(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_StaffDirectoryEntry>): Array<StaffDirectoryEntry> {
+    return value.map((x)=>from_candid_StaffDirectoryEntry_n43(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n44(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Post>): Array<Post> {
+    return value.map((x)=>from_candid_Post_n45(_uploadFile, _downloadFile, x));
+}
+function to_candid_ApplicationStatus_n52(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ApplicationStatus): _ApplicationStatus {
+    return to_candid_variant_n53(_uploadFile, _downloadFile, value);
+}
+function to_candid_AppliedRole_n64(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AppliedRole): _AppliedRole {
+    return to_candid_variant_n65(_uploadFile, _downloadFile, value);
+}
+function to_candid_Avatar_n57(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Avatar): _Avatar {
+    return to_candid_variant_n58(_uploadFile, _downloadFile, value);
+}
+function to_candid_PostType_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: PostType): _PostType {
+    return to_candid_variant_n10(_uploadFile, _downloadFile, value);
+}
+function to_candid_Role_n59(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Role): _Role {
+    return to_candid_variant_n60(_uploadFile, _downloadFile, value);
+}
+function to_candid_RosterRank_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: RosterRank): _RosterRank {
+    return to_candid_variant_n2(_uploadFile, _downloadFile, value);
+}
+function to_candid_VoteStatus_n69(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: VoteStatus): _VoteStatus {
+    return to_candid_variant_n70(_uploadFile, _downloadFile, value);
+}
+function to_candid_variant_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: PostType): {
+    eventSuggestion: null;
+} | {
+    suggestion: null;
+} | {
+    bugReport: null;
+} {
+    return value == PostType.eventSuggestion ? {
+        eventSuggestion: null
+    } : value == PostType.suggestion ? {
+        suggestion: null
+    } : value == PostType.bugReport ? {
+        bugReport: null
+    } : value;
+}
+function to_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: RosterRank): {
+    Cop: null;
+} | {
+    Mod: null;
+} | {
+    SrDeveloper: null;
+} | {
+    CoOwner: null;
+} | {
+    SrCop: null;
+} | {
+    Builder: null;
+} | {
+    JrAdmin: null;
+} | {
+    ChiefAdmin: null;
+} | {
+    Developer: null;
+} | {
+    Admin: null;
+} | {
+    AdvertiseManager: null;
+} | {
+    Owner: null;
+} | {
+    Manager: null;
+} {
+    return value == RosterRank.Cop ? {
+        Cop: null
+    } : value == RosterRank.Mod ? {
+        Mod: null
+    } : value == RosterRank.SrDeveloper ? {
+        SrDeveloper: null
+    } : value == RosterRank.CoOwner ? {
+        CoOwner: null
+    } : value == RosterRank.SrCop ? {
+        SrCop: null
+    } : value == RosterRank.Builder ? {
+        Builder: null
+    } : value == RosterRank.JrAdmin ? {
+        JrAdmin: null
+    } : value == RosterRank.ChiefAdmin ? {
+        ChiefAdmin: null
+    } : value == RosterRank.Developer ? {
+        Developer: null
+    } : value == RosterRank.Admin ? {
+        Admin: null
+    } : value == RosterRank.AdvertiseManager ? {
+        AdvertiseManager: null
+    } : value == RosterRank.Owner ? {
+        Owner: null
+    } : value == RosterRank.Manager ? {
+        Manager: null
+    } : value;
+}
+function to_candid_variant_n53(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ApplicationStatus): {
+    Accepted: null;
+} | {
+    Declined: null;
+} | {
+    Pending: null;
+} {
+    return value == ApplicationStatus.Accepted ? {
+        Accepted: null
+    } : value == ApplicationStatus.Declined ? {
+        Declined: null
+    } : value == ApplicationStatus.Pending ? {
+        Pending: null
+    } : value;
+}
+function to_candid_variant_n58(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    __kind__: "uploaded";
+    uploaded: BlobRef;
+} | {
+    __kind__: "preset";
+    preset: string;
+}): {
+    uploaded: _BlobRef;
+} | {
+    preset: string;
+} {
+    return value.__kind__ === "uploaded" ? {
+        uploaded: value.uploaded
+    } : value.__kind__ === "preset" ? {
+        preset: value.preset
+    } : value;
+}
+function to_candid_variant_n60(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Role): {
+    Cop: null;
+} | {
+    Mod: null;
+} | {
+    SrDeveloper: null;
+} | {
+    CoOwner: null;
+} | {
+    SrCop: null;
+} | {
+    Administrator: null;
+} | {
+    Member: null;
+} | {
+    Builder: null;
+} | {
+    JrAdmin: null;
+} | {
+    ChiefAdmin: null;
+} | {
+    CoAdministrator: null;
+} | {
+    Developer: null;
+} | {
+    Admin: null;
+} | {
+    AdvertiseManager: null;
+} | {
+    Owner: null;
+} | {
+    Manager: null;
+} {
+    return value == Role.Cop ? {
+        Cop: null
+    } : value == Role.Mod ? {
+        Mod: null
+    } : value == Role.SrDeveloper ? {
+        SrDeveloper: null
+    } : value == Role.CoOwner ? {
+        CoOwner: null
+    } : value == Role.SrCop ? {
+        SrCop: null
+    } : value == Role.Administrator ? {
+        Administrator: null
+    } : value == Role.Member ? {
+        Member: null
+    } : value == Role.Builder ? {
+        Builder: null
+    } : value == Role.JrAdmin ? {
+        JrAdmin: null
+    } : value == Role.ChiefAdmin ? {
+        ChiefAdmin: null
+    } : value == Role.CoAdministrator ? {
+        CoAdministrator: null
+    } : value == Role.Developer ? {
+        Developer: null
+    } : value == Role.Admin ? {
+        Admin: null
+    } : value == Role.AdvertiseManager ? {
+        AdvertiseManager: null
+    } : value == Role.Owner ? {
+        Owner: null
+    } : value == Role.Manager ? {
+        Manager: null
+    } : value;
+}
+function to_candid_variant_n65(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AppliedRole): {
+    Mod: null;
+} | {
+    Builder: null;
+} | {
+    Admin: null;
+} {
+    return value == AppliedRole.Mod ? {
+        Mod: null
+    } : value == AppliedRole.Builder ? {
+        Builder: null
+    } : value == AppliedRole.Admin ? {
+        Admin: null
+    } : value;
+}
+function to_candid_variant_n70(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: VoteStatus): {
+    approved: null;
+} | {
+    rejected: null;
+} {
+    return value == VoteStatus.approved ? {
+        approved: null
+    } : value == VoteStatus.rejected ? {
+        rejected: null
+    } : value;
 }
 export interface CreateActorOptions {
     agent?: Agent;

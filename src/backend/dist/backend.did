@@ -1,5 +1,235 @@
+type VoteTally = 
+ record {
+   approved: nat;
+   postId: PostId;
+   rejected: nat;
+ };
+type VoteStatus = 
+ variant {
+   approved;
+   rejected;
+ };
+type VoteResult = record {success: bool;};
 type Username = text;
+type UserEntry = 
+ record {
+   rank: opt RosterRank;
+   role: Role;
+   username: Username;
+ };
+type Timestamp = int;
+type SubmitApplicationResult = 
+ record {
+   applicationId: opt ApplicationId;
+   success: bool;
+ };
+type StaffDirectoryEntry = 
+ record {
+   rank: opt RosterRank;
+   role: Role;
+   username: Username;
+ };
+type SetRoleResult = 
+ record {
+   error: opt text;
+   success: bool;
+ };
+type SetRankSlotResult = record {success: bool;};
+type SetAvatarResult = record {success: bool;};
+type SendMessageResult = 
+ record {
+   messageId: opt MessageId;
+   success: bool;
+ };
+type RosterRank = 
+ variant {
+   Admin;
+   AdvertiseManager;
+   Builder;
+   ChiefAdmin;
+   CoOwner;
+   Cop;
+   Developer;
+   JrAdmin;
+   Manager;
+   Mod;
+   Owner;
+   SrCop;
+   SrDeveloper;
+ };
+type RosterMemberId = nat;
+type RosterMember = 
+ record {
+   id: RosterMemberId;
+   name: text;
+   rank: RosterRank;
+ };
+type RosterGroup = 
+ record {
+   members: vec RosterMember;
+   rank: RosterRank;
+ };
+type Role = 
+ variant {
+   Admin;
+   Administrator;
+   AdvertiseManager;
+   Builder;
+   ChiefAdmin;
+   CoAdministrator;
+   CoOwner;
+   Cop;
+   Developer;
+   JrAdmin;
+   Manager;
+   Member;
+   Mod;
+   Owner;
+   SrCop;
+   SrDeveloper;
+ };
+type RemoveRosterMemberResult = record {success: bool;};
+type RegisterResult = 
+ record {
+   role: Role;
+   success: bool;
+ };
+type RankSlot = 
+ record {
+   rank: RosterRank;
+   slots: nat;
+ };
+type PostType = 
+ variant {
+   bugReport;
+   eventSuggestion;
+   suggestion;
+ };
+type PostId = nat;
+type Post = 
+ record {
+   authorUsername: Username;
+   body: text;
+   createdAt: Timestamp;
+   id: PostId;
+   postType: PostType;
+   title: text;
+ };
+type MessageId = nat;
+type Message = 
+ record {
+   content: text;
+   id: MessageId;
+   recipientUsername: Username;
+   senderUsername: Username;
+   timestamp: Timestamp;
+ };
+type LoginResult = 
+ record {
+   role: Role;
+   success: bool;
+ };
+type CreatePostResult = 
+ record {
+   postId: opt PostId;
+   success: bool;
+ };
+type CommentId = nat;
+type Comment = 
+ record {
+   authorUsername: Username;
+   content: text;
+   id: CommentId;
+   postId: PostId;
+   timestamp: Timestamp;
+ };
+type BlobRef = 
+ record {
+   contentType: text;
+   key: text;
+ };
+type Avatar = 
+ variant {
+   preset: text;
+   uploaded: BlobRef;
+ };
+type AppliedRole = 
+ variant {
+   Admin;
+   Builder;
+   Mod;
+ };
+type ApplicationStatus = 
+ variant {
+   Accepted;
+   Declined;
+   Pending;
+ };
+type ApplicationId = nat;
+type Application = 
+ record {
+   answers: vec text;
+   applicantUsername: Username;
+   appliedRole: AppliedRole;
+   id: ApplicationId;
+   status: ApplicationStatus;
+   timestamp: Timestamp;
+ };
+type AddRosterMemberResult = 
+ record {
+   memberId: opt RosterMemberId;
+   success: bool;
+ };
+type AddCommentResult = 
+ record {
+   commentId: opt CommentId;
+   success: bool;
+ };
+type AcceptApplicationResult = record {success: bool;};
 service : {
-  login: (username: Username, password: text) -> (bool);
-  register: (username: Username, password: text) -> (bool);
+  acceptApplication: (callerUsername: text, applicationId: nat, assignedRank:
+   RosterRank) -> (AcceptApplicationResult);
+  addCommunityComment: (postId: nat, authorUsername: text, content: text) ->
+   (AddCommentResult);
+  addStaffRosterMember: (callerUsername: text, name: text, rank:
+   RosterRank) -> (AddRosterMemberResult);
+  createCommunityPost: (postType: PostType, title: text, body: text,
+   authorUsername: text) -> (CreatePostResult);
+  declineApplication: (applicationId: nat) -> (bool);
+  getAllApplications: () -> (vec Application) query;
+  getAllUsers: () -> (vec UserEntry) query;
+  getAvatar: (username: text) -> (opt Avatar) query;
+  /// applications : ApplicationId -> Application (persisted across upgrades).
+  getCommunityVoteTally: (postId: nat) -> (VoteTally) query;
+  getMyApplications: (username: text) -> (vec Application) query;
+  getMyRole: (username: text) -> (opt Role) query;
+  getRankSlots: () -> (vec RankSlot) query;
+  getRoster: () -> (vec RosterGroup) query;
+  getStaffConversation: (requesterUsername: text, peerUsername: text) ->
+   (vec Message) query;
+  /// users : Username -> User (persisted across upgrades via enhanced
+  /// orthogonal persistence).
+  getStaffDirectory: (requesterUsername: text) ->
+   (vec StaffDirectoryEntry) query;
+  listActiveCommunityPosts: (postType: PostType) -> (vec Post) query;
+  /// Auth/applications state record shared with mixins — wrapped so `var`
+  /// mutations propagate.
+  listCommunityComments: (postId: nat) -> (vec Comment) query;
+  login: (username: text, password: text) -> (LoginResult);
+  register: (username: text, password: text) -> (RegisterResult);
+  removeStaffRosterMember: (callerUsername: text, memberId: nat) ->
+   (RemoveRosterMemberResult);
+  reviewApplication: (applicationId: nat, decision: ApplicationStatus) ->
+   (bool);
+  sendStaffMessage: (senderUsername: text, recipientUsername: text, content:
+   text) -> (SendMessageResult);
+  setMyAvatar: (username: text, avatar: Avatar) -> (SetAvatarResult);
+  setRankSlot: (callerUsername: text, rank: RosterRank, slots: nat) ->
+   (SetRankSlotResult);
+  setRole: (callerUsername: text, targetUsername: text, newRole: Role) ->
+   (SetRoleResult);
+  submitApplication: (username: text, appliedRole: AppliedRole, answers:
+   vec text) -> (SubmitApplicationResult);
+  voteOnCommunityPost: (postId: nat, voterUsername: text, status:
+   VoteStatus) -> (VoteResult);
 }

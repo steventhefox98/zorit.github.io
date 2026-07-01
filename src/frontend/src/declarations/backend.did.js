@@ -8,21 +8,476 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const RosterRank = IDL.Variant({
+  'Cop' : IDL.Null,
+  'Mod' : IDL.Null,
+  'SrDeveloper' : IDL.Null,
+  'CoOwner' : IDL.Null,
+  'SrCop' : IDL.Null,
+  'Builder' : IDL.Null,
+  'JrAdmin' : IDL.Null,
+  'ChiefAdmin' : IDL.Null,
+  'Developer' : IDL.Null,
+  'Admin' : IDL.Null,
+  'AdvertiseManager' : IDL.Null,
+  'Owner' : IDL.Null,
+  'Manager' : IDL.Null,
+});
+export const AcceptApplicationResult = IDL.Record({ 'success' : IDL.Bool });
+export const CommentId = IDL.Nat;
+export const AddCommentResult = IDL.Record({
+  'commentId' : IDL.Opt(CommentId),
+  'success' : IDL.Bool,
+});
+export const RosterMemberId = IDL.Nat;
+export const AddRosterMemberResult = IDL.Record({
+  'memberId' : IDL.Opt(RosterMemberId),
+  'success' : IDL.Bool,
+});
+export const PostType = IDL.Variant({
+  'eventSuggestion' : IDL.Null,
+  'suggestion' : IDL.Null,
+  'bugReport' : IDL.Null,
+});
+export const PostId = IDL.Nat;
+export const CreatePostResult = IDL.Record({
+  'success' : IDL.Bool,
+  'postId' : IDL.Opt(PostId),
+});
+export const ApplicationId = IDL.Nat;
+export const ApplicationStatus = IDL.Variant({
+  'Accepted' : IDL.Null,
+  'Declined' : IDL.Null,
+  'Pending' : IDL.Null,
+});
 export const Username = IDL.Text;
+export const AppliedRole = IDL.Variant({
+  'Mod' : IDL.Null,
+  'Builder' : IDL.Null,
+  'Admin' : IDL.Null,
+});
+export const Timestamp = IDL.Int;
+export const Application = IDL.Record({
+  'id' : ApplicationId,
+  'status' : ApplicationStatus,
+  'applicantUsername' : Username,
+  'answers' : IDL.Vec(IDL.Text),
+  'appliedRole' : AppliedRole,
+  'timestamp' : Timestamp,
+});
+export const Role = IDL.Variant({
+  'Cop' : IDL.Null,
+  'Mod' : IDL.Null,
+  'SrDeveloper' : IDL.Null,
+  'CoOwner' : IDL.Null,
+  'SrCop' : IDL.Null,
+  'Administrator' : IDL.Null,
+  'Member' : IDL.Null,
+  'Builder' : IDL.Null,
+  'JrAdmin' : IDL.Null,
+  'ChiefAdmin' : IDL.Null,
+  'CoAdministrator' : IDL.Null,
+  'Developer' : IDL.Null,
+  'Admin' : IDL.Null,
+  'AdvertiseManager' : IDL.Null,
+  'Owner' : IDL.Null,
+  'Manager' : IDL.Null,
+});
+export const UserEntry = IDL.Record({
+  'username' : Username,
+  'rank' : IDL.Opt(RosterRank),
+  'role' : Role,
+});
+export const BlobRef = IDL.Record({
+  'key' : IDL.Text,
+  'contentType' : IDL.Text,
+});
+export const Avatar = IDL.Variant({
+  'uploaded' : BlobRef,
+  'preset' : IDL.Text,
+});
+export const VoteTally = IDL.Record({
+  'approved' : IDL.Nat,
+  'rejected' : IDL.Nat,
+  'postId' : PostId,
+});
+export const RankSlot = IDL.Record({ 'rank' : RosterRank, 'slots' : IDL.Nat });
+export const RosterMember = IDL.Record({
+  'id' : RosterMemberId,
+  'name' : IDL.Text,
+  'rank' : RosterRank,
+});
+export const RosterGroup = IDL.Record({
+  'members' : IDL.Vec(RosterMember),
+  'rank' : RosterRank,
+});
+export const MessageId = IDL.Nat;
+export const Message = IDL.Record({
+  'id' : MessageId,
+  'content' : IDL.Text,
+  'senderUsername' : Username,
+  'timestamp' : Timestamp,
+  'recipientUsername' : Username,
+});
+export const StaffDirectoryEntry = IDL.Record({
+  'username' : Username,
+  'rank' : IDL.Opt(RosterRank),
+  'role' : Role,
+});
+export const Post = IDL.Record({
+  'id' : PostId,
+  'postType' : PostType,
+  'title' : IDL.Text,
+  'authorUsername' : Username,
+  'body' : IDL.Text,
+  'createdAt' : Timestamp,
+});
+export const Comment = IDL.Record({
+  'id' : CommentId,
+  'authorUsername' : Username,
+  'content' : IDL.Text,
+  'timestamp' : Timestamp,
+  'postId' : PostId,
+});
+export const LoginResult = IDL.Record({ 'role' : Role, 'success' : IDL.Bool });
+export const RegisterResult = IDL.Record({
+  'role' : Role,
+  'success' : IDL.Bool,
+});
+export const RemoveRosterMemberResult = IDL.Record({ 'success' : IDL.Bool });
+export const SendMessageResult = IDL.Record({
+  'messageId' : IDL.Opt(MessageId),
+  'success' : IDL.Bool,
+});
+export const SetAvatarResult = IDL.Record({ 'success' : IDL.Bool });
+export const SetRankSlotResult = IDL.Record({ 'success' : IDL.Bool });
+export const SetRoleResult = IDL.Record({
+  'error' : IDL.Opt(IDL.Text),
+  'success' : IDL.Bool,
+});
+export const SubmitApplicationResult = IDL.Record({
+  'applicationId' : IDL.Opt(ApplicationId),
+  'success' : IDL.Bool,
+});
+export const VoteStatus = IDL.Variant({
+  'approved' : IDL.Null,
+  'rejected' : IDL.Null,
+});
+export const VoteResult = IDL.Record({ 'success' : IDL.Bool });
 
 export const idlService = IDL.Service({
-  'login' : IDL.Func([Username, IDL.Text], [IDL.Bool], []),
-  'register' : IDL.Func([Username, IDL.Text], [IDL.Bool], []),
+  'acceptApplication' : IDL.Func(
+      [IDL.Text, IDL.Nat, RosterRank],
+      [AcceptApplicationResult],
+      [],
+    ),
+  'addCommunityComment' : IDL.Func(
+      [IDL.Nat, IDL.Text, IDL.Text],
+      [AddCommentResult],
+      [],
+    ),
+  'addStaffRosterMember' : IDL.Func(
+      [IDL.Text, IDL.Text, RosterRank],
+      [AddRosterMemberResult],
+      [],
+    ),
+  'createCommunityPost' : IDL.Func(
+      [PostType, IDL.Text, IDL.Text, IDL.Text],
+      [CreatePostResult],
+      [],
+    ),
+  'declineApplication' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+  'getAllApplications' : IDL.Func([], [IDL.Vec(Application)], ['query']),
+  'getAllUsers' : IDL.Func([], [IDL.Vec(UserEntry)], ['query']),
+  'getAvatar' : IDL.Func([IDL.Text], [IDL.Opt(Avatar)], ['query']),
+  'getCommunityVoteTally' : IDL.Func([IDL.Nat], [VoteTally], ['query']),
+  'getMyApplications' : IDL.Func([IDL.Text], [IDL.Vec(Application)], ['query']),
+  'getMyRole' : IDL.Func([IDL.Text], [IDL.Opt(Role)], ['query']),
+  'getRankSlots' : IDL.Func([], [IDL.Vec(RankSlot)], ['query']),
+  'getRoster' : IDL.Func([], [IDL.Vec(RosterGroup)], ['query']),
+  'getStaffConversation' : IDL.Func(
+      [IDL.Text, IDL.Text],
+      [IDL.Vec(Message)],
+      ['query'],
+    ),
+  'getStaffDirectory' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(StaffDirectoryEntry)],
+      ['query'],
+    ),
+  'listActiveCommunityPosts' : IDL.Func([PostType], [IDL.Vec(Post)], ['query']),
+  'listCommunityComments' : IDL.Func([IDL.Nat], [IDL.Vec(Comment)], ['query']),
+  'login' : IDL.Func([IDL.Text, IDL.Text], [LoginResult], []),
+  'register' : IDL.Func([IDL.Text, IDL.Text], [RegisterResult], []),
+  'removeStaffRosterMember' : IDL.Func(
+      [IDL.Text, IDL.Nat],
+      [RemoveRosterMemberResult],
+      [],
+    ),
+  'reviewApplication' : IDL.Func([IDL.Nat, ApplicationStatus], [IDL.Bool], []),
+  'sendStaffMessage' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text],
+      [SendMessageResult],
+      [],
+    ),
+  'setMyAvatar' : IDL.Func([IDL.Text, Avatar], [SetAvatarResult], []),
+  'setRankSlot' : IDL.Func(
+      [IDL.Text, RosterRank, IDL.Nat],
+      [SetRankSlotResult],
+      [],
+    ),
+  'setRole' : IDL.Func([IDL.Text, IDL.Text, Role], [SetRoleResult], []),
+  'submitApplication' : IDL.Func(
+      [IDL.Text, AppliedRole, IDL.Vec(IDL.Text)],
+      [SubmitApplicationResult],
+      [],
+    ),
+  'voteOnCommunityPost' : IDL.Func(
+      [IDL.Nat, IDL.Text, VoteStatus],
+      [VoteResult],
+      [],
+    ),
 });
 
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const RosterRank = IDL.Variant({
+    'Cop' : IDL.Null,
+    'Mod' : IDL.Null,
+    'SrDeveloper' : IDL.Null,
+    'CoOwner' : IDL.Null,
+    'SrCop' : IDL.Null,
+    'Builder' : IDL.Null,
+    'JrAdmin' : IDL.Null,
+    'ChiefAdmin' : IDL.Null,
+    'Developer' : IDL.Null,
+    'Admin' : IDL.Null,
+    'AdvertiseManager' : IDL.Null,
+    'Owner' : IDL.Null,
+    'Manager' : IDL.Null,
+  });
+  const AcceptApplicationResult = IDL.Record({ 'success' : IDL.Bool });
+  const CommentId = IDL.Nat;
+  const AddCommentResult = IDL.Record({
+    'commentId' : IDL.Opt(CommentId),
+    'success' : IDL.Bool,
+  });
+  const RosterMemberId = IDL.Nat;
+  const AddRosterMemberResult = IDL.Record({
+    'memberId' : IDL.Opt(RosterMemberId),
+    'success' : IDL.Bool,
+  });
+  const PostType = IDL.Variant({
+    'eventSuggestion' : IDL.Null,
+    'suggestion' : IDL.Null,
+    'bugReport' : IDL.Null,
+  });
+  const PostId = IDL.Nat;
+  const CreatePostResult = IDL.Record({
+    'success' : IDL.Bool,
+    'postId' : IDL.Opt(PostId),
+  });
+  const ApplicationId = IDL.Nat;
+  const ApplicationStatus = IDL.Variant({
+    'Accepted' : IDL.Null,
+    'Declined' : IDL.Null,
+    'Pending' : IDL.Null,
+  });
   const Username = IDL.Text;
+  const AppliedRole = IDL.Variant({
+    'Mod' : IDL.Null,
+    'Builder' : IDL.Null,
+    'Admin' : IDL.Null,
+  });
+  const Timestamp = IDL.Int;
+  const Application = IDL.Record({
+    'id' : ApplicationId,
+    'status' : ApplicationStatus,
+    'applicantUsername' : Username,
+    'answers' : IDL.Vec(IDL.Text),
+    'appliedRole' : AppliedRole,
+    'timestamp' : Timestamp,
+  });
+  const Role = IDL.Variant({
+    'Cop' : IDL.Null,
+    'Mod' : IDL.Null,
+    'SrDeveloper' : IDL.Null,
+    'CoOwner' : IDL.Null,
+    'SrCop' : IDL.Null,
+    'Administrator' : IDL.Null,
+    'Member' : IDL.Null,
+    'Builder' : IDL.Null,
+    'JrAdmin' : IDL.Null,
+    'ChiefAdmin' : IDL.Null,
+    'CoAdministrator' : IDL.Null,
+    'Developer' : IDL.Null,
+    'Admin' : IDL.Null,
+    'AdvertiseManager' : IDL.Null,
+    'Owner' : IDL.Null,
+    'Manager' : IDL.Null,
+  });
+  const UserEntry = IDL.Record({
+    'username' : Username,
+    'rank' : IDL.Opt(RosterRank),
+    'role' : Role,
+  });
+  const BlobRef = IDL.Record({ 'key' : IDL.Text, 'contentType' : IDL.Text });
+  const Avatar = IDL.Variant({ 'uploaded' : BlobRef, 'preset' : IDL.Text });
+  const VoteTally = IDL.Record({
+    'approved' : IDL.Nat,
+    'rejected' : IDL.Nat,
+    'postId' : PostId,
+  });
+  const RankSlot = IDL.Record({ 'rank' : RosterRank, 'slots' : IDL.Nat });
+  const RosterMember = IDL.Record({
+    'id' : RosterMemberId,
+    'name' : IDL.Text,
+    'rank' : RosterRank,
+  });
+  const RosterGroup = IDL.Record({
+    'members' : IDL.Vec(RosterMember),
+    'rank' : RosterRank,
+  });
+  const MessageId = IDL.Nat;
+  const Message = IDL.Record({
+    'id' : MessageId,
+    'content' : IDL.Text,
+    'senderUsername' : Username,
+    'timestamp' : Timestamp,
+    'recipientUsername' : Username,
+  });
+  const StaffDirectoryEntry = IDL.Record({
+    'username' : Username,
+    'rank' : IDL.Opt(RosterRank),
+    'role' : Role,
+  });
+  const Post = IDL.Record({
+    'id' : PostId,
+    'postType' : PostType,
+    'title' : IDL.Text,
+    'authorUsername' : Username,
+    'body' : IDL.Text,
+    'createdAt' : Timestamp,
+  });
+  const Comment = IDL.Record({
+    'id' : CommentId,
+    'authorUsername' : Username,
+    'content' : IDL.Text,
+    'timestamp' : Timestamp,
+    'postId' : PostId,
+  });
+  const LoginResult = IDL.Record({ 'role' : Role, 'success' : IDL.Bool });
+  const RegisterResult = IDL.Record({ 'role' : Role, 'success' : IDL.Bool });
+  const RemoveRosterMemberResult = IDL.Record({ 'success' : IDL.Bool });
+  const SendMessageResult = IDL.Record({
+    'messageId' : IDL.Opt(MessageId),
+    'success' : IDL.Bool,
+  });
+  const SetAvatarResult = IDL.Record({ 'success' : IDL.Bool });
+  const SetRankSlotResult = IDL.Record({ 'success' : IDL.Bool });
+  const SetRoleResult = IDL.Record({
+    'error' : IDL.Opt(IDL.Text),
+    'success' : IDL.Bool,
+  });
+  const SubmitApplicationResult = IDL.Record({
+    'applicationId' : IDL.Opt(ApplicationId),
+    'success' : IDL.Bool,
+  });
+  const VoteStatus = IDL.Variant({
+    'approved' : IDL.Null,
+    'rejected' : IDL.Null,
+  });
+  const VoteResult = IDL.Record({ 'success' : IDL.Bool });
   
   return IDL.Service({
-    'login' : IDL.Func([Username, IDL.Text], [IDL.Bool], []),
-    'register' : IDL.Func([Username, IDL.Text], [IDL.Bool], []),
+    'acceptApplication' : IDL.Func(
+        [IDL.Text, IDL.Nat, RosterRank],
+        [AcceptApplicationResult],
+        [],
+      ),
+    'addCommunityComment' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text],
+        [AddCommentResult],
+        [],
+      ),
+    'addStaffRosterMember' : IDL.Func(
+        [IDL.Text, IDL.Text, RosterRank],
+        [AddRosterMemberResult],
+        [],
+      ),
+    'createCommunityPost' : IDL.Func(
+        [PostType, IDL.Text, IDL.Text, IDL.Text],
+        [CreatePostResult],
+        [],
+      ),
+    'declineApplication' : IDL.Func([IDL.Nat], [IDL.Bool], []),
+    'getAllApplications' : IDL.Func([], [IDL.Vec(Application)], ['query']),
+    'getAllUsers' : IDL.Func([], [IDL.Vec(UserEntry)], ['query']),
+    'getAvatar' : IDL.Func([IDL.Text], [IDL.Opt(Avatar)], ['query']),
+    'getCommunityVoteTally' : IDL.Func([IDL.Nat], [VoteTally], ['query']),
+    'getMyApplications' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(Application)],
+        ['query'],
+      ),
+    'getMyRole' : IDL.Func([IDL.Text], [IDL.Opt(Role)], ['query']),
+    'getRankSlots' : IDL.Func([], [IDL.Vec(RankSlot)], ['query']),
+    'getRoster' : IDL.Func([], [IDL.Vec(RosterGroup)], ['query']),
+    'getStaffConversation' : IDL.Func(
+        [IDL.Text, IDL.Text],
+        [IDL.Vec(Message)],
+        ['query'],
+      ),
+    'getStaffDirectory' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(StaffDirectoryEntry)],
+        ['query'],
+      ),
+    'listActiveCommunityPosts' : IDL.Func(
+        [PostType],
+        [IDL.Vec(Post)],
+        ['query'],
+      ),
+    'listCommunityComments' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Vec(Comment)],
+        ['query'],
+      ),
+    'login' : IDL.Func([IDL.Text, IDL.Text], [LoginResult], []),
+    'register' : IDL.Func([IDL.Text, IDL.Text], [RegisterResult], []),
+    'removeStaffRosterMember' : IDL.Func(
+        [IDL.Text, IDL.Nat],
+        [RemoveRosterMemberResult],
+        [],
+      ),
+    'reviewApplication' : IDL.Func(
+        [IDL.Nat, ApplicationStatus],
+        [IDL.Bool],
+        [],
+      ),
+    'sendStaffMessage' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text],
+        [SendMessageResult],
+        [],
+      ),
+    'setMyAvatar' : IDL.Func([IDL.Text, Avatar], [SetAvatarResult], []),
+    'setRankSlot' : IDL.Func(
+        [IDL.Text, RosterRank, IDL.Nat],
+        [SetRankSlotResult],
+        [],
+      ),
+    'setRole' : IDL.Func([IDL.Text, IDL.Text, Role], [SetRoleResult], []),
+    'submitApplication' : IDL.Func(
+        [IDL.Text, AppliedRole, IDL.Vec(IDL.Text)],
+        [SubmitApplicationResult],
+        [],
+      ),
+    'voteOnCommunityPost' : IDL.Func(
+        [IDL.Nat, IDL.Text, VoteStatus],
+        [VoteResult],
+        [],
+      ),
   });
 };
 

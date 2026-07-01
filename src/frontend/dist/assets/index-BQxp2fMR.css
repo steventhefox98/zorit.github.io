@@ -536,9 +536,48 @@ video {
     --destructive: 0.577 0.245 27.325;
     --destructive-foreground: 0.985 0 0;
 
+    --success: 0.65 0.18 145;
+    --success-foreground: 0.99 0 0;
+
+    --warning: 0.78 0.16 85;
+    --warning-foreground: 0.18 0.05 295;
+
     --border: 0.3 0.1 295;
     --input: 0.25 0.08 295;
     --ring: 0.62 0.22 295;
+
+    /* Role badge accents — purple-dominant, scaled by privilege. */
+    --role-admin: 0.7 0.22 295;
+    --role-coadmin: 0.55 0.2 295;
+    --role-member: 0.4 0.12 295;
+
+    /* Status badge accents. */
+    --status-pending: 0.78 0.16 85;
+    --status-accepted: 0.65 0.18 145;
+    --status-declined: 0.577 0.245 27.325;
+
+    /* Community page accents — vote buttons, tabs, comments, locked, coming-soon. */
+    --vote-approve: 0.65 0.18 145;
+    --vote-reject: 0.58 0.24 27;
+    --community-tab: 0.18 0.07 295;
+    --community-tab-active: 0.62 0.22 295;
+    --comment-bubble: 0.14 0.06 295;
+    --comment-bubble-self: 0.22 0.1 295;
+    --locked: 0.5 0.1 295;
+
+    /* Profile page accents — avatar preview, gallery tiles, upload dropzone. */
+    --avatar-preview-bg: 0.1 0.04 295;
+    --avatar-preview-ring: 0.62 0.22 295;
+    --avatar-tile: 0.14 0.05 295;
+    --avatar-tile-hover: 0.22 0.09 295;
+    --avatar-tile-selected: 0.62 0.22 295;
+    --upload-dropzone: 0.12 0.05 295;
+    --upload-dropzone-hover: 0.18 0.08 295;
+    --upload-progress: 0.55 0.25 295;
+    --upload-success: 0.65 0.18 145;
+    --upload-error: 0.58 0.24 27;
+    --navbar-avatar-ring: 0.45 0.18 295;
+    --message-avatar-ring: 0.3 0.1 295;
 
     --chart-1: 0.62 0.22 295;
     --chart-2: 0.55 0.25 295;
@@ -558,14 +597,12 @@ video {
 
 *{
   border-color: oklch(var(--border));
-    cursor: none !important;
 }
 
 body{
   background-color: oklch(var(--background));
   color: oklch(var(--foreground));
     font-family: "Cinzel", serif;
-    cursor: none;
 }
 
 h1,
@@ -743,6 +780,242 @@ p,
     text-align: center;
   }
 
+/* ============================================================
+     APPLY PAGE — form inputs, role picker, application cards.
+     Mirrors existing pixel-border + block-texture + 4px shadow.
+     ============================================================ */
+
+/* Pixel-bordered form input. VT323 terminal feel, purple focus glow. */
+
+.apply-input {
+    font-family: "VT323", monospace;
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    color: oklch(0.97 0.01 295);
+    background: oklch(0.1 0.04 295);
+    border: 2px solid oklch(0.35 0.12 295);
+    box-shadow: inset 0 -2px 0 0 oklch(0.08 0.04 295), inset 0 2px 0 0
+      oklch(0.22 0.09 295);
+    padding: 0.5rem 0.75rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+.apply-input::-moz-placeholder {
+    color: oklch(0.45 0.08 295 / 0.7);
+  }
+
+.apply-input::placeholder {
+    color: oklch(0.45 0.08 295 / 0.7);
+  }
+
+.apply-input:focus {
+    outline: none;
+    border-color: oklch(0.62 0.22 295);
+    box-shadow: 0 0 0 1px oklch(0.62 0.22 295 / 0.5), 0 0 12px
+      oklch(0.62 0.22 295 / 0.35), inset 0 -2px 0 0 oklch(0.08 0.04 295), inset
+      0 2px 0 0 oklch(0.3 0.12 295);
+  }
+
+.apply-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+/* Question label — VT323 terminal caption with leading index. */
+
+.apply-label {
+    font-family: "VT323", monospace;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    color: oklch(0.85 0.12 295);
+    text-transform: uppercase;
+  }
+
+.apply-label-index {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.55rem;
+    color: oklch(0.62 0.22 295);
+    margin-right: 0.5rem;
+  }
+
+/* Role picker card. Available = selected glow; Coming soon = dimmed + slice. */
+
+.role-picker-card {
+    position: relative;
+    background: oklch(0.14 0.05 295);
+    border: 2px solid oklch(0.3 0.1 295);
+    box-shadow: 4px 4px 0px oklch(0.1 0.04 295);
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+  }
+
+.role-picker-card.is-available:hover {
+    border-color: oklch(0.62 0.22 295);
+    box-shadow: 4px 4px 0px oklch(0.3 0.15 295), 0 0 18px
+      oklch(0.62 0.22 295 / 0.35);
+  }
+
+.role-picker-card.is-selected {
+    border-color: oklch(0.62 0.22 295);
+    box-shadow: 4px 4px 0px oklch(0.3 0.15 295), 0 0 24px
+      oklch(0.62 0.22 295 / 0.5), inset 0 0 0 1px oklch(0.62 0.22 295 / 0.3);
+  }
+
+.role-picker-card.is-coming-soon {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+.role-picker-tag {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid oklch(0.4 0.15 295);
+  }
+
+.role-picker-tag-available {
+    color: oklch(0.65 0.18 145);
+    border-color: oklch(0.65 0.18 145 / 0.5);
+    background: oklch(0.65 0.18 145 / 0.08);
+  }
+
+.role-picker-tag-soon {
+    color: oklch(0.78 0.16 85);
+    border-color: oklch(0.78 0.16 85 / 0.4);
+    background: oklch(0.78 0.16 85 / 0.06);
+  }
+
+/* Application review card — admin list item. */
+
+.apply-card {
+    position: relative;
+    background: oklch(0.14 0.05 295);
+    border: 2px solid oklch(0.3 0.1 295);
+    box-shadow: 4px 4px 0px oklch(0.1 0.04 295);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+.apply-card:hover {
+    border-color: oklch(0.45 0.18 295);
+    box-shadow: 4px 4px 0px oklch(0.1 0.04 295), 0 0 0 1px
+      oklch(0.7 0.18 195 / 0.3), 2px 0 0 0 oklch(0.6 0.28 0 / 0.25), -2px 0 0 0
+      oklch(0.7 0.18 195 / 0.25), 0 0 18px oklch(0.62 0.22 295 / 0.2);
+  }
+
+.apply-card.is-expanded {
+    border-color: oklch(0.62 0.22 295);
+    box-shadow: 4px 4px 0px oklch(0.3 0.15 295), 0 0 24px
+      oklch(0.62 0.22 295 / 0.3);
+  }
+
+/* Terminal-style scroll area for the 12 answers inside an expanded card. */
+
+.apply-answers {
+    font-family: "VT323", monospace;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: oklch(0.85 0.1 295);
+    background: oklch(0.08 0.04 295);
+    border: 1px solid oklch(0.3 0.1 295);
+    padding: 0.75rem 1rem;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+.apply-answers::-webkit-scrollbar {
+    width: 8px;
+  }
+
+.apply-answers::-webkit-scrollbar-track {
+    background: oklch(0.1 0.04 295);
+  }
+
+.apply-answers::-webkit-scrollbar-thumb {
+    background: oklch(0.35 0.15 295);
+    border: 1px solid oklch(0.2 0.08 295);
+  }
+
+/* ============================================================
+     STATUS BADGES — Pending / Accepted / Declined.
+     Each has a base + status-specific color + pulse animation.
+     ============================================================ */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid;
+    text-transform: uppercase;
+  }
+
+.status-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    box-shadow: 0 0 6px currentColor;
+  }
+
+.status-pending {
+    color: oklch(0.78 0.16 85);
+    border-color: oklch(0.78 0.16 85 / 0.5);
+    background: oklch(0.78 0.16 85 / 0.08);
+    animation: status-pulse-pending 2.2s ease-in-out infinite;
+  }
+
+.status-accepted {
+    color: oklch(0.65 0.18 145);
+    border-color: oklch(0.65 0.18 145 / 0.5);
+    background: oklch(0.65 0.18 145 / 0.08);
+    animation: status-settle-accepted 0.6s ease-out 1;
+  }
+
+.status-declined {
+    color: oklch(0.62 0.24 27);
+    border-color: oklch(0.62 0.24 27 / 0.5);
+    background: oklch(0.62 0.24 27 / 0.08);
+    animation: status-flicker-declined 0.5s steps(2, end) 1;
+  }
+
+/* ============================================================
+     ROLE BADGES — Administrator / Co-Administrator / Member.
+     Purple-dominant, scaled by privilege. Static (no pulse).
+     ============================================================ */
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid;
+    text-transform: uppercase;
+  }
+
+.role-admin {
+    color: oklch(0.7 0.22 295);
+    border-color: oklch(0.7 0.22 295 / 0.6);
+    background: oklch(0.7 0.22 295 / 0.12);
+    box-shadow: 0 0 8px oklch(0.7 0.22 295 / 0.3);
+  }
+
+.role-coadmin {
+    color: oklch(0.6 0.2 295);
+    border-color: oklch(0.6 0.2 295 / 0.5);
+    background: oklch(0.6 0.2 295 / 0.1);
+  }
+
+.role-member {
+    color: oklch(0.5 0.12 295);
+    border-color: oklch(0.5 0.12 295 / 0.4);
+    background: oklch(0.5 0.12 295 / 0.08);
+  }
+
 @keyframes float {
     0%,
     100% {
@@ -773,15 +1046,705 @@ p,
     }
   }
 
-@keyframes cursor-pulse {
+@keyframes click-ripple {
+    0% {
+      width: 0px;
+      height: 0px;
+      opacity: 0.85;
+      box-shadow: 0 0 0 0 oklch(0.82 0.22 295 / 0.7);
+      background-color: oklch(0.82 0.22 295 / 0.45);
+    }
+    100% {
+      width: 60px;
+      height: 60px;
+      opacity: 0;
+      box-shadow: 0 0 16px 8px oklch(0.62 0.22 295 / 0);
+      background-color: oklch(0.82 0.22 295 / 0);
+    }
+  }
+
+/* ---- Status transition keyframes ---- */
+
+@keyframes status-pulse-pending {
     0%,
     100% {
-      box-shadow: 0 0 6px oklch(0.62 0.22 295 / 0.5), 0 0 12px
-        oklch(0.62 0.22 295 / 0.3);
+      box-shadow: 0 0 0 0 oklch(0.78 0.16 85 / 0);
     }
     50% {
-      box-shadow: 0 0 14px oklch(0.75 0.22 295 / 0.8), 0 0 28px
-        oklch(0.62 0.22 295 / 0.5), 0 0 50px oklch(0.62 0.22 295 / 0.2);
+      box-shadow: 0 0 10px 1px oklch(0.78 0.16 85 / 0.45);
+    }
+  }
+
+@keyframes status-settle-accepted {
+    0% {
+      box-shadow: 0 0 0 0 oklch(0.65 0.18 145 / 0.6);
+      transform: scale(1.08);
+    }
+    60% {
+      transform: scale(0.98);
+    }
+    100% {
+      box-shadow: 0 0 6px 0 oklch(0.65 0.18 145 / 0.25);
+      transform: scale(1);
+    }
+  }
+
+@keyframes status-flicker-declined {
+    0% {
+      opacity: 0.3;
+      box-shadow: 0 0 0 0 oklch(0.62 0.24 27 / 0.6);
+    }
+    25% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 6px 0 oklch(0.62 0.24 27 / 0.25);
+    }
+  }
+
+/* ============================================================
+     COMMUNITY PAGE — tabs, post cards, vote buttons, comments.
+     Mirrors pixel-border + 4px shadow + VT323/Press Start 2P system.
+     ============================================================ */
+
+/* Tab bar — pixel-bordered pill tabs, active glows purple. */
+
+.community-tab {
+    position: relative;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: oklch(0.7 0.12 295);
+    background: oklch(var(--community-tab));
+    border: 2px solid oklch(0.3 0.1 295);
+    box-shadow: 3px 3px 0px oklch(0.1 0.04 295);
+    padding: 0.6rem 0.9rem;
+    transition: border-color 0.15s, box-shadow 0.15s, color 0.15s, transform
+      0.1s;
+  }
+
+.community-tab:hover {
+    border-color: oklch(0.45 0.18 295);
+    color: oklch(0.85 0.15 295);
+  }
+
+.community-tab.is-active {
+    color: oklch(0.99 0 0);
+    background: oklch(var(--community-tab-active));
+    border-color: oklch(0.75 0.2 295);
+    box-shadow: 3px 3px 0px oklch(0.3 0.15 295), 0 0 18px
+      oklch(0.62 0.22 295 / 0.45);
+  }
+
+.community-tab:active {
+    transform: translateY(2px);
+  }
+
+/* Daily-cap meter — pixel progress bar showing posts left today. */
+
+.daily-cap-meter {
+    height: 10px;
+    background: oklch(0.1 0.04 295);
+    border: 2px solid oklch(0.3 0.1 295);
+    box-shadow: inset 0 -2px 0 0 oklch(0.08 0.04 295), inset 0 2px 0 0
+      oklch(0.2 0.08 295);
+    overflow: hidden;
+  }
+
+.daily-cap-meter > span {
+    display: block;
+    height: 100%;
+    background: repeating-linear-gradient(
+      90deg,
+      oklch(0.62 0.22 295) 0px,
+      oklch(0.62 0.22 295) 6px,
+      oklch(0.45 0.18 295) 6px,
+      oklch(0.45 0.18 295) 12px
+    );
+    transition: width 0.3s ease-out;
+  }
+
+/* Post card — pixel-bordered, expands to reveal comment thread. */
+
+.post-card {
+    position: relative;
+    background: oklch(0.14 0.05 295);
+    border: 2px solid oklch(0.3 0.1 295);
+    box-shadow: 4px 4px 0px oklch(0.1 0.04 295);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+.post-card:hover {
+    border-color: oklch(0.45 0.18 295);
+    box-shadow: 4px 4px 0px oklch(0.1 0.04 295), 0 0 16px
+      oklch(0.62 0.22 295 / 0.2);
+  }
+
+.post-card.is-expanded {
+    border-color: oklch(0.62 0.22 295);
+    box-shadow: 4px 4px 0px oklch(0.3 0.15 295), 0 0 22px
+      oklch(0.62 0.22 295 / 0.3);
+  }
+
+/* Vote buttons — staff-only. Approve = green check, Reject = red cross. */
+
+.vote-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid;
+    box-shadow: 3px 3px 0px oklch(0.1 0.04 295);
+    transition: transform 0.1s, box-shadow 0.15s, background 0.15s;
+    text-transform: uppercase;
+  }
+
+.vote-btn:active {
+    transform: translateY(2px);
+    box-shadow: 1px 1px 0px oklch(0.1 0.04 295);
+  }
+
+.vote-btn-approve {
+    color: oklch(0.85 0.18 145);
+    border-color: oklch(0.55 0.18 145 / 0.6);
+    background: oklch(0.65 0.18 145 / 0.08);
+  }
+
+.vote-btn-approve:hover {
+    border-color: oklch(0.65 0.18 145);
+    background: oklch(0.65 0.18 145 / 0.18);
+    box-shadow: 3px 3px 0px oklch(0.1 0.04 295), 0 0 14px
+      oklch(0.65 0.18 145 / 0.4);
+  }
+
+.vote-btn-approve.is-cast {
+    color: oklch(0.99 0 0);
+    background: oklch(0.65 0.18 145 / 0.85);
+    border-color: oklch(0.75 0.2 145);
+    box-shadow: 3px 3px 0px oklch(0.3 0.15 145), 0 0 16px
+      oklch(0.65 0.18 145 / 0.5);
+    animation: vote-pop 0.4s ease-out 1;
+  }
+
+.vote-btn-reject {
+    color: oklch(0.8 0.2 27);
+    border-color: oklch(0.5 0.22 27 / 0.6);
+    background: oklch(0.58 0.24 27 / 0.08);
+  }
+
+.vote-btn-reject:hover {
+    border-color: oklch(0.62 0.24 27);
+    background: oklch(0.58 0.24 27 / 0.18);
+    box-shadow: 3px 3px 0px oklch(0.1 0.04 295), 0 0 14px
+      oklch(0.62 0.24 27 / 0.4);
+  }
+
+.vote-btn-reject.is-cast {
+    color: oklch(0.99 0 0);
+    background: oklch(0.58 0.24 27 / 0.85);
+    border-color: oklch(0.7 0.24 27);
+    box-shadow: 3px 3px 0px oklch(0.3 0.1 27), 0 0 16px
+      oklch(0.62 0.24 27 / 0.5);
+    animation: vote-pop 0.4s ease-out 1;
+  }
+
+/* Vote tally chip — shows approve/reject counts to all users. */
+
+.vote-tally {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: "VT323", monospace;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid oklch(0.3 0.1 295);
+    background: oklch(0.1 0.04 295);
+  }
+
+.vote-tally-approve {
+    color: oklch(0.75 0.18 145);
+    border-color: oklch(0.55 0.18 145 / 0.4);
+  }
+
+.vote-tally-reject {
+    color: oklch(0.75 0.2 27);
+    border-color: oklch(0.5 0.22 27 / 0.4);
+  }
+
+/* Comment thread — Discord-style bubbles, purple pixel aesthetic. */
+
+.comment-thread {
+    background: oklch(0.08 0.04 295);
+    border: 1px solid oklch(0.3 0.1 295);
+    padding: 0.75rem 1rem;
+  }
+
+.comment-bubble {
+    position: relative;
+    max-width: 80%;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid oklch(0.3 0.1 295);
+    box-shadow: 2px 2px 0px oklch(0.1 0.04 295);
+    background: oklch(var(--comment-bubble));
+  }
+
+.comment-bubble.is-staff {
+    border-color: oklch(0.62 0.22 295 / 0.5);
+    background: oklch(var(--comment-bubble));
+    box-shadow: 2px 2px 0px oklch(0.1 0.04 295), inset 2px 0 0 0
+      oklch(0.62 0.22 295);
+  }
+
+.comment-bubble.is-self {
+    margin-left: auto;
+    border-color: oklch(0.55 0.25 295 / 0.5);
+    background: oklch(var(--comment-bubble-self));
+    box-shadow: 2px 2px 0px oklch(0.1 0.04 295), inset -2px 0 0 0
+      oklch(0.55 0.25 295);
+  }
+
+.comment-author {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.05em;
+    color: oklch(0.75 0.2 295);
+    text-transform: uppercase;
+  }
+
+.comment-body {
+    font-family: "Cinzel", serif;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: oklch(0.92 0.01 295);
+  }
+
+.comment-time {
+    font-family: "VT323", monospace;
+    font-size: 0.95rem;
+    color: oklch(0.5 0.1 295);
+  }
+
+/* Locked indicator — non-eligible members see this instead of comment input. */
+
+.locked-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.06em;
+    color: oklch(var(--locked));
+    border: 1px solid oklch(var(--locked) / 0.5);
+    background: oklch(var(--locked) / 0.08);
+    padding: 0.4rem 0.7rem;
+    text-transform: uppercase;
+  }
+
+.locked-indicator::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: oklch(var(--locked));
+    box-shadow: 0 0 6px oklch(var(--locked) / 0.5);
+    /* pixel padlock body — small square */
+    clip-path: polygon(20% 40%, 80% 40%, 80% 100%, 20% 100%);
+  }
+
+/* ============================================================
+     PROFILE PAGE — header, large avatar preview, preset gallery,
+     upload dropzone with progress, navbar + message avatar chips.
+     Mirrors pixel-border + 4px shadow + Press Start 2P / VT323 system.
+     ============================================================ */
+
+/* Page header — pixel-bordered title bar with block-texture. */
+
+.profile-header {
+    position: relative;
+    background: oklch(0.14 0.05 295);
+    border: 2px solid oklch(0.3 0.1 295);
+    box-shadow: 4px 4px 0px oklch(0.1 0.04 295), inset 0 0 0 1px
+      oklch(0.62 0.22 295 / 0.1);
+  }
+
+.profile-header-title {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    color: oklch(0.85 0.15 295);
+    text-transform: uppercase;
+  }
+
+.profile-header-subtitle {
+    font-family: "VT323", monospace;
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    color: oklch(0.65 0.1 295);
+    text-transform: uppercase;
+  }
+
+/* Large avatar preview — pixelated rendering, purple ring + glow. */
+
+.avatar-preview {
+    position: relative;
+    background: oklch(var(--avatar-preview-bg));
+    border: 2px solid oklch(var(--avatar-preview-ring));
+    box-shadow: 4px 4px 0px oklch(0.1 0.04 295), 0 0 24px
+      oklch(0.62 0.22 295 / 0.35), inset 0 0 0 2px oklch(0.1 0.04 295);
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+.avatar-preview > img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+/* Fallback initial-letter avatar (when no image set). */
+
+.avatar-preview-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "VT323", monospace;
+    font-size: 4rem;
+    color: oklch(0.85 0.15 295);
+    background: oklch(0.18 0.09 295);
+    text-transform: uppercase;
+  }
+
+/* Preset avatar gallery — selectable grid of pixel-art tiles. */
+
+.avatar-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    gap: 0.75rem;
+  }
+
+.avatar-tile {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: oklch(var(--avatar-tile));
+    border: 2px solid oklch(0.3 0.1 295);
+    box-shadow: 3px 3px 0px oklch(0.1 0.04 295);
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s,
+      transform 0.1s;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+.avatar-tile:hover {
+    border-color: oklch(0.45 0.18 295);
+    background: oklch(var(--avatar-tile-hover));
+    box-shadow: 3px 3px 0px oklch(0.1 0.04 295), 0 0 14px
+      oklch(0.62 0.22 295 / 0.3);
+  }
+
+.avatar-tile:active {
+    transform: translateY(2px);
+    box-shadow: 1px 1px 0px oklch(0.1 0.04 295);
+  }
+
+.avatar-tile.is-selected {
+    border-color: oklch(var(--avatar-tile-selected));
+    background: oklch(var(--avatar-tile-hover));
+    box-shadow: 3px 3px 0px oklch(0.3 0.15 295), 0 0 20px
+      oklch(0.62 0.22 295 / 0.5), inset 0 0 0 1px oklch(0.62 0.22 295 / 0.3);
+    animation: avatar-select-pulse 0.5s ease-out 1;
+  }
+
+.avatar-tile > img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+/* Selected-tile corner check mark — pixel green. */
+
+.avatar-tile.is-selected::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 10px;
+    height: 10px;
+    background: oklch(0.65 0.18 145);
+    box-shadow: 0 0 6px oklch(0.65 0.18 145 / 0.7);
+    clip-path: polygon(0% 50%, 40% 90%, 100% 20%, 90% 10%, 40% 70%, 10% 40%);
+  }
+
+/* Upload dropzone — dashed pixel border, hover fills purple. */
+
+.upload-dropzone {
+    position: relative;
+    background: oklch(var(--upload-dropzone));
+    border: 2px dashed oklch(0.4 0.15 295);
+    box-shadow: inset 0 0 0 1px oklch(0.62 0.22 295 / 0.08);
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+  }
+
+.upload-dropzone:hover,
+  .upload-dropzone.is-dragover {
+    border-color: oklch(0.62 0.22 295);
+    background: oklch(var(--upload-dropzone-hover));
+    box-shadow: inset 0 0 0 1px oklch(0.62 0.22 295 / 0.2), 0 0 18px
+      oklch(0.62 0.22 295 / 0.25);
+  }
+
+.upload-dropzone-icon {
+    font-family: "Press Start 2P", monospace;
+    font-size: 1.4rem;
+    color: oklch(0.62 0.22 295);
+    text-shadow: 0 0 12px oklch(0.62 0.22 295 / 0.5);
+  }
+
+.upload-dropzone-label {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    color: oklch(0.85 0.15 295);
+    text-transform: uppercase;
+  }
+
+.upload-dropzone-hint {
+    font-family: "VT323", monospace;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: oklch(0.55 0.1 295);
+  }
+
+/* Upload progress bar — pixel-segmented purple fill. */
+
+.upload-progress {
+    height: 12px;
+    background: oklch(0.1 0.04 295);
+    border: 2px solid oklch(0.3 0.1 295);
+    box-shadow: inset 0 -2px 0 0 oklch(0.08 0.04 295), inset 0 2px 0 0
+      oklch(0.2 0.08 295);
+    overflow: hidden;
+  }
+
+.upload-progress > span {
+    display: block;
+    height: 100%;
+    background: repeating-linear-gradient(
+      90deg,
+      oklch(var(--upload-progress)) 0px,
+      oklch(var(--upload-progress)) 6px,
+      oklch(0.45 0.2 295) 6px,
+      oklch(0.45 0.2 295) 12px
+    );
+    transition: width 0.2s ease-out;
+  }
+
+.upload-progress.is-complete > span {
+    background: repeating-linear-gradient(
+      90deg,
+      oklch(var(--upload-success)) 0px,
+      oklch(var(--upload-success)) 6px,
+      oklch(0.5 0.16 145) 6px,
+      oklch(0.5 0.16 145) 12px
+    );
+  }
+
+.upload-progress.is-error > span {
+    background: repeating-linear-gradient(
+      90deg,
+      oklch(var(--upload-error)) 0px,
+      oklch(var(--upload-error)) 6px,
+      oklch(0.45 0.2 27) 6px,
+      oklch(0.45 0.2 27) 12px
+    );
+  }
+
+.upload-status-text {
+    font-family: "VT323", monospace;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+  }
+
+.upload-status-text.is-success {
+    color: oklch(0.75 0.18 145);
+  }
+
+.upload-status-text.is-error {
+    color: oklch(0.75 0.2 27);
+  }
+
+/* Navbar user-chip avatar — small pixelated square with purple ring. */
+
+.navbar-avatar {
+    width: 32px;
+    height: 32px;
+    border: 2px solid oklch(var(--navbar-avatar-ring));
+    box-shadow: 2px 2px 0px oklch(0.1 0.04 295);
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    overflow: hidden;
+  }
+
+.navbar-avatar > img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+.navbar-avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-family: "VT323", monospace;
+    font-size: 1.4rem;
+    color: oklch(0.85 0.15 295);
+    background: oklch(0.18 0.09 295);
+    text-transform: uppercase;
+  }
+
+/* Message list + bubble avatars — pixelated, subtle ring. */
+
+.message-avatar {
+    width: 36px;
+    height: 36px;
+    border: 2px solid oklch(var(--message-avatar-ring));
+    box-shadow: 2px 2px 0px oklch(0.1 0.04 295);
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+.message-avatar > img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+.message-avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-family: "VT323", monospace;
+    font-size: 1.5rem;
+    color: oklch(0.85 0.15 295);
+    background: oklch(0.18 0.09 295);
+    text-transform: uppercase;
+  }
+
+/* Profile action buttons — Save / Cancel in pixel style. */
+
+.profile-save-btn {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: oklch(0.99 0 0);
+    background: oklch(0.55 0.25 295);
+    border: 2px solid oklch(0.75 0.2 295);
+    box-shadow: 3px 3px 0px oklch(0.3 0.15 295), 0 0 14px
+      oklch(0.62 0.22 295 / 0.35);
+    padding: 0.6rem 1.1rem;
+    transition: transform 0.1s, box-shadow 0.15s;
+    image-rendering: pixelated;
+  }
+
+.profile-save-btn:hover {
+    box-shadow: 3px 3px 0px oklch(0.3 0.15 295), 0 0 22px
+      oklch(0.62 0.22 295 / 0.55);
+  }
+
+.profile-save-btn:active {
+    transform: translateY(2px);
+    box-shadow: 1px 1px 0px oklch(0.3 0.15 295);
+  }
+
+.profile-save-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: 3px 3px 0px oklch(0.1 0.04 295);
+  }
+
+.profile-cancel-btn {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: oklch(0.85 0.12 295);
+    background: oklch(0.18 0.07 295);
+    border: 2px solid oklch(0.3 0.1 295);
+    box-shadow: 3px 3px 0px oklch(0.1 0.04 295);
+    padding: 0.6rem 1.1rem;
+    transition: transform 0.1s, border-color 0.15s, color 0.15s;
+    image-rendering: pixelated;
+  }
+
+.profile-cancel-btn:hover {
+    border-color: oklch(0.45 0.18 295);
+    color: oklch(0.95 0.12 295);
+  }
+
+.profile-cancel-btn:active {
+    transform: translateY(2px);
+    box-shadow: 1px 1px 0px oklch(0.1 0.04 295);
+  }
+
+/* ---- Community keyframes ---- */
+
+@keyframes vote-pop {
+    0% {
+      transform: scale(1);
+    }
+    45% {
+      transform: scale(1.18);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+/* Avatar tile selection pulse — one-shot purple ring expand on select. */
+
+@keyframes avatar-select-pulse {
+    0% {
+      box-shadow: 3px 3px 0px oklch(0.1 0.04 295), 0 0 0 0
+        oklch(0.62 0.22 295 / 0.6);
+    }
+    60% {
+      box-shadow: 3px 3px 0px oklch(0.3 0.15 295), 0 0 22px 6px
+        oklch(0.62 0.22 295 / 0.4);
+    }
+    100% {
+      box-shadow: 3px 3px 0px oklch(0.3 0.15 295), 0 0 20px
+        oklch(0.62 0.22 295 / 0.5), inset 0 0 0 1px oklch(0.62 0.22 295 / 0.3);
     }
   }
 
@@ -849,6 +1812,10 @@ p,
   visibility: hidden;
 }
 
+.collapse{
+  visibility: collapse;
+}
+
 .static{
   position: static;
 }
@@ -863,6 +1830,10 @@ p,
 
 .relative{
   position: relative;
+}
+
+.sticky{
+  position: sticky;
 }
 
 .inset-0{
@@ -1007,6 +1978,10 @@ p,
   z-index: 20;
 }
 
+.z-40{
+  z-index: 40;
+}
+
 .z-50{
   z-index: 50;
 }
@@ -1071,6 +2046,10 @@ p,
 
 .mb-10{
   margin-bottom: 2.5rem;
+}
+
+.mb-12{
+  margin-bottom: 3rem;
 }
 
 .mb-14{
@@ -1145,6 +2124,10 @@ p,
   margin-top: 1.25rem;
 }
 
+.mt-6{
+  margin-top: 1.5rem;
+}
+
 .mt-8{
   margin-top: 2rem;
 }
@@ -1166,6 +2149,10 @@ p,
 
 .inline-block{
   display: inline-block;
+}
+
+.inline{
+  display: inline;
 }
 
 .flex{
@@ -1366,6 +2353,10 @@ p,
   max-height: 18rem;
 }
 
+.max-h-\[280px\]{
+  max-height: 280px;
+}
+
 .max-h-\[300px\]{
   max-height: 300px;
 }
@@ -1384,6 +2375,22 @@ p,
 
 .min-h-4{
   min-height: 1rem;
+}
+
+.min-h-\[100px\]{
+  min-height: 100px;
+}
+
+.min-h-\[200px\]{
+  min-height: 200px;
+}
+
+.min-h-\[400px\]{
+  min-height: 400px;
+}
+
+.min-h-\[60vh\]{
+  min-height: 60vh;
 }
 
 .min-h-screen{
@@ -1426,8 +2433,16 @@ p,
   width: 0.625rem;
 }
 
+.w-20{
+  width: 5rem;
+}
+
 .w-24{
   width: 6rem;
+}
+
+.w-28{
+  width: 7rem;
 }
 
 .w-3{
@@ -1440,6 +2455,10 @@ p,
 
 .w-4{
   width: 1rem;
+}
+
+.w-40{
+  width: 10rem;
 }
 
 .w-48{
@@ -1476,6 +2495,10 @@ p,
 
 .w-\[100px\]{
   width: 100px;
+}
+
+.w-\[min\(92vw\2c 30rem\)\]{
+  width: min(92vw, 30rem);
 }
 
 .w-auto{
@@ -1524,6 +2547,10 @@ p,
   min-width: 12rem;
 }
 
+.min-w-\[180px\]{
+  min-width: 180px;
+}
+
 .min-w-\[8rem\]{
   min-width: 8rem;
 }
@@ -1536,12 +2563,24 @@ p,
   max-width: 42rem;
 }
 
+.max-w-3xl{
+  max-width: 48rem;
+}
+
+.max-w-4xl{
+  max-width: 56rem;
+}
+
 .max-w-5xl{
   max-width: 64rem;
 }
 
 .max-w-7xl{
   max-width: 80rem;
+}
+
+.max-w-\[80\%\]{
+  max-width: 80%;
 }
 
 .max-w-\[calc\(100\%-2rem\)\]{
@@ -1565,12 +2604,24 @@ p,
   max-width: 24rem;
 }
 
+.max-w-xs{
+  max-width: 20rem;
+}
+
 .flex-1{
   flex: 1 1 0%;
 }
 
+.flex-shrink{
+  flex-shrink: 1;
+}
+
 .flex-shrink-0{
   flex-shrink: 0;
+}
+
+.shrink{
+  flex-shrink: 1;
 }
 
 .shrink-0{
@@ -1733,6 +2784,14 @@ p,
           user-select: none;
 }
 
+.resize-none{
+  resize: none;
+}
+
+.resize-y{
+  resize: vertical;
+}
+
 .resize{
   resize: both;
 }
@@ -1749,6 +2808,12 @@ p,
 
 .list-none{
   list-style-type: none;
+}
+
+.appearance-none{
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 
 .auto-rows-min{
@@ -1775,6 +2840,10 @@ p,
   flex-direction: row;
 }
 
+.flex-row-reverse{
+  flex-direction: row-reverse;
+}
+
 .flex-col{
   flex-direction: column;
 }
@@ -1799,8 +2868,20 @@ p,
   align-items: center;
 }
 
+.items-baseline{
+  align-items: baseline;
+}
+
 .items-stretch{
   align-items: stretch;
+}
+
+.justify-start{
+  justify-content: flex-start;
+}
+
+.justify-end{
+  justify-content: flex-end;
 }
 
 .justify-center{
@@ -1867,6 +2948,12 @@ p,
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 
+.space-y-10 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
+}
+
 .space-y-2 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1883,6 +2970,18 @@ p,
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.space-y-5 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
+}
+
+.space-y-6 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 
 .self-start{
@@ -2014,6 +3113,10 @@ p,
   border-bottom-width: 1px;
 }
 
+.border-b-2{
+  border-bottom-width: 2px;
+}
+
 .border-l{
   border-left-width: 1px;
 }
@@ -2028,6 +3131,10 @@ p,
 
 .border-t{
   border-top-width: 1px;
+}
+
+.border-t-2{
+  border-top-width: 2px;
 }
 
 .border-dashed{
@@ -2266,6 +3373,11 @@ p,
   padding-bottom: 0.375rem;
 }
 
+.py-10{
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
 .py-12{
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -2284,6 +3396,11 @@ p,
 .py-2\.5{
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
+}
+
+.py-20{
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 .py-24{
@@ -2311,6 +3428,11 @@ p,
   padding-bottom: 1.5rem;
 }
 
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .pb-3{
   padding-bottom: 0.75rem;
 }
@@ -2335,6 +3457,10 @@ p,
   padding-right: 0.25rem;
 }
 
+.pr-10{
+  padding-right: 2.5rem;
+}
+
 .pr-2{
   padding-right: 0.5rem;
 }
@@ -2343,12 +3469,20 @@ p,
   padding-right: 0.625rem;
 }
 
+.pr-6{
+  padding-right: 1.5rem;
+}
+
 .pr-8{
   padding-right: 2rem;
 }
 
 .pt-0{
   padding-top: 0px;
+}
+
+.pt-1{
+  padding-top: 0.25rem;
 }
 
 .pt-16{
@@ -2524,6 +3658,10 @@ p,
   text-decoration-line: underline;
 }
 
+.line-through{
+  text-decoration-line: line-through;
+}
+
 .underline-offset-4{
   text-underline-offset: 4px;
 }
@@ -2542,6 +3680,10 @@ p,
 
 .opacity-20{
   opacity: 0.2;
+}
+
+.opacity-25{
+  opacity: 0.25;
 }
 
 .opacity-30{
@@ -2827,6 +3969,26 @@ p,
   animation-play-state: running;
 }
 
+/* Reduced-motion: disable the remaining clean animations
+     (float, pulse-glow, shimmer, hero-reveal, status pulses).
+     No glitch classes remain — they were removed wholesale. */
+
+@media (prefers-reduced-motion: reduce) {
+    .float-anim,
+    .pulse-glow-anim,
+    .shimmer-text,
+    .hero-reveal,
+    .status-pending,
+    .status-accepted,
+    .status-declined,
+    .vote-btn-approve.is-cast,
+    .vote-btn-reject.is-cast,
+    .coming-soon-badge,
+    .avatar-tile.is-selected {
+      animation: none !important;
+    }
+  }
+
 .\[--cell-size\:--spacing\(8\)\]{
   --cell-size: var(--spacing(8));
 }
@@ -2950,6 +4112,10 @@ p,
 
 .first\:border-l:first-child{
   border-left-width: 1px;
+}
+
+.last\:mb-0:last-child{
+  margin-bottom: 0px;
 }
 
 .last\:rounded-r-md:last-child{
@@ -4198,6 +5364,10 @@ p,
     display: flex;
   }
 
+  .sm\:w-\[calc\(\(100\%-1\.25rem\)\/2\)\]{
+    width: calc((100% - 1.25rem) / 2);
+  }
+
   .sm\:max-w-lg{
     max-width: 32rem;
   }
@@ -4218,12 +5388,28 @@ p,
     flex-direction: row;
   }
 
+  .sm\:items-start{
+    align-items: flex-start;
+  }
+
+  .sm\:items-center{
+    align-items: center;
+  }
+
   .sm\:justify-end{
     justify-content: flex-end;
   }
 
   .sm\:gap-2\.5{
     gap: 0.625rem;
+  }
+
+  .sm\:p-10{
+    padding: 2.5rem;
+  }
+
+  .sm\:p-5{
+    padding: 1.25rem;
   }
 
   .sm\:p-6{
@@ -4278,6 +5464,14 @@ p,
     display: none;
   }
 
+  .md\:h-full{
+    height: 100%;
+  }
+
+  .md\:min-h-0{
+    min-height: 0px;
+  }
+
   .md\:w-\[var\(--radix-navigation-menu-viewport-width\)\]{
     width: var(--radix-navigation-menu-viewport-width);
   }
@@ -4292,6 +5486,10 @@ p,
 
   .md\:grid-cols-4{
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-\[280px_1fr\]{
+    grid-template-columns: 280px 1fr;
   }
 
   .md\:flex-row{
@@ -4344,6 +5542,10 @@ p,
 }
 
 @media (min-width: 1024px){
+
+  .lg\:w-\[calc\(\(100\%-5rem\)\/5\)\]{
+    width: calc((100% - 5rem) / 5);
+  }
 
   .lg\:grid-cols-5{
     grid-template-columns: repeat(5, minmax(0, 1fr));

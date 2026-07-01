@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { SiDiscord } from "react-icons/si";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
@@ -44,27 +45,25 @@ export default function Team() {
                 }}
               >
                 ★ Interested in joining the team?{" "}
-                <a
-                  href="https://discord.gg/UGCjrpj7Jg"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to="/apply"
                   style={{
-                    color: "oklch(0.72 0.22 270)",
+                    color: "oklch(0.72 0.22 295)",
                     textDecoration: "underline",
                     textUnderlineOffset: "3px",
                     transition: "color 0.15s",
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLElement).style.color =
-                      "oklch(0.88 0.22 270)";
+                      "oklch(0.88 0.22 295)";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLElement).style.color =
-                      "oklch(0.72 0.22 270)";
+                      "oklch(0.72 0.22 295)";
                   }}
                 >
-                  Apply in our Discord server!
-                </a>
+                  Apply for Staff!
+                </Link>
               </p>
             </div>
           </div>

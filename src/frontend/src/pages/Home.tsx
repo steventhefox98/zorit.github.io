@@ -3,6 +3,7 @@ import Footer from "../components/layout/Footer";
 import HeroSection from "../components/layout/HeroSection";
 import Navbar from "../components/layout/Navbar";
 import RanksSection from "../components/layout/RanksSection";
+import WebsiteUpdateSection from "../components/layout/WebsiteUpdateSection";
 import { useFadeIn } from "../hooks/useFadeIn";
 
 function FadeSection({
@@ -27,6 +28,9 @@ export default function Home() {
         </FadeSection>
         <FadeSection delay={100}>
           <RanksSection />
+        </FadeSection>
+        <FadeSection delay={200}>
+          <WebsiteUpdateSection />
         </FadeSection>
       </main>
       <Footer />

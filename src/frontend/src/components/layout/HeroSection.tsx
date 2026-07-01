@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import JoinServerModal from "../JoinServerModal";
@@ -182,6 +183,31 @@ export default function HeroSection() {
             >
               LEARN MORE
             </button>
+
+            <Link
+              to="/apply"
+              className="minecraft-btn px-8 py-4 text-base inline-flex items-center justify-center"
+              style={{
+                background: "oklch(0.45 0.20 295)",
+                color: "oklch(0.99 0 0)",
+                boxShadow:
+                  "0 5px 0 oklch(0.22 0.12 295), inset 0 2px 0 oklch(0.62 0.22 295)",
+                fontSize: "0.7rem",
+                letterSpacing: "0.1em",
+                minWidth: "200px",
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background =
+                  "oklch(0.52 0.22 295)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background =
+                  "oklch(0.45 0.20 295)";
+              }}
+            >
+              ✎ APPLY FOR STAFF
+            </Link>
           </div>
 
           {/* IP Display */}

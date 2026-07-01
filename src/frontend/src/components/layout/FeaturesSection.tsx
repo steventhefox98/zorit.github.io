@@ -1,35 +1,75 @@
-import { Shield, Sword, Trophy, Users, Zap } from "lucide-react";
+import {
+  CalendarHeart,
+  Dices,
+  Droplet,
+  Hammer,
+  Pickaxe,
+  Sprout,
+  Users,
+  Zap,
+} from "lucide-react";
 
 const features = [
   {
+    icon: "/assets/generated/feature-prison.dim_256x256.png",
+    fallbackIcon: Pickaxe,
+    title: "Prison",
+    description:
+      "Mine deep in the quarries, sell your loot, and rank up through the cells. Climb the ranks and earn your freedom to escape.",
+    color: "oklch(0.62 0.06 245)",
+    borderColor: "oklch(0.48 0.05 245)",
+    tag: "MINING MODE",
+  },
+  {
+    icon: "/assets/generated/feature-lifesteal.dim_256x256.png",
+    fallbackIcon: Droplet,
+    title: "Lifesteal",
+    description:
+      "Defeat your rivals and steal their hearts. Every kill makes you stronger — but one wrong move and you lose your own.",
+    color: "oklch(0.55 0.22 25)",
+    borderColor: "oklch(0.45 0.20 25)",
+    tag: "HEAL ON KILL",
+  },
+  {
+    icon: "/assets/generated/feature-minigames.dim_256x256.png",
+    fallbackIcon: Dices,
+    title: "Minigames",
+    description:
+      "Jump into a rotating collection of quick mini-games. Bed Wars, Sky Wars, parkour, and more — perfect to play with friends.",
+    color: "oklch(0.70 0.16 175)",
+    borderColor: "oklch(0.55 0.14 175)",
+    tag: "FUN MODES",
+  },
+  {
     icon: "/assets/generated/feature-survival.dim_256x256.png",
-    fallbackIcon: Shield,
+    fallbackIcon: Sprout,
     title: "Survival",
     description:
-      "Explore vast biomes, gather resources, and build your empire from scratch. The world is yours to conquer.",
-    color: "oklch(0.55 0.18 145)",
-    borderColor: "oklch(0.40 0.15 145)",
+      "Gather, craft, and build your way through a classic survival world. Punch trees, tame the wild, and survive the night with friends.",
+    color: "oklch(0.68 0.17 145)",
+    borderColor: "oklch(0.52 0.15 145)",
     tag: "CLASSIC MODE",
   },
   {
-    icon: "/assets/generated/feature-pvp.dim_256x256.png",
-    fallbackIcon: Sword,
-    title: "PvP Arena",
-    description:
-      "Test your skills against the best players. Ranked matches, tournaments, and epic battles await.",
-    color: "oklch(0.60 0.22 25)",
-    borderColor: "oklch(0.45 0.18 25)",
-    tag: "COMPETITIVE",
-  },
-  {
     icon: "/assets/generated/feature-events.dim_256x256.png",
-    fallbackIcon: Trophy,
+    fallbackIcon: CalendarHeart,
     title: "Events",
     description:
-      "Join weekly events, seasonal challenges, and special tournaments with exclusive rewards and prizes.",
-    color: "oklch(0.70 0.20 80)",
-    borderColor: "oklch(0.55 0.18 80)",
-    tag: "WEEKLY",
+      "Compete in special server events and tournaments. Limited-time challenges, leaderboards, and rare pixel trophies await the bold.",
+    color: "oklch(0.75 0.15 75)",
+    borderColor: "oklch(0.60 0.14 75)",
+    tag: "TOURNAMENTS",
+  },
+  {
+    icon: "/assets/generated/feature-creative.dim_256x256.png",
+    fallbackIcon: Hammer,
+    title: "Creative",
+    description:
+      "Unlimited blocks, infinite imagination. Build castles, redstone contraptions, and pixel masterpieces in a pure creative sandbox.",
+    color: "oklch(0.65 0.22 320)",
+    borderColor: "oklch(0.52 0.20 320)",
+    tag: "BUILD MODE",
+    comingSoon: true,
   },
 ];
 
@@ -115,6 +155,7 @@ export default function FeaturesSection() {
                   background: "oklch(0.15 0.07 295)",
                   border: "2px solid oklch(0.28 0.12 295)",
                   boxShadow: "4px 4px 0 oklch(0.08 0.03 295)",
+                  opacity: feature.comingSoon ? 0.7 : 1,
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor =
@@ -129,17 +170,26 @@ export default function FeaturesSection() {
                     "translateY(0)";
                 }}
               >
-                <div
-                  className="absolute top-3 right-3 px-2 py-0.5 font-pixel"
-                  style={{
-                    background: feature.color,
-                    color: "oklch(0.99 0 0)",
-                    fontSize: "0.4rem",
-                    letterSpacing: "0.1em",
-                  }}
-                >
-                  {feature.tag}
-                </div>
+                {feature.comingSoon ? (
+                  <span
+                    className="coming-soon-badge absolute top-3 right-3"
+                    data-ocid="features.creative.coming_soon_badge"
+                  >
+                    Coming Soon
+                  </span>
+                ) : (
+                  <div
+                    className="absolute top-3 right-3 px-2 py-0.5 font-pixel"
+                    style={{
+                      background: feature.color,
+                      color: "oklch(0.99 0 0)",
+                      fontSize: "0.4rem",
+                      letterSpacing: "0.1em",
+                    }}
+                  >
+                    {feature.tag}
+                  </div>
+                )}
 
                 <div
                   className="w-full h-40 flex items-center justify-center overflow-hidden"
@@ -248,6 +298,54 @@ export default function FeaturesSection() {
               </div>
             );
           })}
+        </div>
+
+        <div
+          className="mt-6 flex flex-col sm:flex-row items-center gap-4 p-4"
+          style={{
+            background: "oklch(0.12 0.05 295)",
+            border: "2px dashed oklch(0.32 0.10 295)",
+            boxShadow: "4px 4px 0 oklch(0.08 0.03 295)",
+          }}
+        >
+          <div
+            className="px-3 py-1 font-pixel flex-shrink-0"
+            style={{
+              background: "oklch(0.25 0.08 295)",
+              border: "2px solid oklch(0.40 0.12 295)",
+              color: "oklch(0.70 0.14 295)",
+              fontSize: "0.45rem",
+              letterSpacing: "0.15em",
+            }}
+          >
+            REMOVED
+          </div>
+          <div className="text-center sm:text-left">
+            <p
+              className="font-pixel mb-1"
+              style={{
+                fontSize: "0.6rem",
+                color: "oklch(0.55 0.08 295)",
+                textDecoration: "line-through",
+                textDecorationColor: "oklch(0.45 0.12 295)",
+                textDecorationThickness: "2px",
+                letterSpacing: "0.05em",
+              }}
+            >
+              Skyblock
+            </p>
+            <p
+              style={{
+                fontFamily: '"VT323", monospace',
+                fontSize: "1rem",
+                color: "oklch(0.50 0.06 295)",
+                lineHeight: "1.4",
+              }}
+            >
+              Skyblock has been removed and is no longer available. Thanks for
+              the memories — maybe it returns one day.
+            </p>
+          </div>
         </div>
       </div>
     </section>

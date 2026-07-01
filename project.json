@@ -1,0 +1,20 @@
+{
+  "overview": "ZoritLegends Minecraft server community site with staff roster, applications, community posts, messaging, and admin user management.",
+  "features": [
+    "Staff roster with 13 rank tiers and adjustable slot counts",
+    "Admin Users dropdown panel to manage all registered users' roles",
+    "Application system for staff roles",
+    "Community posts and comments",
+    "Staff direct messaging",
+    "Profile with avatar upload",
+    "Rules page"
+  ],
+  "category": "community",
+  "tags": [
+    "minecraft",
+    "staff-management",
+    "community",
+    "purple-pixel-theme"
+  ],
+  "last_updated": "2026-07-01T05:50:38.020Z"
+}
