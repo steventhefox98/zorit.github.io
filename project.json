@@ -1,18 +1,19 @@
 {
-  "overview": "ZoritLegends Minecraft server website with staff applications for Mod, Admin, Builder, and Developer roles, staff messaging, community posts, and team roster.",
+  "overview": "ZoritLegends Minecraft server landing page with a staff roster you can manage, including changing a member's rank in place.",
   "features": [
-    "Apply for Mod, Admin, Builder, or Developer staff roles with role-specific 12-question forms",
-    "Admin review dashboard for all staff applications with role badges and rank assignment",
-    "Staff messaging with normal mixed-case text display",
-    "Community posts with voting and comments",
-    "Team roster and rank management"
+    "Staff roster grouped by 13 ranks",
+    "Add and remove staff members",
+    "Edit per-rank slot counts",
+    "Change a staff member's rank directly from the staff list",
+    "Admin page for per-user role reassignment",
+    "Works on static hosts with sample data when the canister is unreachable"
   ],
-  "category": "community",
+  "category": "landing-page",
   "tags": [
     "minecraft",
-    "staff-applications",
-    "community",
-    "gaming"
+    "staff-roster",
+    "admin",
+    "landing-page"
   ],
-  "last_updated": "2026-07-01T10:29:25.560Z"
+  "last_updated": "2026-07-01T13:32:11.680Z"
 }

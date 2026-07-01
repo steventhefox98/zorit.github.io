@@ -17,6 +17,11 @@ type UserEntry =
    role: Role;
    username: Username;
  };
+type UpdateStaffRosterMemberResult = 
+ record {
+   error: opt text;
+   success: bool;
+ };
 type Timestamp = int;
 type SubmitApplicationResult = 
  record {
@@ -216,6 +221,8 @@ service : {
    (SetRoleResult);
   submitApplication: (username: text, appliedRole: AppliedRole, answers:
    vec text) -> (SubmitApplicationResult);
+  updateStaffRosterMember: (callerUsername: text, memberId: nat, targetRank:
+   RosterRank) -> (UpdateStaffRosterMemberResult);
   voteOnCommunityPost: (postId: nat, voterUsername: text, status:
    VoteStatus) -> (VoteResult);
 }

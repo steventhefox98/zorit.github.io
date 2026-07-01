@@ -1596,6 +1596,10 @@ p,
   z-index: 20;
 }
 
+.z-30{
+  z-index: 30;
+}
+
 .z-40{
   z-index: 40;
 }
@@ -1630,6 +1634,11 @@ p,
   margin-right: 0.5rem;
 }
 
+.mx-3{
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
 .mx-3\.5{
   margin-left: 0.875rem;
   margin-right: 0.875rem;
@@ -1648,6 +1657,11 @@ p,
 .my-1{
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+}
+
+.my-2{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .-ml-4{
@@ -1969,6 +1983,10 @@ p,
 
 .h-svh{
   height: 100svh;
+}
+
+.max-h-52{
+  max-height: 13rem;
 }
 
 .max-h-72{

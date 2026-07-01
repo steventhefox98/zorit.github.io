@@ -284,6 +284,54 @@ module {
     };
   };
 
+  /// Update an existing roster member's rank in place. Administrator-only
+  /// (strict === #Administrator; Co-Administrators are view-only). Validates
+  /// the target rank against its slot capacity: the member's own seat is
+  /// freed by leaving their old rank, so the capacity check counts current
+  /// members of the target rank excluding the member being moved. Returns
+  /// UpdateStaffRosterMemberResult with `error` set on failure.
+  public func updateStaffRosterMember(state : State, authState : AuthState, callerUsername : Common.Username, memberId : Types.RosterMemberId, targetRank : AuthTypes.RosterRank) : Types.UpdateStaffRosterMemberResult {
+    // Admin gate — strict === #Administrator.
+    switch (lookupRole(authState, callerUsername)) {
+      case null { return { success = false; error = ?"Admin only" } };
+      case (?role) {
+        if (not isAdminRole(role)) {
+          return { success = false; error = ?"Admin only" };
+        };
+      };
+    };
+    // Look up the member; reject if not found.
+    let member = switch (state.roster.get(memberId)) {
+      case null { return { success = false; error = ?"Member not found" } };
+      case (?m) m;
+    };
+    // Capacity check: count current members at targetRank excluding the
+    // member being moved, then compare against the target rank's slot count.
+    let currentAtTarget = state.roster.toArray().filter(
+      func((_id, m)) : Bool { m.rank == targetRank and m.id != memberId }
+    ).size();
+    let slotCount = switch (state.rankSlots.get(compareRank, targetRank)) {
+      case (?n) n;
+      case null {
+        // Fall back to the default slot count for this rank if the admin
+        // has not yet initialized it (mirrors getRankSlots behavior).
+        let defaultSlot = defaultRankSlots().find(
+          func(slot : Types.RankSlot) : Bool { slot.rank == targetRank }
+        );
+        switch (defaultSlot) {
+          case (?slot) slot.slots;
+          case null 0;
+        };
+      };
+    };
+    if (currentAtTarget >= slotCount) {
+      return { success = false; error = ?"Rank slots full" };
+    };
+    // Update the member's rank in place (preserves id and name).
+    state.roster.add(memberId, { member with rank = targetRank });
+    { success = true; error = null };
+  };
+
   /// Lowercase a Text value (ASCII-only; sufficient for username matching).
   func toLower(text : Text) : Text {
     text.map(func(char : Char) : Char {

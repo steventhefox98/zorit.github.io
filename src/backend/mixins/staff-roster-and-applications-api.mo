@@ -43,6 +43,16 @@ mixin (state : StaffRosterApplications.State, authState : AuthRolesApplications.
     StaffRosterApplications.acceptApplication(state, authState, callerUsername, applicationId, assignedRank);
   };
 
+  /// Update an existing roster member's rank in place. Administrator-only
+  /// (shared update, not query). Validates the target rank against its slot
+  /// capacity and updates the member's rank without removing and re-adding
+  /// the entry, so the member id is preserved. The caller's auth state and
+  /// username are resolved by the lib function (Administrator-only).
+  public shared ({ caller }) func updateStaffRosterMember(callerUsername : Text, memberId : Nat, targetRank : AuthTypes.RosterRank) : async Types.UpdateStaffRosterMemberResult {
+    ignore caller;
+    StaffRosterApplications.updateStaffRosterMember(state, authState, callerUsername, memberId, targetRank);
+  };
+
   /// Decline an application (single-step). Returns false if the application
   /// id does not exist.
   public shared ({ caller }) func declineApplication(applicationId : Nat) : async Bool {

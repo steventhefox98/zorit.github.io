@@ -41,6 +41,15 @@ export interface RegisterResult {
     role: Role;
     success: boolean;
 }
+export interface UpdateStaffRosterMemberResult {
+    error?: string;
+    success: boolean;
+}
+export interface StaffDirectoryEntry {
+    username: Username;
+    rank?: RosterRank;
+    role: Role;
+}
 export interface Post {
     id: PostId;
     postType: PostType;
@@ -48,11 +57,6 @@ export interface Post {
     authorUsername: Username;
     body: string;
     createdAt: Timestamp;
-}
-export interface StaffDirectoryEntry {
-    username: Username;
-    rank?: RosterRank;
-    role: Role;
 }
 export type Username = string;
 export interface RosterMember {
@@ -201,5 +205,6 @@ export interface backendInterface {
     setRankSlot(callerUsername: string, rank: RosterRank, slots: bigint): Promise<SetRankSlotResult>;
     setRole(callerUsername: string, targetUsername: string, newRole: Role): Promise<SetRoleResult>;
     submitApplication(username: string, appliedRole: AppliedRole, answers: Array<string>): Promise<SubmitApplicationResult>;
+    updateStaffRosterMember(callerUsername: string, memberId: bigint, targetRank: RosterRank): Promise<UpdateStaffRosterMemberResult>;
     voteOnCommunityPost(postId: bigint, voterUsername: string, status: VoteStatus): Promise<VoteResult>;
 }

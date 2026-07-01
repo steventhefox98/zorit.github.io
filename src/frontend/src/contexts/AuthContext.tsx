@@ -1,5 +1,6 @@
 import { type LoginResult, type RegisterResult, Role } from "@/backend";
 import { useGetMyRole, useLogin, useRegister } from "@/hooks/useQueries";
+import { MOCK_ADMIN_USERNAME, isMockMode } from "@/lib/mockMode";
 import {
   type ReactNode,
   createContext,
@@ -90,9 +91,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (restoredRole) {
         setUsername(stored.username);
         setRole(restoredRole);
-      } else {
-        clearSession();
+        return;
       }
+      clearSession();
+    }
+
+    // No stored session — when running in mock mode (canister unavailable,
+    // e.g. deployed to a static host), auto-establish a logged-in admin
+    // session so the user is not blocked by auth. The mock backend serves
+    // sample data regardless of credentials, so we set the local session
+    // directly without a backend login round-trip.
+    if (isMockMode()) {
+      const mockRole = Role.Administrator;
+      setUsername(MOCK_ADMIN_USERNAME);
+      setRole(mockRole);
+      writeSession({ username: MOCK_ADMIN_USERNAME, role: mockRole });
     }
   }, []);
 

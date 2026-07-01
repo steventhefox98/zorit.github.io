@@ -14,9 +14,9 @@ import MessagingApi "mixins/messaging-api";
 import CommunityApi "mixins/community-api";
 import StaffRosterApplicationsApi "mixins/staff-roster-and-applications-api";
 import UserManagementApi "mixins/user-management-api";
-import Migration "migration";
 
-(with migration = Migration.run)
+
+
 actor {
   /// users : Username -> User (persisted across upgrades via enhanced
   /// orthogonal persistence). The User record no longer carries an `avatar`

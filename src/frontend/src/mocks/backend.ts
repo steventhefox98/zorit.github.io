@@ -1,4 +1,13 @@
-import { type backendInterface, ApplicationStatus, AppliedRole, PostType, Role, RosterRank, VoteStatus } from "../backend";
+import { type backendInterface, type RosterMember, type RankSlot, ApplicationStatus, AppliedRole, PostType, Role, RosterRank, VoteStatus } from "../backend";
+
+/**
+ * Username the mock backend treats as the logged-in admin. The mock's
+ * `login()` ignores credentials and always returns `Role.Administrator`,
+ * and the sample roster/directory data uses "Steven" as the admin owner.
+ * Re-exported here so callers can import it from a single source of truth
+ * alongside `mockBackend`.
+ */
+export const MOCK_ADMIN_USERNAME = "Steven";
 
 // Timestamps in nanoseconds (Motoko Timestamp = bigint). 1 ms = 1_000_000 ns.
 const now = Date.now();
@@ -63,6 +72,73 @@ const voteStore: Record<string, { approved: bigint; rejected: bigint }> = {
   "1": { approved: 2n, rejected: 0n },
   "2": { approved: 0n, rejected: 1n },
 };
+
+// ---- Mutable in-memory roster + slot store so add/remove/update and
+//      slot editing all reflect across the mock surfaces. -------------------
+//      Seeded to match the previous static getRoster()/getRankSlots() output
+//      so the initial render is identical to the prior mock.
+let rosterIdCounter = 100n;
+const nextMemberId = () => rosterIdCounter++;
+
+const rosterStore: RosterMember[] = [
+  { id: 1n, name: "Franc [Owner]", rank: RosterRank.Owner },
+  { id: 2n, name: "woofigames", rank: RosterRank.Owner },
+  { id: 3n, name: "Steven", rank: RosterRank.CoOwner },
+  { id: 4n, name: "qbhinoor", rank: RosterRank.Admin },
+  { id: 5n, name: "Notch", rank: RosterRank.SrCop },
+  { id: 6n, name: "Jeb_", rank: RosterRank.Admin },
+  { id: 7n, name: "Alex", rank: RosterRank.Mod },
+  { id: 8n, name: "Dinnerbone", rank: RosterRank.Builder },
+];
+
+const rankSlotsStore: RankSlot[] = [
+  { rank: RosterRank.Owner, slots: 2n },
+  { rank: RosterRank.CoOwner, slots: 2n },
+  { rank: RosterRank.Manager, slots: 1n },
+  { rank: RosterRank.AdvertiseManager, slots: 1n },
+  { rank: RosterRank.ChiefAdmin, slots: 1n },
+  { rank: RosterRank.SrDeveloper, slots: 2n },
+  { rank: RosterRank.Developer, slots: 4n },
+  { rank: RosterRank.Admin, slots: 4n },
+  { rank: RosterRank.JrAdmin, slots: 4n },
+  { rank: RosterRank.Mod, slots: 5n },
+  { rank: RosterRank.Cop, slots: 3n },
+  { rank: RosterRank.SrCop, slots: 3n },
+  { rank: RosterRank.Builder, slots: 5n },
+];
+
+/** Group the flat rosterStore into RosterGroup[] by rank, in canonical order. */
+function groupRosterByRank(): import("../backend").RosterGroup[] {
+  const groups = new Map<RosterRank, RosterMember[]>();
+  for (const m of rosterStore) {
+    const list = groups.get(m.rank) ?? [];
+    list.push(m);
+    groups.set(m.rank, list);
+  }
+  const order: RosterRank[] = [
+    RosterRank.Owner,
+    RosterRank.CoOwner,
+    RosterRank.Manager,
+    RosterRank.AdvertiseManager,
+    RosterRank.ChiefAdmin,
+    RosterRank.SrDeveloper,
+    RosterRank.Developer,
+    RosterRank.Admin,
+    RosterRank.JrAdmin,
+    RosterRank.Mod,
+    RosterRank.Cop,
+    RosterRank.Builder,
+    RosterRank.SrCop,
+  ];
+  const result: import("../backend").RosterGroup[] = [];
+  for (const rank of order) {
+    const members = groups.get(rank);
+    if (members && members.length > 0) {
+      result.push({ rank, members });
+    }
+  }
+  return result;
+}
 
 export const mockBackend: backendInterface = {
   login: async () => ({ success: true, role: Role.Administrator }),
@@ -190,56 +266,50 @@ export const mockBackend: backendInterface = {
     return { success: true, commentId: newComment.id };
   },
   listCommunityComments: async (postId) => sampleComments[String(postId)] ?? [],
-  getRoster: async () => [
-    {
-      rank: RosterRank.Owner,
-      members: [
-        { id: 1n, name: "Franc [Owner]", rank: RosterRank.Owner },
-        { id: 2n, name: "woofigames", rank: RosterRank.Owner },
-      ],
-    },
-    {
-      rank: RosterRank.CoOwner,
-      members: [{ id: 3n, name: "Steven", rank: RosterRank.CoOwner }],
-    },
-    {
-      rank: RosterRank.Admin,
-      members: [
-        { id: 4n, name: "qbhinoor", rank: RosterRank.Admin },
-        { id: 6n, name: "Jeb_", rank: RosterRank.Admin },
-      ],
-    },
-    {
-      rank: RosterRank.SrCop,
-      members: [{ id: 5n, name: "Notch", rank: RosterRank.SrCop }],
-    },
-    {
-      rank: RosterRank.Mod,
-      members: [{ id: 7n, name: "Alex", rank: RosterRank.Mod }],
-    },
-    {
-      rank: RosterRank.Builder,
-      members: [{ id: 8n, name: "Dinnerbone", rank: RosterRank.Builder }],
-    },
-  ],
-  getRankSlots: async () => [
-    { rank: RosterRank.Owner, slots: 2n },
-    { rank: RosterRank.CoOwner, slots: 2n },
-    { rank: RosterRank.Manager, slots: 1n },
-    { rank: RosterRank.AdvertiseManager, slots: 1n },
-    { rank: RosterRank.ChiefAdmin, slots: 1n },
-    { rank: RosterRank.SrDeveloper, slots: 2n },
-    { rank: RosterRank.Developer, slots: 4n },
-    { rank: RosterRank.Admin, slots: 4n },
-    { rank: RosterRank.JrAdmin, slots: 4n },
-    { rank: RosterRank.Mod, slots: 5n },
-    { rank: RosterRank.Cop, slots: 3n },
-    { rank: RosterRank.SrCop, slots: 3n },
-    { rank: RosterRank.Builder, slots: 5n },
-  ],
-  setRankSlot: async () => ({ success: true }),
-  addStaffRosterMember: async () => ({ success: true }),
-  removeStaffRosterMember: async () => ({ success: true }),
+  getRoster: async () => groupRosterByRank(),
+  getRankSlots: async () => rankSlotsStore,
+  setRankSlot: async (_caller, rank, slots) => {
+    const entry = rankSlotsStore.find((s) => s.rank === rank);
+    if (entry) {
+      entry.slots = slots;
+    } else {
+      rankSlotsStore.push({ rank, slots });
+    }
+    return { success: true };
+  },
+  addStaffRosterMember: async (_caller, name, rank) => {
+    const newId = nextMemberId();
+    rosterStore.push({ id: newId, name, rank });
+    return { success: true, memberId: newId };
+  },
+  removeStaffRosterMember: async (_caller, memberId) => {
+    const idx = rosterStore.findIndex((m) => m.id === memberId);
+    if (idx >= 0) rosterStore.splice(idx, 1);
+    return { success: true };
+  },
+  updateStaffRosterMember: async (_caller, memberId, targetRank) => {
+    const member = rosterStore.find((m) => m.id === memberId);
+    if (!member) {
+      return { success: false, error: "Member not found" };
+    }
+    // No-op if the target rank is the member's current rank.
+    if (member.rank === targetRank) {
+      return { success: true, error: undefined };
+    }
+    // Validate capacity: count members currently at the target rank
+    // (excluding the member being moved, since they will vacate their
+    // old slot) against the configured slot count for that rank.
+    const slotEntry = rankSlotsStore.find((s) => s.rank === targetRank);
+    const maxSlots = slotEntry ? Number(slotEntry.slots) : 0;
+    const occupiedAtTarget = rosterStore.filter(
+      (m) => m.rank === targetRank && m.id !== memberId,
+    ).length;
+    if (maxSlots > 0 && occupiedAtTarget >= maxSlots) {
+      return { success: false, error: "Rank slots full" };
+    }
+    member.rank = targetRank;
+    return { success: true, error: undefined };
+  },
   acceptApplication: async () => ({ success: true }),
   declineApplication: async () => true,
   getAllUsers: async () => [

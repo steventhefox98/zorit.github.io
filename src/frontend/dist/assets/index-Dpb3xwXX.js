@@ -16609,7 +16609,7 @@ function popHostContext(fiber) {
   contextFiberStackCursor.current === fiber && (pop(contextStackCursor), pop(contextFiberStackCursor));
   hostTransitionProviderCursor.current === fiber && (pop(hostTransitionProviderCursor), HostTransitionContext._currentValue = sharedNotPendingObject);
 }
-var hasOwnProperty = Object.prototype.hasOwnProperty, scheduleCallback$3 = Scheduler.unstable_scheduleCallback, cancelCallback$1 = Scheduler.unstable_cancelCallback, shouldYield = Scheduler.unstable_shouldYield, requestPaint = Scheduler.unstable_requestPaint, now$1 = Scheduler.unstable_now, getCurrentPriorityLevel = Scheduler.unstable_getCurrentPriorityLevel, ImmediatePriority = Scheduler.unstable_ImmediatePriority, UserBlockingPriority = Scheduler.unstable_UserBlockingPriority, NormalPriority$1 = Scheduler.unstable_NormalPriority, LowPriority = Scheduler.unstable_LowPriority, IdlePriority = Scheduler.unstable_IdlePriority, log$1 = Scheduler.log, unstable_setDisableYieldValue = Scheduler.unstable_setDisableYieldValue, rendererID = null, injectedHook = null;
+var hasOwnProperty = Object.prototype.hasOwnProperty, scheduleCallback$3 = Scheduler.unstable_scheduleCallback, cancelCallback$1 = Scheduler.unstable_cancelCallback, shouldYield = Scheduler.unstable_shouldYield, requestPaint = Scheduler.unstable_requestPaint, now$2 = Scheduler.unstable_now, getCurrentPriorityLevel = Scheduler.unstable_getCurrentPriorityLevel, ImmediatePriority = Scheduler.unstable_ImmediatePriority, UserBlockingPriority = Scheduler.unstable_UserBlockingPriority, NormalPriority$1 = Scheduler.unstable_NormalPriority, LowPriority = Scheduler.unstable_LowPriority, IdlePriority = Scheduler.unstable_IdlePriority, log$1 = Scheduler.log, unstable_setDisableYieldValue = Scheduler.unstable_setDisableYieldValue, rendererID = null, injectedHook = null;
 function setIsStrictModeForDevtools(newIsStrictMode) {
   "function" === typeof log$1 && unstable_setDisableYieldValue(newIsStrictMode);
   if (injectedHook && "function" === typeof injectedHook.setStrictMode)
@@ -22100,7 +22100,7 @@ function completeWork(current, workInProgress2, renderLanes2) {
               }
               current = current.sibling;
             }
-          null !== type.tail && now$1() > workInProgressRootRenderTargetTime && (workInProgress2.flags |= 128, newProps = true, cutOffTailIfNeeded(type, false), workInProgress2.lanes = 4194304);
+          null !== type.tail && now$2() > workInProgressRootRenderTargetTime && (workInProgress2.flags |= 128, newProps = true, cutOffTailIfNeeded(type, false), workInProgress2.lanes = 4194304);
         }
       else {
         if (!newProps)
@@ -22108,11 +22108,11 @@ function completeWork(current, workInProgress2, renderLanes2) {
             if (workInProgress2.flags |= 128, newProps = true, current = current.updateQueue, workInProgress2.updateQueue = current, scheduleRetryEffect(workInProgress2, current), cutOffTailIfNeeded(type, true), null === type.tail && "hidden" === type.tailMode && !cache$127.alternate && !isHydrating)
               return bubbleProperties(workInProgress2), null;
           } else
-            2 * now$1() - type.renderingStartTime > workInProgressRootRenderTargetTime && 536870912 !== renderLanes2 && (workInProgress2.flags |= 128, newProps = true, cutOffTailIfNeeded(type, false), workInProgress2.lanes = 4194304);
+            2 * now$2() - type.renderingStartTime > workInProgressRootRenderTargetTime && 536870912 !== renderLanes2 && (workInProgress2.flags |= 128, newProps = true, cutOffTailIfNeeded(type, false), workInProgress2.lanes = 4194304);
         type.isBackwards ? (cache$127.sibling = workInProgress2.child, workInProgress2.child = cache$127) : (current = type.last, null !== current ? current.sibling = cache$127 : workInProgress2.child = cache$127, type.last = cache$127);
       }
       if (null !== type.tail)
-        return workInProgress2 = type.tail, type.rendering = workInProgress2, type.tail = workInProgress2.sibling, type.renderingStartTime = now$1(), workInProgress2.sibling = null, current = suspenseStackCursor.current, push(suspenseStackCursor, newProps ? current & 1 | 2 : current & 1), workInProgress2;
+        return workInProgress2 = type.tail, type.rendering = workInProgress2, type.tail = workInProgress2.sibling, type.renderingStartTime = now$2(), workInProgress2.sibling = null, current = suspenseStackCursor.current, push(suspenseStackCursor, newProps ? current & 1 | 2 : current & 1), workInProgress2;
       bubbleProperties(workInProgress2);
       return null;
     case 22:
@@ -23025,7 +23025,7 @@ function commitMutationEffectsOnFiber(finishedWork, root2) {
     case 13:
       recursivelyTraverseMutationEffects(root2, finishedWork);
       commitReconciliationEffects(finishedWork);
-      finishedWork.child.flags & 8192 && null !== finishedWork.memoizedState !== (null !== current && null !== current.memoizedState) && (globalMostRecentFallbackTime = now$1());
+      finishedWork.child.flags & 8192 && null !== finishedWork.memoizedState !== (null !== current && null !== current.memoizedState) && (globalMostRecentFallbackTime = now$2());
       flags & 4 && (flags = finishedWork.updateQueue, null !== flags && (finishedWork.updateQueue = null, attachSuspenseRetryListeners(finishedWork, flags)));
       break;
     case 22:
@@ -23775,7 +23775,7 @@ function performWorkOnRoot(root$jscomp$0, lanes, forceSync) {
           default:
             throw Error(formatProdErrorMessage(329));
         }
-        if ((lanes & 62914560) === lanes && (exitStatus = globalMostRecentFallbackTime + 300 - now$1(), 10 < exitStatus)) {
+        if ((lanes & 62914560) === lanes && (exitStatus = globalMostRecentFallbackTime + 300 - now$2(), 10 < exitStatus)) {
           markRootSuspended(
             shouldTimeSlice,
             lanes,
@@ -24038,7 +24038,7 @@ function renderRootConcurrent(root2, lanes) {
   var prevExecutionContext = executionContext;
   executionContext |= 2;
   var prevDispatcher = pushDispatcher(), prevAsyncDispatcher = pushAsyncDispatcher();
-  workInProgressRoot !== root2 || workInProgressRootRenderLanes !== lanes ? (workInProgressTransitions = null, workInProgressRootRenderTargetTime = now$1() + 500, prepareFreshStack(root2, lanes)) : workInProgressRootIsPrerendering = checkIfRootIsPrerendering(
+  workInProgressRoot !== root2 || workInProgressRootRenderLanes !== lanes ? (workInProgressTransitions = null, workInProgressRootRenderTargetTime = now$2() + 500, prepareFreshStack(root2, lanes)) : workInProgressRootIsPrerendering = checkIfRootIsPrerendering(
     root2,
     lanes
   );
@@ -24539,7 +24539,7 @@ function pingSuspendedRoot(root2, wakeable, pingedLanes) {
   null !== pingCache && pingCache.delete(wakeable);
   root2.pingedLanes |= root2.suspendedLanes & pingedLanes;
   root2.warmLanes &= ~pingedLanes;
-  workInProgressRoot === root2 && (workInProgressRootRenderLanes & pingedLanes) === pingedLanes && (4 === workInProgressRootExitStatus || 3 === workInProgressRootExitStatus && (workInProgressRootRenderLanes & 62914560) === workInProgressRootRenderLanes && 300 > now$1() - globalMostRecentFallbackTime ? 0 === (executionContext & 2) && prepareFreshStack(root2, 0) : workInProgressRootPingedLanes |= pingedLanes, workInProgressSuspendedRetryLanes === workInProgressRootRenderLanes && (workInProgressSuspendedRetryLanes = 0));
+  workInProgressRoot === root2 && (workInProgressRootRenderLanes & pingedLanes) === pingedLanes && (4 === workInProgressRootExitStatus || 3 === workInProgressRootExitStatus && (workInProgressRootRenderLanes & 62914560) === workInProgressRootRenderLanes && 300 > now$2() - globalMostRecentFallbackTime ? 0 === (executionContext & 2) && prepareFreshStack(root2, 0) : workInProgressRootPingedLanes |= pingedLanes, workInProgressSuspendedRetryLanes === workInProgressRootRenderLanes && (workInProgressSuspendedRetryLanes = 0));
   ensureRootIsScheduled(root2);
 }
 function retryTimedOutBoundary(boundaryFiber, retryLane) {
@@ -24616,7 +24616,7 @@ function processRootScheduleInMicrotask() {
   mightHavePendingSyncWork = didScheduleMicrotask = false;
   var syncTransitionLanes = 0;
   0 !== currentEventTransitionLane && (shouldAttemptEagerTransition() && (syncTransitionLanes = currentEventTransitionLane), currentEventTransitionLane = 0);
-  for (var currentTime = now$1(), prev = null, root2 = firstScheduledRoot; null !== root2; ) {
+  for (var currentTime = now$2(), prev = null, root2 = firstScheduledRoot; null !== root2; ) {
     var next = root2.next, nextLanes = scheduleTaskForRootDuringMicrotask(root2, currentTime);
     if (0 === nextLanes)
       root2.next = null, null === prev ? firstScheduledRoot = next : prev.next = next, null === next && (lastScheduledRoot = prev);
@@ -24688,7 +24688,7 @@ function performWorkOnRootViaSchedulerTask(root2, didTimeout) {
   );
   if (0 === workInProgressRootRenderLanes$jscomp$0) return null;
   performWorkOnRoot(root2, workInProgressRootRenderLanes$jscomp$0, didTimeout);
-  scheduleTaskForRootDuringMicrotask(root2, now$1());
+  scheduleTaskForRootDuringMicrotask(root2, now$2());
   return null != root2.callbackNode && root2.callbackNode === originalCallbackNode ? performWorkOnRootViaSchedulerTask.bind(null, root2) : null;
 }
 function performSyncWorkOnRoot(root2, lanes) {
@@ -26931,7 +26931,7 @@ function dispatchEvent(domEventName, eventSystemFlags, targetContainer, nativeEv
                     lanes &= ~lane;
                   }
                   ensureRootIsScheduled(fiber);
-                  0 === (executionContext & 6) && (workInProgressRootRenderTargetTime = now$1() + 500, flushSyncWorkAcrossRoots_impl(0));
+                  0 === (executionContext & 6) && (workInProgressRootRenderTargetTime = now$2() + 500, flushSyncWorkAcrossRoots_impl(0));
                 }
               }
               break;
@@ -32955,19 +32955,19 @@ function createRenderBatcher(scheduleNextBatch, allowKeepAlive) {
   return { schedule, cancel, state, steps };
 }
 const { schedule: frame, cancel: cancelFrame, state: frameData, steps: frameSteps } = /* @__PURE__ */ createRenderBatcher(typeof requestAnimationFrame !== "undefined" ? requestAnimationFrame : noop, true);
-let now;
+let now$1;
 function clearTime() {
-  now = void 0;
+  now$1 = void 0;
 }
 const time = {
   now: () => {
-    if (now === void 0) {
+    if (now$1 === void 0) {
       time.set(frameData.isProcessing || MotionGlobalConfig.useManualTiming ? frameData.timestamp : performance.now());
     }
-    return now;
+    return now$1;
   },
   set: (newTime) => {
-    now = newTime;
+    now$1 = newTime;
     queueMicrotask(clearTime);
   }
 };
@@ -41036,6 +41036,10 @@ const SubmitApplicationResult = Record({
   "applicationId": Opt(ApplicationId),
   "success": Bool
 });
+const UpdateStaffRosterMemberResult = Record({
+  "error": Opt(Text),
+  "success": Bool
+});
 const VoteStatus$1 = Variant({
   "approved": Null,
   "rejected": Null
@@ -41104,6 +41108,11 @@ Service({
   "submitApplication": Func(
     [Text, AppliedRole$1, Vec(Text)],
     [SubmitApplicationResult],
+    []
+  ),
+  "updateStaffRosterMember": Func(
+    [Text, Nat, RosterRank$1],
+    [UpdateStaffRosterMemberResult],
     []
   ),
   "voteOnCommunityPost": Func(
@@ -41253,6 +41262,10 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "applicationId": IDL2.Opt(ApplicationId2),
     "success": IDL2.Bool
   });
+  const UpdateStaffRosterMemberResult2 = IDL2.Record({
+    "error": IDL2.Opt(IDL2.Text),
+    "success": IDL2.Bool
+  });
   const VoteStatus2 = IDL2.Variant({
     "approved": IDL2.Null,
     "rejected": IDL2.Null
@@ -41337,6 +41350,11 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "submitApplication": IDL2.Func(
       [IDL2.Text, AppliedRole2, IDL2.Vec(IDL2.Text)],
       [SubmitApplicationResult2],
+      []
+    ),
+    "updateStaffRosterMember": IDL2.Func(
+      [IDL2.Text, IDL2.Nat, RosterRank2],
+      [UpdateStaffRosterMemberResult2],
       []
     ),
     "voteOnCommunityPost": IDL2.Func(
@@ -41751,17 +41769,31 @@ class Backend {
       return from_candid_SubmitApplicationResult_n61(this._uploadFile, this._downloadFile, result);
     }
   }
+  async updateStaffRosterMember(arg0, arg1, arg2) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.updateStaffRosterMember(arg0, arg1, to_candid_RosterRank_n1(this._uploadFile, this._downloadFile, arg2));
+        return from_candid_UpdateStaffRosterMemberResult_n64(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.updateStaffRosterMember(arg0, arg1, to_candid_RosterRank_n1(this._uploadFile, this._downloadFile, arg2));
+      return from_candid_UpdateStaffRosterMemberResult_n64(this._uploadFile, this._downloadFile, result);
+    }
+  }
   async voteOnCommunityPost(arg0, arg1, arg2) {
     if (this.processError) {
       try {
-        const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n64(this._uploadFile, this._downloadFile, arg2));
+        const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n65(this._uploadFile, this._downloadFile, arg2));
         return result;
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n64(this._uploadFile, this._downloadFile, arg2));
+      const result = await this.actor.voteOnCommunityPost(arg0, arg1, to_candid_VoteStatus_n65(this._uploadFile, this._downloadFile, arg2));
       return result;
     }
   }
@@ -41822,6 +41854,9 @@ function from_candid_StaffDirectoryEntry_n40(_uploadFile, _downloadFile, value) 
 }
 function from_candid_SubmitApplicationResult_n61(_uploadFile, _downloadFile, value) {
   return from_candid_record_n62(_uploadFile, _downloadFile, value);
+}
+function from_candid_UpdateStaffRosterMemberResult_n64(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n57(_uploadFile, _downloadFile, value);
 }
 function from_candid_UserEntry_n22(_uploadFile, _downloadFile, value) {
   return from_candid_record_n23(_uploadFile, _downloadFile, value);
@@ -41989,8 +42024,8 @@ function to_candid_Role_n54(_uploadFile, _downloadFile, value) {
 function to_candid_RosterRank_n1(_uploadFile, _downloadFile, value) {
   return to_candid_variant_n2(_uploadFile, _downloadFile, value);
 }
-function to_candid_VoteStatus_n64(_uploadFile, _downloadFile, value) {
-  return to_candid_variant_n65(_uploadFile, _downloadFile, value);
+function to_candid_VoteStatus_n65(_uploadFile, _downloadFile, value) {
+  return to_candid_variant_n66(_uploadFile, _downloadFile, value);
 }
 function to_candid_variant_n10(_uploadFile, _downloadFile, value) {
   return value == "eventSuggestion" ? {
@@ -42085,7 +42120,7 @@ function to_candid_variant_n60(_uploadFile, _downloadFile, value) {
     Admin: null
   } : value;
 }
-function to_candid_variant_n65(_uploadFile, _downloadFile, value) {
+function to_candid_variant_n66(_uploadFile, _downloadFile, value) {
   return value == "approved" ? {
     approved: null
   } : value == "rejected" ? {
@@ -42106,8 +42141,308 @@ function createActor(canisterId, _uploadFile, _downloadFile, options = {}) {
   });
   return new Backend(actor, _uploadFile, _downloadFile, options.processError);
 }
+function canisterConfigured(value) {
+  return false;
+}
+const MOCK_MODE = !canisterConfigured();
+function isMockMode() {
+  return MOCK_MODE;
+}
+const MOCK_ADMIN_USERNAME = "Steven";
+const now = Date.now();
+const ns = (ms) => BigInt(ms) * 1000000n;
+const minutesAgo = (m2) => ns(now - m2 * 6e4);
+const hoursAgo = (h2) => ns(now - h2 * 36e5);
+const samplePosts = [
+  {
+    id: 1n,
+    postType: PostType.bugReport,
+    title: "Ender pearls vanish when thrown through nether portal",
+    authorUsername: "Steve",
+    body: "When I throw an ender pearl through a nether portal, the pearl disappears and never lands. Reproduced 3 times in survival. Happens on both client and server side. No error in console. Steps: 1) Stand near nether portal 2) Throw ender pearl through frame 3) Pearl vanishes mid-frame. Expected: pearl teleports player. Actual: pearl gone, player stays.",
+    createdAt: hoursAgo(2)
+  },
+  {
+    id: 2n,
+    postType: PostType.bugReport,
+    title: "Mob spawner ignores light level cap in custom biomes",
+    authorUsername: "Alex",
+    body: "Spawners in the new crystal caves biome spawn mobs at any light level, ignoring the level 7 cap. Makes the biome unplayable at night.",
+    createdAt: minutesAgo(45)
+  }
+];
+const sampleComments = {
+  "1": [
+    {
+      id: 10n,
+      authorUsername: "Steven",
+      content: "Confirmed — I can reproduce this on the latest build. Tagging as high priority.",
+      timestamp: minutesAgo(110),
+      postId: 1n
+    },
+    {
+      id: 11n,
+      authorUsername: "Steve",
+      content: "Thanks for the quick look! Let me know if you need a world download.",
+      timestamp: minutesAgo(100),
+      postId: 1n
+    },
+    {
+      id: 12n,
+      authorUsername: "qbhinoor",
+      content: "Likely a chunk-border teleport desync. I'll patch the portal handler this afternoon.",
+      timestamp: minutesAgo(30),
+      postId: 1n
+    }
+  ]
+};
+const voteStore = {
+  "1": { approved: 2n, rejected: 0n },
+  "2": { approved: 0n, rejected: 1n }
+};
+let rosterIdCounter = 100n;
+const nextMemberId = () => rosterIdCounter++;
+const rosterStore = [
+  { id: 1n, name: "Franc [Owner]", rank: RosterRank.Owner },
+  { id: 2n, name: "woofigames", rank: RosterRank.Owner },
+  { id: 3n, name: "Steven", rank: RosterRank.CoOwner },
+  { id: 4n, name: "qbhinoor", rank: RosterRank.Admin },
+  { id: 5n, name: "Notch", rank: RosterRank.SrCop },
+  { id: 6n, name: "Jeb_", rank: RosterRank.Admin },
+  { id: 7n, name: "Alex", rank: RosterRank.Mod },
+  { id: 8n, name: "Dinnerbone", rank: RosterRank.Builder }
+];
+const rankSlotsStore = [
+  { rank: RosterRank.Owner, slots: 2n },
+  { rank: RosterRank.CoOwner, slots: 2n },
+  { rank: RosterRank.Manager, slots: 1n },
+  { rank: RosterRank.AdvertiseManager, slots: 1n },
+  { rank: RosterRank.ChiefAdmin, slots: 1n },
+  { rank: RosterRank.SrDeveloper, slots: 2n },
+  { rank: RosterRank.Developer, slots: 4n },
+  { rank: RosterRank.Admin, slots: 4n },
+  { rank: RosterRank.JrAdmin, slots: 4n },
+  { rank: RosterRank.Mod, slots: 5n },
+  { rank: RosterRank.Cop, slots: 3n },
+  { rank: RosterRank.SrCop, slots: 3n },
+  { rank: RosterRank.Builder, slots: 5n }
+];
+function groupRosterByRank() {
+  const groups = /* @__PURE__ */ new Map();
+  for (const m2 of rosterStore) {
+    const list = groups.get(m2.rank) ?? [];
+    list.push(m2);
+    groups.set(m2.rank, list);
+  }
+  const order = [
+    RosterRank.Owner,
+    RosterRank.CoOwner,
+    RosterRank.Manager,
+    RosterRank.AdvertiseManager,
+    RosterRank.ChiefAdmin,
+    RosterRank.SrDeveloper,
+    RosterRank.Developer,
+    RosterRank.Admin,
+    RosterRank.JrAdmin,
+    RosterRank.Mod,
+    RosterRank.Cop,
+    RosterRank.Builder,
+    RosterRank.SrCop
+  ];
+  const result = [];
+  for (const rank of order) {
+    const members = groups.get(rank);
+    if (members && members.length > 0) {
+      result.push({ rank, members });
+    }
+  }
+  return result;
+}
+const mockBackend = {
+  login: async () => ({ success: true, role: Role.Administrator }),
+  register: async () => ({ success: true, role: Role.Member }),
+  getMyRole: async () => Role.Administrator,
+  getMyApplications: async () => [],
+  getAllApplications: async () => [
+    {
+      id: 1n,
+      status: ApplicationStatus.Pending,
+      applicantUsername: "CreeperHunter",
+      answers: [
+        "I have moderated two Minecraft servers for 3 years and know the rules well.",
+        "Available evenings and weekends, ~20 hours/week.",
+        "I want to help keep the community friendly and grief-free."
+      ],
+      appliedRole: AppliedRole.Mod,
+      timestamp: hoursAgo(3)
+    },
+    {
+      id: 2n,
+      status: ApplicationStatus.Pending,
+      applicantUsername: "BlockMaster42",
+      answers: [
+        "Built spawn structures on three servers and love medieval builds.",
+        "Available most afternoons.",
+        "Want to contribute to event builds and the new hub."
+      ],
+      appliedRole: AppliedRole.Builder,
+      timestamp: hoursAgo(8)
+    }
+  ],
+  submitApplication: async () => ({ success: true }),
+  reviewApplication: async () => true,
+  getStaffDirectory: async () => [
+    { username: "Steven", role: Role.Administrator, rank: RosterRank.CoOwner },
+    { username: "qbhinoor", role: Role.Administrator, rank: RosterRank.Admin },
+    { username: "Notch", role: Role.CoAdministrator, rank: RosterRank.SrCop },
+    { username: "Jeb_", role: Role.CoAdministrator, rank: RosterRank.Admin }
+  ],
+  getStaffConversation: async (_requester, peer) => {
+    if (peer === "Notch") {
+      return [
+        {
+          id: 1n,
+          content: "Hey! Welcome to the staff chat. Ready to build?",
+          senderUsername: "Notch",
+          recipientUsername: "Steven",
+          timestamp: minutesAgo(42)
+        },
+        {
+          id: 2n,
+          content: "Absolutely. Just pushed the new pixel cursor.",
+          senderUsername: "Steven",
+          recipientUsername: "Notch",
+          timestamp: minutesAgo(40)
+        },
+        {
+          id: 3n,
+          content: "Looks great. Ship it after the next build check.",
+          senderUsername: "Notch",
+          recipientUsername: "Steven",
+          timestamp: minutesAgo(38)
+        },
+        {
+          id: 4n,
+          content: "Will do. Also added the staff messaging page — this very screen.",
+          senderUsername: "Steven",
+          recipientUsername: "Notch",
+          timestamp: minutesAgo(5)
+        }
+      ];
+    }
+    if (peer === "qbhinoor") {
+      return [
+        {
+          id: 10n,
+          content: "Morning. Can you review the apply page?",
+          senderUsername: "qbhinoor",
+          recipientUsername: "Steven",
+          timestamp: minutesAgo(120)
+        },
+        {
+          id: 11n,
+          content: "On it. Pushing tweaks now.",
+          senderUsername: "Steven",
+          recipientUsername: "qbhinoor",
+          timestamp: minutesAgo(118)
+        }
+      ];
+    }
+    return [];
+  },
+  sendStaffMessage: async () => ({ success: true, messageId: 999n }),
+  createCommunityPost: async () => ({ success: true, postId: 999n }),
+  listActiveCommunityPosts: async (postType) => samplePosts.filter((p2) => p2.postType === postType),
+  voteOnCommunityPost: async (postId, _voter, status) => {
+    const key = String(postId);
+    const entry = voteStore[key] ?? { approved: 0n, rejected: 0n };
+    if (status === VoteStatus.approved) entry.approved += 1n;
+    else entry.rejected += 1n;
+    voteStore[key] = entry;
+    return { success: true };
+  },
+  getCommunityVoteTally: async (postId) => {
+    const entry = voteStore[String(postId)] ?? { approved: 0n, rejected: 0n };
+    return { postId, approved: entry.approved, rejected: entry.rejected };
+  },
+  addCommunityComment: async (postId, authorUsername, content) => {
+    const key = String(postId);
+    const list = sampleComments[key] ?? [];
+    const newComment = {
+      id: BigInt(Date.now()),
+      authorUsername,
+      content,
+      timestamp: ns(Date.now()),
+      postId
+    };
+    list.push(newComment);
+    sampleComments[key] = list;
+    return { success: true, commentId: newComment.id };
+  },
+  listCommunityComments: async (postId) => sampleComments[String(postId)] ?? [],
+  getRoster: async () => groupRosterByRank(),
+  getRankSlots: async () => rankSlotsStore,
+  setRankSlot: async (_caller, rank, slots) => {
+    const entry = rankSlotsStore.find((s2) => s2.rank === rank);
+    if (entry) {
+      entry.slots = slots;
+    } else {
+      rankSlotsStore.push({ rank, slots });
+    }
+    return { success: true };
+  },
+  addStaffRosterMember: async (_caller, name, rank) => {
+    const newId = nextMemberId();
+    rosterStore.push({ id: newId, name, rank });
+    return { success: true, memberId: newId };
+  },
+  removeStaffRosterMember: async (_caller, memberId) => {
+    const idx = rosterStore.findIndex((m2) => m2.id === memberId);
+    if (idx >= 0) rosterStore.splice(idx, 1);
+    return { success: true };
+  },
+  updateStaffRosterMember: async (_caller, memberId, targetRank) => {
+    const member = rosterStore.find((m2) => m2.id === memberId);
+    if (!member) {
+      return { success: false, error: "Member not found" };
+    }
+    if (member.rank === targetRank) {
+      return { success: true, error: void 0 };
+    }
+    const slotEntry = rankSlotsStore.find((s2) => s2.rank === targetRank);
+    const maxSlots = slotEntry ? Number(slotEntry.slots) : 0;
+    const occupiedAtTarget = rosterStore.filter(
+      (m2) => m2.rank === targetRank && m2.id !== memberId
+    ).length;
+    if (maxSlots > 0 && occupiedAtTarget >= maxSlots) {
+      return { success: false, error: "Rank slots full" };
+    }
+    member.rank = targetRank;
+    return { success: true, error: void 0 };
+  },
+  acceptApplication: async () => ({ success: true }),
+  declineApplication: async () => true,
+  getAllUsers: async () => [
+    { username: "Steven", role: Role.Administrator, rank: RosterRank.CoOwner },
+    { username: "qbhinoor", role: Role.Administrator, rank: RosterRank.Admin },
+    { username: "Notch", role: Role.CoAdministrator, rank: RosterRank.SrCop },
+    { username: "Jeb_", role: Role.CoAdministrator, rank: RosterRank.Admin },
+    { username: "Alex", role: Role.Mod, rank: RosterRank.Mod },
+    { username: "Dinnerbone", role: Role.Builder, rank: RosterRank.Builder },
+    { username: "CreeperHunter", role: Role.Member },
+    { username: "BlockMaster42", role: Role.Member }
+  ],
+  setRole: async () => ({ success: true })
+};
+function useBackendActor() {
+  const realActor = useActor(createActor);
+  if (isMockMode()) {
+    return { actor: mockBackend, isFetching: false };
+  }
+  return realActor;
+}
 function useStaffDirectory(requesterUsername) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["staffDirectory", requesterUsername],
     queryFn: async () => {
@@ -42119,7 +42454,7 @@ function useStaffDirectory(requesterUsername) {
   });
 }
 function useStaffConversation(requesterUsername, peerUsername) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["staffConversation", requesterUsername, peerUsername],
     queryFn: async () => {
@@ -42131,7 +42466,7 @@ function useStaffConversation(requesterUsername, peerUsername) {
   });
 }
 function useSendStaffMessage() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ senderUsername, recipientUsername, content }) => {
@@ -42152,7 +42487,7 @@ function useSendStaffMessage() {
   });
 }
 function useRoster() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["roster"],
     queryFn: async () => {
@@ -42165,7 +42500,7 @@ function useRoster() {
   });
 }
 function useAddStaffRosterMember() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ callerUsername, name, rank }) => {
@@ -42179,7 +42514,7 @@ function useAddStaffRosterMember() {
   });
 }
 function useRemoveStaffRosterMember() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ callerUsername, memberId }) => {
@@ -42192,8 +42527,27 @@ function useRemoveStaffRosterMember() {
     }
   });
 }
+function useUpdateStaffRosterMember() {
+  const { actor, isFetching } = useBackendActor();
+  const queryClient2 = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ callerUsername, memberId, targetRank }) => {
+      if (!actor) throw new Error("Backend actor not ready");
+      return actor.updateStaffRosterMember(
+        callerUsername,
+        memberId,
+        targetRank
+      );
+    },
+    meta: { isFetching },
+    onSuccess: () => {
+      queryClient2.invalidateQueries({ queryKey: ["roster"] });
+      queryClient2.invalidateQueries({ queryKey: ["rankSlots"] });
+    }
+  });
+}
 function useRankSlots() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["rankSlots"],
     queryFn: async () => {
@@ -42206,7 +42560,7 @@ function useRankSlots() {
   });
 }
 function useSetRankSlot() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ callerUsername, rank, slots }) => {
@@ -42220,7 +42574,7 @@ function useSetRankSlot() {
   });
 }
 function useAcceptApplication() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ callerUsername, applicationId, assignedRank }) => {
@@ -42239,7 +42593,7 @@ function useAcceptApplication() {
   });
 }
 function useDeclineApplication() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ applicationId }) => {
@@ -42253,7 +42607,7 @@ function useDeclineApplication() {
   });
 }
 function useRegister() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useMutation({
     mutationFn: async ({ username, password }) => {
       if (!actor) throw new Error("Backend actor not ready");
@@ -42263,7 +42617,7 @@ function useRegister() {
   });
 }
 function useLogin() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useMutation({
     mutationFn: async ({ username, password }) => {
       if (!actor) throw new Error("Backend actor not ready");
@@ -42273,7 +42627,7 @@ function useLogin() {
   });
 }
 function useGetMyRole(username) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["myRole", username],
     queryFn: async () => {
@@ -42284,7 +42638,7 @@ function useGetMyRole(username) {
   });
 }
 function useGetAllUsers() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
@@ -42297,7 +42651,7 @@ function useGetAllUsers() {
   });
 }
 function useSetRole() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ callerUsername, targetUsername, newRole }) => {
@@ -42313,7 +42667,7 @@ function useSetRole() {
   });
 }
 function useGetMyApplications(username) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["myApplications", username],
     queryFn: async () => {
@@ -42324,7 +42678,7 @@ function useGetMyApplications(username) {
   });
 }
 function useGetAllApplications() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["allApplications"],
     queryFn: async () => {
@@ -42335,7 +42689,7 @@ function useGetAllApplications() {
   });
 }
 function useSubmitApplication() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useMutation({
     mutationFn: async ({ username, appliedRole, answers }) => {
       if (!actor) throw new Error("Backend actor not ready");
@@ -42345,7 +42699,7 @@ function useSubmitApplication() {
   });
 }
 function useActiveCommunityPosts(postType) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["activeCommunityPosts", postType],
     queryFn: async () => {
@@ -42357,7 +42711,7 @@ function useActiveCommunityPosts(postType) {
   });
 }
 function useCreateCommunityPost() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ postType, title, body, authorUsername }) => {
@@ -42373,7 +42727,7 @@ function useCreateCommunityPost() {
   });
 }
 function useVoteOnCommunityPost() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ postId, voterUsername, status }) => {
@@ -42389,7 +42743,7 @@ function useVoteOnCommunityPost() {
   });
 }
 function useCommunityVoteTally(postId) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["communityVoteTally", postId],
     queryFn: async () => {
@@ -42403,7 +42757,7 @@ function useCommunityVoteTally(postId) {
   });
 }
 function useCommunityComments(postId) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery({
     queryKey: ["communityComments", postId],
     queryFn: async () => {
@@ -42415,7 +42769,7 @@ function useCommunityComments(postId) {
   });
 }
 function useAddCommunityComment() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient2 = useQueryClient();
   return useMutation({
     mutationFn: async ({ postId, authorUsername, content }) => {
@@ -42477,9 +42831,15 @@ function AuthProvider({ children }) {
       if (restoredRole) {
         setUsername(stored.username);
         setRole(restoredRole);
-      } else {
-        clearSession();
+        return;
       }
+      clearSession();
+    }
+    if (isMockMode()) {
+      const mockRole = Role.Administrator;
+      setUsername(MOCK_ADMIN_USERNAME);
+      setRole(mockRole);
+      writeSession({ username: MOCK_ADMIN_USERNAME, role: mockRole });
     }
   }, []);
   const applyResult = (result) => {
@@ -50034,8 +50394,8 @@ function isAdminRole$2(role) {
 function canReview(role) {
   return role === Role.Administrator;
 }
-function formatTimestamp$2(ns) {
-  const ms = Number(ns / 1000000n);
+function formatTimestamp$2(ns2) {
+  const ms = Number(ns2 / 1000000n);
   if (!Number.isFinite(ms) || ms <= 0) return "Unknown";
   const date = new Date(ms);
   if (Number.isNaN(date.getTime())) return "Unknown";
@@ -51633,8 +51993,8 @@ function statusLabel(status) {
       return "Pending";
   }
 }
-function formatTimestamp$1(ns) {
-  const ms = Number(ns / 1000000n);
+function formatTimestamp$1(ns2) {
+  const ms = Number(ns2 / 1000000n);
   if (Number.isNaN(ms)) return "Unknown";
   const date = new Date(ms);
   if (Number.isNaN(date.getTime())) return "Unknown";
@@ -52585,8 +52945,8 @@ function initialOf(username) {
   const trimmed = (username ?? "").trim();
   return trimmed.charAt(0).toUpperCase() || "?";
 }
-function timeAgo(ns) {
-  const ms = Number(ns / 1000000n);
+function timeAgo(ns2) {
+  const ms = Number(ns2 / 1000000n);
   if (!Number.isFinite(ms) || ms <= 0) return "Unknown";
   const date = new Date(ms);
   if (Number.isNaN(date.getTime())) return "Unknown";
@@ -56231,8 +56591,8 @@ function isStaffRole(role) {
   if (role === null) return false;
   return role === Role.Administrator || role === Role.CoAdministrator || ROSTER_RANK_ROLES.has(role);
 }
-function formatTimestamp(ns) {
-  const ms = Number(ns / 1000000n);
+function formatTimestamp(ns2) {
+  const ms = Number(ns2 / 1000000n);
   if (!Number.isFinite(ms) || ms <= 0) return "Unknown";
   const date = new Date(ms);
   if (Number.isNaN(date.getTime())) return "Unknown";
@@ -58486,12 +58846,263 @@ function AddStaffModal({
     }
   );
 }
+function ChangeRankPicker({
+  member,
+  currentRank,
+  onClose,
+  onConfirm,
+  submitting,
+  error
+}) {
+  const [selectedRank, setSelectedRank] = reactExports.useState(currentRank);
+  const containerRef = reactExports.useRef(null);
+  reactExports.useEffect(() => {
+    if (submitting) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, submitting]);
+  reactExports.useEffect(() => {
+    const onClick = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        onClose();
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [onClose]);
+  const canConfirm = !submitting && selectedRank !== currentRank;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      ref: containerRef,
+      "data-ocid": "staff.change_rank.popover",
+      className: "absolute right-0 top-full mt-1 z-30 w-64",
+      style: {
+        background: "oklch(0.12 0.06 295)",
+        border: "2px solid oklch(0.55 0.22 295)",
+        boxShadow: "6px 6px 0 oklch(0.07 0.03 295)"
+      },
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "div",
+          {
+            className: "flex items-center justify-between px-3 py-2",
+            style: {
+              background: "oklch(0.18 0.10 295)",
+              borderBottom: "2px solid oklch(0.32 0.16 295)"
+            },
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "span",
+                {
+                  className: "font-pixel",
+                  style: {
+                    fontSize: "0.5rem",
+                    color: "oklch(0.78 0.22 295)",
+                    letterSpacing: "0.08em"
+                  },
+                  children: "⚒ CHANGE RANK"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": "staff.change_rank.close_button",
+                  "aria-label": "Close change rank picker",
+                  onClick: onClose,
+                  disabled: submitting,
+                  className: "font-pixel transition-colors",
+                  style: {
+                    fontSize: "0.6rem",
+                    color: "oklch(0.65 0.18 295)",
+                    background: "transparent",
+                    border: "2px solid oklch(0.40 0.16 295)",
+                    padding: "1px 6px",
+                    cursor: submitting ? "not-allowed" : "pointer",
+                    opacity: submitting ? 0.5 : 1
+                  },
+                  children: "✕"
+                }
+              )
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: "px-3 py-2",
+            style: { borderBottom: "1px solid oklch(0.22 0.10 295)" },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "span",
+              {
+                style: {
+                  fontFamily: '"VT323", monospace',
+                  fontSize: "1rem",
+                  color: "oklch(0.78 0.16 295)",
+                  letterSpacing: "0.02em"
+                },
+                children: [
+                  "▸ @",
+                  member.name
+                ]
+              }
+            )
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: "max-h-52 overflow-y-auto py-1",
+            style: { background: "oklch(0.10 0.04 295)" },
+            children: RANKS.map((r2) => {
+              const isCurrent = r2.rank === currentRank;
+              const isSelected = r2.rank === selectedRank;
+              return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": `staff.change_rank.option.${r2.rank}`,
+                  "aria-label": `Set rank to ${r2.label}`,
+                  disabled: isCurrent || submitting,
+                  onClick: () => setSelectedRank(r2.rank),
+                  className: "w-full flex items-center gap-2 px-3 py-1.5 text-left transition-colors",
+                  style: {
+                    background: isSelected ? "oklch(0.20 0.10 295)" : "transparent",
+                    borderLeft: isSelected ? `3px solid ${r2.accentColor}` : "3px solid transparent",
+                    cursor: isCurrent || submitting ? "not-allowed" : "pointer",
+                    opacity: isCurrent ? 0.4 : 1
+                  },
+                  onMouseEnter: (e) => {
+                    if (!isCurrent && !submitting) {
+                      e.currentTarget.style.background = "oklch(0.18 0.08 295)";
+                    }
+                  },
+                  onMouseLeave: (e) => {
+                    if (!isSelected) {
+                      e.currentTarget.style.background = "transparent";
+                    }
+                  },
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { fontSize: "0.95rem", lineHeight: 1 }, children: r2.emoji }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "span",
+                      {
+                        className: "font-pixel flex-1 truncate",
+                        style: {
+                          fontSize: "0.48rem",
+                          color: isCurrent ? "oklch(0.45 0.08 295)" : r2.accentColor,
+                          letterSpacing: "0.05em"
+                        },
+                        children: r2.label
+                      }
+                    ),
+                    isCurrent && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "span",
+                      {
+                        className: "font-pixel",
+                        style: {
+                          fontSize: "0.45rem",
+                          color: "oklch(0.50 0.10 295)",
+                          letterSpacing: "0.08em"
+                        },
+                        children: "CURRENT"
+                      }
+                    )
+                  ]
+                },
+                r2.rank
+              );
+            })
+          }
+        ),
+        error && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "div",
+          {
+            "data-ocid": "staff.change_rank.error_state",
+            className: "mx-3 my-2 px-2 py-1.5",
+            style: {
+              fontFamily: '"VT323", monospace',
+              fontSize: "1rem",
+              color: "oklch(0.72 0.20 25)",
+              background: "oklch(0.16 0.08 25)",
+              border: "2px solid oklch(0.50 0.18 25)"
+            },
+            children: [
+              "⚠ ",
+              error
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "div",
+          {
+            className: "flex items-center justify-end gap-2 px-3 py-2",
+            style: {
+              background: "oklch(0.14 0.07 295)",
+              borderTop: "1px solid oklch(0.28 0.12 295)"
+            },
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": "staff.change_rank.cancel_button",
+                  onClick: onClose,
+                  disabled: submitting,
+                  className: "font-pixel transition-colors",
+                  style: {
+                    fontSize: "0.5rem",
+                    letterSpacing: "0.08em",
+                    color: "oklch(0.70 0.14 295)",
+                    background: "oklch(0.16 0.08 295)",
+                    border: "2px solid oklch(0.36 0.14 295)",
+                    padding: "5px 10px",
+                    cursor: submitting ? "not-allowed" : "pointer",
+                    opacity: submitting ? 0.5 : 1
+                  },
+                  children: "CANCEL"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": "staff.change_rank.confirm_button",
+                  onClick: () => canConfirm && onConfirm(selectedRank),
+                  disabled: !canConfirm,
+                  className: "font-pixel transition-colors",
+                  style: {
+                    fontSize: "0.5rem",
+                    letterSpacing: "0.08em",
+                    color: "oklch(0.99 0 0)",
+                    background: canConfirm ? "oklch(0.45 0.20 295)" : "oklch(0.28 0.10 295)",
+                    border: "2px solid oklch(0.55 0.22 295)",
+                    boxShadow: canConfirm ? "0 2px 0 oklch(0.22 0.12 295), inset 0 1px 0 oklch(0.62 0.22 295)" : "none",
+                    padding: "5px 10px",
+                    cursor: canConfirm ? "pointer" : "not-allowed"
+                  },
+                  children: submitting ? "SAVING..." : "CONFIRM"
+                }
+              )
+            ]
+          }
+        )
+      ]
+    }
+  );
+}
 function StaffListSection() {
   const { username, role } = useAuth();
   const canEdit = isAdminRole(role);
+  const canChangeRank = role === Role.Administrator;
   const rosterQuery = useRoster();
   const addMutation = useAddStaffRosterMember();
   const removeMutation = useRemoveStaffRosterMember();
+  const updateRankMutation = useUpdateStaffRosterMember();
   const groups = reactExports.useMemo(
     () => buildDisplayGroups(rosterQuery.data),
     [rosterQuery.data]
@@ -58499,6 +59110,8 @@ function StaffListSection() {
   const [modalOpen, setModalOpen] = reactExports.useState(false);
   const [modalRank, setModalRank] = reactExports.useState(RosterRank.Mod);
   const [modalError, setModalError] = reactExports.useState(null);
+  const [editingMemberId, setEditingMemberId] = reactExports.useState(null);
+  const [changeRankError, setChangeRankError] = reactExports.useState(null);
   const openAddModal = (rank) => {
     setModalRank(rank);
     setModalError(null);
@@ -58536,6 +59149,31 @@ function StaffListSection() {
       callerUsername: username,
       memberId: member.id
     });
+  };
+  const openChangeRankPicker = (member) => {
+    if (member.id === null) return;
+    setEditingMemberId(member.id);
+    setChangeRankError(null);
+  };
+  const handleChangeRank = async (member, targetRank) => {
+    if (!username || member.id === null) return;
+    try {
+      const result = await updateRankMutation.mutateAsync({
+        callerUsername: username,
+        memberId: member.id,
+        targetRank
+      });
+      if (!result.success) {
+        setChangeRankError(result.error ?? "Backend rejected the rank change.");
+        return;
+      }
+      setEditingMemberId(null);
+      setChangeRankError(null);
+    } catch (err) {
+      setChangeRankError(
+        err instanceof Error ? err.message : "Failed to change rank."
+      );
+    }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "section",
@@ -58779,7 +59417,7 @@ function StaffListSection() {
                             "div",
                             {
                               "data-ocid": `staff.item.${roleIndex + 1}.${memberIndex + 1}`,
-                              className: "flex items-center gap-3 px-5 py-2",
+                              className: "relative flex items-center gap-3 px-5 py-2",
                               style: {
                                 borderBottom: memberIndex < group.members.length - 1 ? "1px solid oklch(0.16 0.06 295)" : "none"
                               },
@@ -58884,6 +59522,50 @@ function StaffListSection() {
                                       e.currentTarget.style.color = "oklch(0.85 0.16 25)";
                                     },
                                     children: "✕ REMOVE"
+                                  }
+                                ),
+                                canChangeRank && member.occupied && member.id !== null && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                                  "button",
+                                  {
+                                    type: "button",
+                                    "data-ocid": `staff.change_rank.open_button.${roleIndex + 1}.${memberIndex + 1}`,
+                                    "aria-label": `Change rank of ${member.name}`,
+                                    onClick: () => openChangeRankPicker(member),
+                                    disabled: updateRankMutation.isPending,
+                                    className: "font-pixel transition-colors",
+                                    style: {
+                                      fontSize: "0.5rem",
+                                      letterSpacing: "0.08em",
+                                      color: "oklch(0.78 0.18 295)",
+                                      background: "oklch(0.18 0.08 295)",
+                                      border: "2px solid oklch(0.50 0.18 295)",
+                                      padding: "3px 7px",
+                                      cursor: updateRankMutation.isPending ? "not-allowed" : "pointer",
+                                      opacity: updateRankMutation.isPending ? 0.5 : 1
+                                    },
+                                    onMouseEnter: (e) => {
+                                      if (!updateRankMutation.isPending) {
+                                        e.currentTarget.style.background = "oklch(0.28 0.12 295)";
+                                      }
+                                    },
+                                    onMouseLeave: (e) => {
+                                      e.currentTarget.style.background = "oklch(0.18 0.08 295)";
+                                    },
+                                    children: "⚒ CHANGE RANK"
+                                  }
+                                ),
+                                canChangeRank && member.occupied && member.id !== null && editingMemberId === member.id && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                                  ChangeRankPicker,
+                                  {
+                                    member,
+                                    currentRank: group.rank,
+                                    onClose: () => {
+                                      setEditingMemberId(null);
+                                      setChangeRankError(null);
+                                    },
+                                    onConfirm: (targetRank) => handleChangeRank(member, targetRank),
+                                    submitting: updateRankMutation.isPending,
+                                    error: changeRankError
                                   }
                                 )
                               ]

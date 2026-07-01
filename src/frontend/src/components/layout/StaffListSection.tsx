@@ -1,13 +1,15 @@
 import { type RosterGroup, type RosterMember, RosterRank } from "@/backend";
 import { Role } from "@/backend";
+import { RANKS } from "@/components/layout/RoleHierarchySection";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   useAddStaffRosterMember,
   useRemoveStaffRosterMember,
   useRoster,
+  useUpdateStaffRosterMember,
 } from "@/hooks/useQueries";
 import { Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 /* ------------------------------------------------------------------ */
 /*  Types + seed defaults (fallback when backend is empty/loading)     */
@@ -635,16 +637,274 @@ function AddStaffModal({
 }
 
 /* ------------------------------------------------------------------ */
+/*  Change-rank inline picker (Administrator-only)                     */
+/* ------------------------------------------------------------------ */
+
+interface ChangeRankPickerProps {
+  member: DisplayMember;
+  currentRank: RosterRank;
+  onClose: () => void;
+  onConfirm: (targetRank: RosterRank) => Promise<void>;
+  submitting: boolean;
+  error: string | null;
+}
+
+function ChangeRankPicker({
+  member,
+  currentRank,
+  onClose,
+  onConfirm,
+  submitting,
+  error,
+}: ChangeRankPickerProps) {
+  const [selectedRank, setSelectedRank] = useState<RosterRank>(currentRank);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Escape to close + outside-click to close.
+  useEffect(() => {
+    if (submitting) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, submitting]);
+
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        onClose();
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [onClose]);
+
+  const canConfirm = !submitting && selectedRank !== currentRank;
+
+  return (
+    <div
+      ref={containerRef}
+      data-ocid="staff.change_rank.popover"
+      className="absolute right-0 top-full mt-1 z-30 w-64"
+      style={{
+        background: "oklch(0.12 0.06 295)",
+        border: "2px solid oklch(0.55 0.22 295)",
+        boxShadow: "6px 6px 0 oklch(0.07 0.03 295)",
+      }}
+    >
+      {/* Header */}
+      <div
+        className="flex items-center justify-between px-3 py-2"
+        style={{
+          background: "oklch(0.18 0.10 295)",
+          borderBottom: "2px solid oklch(0.32 0.16 295)",
+        }}
+      >
+        <span
+          className="font-pixel"
+          style={{
+            fontSize: "0.5rem",
+            color: "oklch(0.78 0.22 295)",
+            letterSpacing: "0.08em",
+          }}
+        >
+          ⚒ CHANGE RANK
+        </span>
+        <button
+          type="button"
+          data-ocid="staff.change_rank.close_button"
+          aria-label="Close change rank picker"
+          onClick={onClose}
+          disabled={submitting}
+          className="font-pixel transition-colors"
+          style={{
+            fontSize: "0.6rem",
+            color: "oklch(0.65 0.18 295)",
+            background: "transparent",
+            border: "2px solid oklch(0.40 0.16 295)",
+            padding: "1px 6px",
+            cursor: submitting ? "not-allowed" : "pointer",
+            opacity: submitting ? 0.5 : 1,
+          }}
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Member name */}
+      <div
+        className="px-3 py-2"
+        style={{ borderBottom: "1px solid oklch(0.22 0.10 295)" }}
+      >
+        <span
+          style={{
+            fontFamily: '"VT323", monospace',
+            fontSize: "1rem",
+            color: "oklch(0.78 0.16 295)",
+            letterSpacing: "0.02em",
+          }}
+        >
+          ▸ @{member.name}
+        </span>
+      </div>
+
+      {/* Rank list */}
+      <div
+        className="max-h-52 overflow-y-auto py-1"
+        style={{ background: "oklch(0.10 0.04 295)" }}
+      >
+        {RANKS.map((r) => {
+          const isCurrent = r.rank === currentRank;
+          const isSelected = r.rank === selectedRank;
+          return (
+            <button
+              key={r.rank}
+              type="button"
+              data-ocid={`staff.change_rank.option.${r.rank}`}
+              aria-label={`Set rank to ${r.label}`}
+              disabled={isCurrent || submitting}
+              onClick={() => setSelectedRank(r.rank)}
+              className="w-full flex items-center gap-2 px-3 py-1.5 text-left transition-colors"
+              style={{
+                background: isSelected ? "oklch(0.20 0.10 295)" : "transparent",
+                borderLeft: isSelected
+                  ? `3px solid ${r.accentColor}`
+                  : "3px solid transparent",
+                cursor: isCurrent || submitting ? "not-allowed" : "pointer",
+                opacity: isCurrent ? 0.4 : 1,
+              }}
+              onMouseEnter={(e) => {
+                if (!isCurrent && !submitting) {
+                  (e.currentTarget as HTMLElement).style.background =
+                    "oklch(0.18 0.08 295)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isSelected) {
+                  (e.currentTarget as HTMLElement).style.background =
+                    "transparent";
+                }
+              }}
+            >
+              <span style={{ fontSize: "0.95rem", lineHeight: 1 }}>
+                {r.emoji}
+              </span>
+              <span
+                className="font-pixel flex-1 truncate"
+                style={{
+                  fontSize: "0.48rem",
+                  color: isCurrent ? "oklch(0.45 0.08 295)" : r.accentColor,
+                  letterSpacing: "0.05em",
+                }}
+              >
+                {r.label}
+              </span>
+              {isCurrent && (
+                <span
+                  className="font-pixel"
+                  style={{
+                    fontSize: "0.45rem",
+                    color: "oklch(0.50 0.10 295)",
+                    letterSpacing: "0.08em",
+                  }}
+                >
+                  CURRENT
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Error */}
+      {error && (
+        <div
+          data-ocid="staff.change_rank.error_state"
+          className="mx-3 my-2 px-2 py-1.5"
+          style={{
+            fontFamily: '"VT323", monospace',
+            fontSize: "1rem",
+            color: "oklch(0.72 0.20 25)",
+            background: "oklch(0.16 0.08 25)",
+            border: "2px solid oklch(0.50 0.18 25)",
+          }}
+        >
+          ⚠ {error}
+        </div>
+      )}
+
+      {/* Actions */}
+      <div
+        className="flex items-center justify-end gap-2 px-3 py-2"
+        style={{
+          background: "oklch(0.14 0.07 295)",
+          borderTop: "1px solid oklch(0.28 0.12 295)",
+        }}
+      >
+        <button
+          type="button"
+          data-ocid="staff.change_rank.cancel_button"
+          onClick={onClose}
+          disabled={submitting}
+          className="font-pixel transition-colors"
+          style={{
+            fontSize: "0.5rem",
+            letterSpacing: "0.08em",
+            color: "oklch(0.70 0.14 295)",
+            background: "oklch(0.16 0.08 295)",
+            border: "2px solid oklch(0.36 0.14 295)",
+            padding: "5px 10px",
+            cursor: submitting ? "not-allowed" : "pointer",
+            opacity: submitting ? 0.5 : 1,
+          }}
+        >
+          CANCEL
+        </button>
+        <button
+          type="button"
+          data-ocid="staff.change_rank.confirm_button"
+          onClick={() => canConfirm && onConfirm(selectedRank)}
+          disabled={!canConfirm}
+          className="font-pixel transition-colors"
+          style={{
+            fontSize: "0.5rem",
+            letterSpacing: "0.08em",
+            color: "oklch(0.99 0 0)",
+            background: canConfirm
+              ? "oklch(0.45 0.20 295)"
+              : "oklch(0.28 0.10 295)",
+            border: "2px solid oklch(0.55 0.22 295)",
+            boxShadow: canConfirm
+              ? "0 2px 0 oklch(0.22 0.12 295), inset 0 1px 0 oklch(0.62 0.22 295)"
+              : "none",
+            padding: "5px 10px",
+            cursor: canConfirm ? "pointer" : "not-allowed",
+          }}
+        >
+          {submitting ? "SAVING..." : "CONFIRM"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Main section                                                       */
 /* ------------------------------------------------------------------ */
 
 export default function StaffListSection() {
   const { username, role } = useAuth();
   const canEdit = isAdminRole(role);
+  const canChangeRank = role === Role.Administrator;
 
   const rosterQuery = useRoster();
   const addMutation = useAddStaffRosterMember();
   const removeMutation = useRemoveStaffRosterMember();
+  const updateRankMutation = useUpdateStaffRosterMember();
 
   const groups = useMemo(
     () => buildDisplayGroups(rosterQuery.data),
@@ -654,6 +914,9 @@ export default function StaffListSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalRank, setModalRank] = useState<RosterRank>(RosterRank.Mod);
   const [modalError, setModalError] = useState<string | null>(null);
+
+  const [editingMemberId, setEditingMemberId] = useState<bigint | null>(null);
+  const [changeRankError, setChangeRankError] = useState<string | null>(null);
 
   const openAddModal = (rank: RosterRank) => {
     setModalRank(rank);
@@ -694,6 +957,36 @@ export default function StaffListSection() {
       callerUsername: username,
       memberId: member.id,
     });
+  };
+
+  const openChangeRankPicker = (member: DisplayMember) => {
+    if (member.id === null) return;
+    setEditingMemberId(member.id);
+    setChangeRankError(null);
+  };
+
+  const handleChangeRank = async (
+    member: DisplayMember,
+    targetRank: RosterRank,
+  ) => {
+    if (!username || member.id === null) return;
+    try {
+      const result = await updateRankMutation.mutateAsync({
+        callerUsername: username,
+        memberId: member.id,
+        targetRank,
+      });
+      if (!result.success) {
+        setChangeRankError(result.error ?? "Backend rejected the rank change.");
+        return;
+      }
+      setEditingMemberId(null);
+      setChangeRankError(null);
+    } catch (err) {
+      setChangeRankError(
+        err instanceof Error ? err.message : "Failed to change rank.",
+      );
+    }
   };
 
   return (
@@ -918,7 +1211,7 @@ export default function StaffListSection() {
                       <div
                         key={`${member.name}-${memberIndex}`}
                         data-ocid={`staff.item.${roleIndex + 1}.${memberIndex + 1}`}
-                        className="flex items-center gap-3 px-5 py-2"
+                        className="relative flex items-center gap-3 px-5 py-2"
                         style={{
                           borderBottom:
                             memberIndex < group.members.length - 1
@@ -1030,6 +1323,66 @@ export default function StaffListSection() {
                             ✕ REMOVE
                           </button>
                         )}
+
+                        {/* Change Rank button (Administrator-only, real backend members only) */}
+                        {canChangeRank &&
+                          member.occupied &&
+                          member.id !== null && (
+                            <button
+                              type="button"
+                              data-ocid={`staff.change_rank.open_button.${roleIndex + 1}.${memberIndex + 1}`}
+                              aria-label={`Change rank of ${member.name}`}
+                              onClick={() => openChangeRankPicker(member)}
+                              disabled={updateRankMutation.isPending}
+                              className="font-pixel transition-colors"
+                              style={{
+                                fontSize: "0.5rem",
+                                letterSpacing: "0.08em",
+                                color: "oklch(0.78 0.18 295)",
+                                background: "oklch(0.18 0.08 295)",
+                                border: "2px solid oklch(0.50 0.18 295)",
+                                padding: "3px 7px",
+                                cursor: updateRankMutation.isPending
+                                  ? "not-allowed"
+                                  : "pointer",
+                                opacity: updateRankMutation.isPending ? 0.5 : 1,
+                              }}
+                              onMouseEnter={(e) => {
+                                if (!updateRankMutation.isPending) {
+                                  (
+                                    e.currentTarget as HTMLElement
+                                  ).style.background = "oklch(0.28 0.12 295)";
+                                }
+                              }}
+                              onMouseLeave={(e) => {
+                                (
+                                  e.currentTarget as HTMLElement
+                                ).style.background = "oklch(0.18 0.08 295)";
+                              }}
+                            >
+                              ⚒ CHANGE RANK
+                            </button>
+                          )}
+
+                        {/* Inline change-rank picker (absolutely positioned under the row) */}
+                        {canChangeRank &&
+                          member.occupied &&
+                          member.id !== null &&
+                          editingMemberId === member.id && (
+                            <ChangeRankPicker
+                              member={member}
+                              currentRank={group.rank}
+                              onClose={() => {
+                                setEditingMemberId(null);
+                                setChangeRankError(null);
+                              }}
+                              onConfirm={(targetRank) =>
+                                handleChangeRank(member, targetRank)
+                              }
+                              submitting={updateRankMutation.isPending}
+                              error={changeRankError}
+                            />
+                          )}
                       </div>
                     ))}
                   </div>

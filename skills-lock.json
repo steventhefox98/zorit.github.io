@@ -64,7 +64,7 @@
     "extension-object-storage": {
       "source": "caffeinelabs/skills",
       "sourceType": "github",
-      "computedHash": "b6bd04883e13f4a88c9b2a031e316673f71ce56826558782ffd2607d0c6c1e70"
+      "computedHash": "ee60f2a44d504428ebc1224f0ac48870406d0ddb408aed66d47a23a20505cb71"
     },
     "extension-openai": {
       "source": "caffeinelabs/skills",

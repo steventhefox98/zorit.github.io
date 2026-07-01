@@ -1,4 +1,4 @@
-import { createActor } from "@/backend";
+import { type backendInterface, createActor } from "@/backend";
 import type {
   AcceptApplicationResult,
   AddCommentResult,
@@ -23,20 +23,44 @@ import type {
   SetRoleResult,
   StaffDirectoryEntry,
   SubmitApplicationResult,
+  UpdateStaffRosterMemberResult,
   UserEntry,
   VoteResult,
   VoteStatus,
   VoteTally,
 } from "@/backend";
+import { isMockMode } from "@/lib/mockMode";
+import { mockBackend } from "@/mocks/backend";
 import { useActor } from "@caffeineai/core-infrastructure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+/* ------------------------------------------------------------------
+   Actor source — mock backend vs. real canister
+   ------------------------------------------------------------------
+   When the canister config in env.json is unavailable (string "undefined"
+   or falsy), we serve all data from the in-memory mock backend so the SPA
+   works on static hosts (Vercel, etc.) outside the IC sandbox. When real
+   canister values are present, we use the real `useActor(createActor)`
+   path exactly as before.
+   ------------------------------------------------------------------ */
+
+function useBackendActor(): {
+  actor: backendInterface | null;
+  isFetching: boolean;
+} {
+  const realActor = useActor(createActor);
+  if (isMockMode()) {
+    return { actor: mockBackend, isFetching: false };
+  }
+  return realActor;
+}
 
 /* ------------------------------------------------------------------
    Staff messaging queries + mutations
    ------------------------------------------------------------------ */
 
 export function useStaffDirectory(requesterUsername: string | null) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<StaffDirectoryEntry[]>({
     queryKey: ["staffDirectory", requesterUsername],
     queryFn: async () => {
@@ -56,7 +80,7 @@ export function useStaffConversation(
   requesterUsername: string | null,
   peerUsername: string | null,
 ) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<Message[]>({
     queryKey: ["staffConversation", requesterUsername, peerUsername],
     queryFn: async () => {
@@ -69,7 +93,7 @@ export function useStaffConversation(
 }
 
 export function useSendStaffMessage() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<
     SendMessageResult,
@@ -100,7 +124,7 @@ export function useSendStaffMessage() {
    ------------------------------------------------------------------ */
 
 export function useRoster() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<RosterGroup[]>({
     queryKey: ["roster"],
     queryFn: async () => {
@@ -114,7 +138,7 @@ export function useRoster() {
 }
 
 export function useAddStaffRosterMember() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<
     AddRosterMemberResult,
@@ -133,7 +157,7 @@ export function useAddStaffRosterMember() {
 }
 
 export function useRemoveStaffRosterMember() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<
     RemoveRosterMemberResult,
@@ -151,12 +175,41 @@ export function useRemoveStaffRosterMember() {
   });
 }
 
+/**
+ * Administrator-only mutation to change a roster member's rank. On success,
+ * invalidates the same caches as add/remove (roster + rankSlots) so the
+ * member re-renders under the new rank group and slot counts stay accurate.
+ */
+export function useUpdateStaffRosterMember() {
+  const { actor, isFetching } = useBackendActor();
+  const queryClient = useQueryClient();
+  return useMutation<
+    UpdateStaffRosterMemberResult,
+    Error,
+    { callerUsername: string; memberId: bigint; targetRank: RosterRank }
+  >({
+    mutationFn: async ({ callerUsername, memberId, targetRank }) => {
+      if (!actor) throw new Error("Backend actor not ready");
+      return actor.updateStaffRosterMember(
+        callerUsername,
+        memberId,
+        targetRank,
+      );
+    },
+    meta: { isFetching },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["roster"] });
+      queryClient.invalidateQueries({ queryKey: ["rankSlots"] });
+    },
+  });
+}
+
 /* ------------------------------------------------------------------
    Rank slot counts (editable per-rank capacity, admin-protected writes)
    ------------------------------------------------------------------ */
 
 export function useRankSlots() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<RankSlot[]>({
     queryKey: ["rankSlots"],
     queryFn: async () => {
@@ -170,7 +223,7 @@ export function useRankSlots() {
 }
 
 export function useSetRankSlot() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<
     SetRankSlotResult,
@@ -193,7 +246,7 @@ export function useSetRankSlot() {
    ------------------------------------------------------------------ */
 
 export function useAcceptApplication() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<
     AcceptApplicationResult,
@@ -217,7 +270,7 @@ export function useAcceptApplication() {
 }
 
 export function useDeclineApplication() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<boolean, Error, { applicationId: bigint }>({
     mutationFn: async ({ applicationId }) => {
@@ -236,7 +289,7 @@ export function useDeclineApplication() {
    ------------------------------------------------------------------ */
 
 export function useRegister() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useMutation<
     RegisterResult,
     Error,
@@ -251,7 +304,7 @@ export function useRegister() {
 }
 
 export function useLogin() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useMutation<
     LoginResult,
     Error,
@@ -270,7 +323,7 @@ export function useLogin() {
    ------------------------------------------------------------------ */
 
 export function useGetMyRole(username: string | null) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<Role | null>({
     queryKey: ["myRole", username],
     queryFn: async () => {
@@ -287,7 +340,7 @@ export function useGetMyRole(username: string | null) {
  * optional RosterRank (absent for users with no roster slot).
  */
 export function useGetAllUsers() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<UserEntry[]>({
     queryKey: ["allUsers"],
     queryFn: async () => {
@@ -306,7 +359,7 @@ export function useGetAllUsers() {
  * every surface that depends on role membership re-fetches.
  */
 export function useSetRole() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<
     SetRoleResult,
@@ -331,7 +384,7 @@ export function useSetRole() {
    ------------------------------------------------------------------ */
 
 export function useGetMyApplications(username: string | null) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<Application[]>({
     queryKey: ["myApplications", username],
     queryFn: async () => {
@@ -343,7 +396,7 @@ export function useGetMyApplications(username: string | null) {
 }
 
 export function useGetAllApplications() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<Application[]>({
     queryKey: ["allApplications"],
     queryFn: async () => {
@@ -355,7 +408,7 @@ export function useGetAllApplications() {
 }
 
 export function useSubmitApplication() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useMutation<
     SubmitApplicationResult,
     Error,
@@ -370,7 +423,7 @@ export function useSubmitApplication() {
 }
 
 export function useReviewApplication() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useMutation<
     boolean,
     Error,
@@ -389,7 +442,7 @@ export function useReviewApplication() {
    ------------------------------------------------------------------ */
 
 export function useActiveCommunityPosts(postType: PostType) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<Post[]>({
     queryKey: ["activeCommunityPosts", postType],
     queryFn: async () => {
@@ -402,7 +455,7 @@ export function useActiveCommunityPosts(postType: PostType) {
 }
 
 export function useCreateCommunityPost() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<
     CreatePostResult,
@@ -423,7 +476,7 @@ export function useCreateCommunityPost() {
 }
 
 export function useVoteOnCommunityPost() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<
     VoteResult,
@@ -444,7 +497,7 @@ export function useVoteOnCommunityPost() {
 }
 
 export function useCommunityVoteTally(postId: bigint | null) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<VoteTally>({
     queryKey: ["communityVoteTally", postId],
     queryFn: async () => {
@@ -459,7 +512,7 @@ export function useCommunityVoteTally(postId: bigint | null) {
 }
 
 export function useCommunityComments(postId: bigint | null) {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   return useQuery<Comment[]>({
     queryKey: ["communityComments", postId],
     queryFn: async () => {
@@ -472,7 +525,7 @@ export function useCommunityComments(postId: bigint | null) {
 }
 
 export function useAddCommunityComment() {
-  const { actor, isFetching } = useActor(createActor);
+  const { actor, isFetching } = useBackendActor();
   const queryClient = useQueryClient();
   return useMutation<
     AddCommentResult,

@@ -58,4 +58,15 @@ module {
   public type SetRankSlotResult = {
     success : Bool;
   };
+
+  /// Return shape of updateStaffRosterMember — `success` is false and
+  /// `error` carries a reason when the caller is not an Administrator, the
+  /// member id does not exist, or the target rank's slot capacity is full.
+  /// On success the existing roster member's rank is updated in place
+  /// (without removing and re-adding the entry, so the member id is
+  /// preserved).
+  public type UpdateStaffRosterMemberResult = {
+    success : Bool;
+    error : ?Text;
+  };
 };
